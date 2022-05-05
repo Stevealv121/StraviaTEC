@@ -1,0 +1,11 @@
+.login-container {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0%);
+}
+
+img {
+    height: 70%;
+    width: 70%;
+    /* border-radius: 50%; */
+}
