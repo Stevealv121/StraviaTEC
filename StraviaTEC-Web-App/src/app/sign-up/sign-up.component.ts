@@ -45,9 +45,18 @@ export class SignUpComponent implements OnInit {
 
       reader.readAsDataURL(event.target.files[0]); // read file as data url
 
-      reader.onload = (event) => { // called once readAsDataURL is completed
-        this.url = event.target?.result;
-      }
+      // reader.onload = (event) => { // called once readAsDataURL is completed
+      //   this.url = event.target?.result;
+      // }
+      reader.onload = () => {
+
+        this.url = reader.result as string;
+
+        this.registerForm.patchValue({
+          profilePicture: reader.result
+        });
+
+      };
     }
   }
 

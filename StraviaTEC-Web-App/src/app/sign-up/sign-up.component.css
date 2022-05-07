@@ -7,5 +7,8 @@
 img {
     height: 70%;
     width: 70%;
-    /* border-radius: 50%; */
+}
+
+img:hover {
+    cursor: pointer;
 }

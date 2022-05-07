@@ -111,12 +111,13 @@
                         </div>
                         <div class="form-group">
                             <div class="pos-r">
-                                <label for="fileInput">
+                                <label class="hoverable" for="fileInput">
                                     <h5>Choose a profile picture</h5>
                                     <div class="br">
                                         <br>
                                     </div>
-                                    <img [src]="url ? url :'../../assets/images/avatar.png'">
+                                    <img [src]="url ? url :'../../assets/images/avatar.png'"
+                                        onerror="this.src='assets/images/avatar.png'">
                                     <div class="br">
                                         <br>
                                     </div>
