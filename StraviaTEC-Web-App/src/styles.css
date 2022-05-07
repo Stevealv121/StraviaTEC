@@ -3,3 +3,12 @@
 /* html {
     background-color: #EDEDED;
 } */
+
+#buttons {
+    background-color: #00AF3D;
+    border-color: #00AF3D;
+}
+
+a {
+    color: #00AF3D;
+}

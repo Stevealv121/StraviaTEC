@@ -10,6 +10,7 @@ import { ApiService } from '../services/api.service';
 })
 export class SignUpComponent implements OnInit {
   url: string | ArrayBuffer | null | undefined = '';
+  test: string = "assets/images/avatar.png";
 
   constructor(private api: ApiService) { }
 
@@ -30,6 +31,7 @@ export class SignUpComponent implements OnInit {
 
   ngOnInit(): void {
     // this.url = '../../assets/images/avatar.png';
+
   }
 
   postForm(form: UserI) {
