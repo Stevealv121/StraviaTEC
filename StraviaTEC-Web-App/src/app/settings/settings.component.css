@@ -20,6 +20,14 @@
 
 .line {
     height: 1px;
+    background: #a2a2a2;
+    width: 90%;
+}
+
+.red-line {
+
+    height: 1px;
     background: #ff0000;
     width: 90%;
+
 }

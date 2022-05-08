@@ -54,8 +54,8 @@
                         </div>
                         <div class="form-group ">
                             <div class="pos-r">
-                                <input id="form-id" type="date" name="form-id" placeholder="Birth Date"
-                                    class="form-id form-control" formControlName="birthDate">
+                                <input type="text" name="form-id" placeholder="Birth Date" class="form-id form-control"
+                                    formControlName="birthDate" onfocus="(this.type='date')" id="date">
                                 <i class="fa fa-user"></i>
                             </div>
                         </div>
@@ -117,7 +117,7 @@
                                         <br>
                                     </div>
                                     <img [src]="url ? url :'../../assets/images/avatar.png'"
-                                        onerror="this.src='assets/images/avatar.png'">
+                                        title="Choose a profile picture">
                                     <div class="br">
                                         <br>
                                     </div>

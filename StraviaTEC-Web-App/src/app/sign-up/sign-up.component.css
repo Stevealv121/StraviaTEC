@@ -12,3 +12,8 @@ img {
 img:hover {
     cursor: pointer;
 }
+
+/* input[type="date"]:not(.has-value):before {
+    color: gray;
+    content: attr(placeholder);
+} */
