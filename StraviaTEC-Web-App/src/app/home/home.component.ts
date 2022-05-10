@@ -9,6 +9,7 @@ export class HomeComponent implements OnInit {
 
   constructor() { }
   routeMap: string = "assets/images/route-map.png";
+  friendsActivity: number[] = [1, 2, 3];
 
   ngOnInit(): void {
   }

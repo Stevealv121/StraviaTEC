@@ -12,6 +12,8 @@ import { SettingsComponent } from './settings/settings.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AthleteSearchComponent } from './athlete-search/athlete-search.component';
 import { UploadActivityComponent } from './upload-activity/upload-activity.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,11 @@ import { UploadActivityComponent } from './upload-activity/upload-activity.compo
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
+    ToastrModule.forRoot({
+      timeOut: 2000,
+      positionClass: 'toast-bottom-right'
+    }),
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

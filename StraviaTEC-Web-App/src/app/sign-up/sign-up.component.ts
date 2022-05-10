@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { UserI } from '../models/user.interface';
 import { ApiService } from '../services/api.service';
+import { ToastrService } from 'ngx-toastr'
 
 @Component({
   selector: 'app-sign-up',
@@ -12,7 +13,7 @@ export class SignUpComponent implements OnInit {
   url: string | ArrayBuffer | null | undefined = '';
   test: string = "assets/images/avatar.png";
 
-  constructor(private api: ApiService) { }
+  constructor(private api: ApiService, private toastr: ToastrService) { }
 
   registerForm = new FormGroup({
     nationality: new FormControl(''),
@@ -31,15 +32,19 @@ export class SignUpComponent implements OnInit {
 
   ngOnInit(): void {
     // this.url = '../../assets/images/avatar.png';
-
   }
 
   postForm(form: UserI) {
-    this.api.signUp(form).subscribe(data => {
-      console.log(data);
-    });
+
+    // this.api.signUp(form).subscribe(data => {
+    //   console.log(data);
+    // });
+    this.success();
   }
 
+  success() {
+    this.toastr.success("New account succesfully created!", "Success")
+  }
 
   onSelectFile(event: any) {
     if (event.target.files && event.target.files[0]) {

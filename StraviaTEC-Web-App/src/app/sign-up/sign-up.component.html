@@ -116,7 +116,7 @@
                                     <div class="br">
                                         <br>
                                     </div>
-                                    <img [src]="url ? url :'../../assets/images/avatar.png'"
+                                    <img id="profile-img" [src]="url ? url :'../../assets/images/avatar.png'"
                                         title="Choose a profile picture">
                                     <div class="br">
                                         <br>
@@ -131,10 +131,9 @@
                             <br>
                         </div>
                         <div class="form-group">
-                            <button id="buttons" type="submit" class="btn btn-primary form-control"
-                                data-bs-toggle="modal" data-bs-target="#completed"><strong>Register</strong></button>
+                            <button id="buttons" type="submit"
+                                class="btn btn-primary form-control"><strong>Register</strong></button>
                         </div>
-
                     </form>
                 </div> <!-- end  login-body -->
             </div><!-- end  login-content -->
@@ -145,18 +144,3 @@
 
     </div>
 </div><!-- end container -->
-
-<!-- Toast -->
-<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-    <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
-            <img src="..." class="rounded me-2" alt="...">
-            <strong class="me-auto">StraviaTEC</strong>
-            <small>just now</small>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body">
-            New account succesfully created!
-        </div>
-    </div>
-</div>

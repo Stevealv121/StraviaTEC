@@ -13,7 +13,8 @@ img:hover {
     cursor: pointer;
 }
 
-/* input[type="date"]:not(.has-value):before {
-    color: gray;
-    content: attr(placeholder);
-} */
+#profile-img {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+}
