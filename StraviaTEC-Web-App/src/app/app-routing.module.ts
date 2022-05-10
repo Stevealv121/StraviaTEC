@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SettingsComponent } from './settings/settings.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { UploadActivityComponent } from './upload-activity/upload-activity.component';
 
 const routes: Routes = [
   { path: "", pathMatch: "full", redirectTo: "/login" },
@@ -14,7 +15,8 @@ const routes: Routes = [
   { path: "home", component: HomeComponent },
   { path: "settings", component: SettingsComponent },
   { path: "profile", component: ProfileComponent },
-  { path: "athlete-search", component: AthleteSearchComponent }
+  { path: "athlete-search", component: AthleteSearchComponent },
+  { path: "upload-activity", component: UploadActivityComponent }
 ];
 
 @NgModule({

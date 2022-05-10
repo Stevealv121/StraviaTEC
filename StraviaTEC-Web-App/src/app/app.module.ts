@@ -11,6 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { SettingsComponent } from './settings/settings.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AthleteSearchComponent } from './athlete-search/athlete-search.component';
+import { UploadActivityComponent } from './upload-activity/upload-activity.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { AthleteSearchComponent } from './athlete-search/athlete-search.componen
     HomeComponent,
     SettingsComponent,
     ProfileComponent,
-    AthleteSearchComponent
+    AthleteSearchComponent,
+    UploadActivityComponent
   ],
   imports: [
     BrowserModule,

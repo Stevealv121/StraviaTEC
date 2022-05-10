@@ -1,0 +1,72 @@
+<div class="container">
+    <br>
+    <h2>Upload Activity</h2>
+    <div class="line"></div>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-md-4">
+            <form action="">
+                <div class="form-group ">
+                    <div class="pos-r">
+                        <input type="text" placeholder="Activity" formControlName="" class="form-username form-control">
+                        <i class="fa fa-user"></i>
+                    </div>
+                </div>
+                <br>
+                <div class="form-wrapper">
+                    <div class="form-group ">
+                        <div class="pos-r">
+                            <input type="text" placeholder="Date and Time" formControlName=""
+                                onfocus="(this.type='datetime-local')" class="form-username form-control">
+                            <i class="fa fa-user"></i>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group ">
+                        <div class="pos-r">
+                            <input id="duration-inp" type="text"
+                                pattern="([0-9]{1}[0-9]{0,1}h){1}([0-9]{1}[0-9]{0,1}m){1}" placeholder="Duration"
+                                formControlName="" class="form-username form-control" title="Example: 3h12m">
+                            <i class="fa fa-user"></i>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group ">
+                        <div class="pos-r">
+                            <input type="number" placeholder="Distance in kilometers" formControlName=""
+                                class="form-username form-control">
+                            <i class="fa fa-user"></i>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group ">
+                        <div class="pos-r">
+                            <input title="Upload a .gpx file" accept=".gpx" type="file" formControlName=""
+                                class="form-username form-control">
+                            <i class="fa fa-user"></i>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group ">
+                        <div class="pos-r">
+                            <input type="input" formControlName="" placeholder="Challenge or Race"
+                                class="form-username form-control">
+                            <i class="fa fa-user"></i>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="form-group">
+                        <button id="buttons" type="submit"
+                            class="btn btn-primary form-control"><strong>Upload</strong></button>
+                    </div>
+                    <br>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-2"></div>
+        <div class="col"><img id="activity-img" src="assets/images/activity.jpg" alt=""></div>
+    </div>
+
+</div>
