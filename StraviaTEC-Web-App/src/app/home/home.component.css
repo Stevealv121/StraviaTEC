@@ -42,3 +42,22 @@
     height: 500px;
     width: 575px;
 }
+
+#friend-img {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+
+#bg-comment {
+    position: relative;
+    background-color: rgb(246, 246, 246);
+    border: none;
+    /* height: 85%;
+    margin: -2% -2%; */
+}
+
+#comment-wrapper {
+    margin: -4% 0;
+
+}
