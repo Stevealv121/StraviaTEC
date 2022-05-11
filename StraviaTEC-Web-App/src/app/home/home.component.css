@@ -61,3 +61,22 @@
     margin: -4% 0;
 
 }
+
+#viewAllComments-a {
+    color: grey;
+}
+
+#viewAllComments-a:hover {
+    color: #00AF3D;
+    cursor: pointer;
+}
+
+#profilePicture {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin: -20% auto;
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+}
