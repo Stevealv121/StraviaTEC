@@ -1,0 +1,36 @@
+<div class="container">
+    <br>
+    <h2>Competitive Races</h2>
+    <div class="line"></div>
+    <br><br>
+    <div class="row mb-3">
+        <div class="col-md-3">
+            <h4>Competition</h4>
+        </div>
+        <div class="col-md-5">
+            <h4>Price</h4>
+        </div>
+    </div>
+    <div class="row mb-4" *ngFor="let race of races;let i as index">
+        <div class="col-md-3">
+            <div id="race-card" class="card">
+                <div class="card-body">
+                    <h5 id="race-name">Race Name</h5>
+                    <p>Type</p>
+                    <p>Valid thru: date</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <a (click)="pickRace()" id="price-a">
+                <div id="priceCard" class="card">
+                    <div class="card-body">
+                        <br>
+                        <h5>0 $</h5>
+                        <br>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

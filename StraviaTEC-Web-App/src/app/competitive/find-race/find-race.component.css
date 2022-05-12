@@ -1,0 +1,27 @@
+.line {
+    height: 1px;
+    background: #a2a2a2;
+    width: 90%;
+}
+
+#priceCard:hover {
+    background-color: #00AF3D;
+}
+
+#priceCard {
+    text-align: center;
+    height: 120px;
+}
+
+#price-a:hover {
+    color: white;
+    cursor: pointer;
+}
+
+/* #race-name {
+    text-align: center;
+} */
+
+#race-card {
+    height: 120px;
+}

@@ -58,7 +58,7 @@
                             </div>
                             <div class="row mb-3">
                                 <div class="col"><a id="viewAllComments-a" (click)="showComments()"
-                                        [hidden]="!hasComments">View all comments</a></div>
+                                        [hidden]="!viewComments">View all comments</a></div>
                             </div>
                             <div class="row" [hidden]="!isVisible" *ngFor="let comment of comments;let i as index">
                                 <div class="col-md-auto">
