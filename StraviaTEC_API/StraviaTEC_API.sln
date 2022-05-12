@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32228.430
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StraviaTEC_API", "StraviaTEC_API\StraviaTEC_API.csproj", "{CE058F2B-4ACE-4B28-8506-333A3681712E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F276FC45-C7F8-4AB3-BB51-2CA70515C20C} = {F276FC45-C7F8-4AB3-BB51-2CA70515C20C}
+		{31893AE6-1F5E-4329-8758-DFEA65730712} = {31893AE6-1F5E-4329-8758-DFEA65730712}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StraviaTEC_Models", "StraviaTEC_Models\StraviaTEC_Models.csproj", "{31893AE6-1F5E-4329-8758-DFEA65730712}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StraviaTEC_Data", "StraviaTEC_Data\StraviaTEC_Data.csproj", "{F276FC45-C7F8-4AB3-BB51-2CA70515C20C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{31893AE6-1F5E-4329-8758-DFEA65730712} = {31893AE6-1F5E-4329-8758-DFEA65730712}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Comments_API", "Comments_API\Comments_API.csproj", "{F58001BA-A57F-4A4E-AEFD-82BFB21B00FF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F276FC45-C7F8-4AB3-BB51-2CA70515C20C} = {F276FC45-C7F8-4AB3-BB51-2CA70515C20C}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CE058F2B-4ACE-4B28-8506-333A3681712E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE058F2B-4ACE-4B28-8506-333A3681712E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE058F2B-4ACE-4B28-8506-333A3681712E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE058F2B-4ACE-4B28-8506-333A3681712E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31893AE6-1F5E-4329-8758-DFEA65730712}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31893AE6-1F5E-4329-8758-DFEA65730712}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31893AE6-1F5E-4329-8758-DFEA65730712}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31893AE6-1F5E-4329-8758-DFEA65730712}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F276FC45-C7F8-4AB3-BB51-2CA70515C20C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F276FC45-C7F8-4AB3-BB51-2CA70515C20C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F276FC45-C7F8-4AB3-BB51-2CA70515C20C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F276FC45-C7F8-4AB3-BB51-2CA70515C20C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F58001BA-A57F-4A4E-AEFD-82BFB21B00FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F58001BA-A57F-4A4E-AEFD-82BFB21B00FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F58001BA-A57F-4A4E-AEFD-82BFB21B00FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F58001BA-A57F-4A4E-AEFD-82BFB21B00FF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B61B6130-097F-4BEA-9548-5A6C85564431}
+	EndGlobalSection
+EndGlobal
