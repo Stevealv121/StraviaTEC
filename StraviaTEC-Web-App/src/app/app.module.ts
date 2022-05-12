@@ -16,6 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { RaceInscriptionComponent } from './competitive/race-inscription/race-inscription.component';
 import { FindRaceComponent } from './competitive/find-race/find-race.component';
+import { ChallengesComponent } from './competitive/challenges/challenges.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { FindRaceComponent } from './competitive/find-race/find-race.component';
     AthleteSearchComponent,
     UploadActivityComponent,
     RaceInscriptionComponent,
-    FindRaceComponent
+    FindRaceComponent,
+    ChallengesComponent
   ],
   imports: [
     BrowserModule,

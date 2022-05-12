@@ -9,6 +9,7 @@ import { RaceInscriptionComponent } from './competitive/race-inscription/race-in
 import { SettingsComponent } from './settings/settings.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { UploadActivityComponent } from './upload-activity/upload-activity.component';
+import { ChallengesComponent } from './competitive/challenges/challenges.component';
 
 const routes: Routes = [
   { path: "", pathMatch: "full", redirectTo: "/login" },
@@ -20,7 +21,8 @@ const routes: Routes = [
   { path: "athlete-search", component: AthleteSearchComponent },
   { path: "upload-activity", component: UploadActivityComponent },
   { path: "race-inscription", component: RaceInscriptionComponent },
-  { path: "find-race", component: FindRaceComponent }
+  { path: "find-race", component: FindRaceComponent },
+  { path: "challenges", component: ChallengesComponent }
 ];
 
 @NgModule({
