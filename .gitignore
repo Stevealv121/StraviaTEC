@@ -1,0 +1,16 @@
+
+StraviaTEC_API/.vs/StraviaTEC_API/DesignTimeBuild/.dtbcache.v2
+
+StraviaTEC_API/.vs/StraviaTEC_API/v17/.futdcache.v1
+
+StraviaTEC_API/.vs/StraviaTEC_API/v17/.suo
+
+StraviaTEC_API/StraviaTEC_API/bin/Debug/net6.0/StraviaTEC_API.dll
+
+*.pdb
+
+*.dll
+
+*.cache
+
+*.sentinel
