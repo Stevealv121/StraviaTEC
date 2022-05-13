@@ -1,34 +1,26 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+﻿using Microsoft.AspNetCore.Mvc;
 using StraviaTEC_Data.Repositories;
 using StraviaTEC_Models;
-using System.Data;
-using System.Data.SqlClient;
 
 namespace StraviaTEC_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ActivityController : Controller
+    public class GroupController : Controller
     {
-        private readonly IActivity _repository;
+        private readonly IGroup _repository;
 
-        public ActivityController(IActivity service)
+        public GroupController(IGroup service)
         {
             _repository = service;
         }
-       
+
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             return Ok(await _repository.GetAll());
         }
-        [HttpGet("ById/{ID}")]
-        public async Task<IActionResult> GetbyId(int ID)
-        {
-            return Ok(await _repository.GetbyId(ID));
-        }
+        
         [HttpGet("ByName/{Name}")]
         public async Task<IActionResult> GetbyName(string Name)
         {
@@ -36,7 +28,7 @@ namespace StraviaTEC_API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] Activity newObj)
+        public async Task<IActionResult> Create([FromBody] Group newObj)
         {
             if (newObj == null)
                 return BadRequest();
@@ -49,7 +41,7 @@ namespace StraviaTEC_API.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update([FromBody] Activity _obj)
+        public async Task<IActionResult> Update([FromBody] Group _obj)
         {
             if (_obj == null)
                 return BadRequest();
@@ -60,13 +52,14 @@ namespace StraviaTEC_API.Controllers
 
             return NoContent();
         }
-        [HttpDelete("ById/{ID}")]
-        public async Task<IActionResult> Delete(int ID)
+        [HttpDelete("ByName/{Name}")]
+        public async Task<IActionResult> Delete(string Name)
         {
 
-            await _repository.Delete(new Activity { id = ID });
+            await _repository.Delete(new Group { name = Name });
 
             return NoContent();
         }
+
     }
 }

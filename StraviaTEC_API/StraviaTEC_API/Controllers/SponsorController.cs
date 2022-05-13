@@ -1,24 +1,20 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+﻿using Microsoft.AspNetCore.Mvc;
 using StraviaTEC_Data.Repositories;
 using StraviaTEC_Models;
-using System.Data;
-using System.Data.SqlClient;
 
 namespace StraviaTEC_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ActivityController : Controller
+    public class SponsorController : Controller
     {
-        private readonly IActivity _repository;
+        private readonly ISponsor _repository;
 
-        public ActivityController(IActivity service)
+        public SponsorController(ISponsor service)
         {
             _repository = service;
         }
-       
+
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -36,7 +32,7 @@ namespace StraviaTEC_API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] Activity newObj)
+        public async Task<IActionResult> Create([FromBody] Sponsor newObj)
         {
             if (newObj == null)
                 return BadRequest();
@@ -49,7 +45,7 @@ namespace StraviaTEC_API.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update([FromBody] Activity _obj)
+        public async Task<IActionResult> Update([FromBody] Sponsor _obj)
         {
             if (_obj == null)
                 return BadRequest();
@@ -64,7 +60,7 @@ namespace StraviaTEC_API.Controllers
         public async Task<IActionResult> Delete(int ID)
         {
 
-            await _repository.Delete(new Activity { id = ID });
+            await _repository.Delete(new Sponsor { id = ID });
 
             return NoContent();
         }

@@ -15,6 +15,13 @@ var SQLConnectionConfig = new SQLConfig(builder.Configuration.GetConnectionStrin
 builder.Services.AddSingleton(SQLConnectionConfig);
 
 builder.Services.AddScoped<IActivity, RActivity>();
+builder.Services.AddScoped<ICategory, RCategory>();
+builder.Services.AddScoped<IChallenge, RChallenge>();
+builder.Services.AddScoped<IGroup, RGroup>();
+builder.Services.AddScoped<IRace, RRace>();
+builder.Services.AddScoped<ISponsor, RSponsor>();
+builder.Services.AddScoped<ISport, RSport>();
+builder.Services.AddScoped<IUser, RUser>();
 
 builder.Services.AddCors(options =>
 {
