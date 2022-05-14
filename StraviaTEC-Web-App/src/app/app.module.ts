@@ -17,6 +17,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { RaceInscriptionComponent } from './competitive/race-inscription/race-inscription.component';
 import { FindRaceComponent } from './competitive/find-race/find-race.component';
 import { ChallengesComponent } from './competitive/challenges/challenges.component';
+import { GroupsComponent } from './groups/groups.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ChallengesComponent } from './competitive/challenges/challenges.compone
     UploadActivityComponent,
     RaceInscriptionComponent,
     FindRaceComponent,
-    ChallengesComponent
+    ChallengesComponent,
+    GroupsComponent
   ],
   imports: [
     BrowserModule,

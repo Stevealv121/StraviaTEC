@@ -10,6 +10,8 @@ import { SettingsComponent } from './settings/settings.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { UploadActivityComponent } from './upload-activity/upload-activity.component';
 import { ChallengesComponent } from './competitive/challenges/challenges.component';
+import { GroupedObservable } from 'rxjs';
+import { GroupsComponent } from './groups/groups.component';
 
 const routes: Routes = [
   { path: "", pathMatch: "full", redirectTo: "/login" },
@@ -22,7 +24,8 @@ const routes: Routes = [
   { path: "upload-activity", component: UploadActivityComponent },
   { path: "race-inscription", component: RaceInscriptionComponent },
   { path: "find-race", component: FindRaceComponent },
-  { path: "challenges", component: ChallengesComponent }
+  { path: "challenges", component: ChallengesComponent },
+  { path: "groups", component: GroupsComponent }
 ];
 
 @NgModule({

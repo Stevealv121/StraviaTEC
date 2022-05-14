@@ -1,0 +1,24 @@
+<div class="container">
+    <br>
+    <h2>Groups</h2>
+    <div class="line"></div>
+    <br>
+    <br>
+    <div class="row mb-4" *ngFor="let row of groupsMatrix;let i as index">
+        <div class="col-md-auto" *ngFor="let group of row;let j as index">
+            <div id="groupCard" class="card">
+                <div class="card-body" id="groupCard-body">
+                    <h5>Name</h5>
+                    <p>Description asdfasdagsdssdagdsgg
+                    </p>
+                    <!--Max descrption characters (32)-->
+                    <button class="btn btn-primary" [ngStyle]="{
+                        'background-color' : group.color,
+                        'color' : group.font
+                      }" (click)="joinGroup(group.id)" id="buttons">{{group.btn}}</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
