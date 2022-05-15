@@ -18,6 +18,7 @@ import { RaceInscriptionComponent } from './competitive/race-inscription/race-in
 import { FindRaceComponent } from './competitive/find-race/find-race.component';
 import { ChallengesComponent } from './competitive/challenges/challenges.component';
 import { GroupsComponent } from './groups/groups.component';
+import { CompetitionsComponent } from './competitive/competitions/competitions.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { GroupsComponent } from './groups/groups.component';
     RaceInscriptionComponent,
     FindRaceComponent,
     ChallengesComponent,
-    GroupsComponent
+    GroupsComponent,
+    CompetitionsComponent
   ],
   imports: [
     BrowserModule,
