@@ -1,14 +1,22 @@
-﻿using StraviaTEC_Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.SqlClient;
+using StraviaTEC_Models;
+using Dapper;
 
 namespace StraviaTEC_Data.Repositories
 {
     public class RGroup : IGroup
     {
+        private SQLConfig connectionStr;
+
+        public RGroup(SQLConfig connectionString)
+        {
+            connectionStr = connectionString;
+        }
+
+        protected SqlConnection dbConnection()
+        {
+            return new SqlConnection(connectionStr.ConnectionStr);
+        }
         public Task<bool> Delete(Group _group)
         {
             throw new NotImplementedException();

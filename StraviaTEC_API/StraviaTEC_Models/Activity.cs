@@ -11,6 +11,7 @@ namespace StraviaTEC_Models
         public DateTime duration { get; set; }
         public int mileage { get; set; }
         public string sport_name { get; set; }
+        public byte[] image { get; set; }
 
     }
 }
