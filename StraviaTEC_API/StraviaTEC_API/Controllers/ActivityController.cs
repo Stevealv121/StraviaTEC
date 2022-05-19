@@ -29,12 +29,7 @@ namespace StraviaTEC_API.Controllers
         {
             return Ok(await _repository.GetbyId(ID));
         }
-        [HttpGet("ByName/{Name}")]
-        public async Task<IActionResult> GetbyName(string Name)
-        {
-            return Ok(await _repository.GetbyName(Name));
-        }
-
+        
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] Activity newObj)
         {
@@ -64,7 +59,7 @@ namespace StraviaTEC_API.Controllers
         public async Task<IActionResult> Delete(int ID)
         {
 
-            await _repository.Delete(new Activity { id = ID });
+            await _repository.Delete(new Activity { Id = ID });
 
             return NoContent();
         }

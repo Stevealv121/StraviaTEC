@@ -17,29 +17,63 @@ namespace StraviaTEC_Data.Repositories
         {
             return new SqlConnection(connectionStr.ConnectionStr);
         }
-        public Task<bool> Delete(Category _category)
+        public async Task<bool> Delete(Category _category)
         {
-            throw new NotImplementedException();
+            var db = dbConnection();
+            var sql = @"DELETE
+                        FROM CATEGORY
+                        WHERE Name = @Name";
+            var result = await db.ExecuteAsync(sql, new { Name = _category.Name });
+            return result > 0;
         }
 
-        public Task<IEnumerable<Category>> GetAll()
+        public async Task<IEnumerable<Category>> GetAll()
         {
-            throw new NotImplementedException();
+            var db = dbConnection();
+            var sql = @"SELECT *
+                       FROM CATEGORY";
+            return await db.QueryAsync<Category>(sql, new { });
         }
 
-        public Task<Category> GetbyName(string _name)
+        public async Task<Category> GetbyName(string _name)
         {
-            throw new NotImplementedException();
+            var db = dbConnection();
+            var sql = @"SELECT *
+                       FROM CATEGORY 
+                       WHERE Name = @Name";
+            return await db.QueryFirstOrDefaultAsync<Category>(sql, new { Name = _name });
         }
 
-        public Task<bool> Insert(Category _category)
+        public async Task<bool> Insert(Category _category)
         {
-            throw new NotImplementedException();
+            var db = dbConnection();
+            var sql = @"
+                        INSERT INTO CATEGORY (Name, Description)
+                        VALUES (@Name, @Description)";
+            var result = await db.ExecuteAsync(sql, new
+            {
+                _category.Name,
+                _category.Description
+            });
+            return result > 0;
         }
 
-        public Task<bool> Update(Category _category)
+        public async Task<bool> Update(Category _category)
         {
-            throw new NotImplementedException();
+            var db = dbConnection();
+            var sql = @"
+                        UPDATE CATEGORY 
+                        SET 
+                            Name = @Name,
+                            Description = @Description
+                        WHERE Name = @Name";
+            var result = await db.ExecuteAsync(sql, new
+            {
+                _category.Name,
+                _category.Description
+
+            });
+            return result > 0;
         }
     }
 }

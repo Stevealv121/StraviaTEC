@@ -8,7 +8,7 @@ namespace StraviaTEC_Models
 {
     public class Challenge
     {
-        public int id { get; set; }
+        public int Id { get; set; }
         public string name { get; set; }
         public DateTime valid_thru { get; set; }
         public string type { get; set; }

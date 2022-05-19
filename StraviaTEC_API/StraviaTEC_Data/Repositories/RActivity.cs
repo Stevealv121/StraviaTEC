@@ -28,7 +28,7 @@ namespace StraviaTEC_Data.Repositories
         {
             var db = dbConnection();
             var sql = @"SELECT *
-                       FROM Activity";
+                       FROM ACTIVITY";
             return await db.QueryAsync<Activity>(sql, new { });
         }
 
@@ -36,33 +36,24 @@ namespace StraviaTEC_Data.Repositories
         {
             var db = dbConnection();
             var sql = @"SELECT *
-                       FROM Activity 
-                       WHERE id = @id";
+                       FROM ACTIVITY 
+                       WHERE Id = @id";
             return await db.QueryFirstOrDefaultAsync<Activity>(sql, new { id = _id });
-        }
-
-        public async Task<Activity> GetbyName(string _name)
-        {
-            var db = dbConnection();
-            var sql = @"SELECT *
-                       FROM Activity 
-                       WHERE name = @name";
-            return await db.QueryFirstOrDefaultAsync<Activity>(sql, new { name = _name });
         }
 
         public async Task<bool> Insert(Activity _activity)
         {
             var db = dbConnection();
             var sql = @"
-                        INSERT INTO Activity (name,date,duration,mileage,sport_name)
-                        VALUES (@name,@date,@duration,@mileage,@sport_name)";
+                        INSERT INTO ACTIVITY (Date,Duration,Mileage,Route,SportName)
+                        VALUES (@Date,@Duration,@Mileage,@Route,@SportName)";
             var result = await db.ExecuteAsync(sql, new
             {
-                _activity.name,
-                _activity.date,
-                _activity.duration,
-                _activity.mileage,
-                _activity.sport_name
+                _activity.Date,
+                _activity.Duration,
+                _activity.Mileage,
+                _activity.Route,
+                _activity.SportName
 
             });
             return result > 0;
@@ -72,22 +63,22 @@ namespace StraviaTEC_Data.Repositories
         {
             var db = dbConnection();
             var sql = @"
-                        UPDATE Activity 
+                        UPDATE ACTIVITY 
                         SET 
-                            name = @name,
-                            date = @date,
-                            duration = @duration,
-                            mileage = @mileage,
-                            sport_name = @sport_name
-                        WHERE id = @id";
+                            Date = @Date,
+                            Duration = @Duration,
+                            Mileage = @Mileage,
+                            Route = @Route,
+                            SportName = @SportName
+                        WHERE Id = @Id";
             var result = await db.ExecuteAsync(sql, new
             {
-                _activity.name,
-                _activity.date,
-                _activity.duration,
-                _activity.mileage,
-                _activity.sport_name,
-                _activity.id
+                _activity.Date,
+                _activity.Duration,
+                _activity.Mileage,
+                _activity.Route,
+                _activity.SportName,
+                _activity.Id
 
             });
             return result > 0;
@@ -97,9 +88,9 @@ namespace StraviaTEC_Data.Repositories
         {
             var db = dbConnection();
             var sql = @"DELETE
-                        FROM Activity
-                        WHERE id = @id";
-            var result = await db.ExecuteAsync(sql, new { id = _activity.id });
+                        FROM ACTIVITY
+                        WHERE Id = @Id";
+            var result = await db.ExecuteAsync(sql, new { Id = _activity.Id });
             return result > 0;
         }
     }

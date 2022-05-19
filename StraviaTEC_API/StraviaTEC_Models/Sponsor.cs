@@ -8,12 +8,13 @@ namespace StraviaTEC_Models
 {
     public class Sponsor
     {
-        public int id { get; set; }
-        public string comercial_name { get; set; }
-        public int agent_number { get; set; }
-        public string agent_first_name { get; set; }
-        public string agent_second_name { get; set; }
-        public string agent_first_surname { get; set; }
-        public string agent_second_surname { get; set; }
+        public int Id { get; set; }
+        public string ComercialName { get; set; }
+        public byte[]? Logo { get; set; }
+        public int AgentNumber { get; set; }
+        public string FirstName { get; set; }
+        public string? SecondName { get; set; }
+        public string FirstSurname { get; set; }
+        public string? SecondSurame { get; set; }
     }
 }

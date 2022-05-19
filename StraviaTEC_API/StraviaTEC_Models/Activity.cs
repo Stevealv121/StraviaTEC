@@ -1,17 +1,16 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
-
+using System.Xml;
 namespace StraviaTEC_Models
 {
     public class Activity
     {
-        public int id { get; set; }
-        public string name { get; set; }
-        public DateTime date { get; set; }
-        public DateTime duration { get; set; }
-        public int mileage { get; set; }
-        public string sport_name { get; set; }
-        public byte[] image { get; set; }
+        public int? Id { get; set; }
+        public DateTime Date { get; set; }
+        public TimeSpan Duration { get; set; }
+        public int? Mileage { get; set; }
+        public XmlAttribute? Route { get; set; }
+        public string? SportName { get; set; }
 
     }
 }

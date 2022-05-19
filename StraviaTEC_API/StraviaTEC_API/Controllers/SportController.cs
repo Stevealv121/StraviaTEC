@@ -56,7 +56,7 @@ namespace StraviaTEC_API.Controllers
         public async Task<IActionResult> Delete(string Name)
         {
 
-            await _repository.Delete(new Sport { name = Name });
+            await _repository.Delete(new Sport { Name = Name });
 
             return NoContent();
         }
