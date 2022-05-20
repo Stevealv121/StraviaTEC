@@ -5,14 +5,15 @@ namespace StraviaTEC_Models
 {
     public class User
     {
-        public string username { get; set; }
-        public string password { get; set; }
-        public string first_name { get; set; }
-        public string second_name { get; set; }
-        public string first_surname { get; set; }
-        public string second_surname { get; set; }
-        public DateTime birth_date { get; set; }
-        public string level { get; set; }
+        public string UserName { get; set; }
+        public string FirstName { get; set; }
+        public string? SecondName { get; set; }
+        public string FirstSurname { get; set; }
+        public string? SecondSurname { get; set; }
+        public string Password { get; set; }
+        public string Level { get; set; }
+        public byte[]? ProfilePicture { get; set; }
+        public DateTime BirthDate { get; set; }
 
 
     }

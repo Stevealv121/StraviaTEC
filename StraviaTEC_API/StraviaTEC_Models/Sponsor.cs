@@ -15,6 +15,6 @@ namespace StraviaTEC_Models
         public string FirstName { get; set; }
         public string? SecondName { get; set; }
         public string FirstSurname { get; set; }
-        public string? SecondSurame { get; set; }
+        public string? SecondSurname { get; set; }
     }
 }

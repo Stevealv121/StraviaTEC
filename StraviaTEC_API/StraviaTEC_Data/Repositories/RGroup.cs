@@ -17,29 +17,63 @@ namespace StraviaTEC_Data.Repositories
         {
             return new SqlConnection(connectionStr.ConnectionStr);
         }
-        public Task<bool> Delete(Group _group)
+        public async Task<bool> Delete(Group _group)
         {
-            throw new NotImplementedException();
+            var db = dbConnection();
+            var sql = @"DELETE
+                        FROM [GROUP]
+                        WHERE Name = @Name";
+            var result = await db.ExecuteAsync(sql, new { Name = _group.Name });
+            return result > 0;
         }
 
-        public Task<IEnumerable<Group>> GetAll()
+        public async Task<IEnumerable<Group>> GetAll()
         {
-            throw new NotImplementedException();
+            var db = dbConnection();
+            var sql = @"SELECT *
+                       FROM [GROUP]";
+            return await db.QueryAsync<Group>(sql, new { });
         }
 
-        public Task<Group> GetbyName(string _name)
+        public async Task<Group> GetbyName(string _name)
         {
-            throw new NotImplementedException();
+            var db = dbConnection();
+            var sql = @"SELECT *
+                       FROM [GROUP]
+                       WHERE Name = @Name";
+            return await db.QueryFirstOrDefaultAsync<Group>(sql, new { Name = _name });
         }
 
-        public Task<bool> Insert(Group _group)
+        public async Task<bool> Insert(Group _group)
         {
-            throw new NotImplementedException();
+            var db = dbConnection();
+            var sql = @"
+                        INSERT INTO [GROUP] (Name, Description)
+                        VALUES (@Name, @Description)";
+            var result = await db.ExecuteAsync(sql, new
+            {
+                _group.Name,
+                _group.Description
+            });
+            return result > 0;
         }
 
-        public Task<bool> Update(Group _group)
+        public async Task<bool> Update(Group _group)
         {
-            throw new NotImplementedException();
+            var db = dbConnection();
+            var sql = @"
+                        UPDATE [GROUP] 
+                        SET 
+                            Name = @Name,
+                            Description = @Description
+                        WHERE Name = @Name";
+            var result = await db.ExecuteAsync(sql, new
+            {
+                _group.Name,
+                _group.Description
+
+            });
+            return result > 0;
         }
     }
 }

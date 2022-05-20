@@ -9,10 +9,12 @@ namespace StraviaTEC_Models
     public class Challenge
     {
         public int Id { get; set; }
-        public string name { get; set; }
-        public DateTime valid_thru { get; set; }
-        public string type { get; set; }
-        public bool access { get; set; }
+        public DateTime ValidThru { get; set; }
+        public string Type { get; set; }
+        public string Access { get; set; }
+        public string Name { get; set; }
+        public int ActivityId { get; set; }
+        public string CategoryName { get; set; }
 
     }
 }

@@ -17,34 +17,88 @@ namespace StraviaTEC_Data.Repositories
         {
             return new SqlConnection(connectionStr.ConnectionStr);
         }
-        public Task<bool> Delete(Sponsor _sponsor)
+        public async Task<bool> Delete(Sponsor _sponsor)
         {
-            throw new NotImplementedException();
+            var db = dbConnection();
+            var sql = @"DELETE
+                        FROM SPONSOR
+                        WHERE ComercialName = @Name";
+            var result = await db.ExecuteAsync(sql, new { Name = _sponsor.ComercialName });
+            return result > 0;
         }
 
-        public Task<IEnumerable<Sponsor>> GetAll()
+        public async Task<IEnumerable<Sponsor>> GetAll()
         {
-            throw new NotImplementedException();
+            var db = dbConnection();
+            var sql = @"SELECT *
+                       FROM SPONSOR";
+            return await db.QueryAsync<Sponsor>(sql, new { });
         }
 
-        public Task<Sponsor> GetbyId(int _id)
+        public async Task<Sponsor> GetbyId(int _id)
         {
-            throw new NotImplementedException();
+            var db = dbConnection();
+            var sql = @"SELECT *
+                       FROM SPONSOR 
+                       WHERE Id = @id";
+            return await db.QueryFirstOrDefaultAsync<Sponsor>(sql, new { id = _id });
         }
 
-        public Task<Sponsor> GetbyName(string _name)
+        public async Task<Sponsor> GetbyName(string _name)
         {
-            throw new NotImplementedException();
+            var db = dbConnection();
+            var sql = @"SELECT *
+                       FROM SPONSOR 
+                       WHERE ComercialName = @Name";
+            return await db.QueryFirstOrDefaultAsync<Sponsor>(sql, new { Name = _name });
         }
 
-        public Task<bool> Insert(Sponsor _sponsor)
+        public async Task<bool> Insert(Sponsor _sponsor)
         {
-            throw new NotImplementedException();
+            var db = dbConnection();
+            var sql = @"
+                        INSERT INTO SPONSOR (ComercialName,Logo,AgentNumber,FirstName,SecondName,FirstSurname,SecondSurname)
+                        VALUES (@ComercialName,@Logo,@AgentNumber,@FirstName,@SecondName,@FirstSurname,@SecondSurname)";
+            var result = await db.ExecuteAsync(sql, new
+            {
+                _sponsor.ComercialName,
+                _sponsor.Logo,
+                _sponsor.AgentNumber,
+                _sponsor.FirstName,
+                _sponsor.SecondName,
+                _sponsor.FirstSurname,
+                _sponsor.SecondSurname
+            });
+            return result > 0;
         }
 
-        public Task<bool> Update(Sponsor _sponsor)
+        public async Task<bool> Update(Sponsor _sponsor)
         {
-            throw new NotImplementedException();
+            var db = dbConnection();
+            var sql = @"
+                        UPDATE SPONSOR 
+                        SET 
+                            ComercialName = @ComercialName,
+                            Logo = @Logo,
+                            AgentNumber = @AgentNumber,
+                            FirstName = @FirstName,
+                            SecondName = @SecondName,
+                            FirstSurname = @FirstSurname,
+                            SecondSurame = @SecondSurame
+                        WHERE Id = @Id";
+            var result = await db.ExecuteAsync(sql, new
+            {
+                _sponsor.ComercialName,
+                _sponsor.Logo,
+                _sponsor.AgentNumber,
+                _sponsor.FirstName,
+                _sponsor.SecondName,
+                _sponsor.FirstSurname,
+                _sponsor.SecondSurname,
+                _sponsor.Id
+
+            });
+            return result > 0;
         }
     }
 }

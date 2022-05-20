@@ -56,7 +56,7 @@ namespace StraviaTEC_API.Controllers
         public async Task<IActionResult> Delete(string Username, string Password)
         {
 
-            await _repository.Delete(new User { username = Username, password = Password });
+            await _repository.Delete(new User { UserName = Username, Password = Password });
 
             return NoContent();
         }
