@@ -19,6 +19,11 @@ import { FindRaceComponent } from './competitive/find-race/find-race.component';
 import { ChallengesComponent } from './competitive/challenges/challenges.component';
 import { GroupsComponent } from './groups/groups.component';
 import { CompetitionsComponent } from './competitive/competitions/competitions.component';
+import { OrganizerMenuComponent } from './organizer-menu/organizer-menu.component';
+import { ChallengeComponent } from './challenge/challenge.component';
+import { CompetitionComponent } from './competition/competition.component';
+import { NewCompetitionComponent } from './competition/new-competition/new-competition.component';
+import { NewChallengeComponent } from './challenge/new-challenge/new-challenge.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +39,12 @@ import { CompetitionsComponent } from './competitive/competitions/competitions.c
     FindRaceComponent,
     ChallengesComponent,
     GroupsComponent,
-    CompetitionsComponent
+    CompetitionsComponent,
+    OrganizerMenuComponent,
+    ChallengeComponent,
+    CompetitionComponent,
+    NewCompetitionComponent,
+    NewChallengeComponent
   ],
   imports: [
     BrowserModule,

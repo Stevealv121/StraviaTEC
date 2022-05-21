@@ -13,6 +13,11 @@ import { ChallengesComponent } from './competitive/challenges/challenges.compone
 import { GroupedObservable } from 'rxjs';
 import { GroupsComponent } from './groups/groups.component';
 import { CompetitionsComponent } from './competitive/competitions/competitions.component';
+import { OrganizerMenuComponent } from './organizer-menu/organizer-menu.component';
+import { ChallengeComponent } from './challenge/challenge.component';
+import { CompetitionComponent } from './competition/competition.component';
+import { NewCompetitionComponent } from './competition/new-competition/new-competition.component';
+import { NewChallengeComponent } from './challenge/new-challenge/new-challenge.component';
 
 const routes: Routes = [
   { path: "", pathMatch: "full", redirectTo: "/login" },
@@ -27,7 +32,12 @@ const routes: Routes = [
   { path: "find-race", component: FindRaceComponent },
   { path: "challenges", component: ChallengesComponent },
   { path: "groups", component: GroupsComponent },
-  { path: "competitions", component: CompetitionsComponent }
+  { path: "competitions", component: CompetitionsComponent },
+  { path: "menu", component: OrganizerMenuComponent},
+  { path: "challenge", component: ChallengeComponent},
+  { path: "competition", component: CompetitionComponent},
+  { path: "NewCompetition", component: NewCompetitionComponent},
+  { path: "NewChallenge", component: NewChallengeComponent}
 ];
 
 @NgModule({

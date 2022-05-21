@@ -1,0 +1,24 @@
+#item1{
+  background-image: url("https://expertosenestetica.es/wp-content/uploads/2017/03/amar-running.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  height: 570px;
+}
+#item2{
+  background-image: url("https://www.pragma.com.co/hs-fs/hubfs/blog/blogs/h_ciclismo_trabajo_en_equipo_y_okr.jpg?width=1728&name=h_ciclismo_trabajo_en_equipo_y_okr.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  height: 570px;
+}
+#groupCard {
+  margin-top: 150px;
+  margin-left: 250px;
+  background-color: gainsboro;
+  opacity: 0.9;
+  width: 250px;
+  height: 225px;
+  color: black;
+  align-content: center;
+  align-items: center;
+  text-align: center;
+}
