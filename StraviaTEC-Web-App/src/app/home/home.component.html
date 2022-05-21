@@ -1,0 +1,116 @@
+<div class="container-fluid">
+    <br><br><br>
+    <div class="row">
+        <div class="col-3">
+            <div id="athlete-profile" class="card">
+                <div class="card-body">
+                    <img src="assets/images/avatar.png" id="profilePicture">
+                    <br><br><br>
+                    <h5 id="name" class="mb-3">FirstName SecondName</h5>
+                    <div id="stats" class="row">
+                        <div class="col">Following</div>
+                        <div class="col">Followers</div>
+                        <div class="col">Activities</div>
+                    </div>
+                    <div id="stats" class="row">
+                        <div class="col">N</div>
+                        <div class="col">N</div>
+                        <div class="col">N</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="row" *ngFor="let activity of friendsActivity; let i as index">
+                <div class="card">
+                    <div class="card-body">
+                        <h5>FriendName LastName</h5>
+                        <h3>Activity Title</h3>
+                        <div class="row">
+                            <div class="col">Distance</div>
+                            <div class="col">Elev Gain</div>
+                            <div class="col">Time</div>
+                            <div class="col">Achievements</div>
+                        </div>
+                        <div class="row">
+                            <div class="col">N km</div>
+                            <div class="col">N m</div>
+                            <div class="col">Nh Nm</div>
+                            <div class="col">N</div>
+                        </div>
+                        <div id="map"></div>
+                        <!-- <img id="route-map" [src]="routeMap"> -->
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <div class="row" [hidden]="!hasComments" *ngFor="let comment of topComments;let t as index">
+                                <div class="col-md-auto">
+                                    <br>
+                                    <img [src]="friendImage" id="friend-img">
+                                </div>
+                                <div class="col-md-7">
+                                    <div id="bg-comment" class="card">
+                                        <div id="comment-wrapper" class="card-body">
+                                            <h6>FirstName LastName</h6>
+                                            <p>Comment adssdfdsfdsfsdfasdfsdfsdfsdfsdafsadfasdfsdfdsfasdfadsdsf</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col"><a id="viewAllComments-a" (click)="showComments()"
+                                        [hidden]="!viewComments">View all comments</a></div>
+                            </div>
+                            <div class="row" [hidden]="!isVisible" *ngFor="let comment of comments;let i as index">
+                                <div class="col-md-auto">
+                                    <br>
+                                    <img [src]="friendImage" id="friend-img">
+                                </div>
+                                <div class="col-md-7">
+                                    <div id="bg-comment" class="card">
+                                        <div id="comment-wrapper" class="card-body">
+                                            <h6>FirstName LastName</h6>
+                                            <p>Comment adssdfdsfdsfsdfasdfsdfsdfsdfsdafsadfasdfsdfdsfasdfadsdsf</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col"><a id="viewAllComments-a" (click)="showLessComments()"
+                                        [hidden]="!isVisible">Less comments</a></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-auto"><img src="assets/images/avatar.png" id="friend-img"></div>
+                                <div class="col">
+                                    <input type="text" placeholder="Write a comment..." class="form-control">
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-3 px-4">
+            <div class="row">
+                <div class="card">
+                    <div class="card-body">
+                        <h4>Groups on Stravia</h4>
+                        <p>Why do it alone? Get more out of your Stravia experience by joining or creating a Club.
+                        </p>
+                        <a href="">Find or create a group</a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="card">
+                    <div class="card-body">
+                        <h4>Your Friends on Stravia</h4>
+                        <p>Find and invite friends to see their adventures and share some encouragement.</p>
+                        <a href="">Find and invite Your Friends</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

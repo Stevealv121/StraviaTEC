@@ -1,0 +1,20 @@
+.line {
+    height: 1px;
+    background: #a2a2a2;
+    width: 90%;
+}
+
+/* .form-wrapper {
+    width: 30%;
+    margin: 0 10%;
+} */
+
+#activity-img {
+    height: 390px;
+    width: 300px;
+    border-radius: 5%;
+}
+
+#duration-inp:invalid {
+    background: #ff9797;
+}

@@ -1,26 +1,71 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark" id="navbar">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" routerLink="/home">StraviaTEC</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="dashboardDropdown" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Dashboard
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="dashboardDropdown">
+            <li><a class="dropdown-item" routerLink="/home">Activity Feed</a></li>
+            <li><a class="dropdown-item" href="#">My Routes</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="trainingDropdown" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Training
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="trainingDropdown">
+            <li><a class="dropdown-item" href="#">My Activities</a></li>
+            <li><a class="dropdown-item" routerLink="/upload-activity">Upload Activity</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="exploreDropdown" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Explore
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="exploreDropdown">
+            <li><a class="dropdown-item" routerLink="/groups">Groups</a></li>
+            <li><a class="dropdown-item" routerLink="/athlete-search">Athlete Search</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="exploreDropdown" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Competitive
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="exploreDropdown">
+            <li><a class="dropdown-item" routerLink="/challenges">Challenges</a></li>
+            <li><a class="dropdown-item" routerLink="/find-race">Races</a></li>
+            <li><a class="dropdown-item" routerLink="/competitions">Active Competitions</a></li>
+          </ul>
+        </li>
+      </ul>
       <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Features</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Pricing</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false"> User </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+            <li><a class="dropdown-item" href="#">Find Friends</a></li>
+            <li><a class="dropdown-item" routerLink="/profile">My profile</a></li>
+            <li><a class="dropdown-item" routerLink="/settings">Settings</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="#">Log Out</a></li>
+          </ul>
         </li>
       </ul>
     </div>
   </div>
 </nav>
 <router-outlet></router-outlet>
+<!-- <app-map></app-map> -->

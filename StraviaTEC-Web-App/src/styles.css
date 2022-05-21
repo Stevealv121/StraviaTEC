@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+
+html {
+    scroll-behavior: smooth;
+}
+
+#buttons {
+    background-color: #00AF3D;
+    border-color: #00AF3D;
+}
+
+a {
+    color: #00AF3D;
+}
+
+/* #toast-container>div {
+    opacity: 1;
+} */

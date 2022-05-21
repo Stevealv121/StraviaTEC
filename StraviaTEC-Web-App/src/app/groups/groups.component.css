@@ -1,0 +1,13 @@
+.line {
+    height: 1px;
+    background: #a2a2a2;
+}
+
+#groupCard {
+    width: 200px;
+    height: 170px;
+}
+
+/* #groupCard-body {
+    overflow-y: scroll;
+} */

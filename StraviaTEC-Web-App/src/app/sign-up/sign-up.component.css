@@ -1,0 +1,20 @@
+.login-container {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0%);
+}
+
+img {
+    height: 70%;
+    width: 70%;
+}
+
+img:hover {
+    cursor: pointer;
+}
+
+#profile-img {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+}

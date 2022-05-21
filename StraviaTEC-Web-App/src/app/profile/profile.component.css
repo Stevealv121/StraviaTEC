@@ -1,0 +1,39 @@
+.line {
+    height: 1px;
+    background: #dcdcdc;
+    width: 90%;
+}
+
+#fileInput {
+    display: none;
+}
+
+#profile-img {
+    height: 170px;
+    width: 170px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+p {
+    font-size: 20px;
+}
+
+.row:hover {
+    background-color: rgb(236, 236, 236);
+}
+
+.row {
+    width: 90%;
+    cursor: pointer;
+}
+
+.row:hover #edit-icon {
+    display: block;
+}
+
+#edit-icon {
+    height: 50px;
+    width: 50px;
+    display: none;
+}

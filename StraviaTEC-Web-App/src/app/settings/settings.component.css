@@ -1,0 +1,33 @@
+#settings-col {
+    position: relative;
+    left: 10%;
+}
+
+.delete {
+    color: #ff0000;
+}
+
+#avatar-img {
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+}
+
+#account-card {
+    background-color: #00AF3D;
+    color: #ffff;
+}
+
+.line {
+    height: 1px;
+    background: #a2a2a2;
+    width: 90%;
+}
+
+.red-line {
+
+    height: 1px;
+    background: #ff0000;
+    width: 90%;
+
+}

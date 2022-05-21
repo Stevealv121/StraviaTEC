@@ -1,0 +1,131 @@
+<div class="container">
+    <br>
+    <h2>Active Competitions</h2>
+    <div class="line"></div>
+    <br><br>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button"
+                role="tab" aria-controls="home" aria-selected="true">Home</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="races-tab" data-bs-toggle="tab" data-bs-target="#races" type="button"
+                role="tab" aria-controls="races" aria-selected="false">Races</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="challenges-tab" data-bs-toggle="tab" data-bs-target="#challenges" type="button"
+                role="tab" aria-controls="challenges" aria-selected="false">Challenges</button>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <br>
+            <div class="row mb-4">
+                <div class="col-md-2"><img src="assets/images/avatar.png" id="profilePic"></div>
+                <div class="col-md-2">
+                    <br>
+                    <div class="row" id="athleteName">
+                        FirstName LastName
+                    </div>
+                    <div class="row" id="greyText">Level</div>
+                    <div class="row" id="greyText">Birth-Date</div>
+                </div>
+            </div>
+            <div class="row">
+                The active competitions are divided into two categories. Races and Challenges. These two categories
+                allows you to
+                see all the registered competitions you have at the moment.
+                <br><br>
+                <ul>
+                    <li>Races: Leaderboards sort by best time.</li>
+                    <li>Challenges: Challenge goal, progress and expiration date.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="races" role="tabpanel" aria-labelledby="races-tab">
+            <br>
+            <ng-container *ngIf="hasRaces; else zeroRaces">
+                <div class="row mb-4" *ngFor="let race of races;let i as index">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div id="race-name" class="col">
+                                    <h4>Name</h4>
+                                    <ul>
+                                        <li>Type:asdfsd</li>
+                                        <li>Valid thru</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="accordion accordion-flush" id="accordionExample">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" [attr.id]="'headingOne'+i">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                [attr.data-bs-target]="'#collapseOne'+i" aria-expanded="false"
+                                                [attr.aria-controls]="'collapseOne'+i">
+                                                Leaderboards
+                                            </button>
+                                        </h2>
+                                        <div [attr.id]="'collapseOne'+i" class="accordion-collapse collapse"
+                                            [attr.aria-labelledby]="'headingOne'+i" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">Position</th>
+                                                            <th scope="col">Name</th>
+                                                            <th scope="col">LastName</th>
+                                                            <th scope="col">Time</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let participant of leaderboards">
+                                                            <th scope="row">1
+                                                            </th>
+                                                            <td>Mark</td>
+                                                            <td>Otto</td>
+                                                            <td>1h-12m-26s</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-template #zeroRaces>
+                <p>You don't have any race registered.</p>
+            </ng-template>
+        </div>
+        <div class="tab-pane fade" id="challenges" role="tabpanel" aria-labelledby="challenges-tab">
+            <br>
+            <ng-container *ngIf="hasChallenges; else zeroChallenges">
+                <div class="row mb-4" *ngFor="let challenge of challenges">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div id="race-name" class="col">
+                                    <h4>Name</h4>
+                                    <br>
+                                    <ul>
+                                        <li>Goal:asdfsd</li>
+                                        <li>Progress: %</li>
+                                        <li>Valid thru: date</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-template #zeroChallenges>
+                <p>You don't have any challenge registered.</p>
+            </ng-template>
+        </div>
+    </div>
+</div>

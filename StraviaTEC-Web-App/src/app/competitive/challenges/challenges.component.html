@@ -1,0 +1,28 @@
+<div class="container">
+    <br>
+    <h2>Challenges</h2>
+    <div class="line"></div>
+    <br>
+    <br>
+    <div class="row mb-4" *ngFor="let row of challengesMatrix;let i as index">
+        <div class="col-md-auto" *ngFor="let challenge of row;let j as index">
+            <div id="challengeCard" class="card">
+                <div class="card-body">
+                    <h5>Name</h5>
+                    <!-- <p>Category</p>
+                    <p>Type</p>
+                    <p>Valid thru: date</p> -->
+                    <p>Category
+                        Type
+                        Valid thru: date
+                    </p>
+                    <button class="btn btn-primary" [ngStyle]="{
+                        'background-color' : challenge.color,
+                        'color' : challenge.font
+                      }" (click)="joinChallenge(challenge.id)" id="buttons">{{challenge.btn}}</button>
+                    <!--joinChallenge(challenge.id)-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
