@@ -19,24 +19,66 @@
 
     </androidx.fragment.app.FragmentContainerView>
 
-    <Spinner
-        android:id="@+id/activitytype"
-        android:layout_width="408dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="16dp"
+    <Chronometer
+        android:id="@+id/chronometer"
+        android:layout_width="136dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginBottom="244dp"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"></Chronometer>
+
+    <Button
+        android:id="@+id/stop"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="156dp"
+        android:text="Stop"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/map" />
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/resume"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="156dp"
+        android:text="Resume"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/stop" />
+
+    <TextView
+        android:id="@+id/mileage"
+        android:layout_width="136dp"
+        android:layout_height="49dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="244dp"
+        android:text="Milleage"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/finish"
+        android:layout_width="145dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="132dp"
+        android:layout_marginBottom="16dp"
+        android:text="finish"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/start"
-        android:layout_width="136dp"
-        android:layout_height="74dp"
-        android:layout_marginBottom="68dp"
-        android:text="Begin"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="156dp"
+        android:text="Start"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/stop" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
