@@ -13,7 +13,7 @@ namespace StraviaTEC_Models
         public int Cost { get; set; }
         public DateTime Date { get; set; }
         public string Access { get; set; }
-        public string ActivityID { get; set; }
+        public int ActivityID { get; set; }
 
     }
 }

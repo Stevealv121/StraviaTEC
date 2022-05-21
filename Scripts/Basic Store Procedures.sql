@@ -55,7 +55,7 @@ SELECT *
 FROM CATEGORY
 GO
 
-CREATE PROCEDURE SelectCategoryByName @Name varchar(15), @Description varchar(15)
+CREATE PROCEDURE SelectCategoryByName @Name varchar(15)
 AS
 SELECT *
 FROM CATEGORY 
@@ -139,7 +139,7 @@ SELECT *
 FROM [GROUP]
 GO
 
-CREATE PROCEDURE SelectGroupByName @Name varchar(15), @Description varchar(15)
+CREATE PROCEDURE SelectGroupByName @Name varchar(15)
 AS
 SELECT *
 FROM [GROUP] 
@@ -257,11 +257,11 @@ SET
 WHERE Id = @Id
 GO
 
-CREATE PROCEDURE DeleteSponsor @Name varchar(15)
+CREATE PROCEDURE DeleteSponsor @Id int
 AS
 DELETE
 FROM SPONSOR
-WHERE ComercialName = @Name
+WHERE Id = @Id
 GO
 
 -- SPORT store procedures
@@ -271,7 +271,7 @@ SELECT *
 FROM SPORT
 GO
 
-CREATE PROCEDURE SelectSportByName @Name varchar(15), @Description varchar(15)
+CREATE PROCEDURE SelectSportByName @Name varchar(15)
 AS
 SELECT *
 FROM SPORT 
