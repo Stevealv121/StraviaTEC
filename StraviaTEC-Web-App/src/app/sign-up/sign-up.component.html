@@ -1,0 +1,146 @@
+<div class="container ">
+    <div class="row">
+        <div class="login-container col-lg-4 col-md-6 col-sm-8 col-xs-12">
+            <div class="login-title text-center">
+                <h2><span>Sign up</span></h2>
+            </div>
+            <div class="login-content">
+                <div class="login-header ">
+                    <h3><strong>Welcome,</strong></h3>
+                    <h5>Please enter below, the required information</h5>
+                </div>
+                <div class="login-body">
+                    <form role="form" [formGroup]="registerForm" (ngSubmit)="postForm(registerForm.value)"
+                        class="login-form">
+                        <div class="form-group ">
+                            <div class="pos-r">
+                                <input id="form-username" type="text" name="form-username" placeholder="First Name"
+                                    class="form-username form-control" formControlName="firstName">
+                                <i class="fa fa-user"></i>
+                            </div>
+                        </div>
+                        <div class="br">
+                            <br>
+                        </div>
+                        <div class="form-group ">
+                            <div class="pos-r">
+                                <input id="form-username" type="text" name="form-username" placeholder="Second Name"
+                                    class="form-username form-control" formControlName="secondName">
+                                <i class="fa fa-user"></i>
+                            </div>
+                        </div>
+                        <div class="br">
+                            <br>
+                        </div>
+                        <div class="form-group ">
+                            <div class="pos-r">
+                                <input id="form-username" type="text" name="form-username" placeholder="First Surname"
+                                    class="form-username form-control" formControlName="firstSurname">
+                                <i class="fa fa-user"></i>
+                            </div>
+                        </div>
+                        <div class="br">
+                            <br>
+                        </div>
+                        <div class="form-group ">
+                            <div class="pos-r">
+                                <input id="form-username" type="text" name="form-username" placeholder="Second Surname"
+                                    class="form-username form-control" formControlName="secondSurname">
+                                <i class="fa fa-user"></i>
+                            </div>
+                        </div>
+                        <div class="br">
+                            <br>
+                        </div>
+                        <div class="form-group ">
+                            <div class="pos-r">
+                                <input type="text" name="form-id" placeholder="Birth Date" class="form-id form-control"
+                                    formControlName="birthDate" onfocus="(this.type='date')" id="date">
+                                <i class="fa fa-user"></i>
+                            </div>
+                        </div>
+                        <div class="br">
+                            <br>
+                        </div>
+                        <div class="form-group ">
+                            <div class="pos-r">
+                                <input id="form-phone" type="text" name="form-phone" placeholder="Nationality"
+                                    class="form-phone form-control" formControlName="nationality">
+                                <i class="fa fa-user"></i>
+                            </div>
+                        </div>
+                        <div class="br">
+                            <br>
+                        </div>
+                        <div class="form-group ">
+
+                            <select [(ngModel)]="selectedOption" class="form-select" formControlName="level">
+                                <option class="dropdown-item" disabled selected value="undefined">Choose your level
+                                </option>
+                                <!-- <option *ngFor="let levels of levelOptions; let i = index" [ngValue]="levels"
+                                    class="dropdown-item">{{levels}}</option> -->
+                                <option value="Beginner">Beginner</option>
+                                <option value="Intermediate">Intermediate</option>
+                                <option value="Elite">Elite</option>
+                            </select>
+
+
+                        </div>
+                        <div class="br">
+                            <br>
+                        </div>
+                        <div class="form-group ">
+                            <div class="pos-r">
+                                <input id="form-email" type="text" name="form-email" placeholder="Username"
+                                    class="form-email form-control" formControlName="Username">
+                                <i class="fa fa-email"></i>
+                            </div>
+                        </div>
+                        <div class="br">
+                            <br>
+                        </div>
+                        <div class="form-group">
+                            <div class="pos-r">
+                                <input id="form-password" type="password" name="form-password" placeholder="Password"
+                                    class="form-password form-control" formControlName="password">
+                                <i class="fa fa-lock"></i>
+                            </div>
+                        </div>
+                        <div class="br">
+                            <br>
+                        </div>
+                        <div class="form-group">
+                            <div class="pos-r">
+                                <label class="hoverable" for="fileInput">
+                                    <h5>Choose a profile picture</h5>
+                                    <div class="br">
+                                        <br>
+                                    </div>
+                                    <img id="profile-img" [src]="url ? url :'../../assets/images/avatar.png'"
+                                        title="Choose a profile picture">
+                                    <div class="br">
+                                        <br>
+                                    </div>
+                                </label>
+                                <input id="fileInput" type="file" name="form-photo"
+                                    placeholder="Choose a profile picture" class="form-photo form-control"
+                                    formControlName="profilePicture" (change)="onSelectFile($event)">
+                            </div>
+                        </div>
+                        <div class="br">
+                            <br>
+                        </div>
+                        <div class="form-group">
+                            <button id="buttons" type="submit"
+                                class="btn btn-primary form-control"><strong>Register</strong></button>
+                        </div>
+                    </form>
+                </div> <!-- end  login-body -->
+            </div><!-- end  login-content -->
+            <div class="login-footer text-center template">
+                <h5>Already have an account? <a routerLink="/login" class="bold">Sign in</a>.</h5>
+            </div>
+        </div> <!-- end  login-container -->
+
+    </div>
+</div><!-- end container -->

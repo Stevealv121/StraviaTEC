@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { UserI } from '../models/user.interface';
+import { ResponseI } from '../models/response.interface';
 
 
 @Injectable({
@@ -19,4 +20,9 @@ export class ApiService {
     let loginPath = this.userPath + "/" + userName + "/" + password;
     return this.http.get<UserI>(loginPath)
   }
+
+  signUp(form: UserI): Observable<ResponseI> {
+    return this.http.post<ResponseI>(this.userPath, form)
+  }
+
 }
