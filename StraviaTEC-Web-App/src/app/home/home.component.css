@@ -80,3 +80,8 @@
     width: 70px;
     border-radius: 50%;
 }
+
+#map {
+    height: 500px;
+    width: 575px;
+}
