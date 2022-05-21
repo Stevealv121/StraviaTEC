@@ -1,5 +1,5 @@
 ﻿
-namespace StraviaTEC_Data
+namespace StraviaTEC_API
 {
     public class SQLConfig
     {

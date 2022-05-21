@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using StraviaTEC_Data;
 using StraviaTEC_Models;
 using System.Data;
 using System.Data.SqlClient;

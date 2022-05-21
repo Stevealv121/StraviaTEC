@@ -219,31 +219,6 @@
             "rid": "win"
           }
         }
-      },
-      "StraviaTEC_Data/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
-        "dependencies": {
-          "Dapper": "2.0.123",
-          "StraviaTEC_Models": "1.0.0",
-          "System.Data.SqlClient": "4.8.3"
-        },
-        "compile": {
-          "bin/placeholder/StraviaTEC_Data.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/StraviaTEC_Data.dll": {}
-        }
-      },
-      "StraviaTEC_Models/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
-        "compile": {
-          "bin/placeholder/StraviaTEC_Models.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/StraviaTEC_Models.dll": {}
-        }
       }
     }
   },
@@ -730,23 +705,14 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
-    },
-    "StraviaTEC_Data/1.0.0": {
-      "type": "project",
-      "path": "../StraviaTEC_Data/StraviaTEC_Data.csproj",
-      "msbuildProject": "../StraviaTEC_Data/StraviaTEC_Data.csproj"
-    },
-    "StraviaTEC_Models/1.0.0": {
-      "type": "project",
-      "path": "../StraviaTEC_Models/StraviaTEC_Models.csproj",
-      "msbuildProject": "../StraviaTEC_Models/StraviaTEC_Models.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "Dapper >= 2.0.123",
       "Newtonsoft.Json >= 13.0.1",
-      "StraviaTEC_Data >= 1.0.0",
-      "Swashbuckle.AspNetCore >= 6.2.3"
+      "Swashbuckle.AspNetCore >= 6.2.3",
+      "System.Data.SqlClient >= 4.8.3"
     ]
   },
   "packageFolders": {
@@ -780,11 +746,7 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {
-            "C:\\Users\\User\\Desktop\\IS2021\\TecAIR repo\\StraviaTEC\\StraviaTEC_API\\StraviaTEC_Data\\StraviaTEC_Data.csproj": {
-              "projectPath": "C:\\Users\\User\\Desktop\\IS2021\\TecAIR repo\\StraviaTEC\\StraviaTEC_API\\StraviaTEC_Data\\StraviaTEC_Data.csproj"
-            }
-          }
+          "projectReferences": {}
         }
       },
       "warningProperties": {
@@ -797,6 +759,10 @@
       "net6.0": {
         "targetAlias": "net6.0",
         "dependencies": {
+          "Dapper": {
+            "target": "Package",
+            "version": "[2.0.123, )"
+          },
           "Newtonsoft.Json": {
             "target": "Package",
             "version": "[13.0.1, )"
@@ -804,6 +770,10 @@
           "Swashbuckle.AspNetCore": {
             "target": "Package",
             "version": "[6.2.3, )"
+          },
+          "System.Data.SqlClient": {
+            "target": "Package",
+            "version": "[4.8.3, )"
           }
         },
         "imports": [
