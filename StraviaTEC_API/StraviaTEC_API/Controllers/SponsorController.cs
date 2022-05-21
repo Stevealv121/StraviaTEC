@@ -1,34 +1,51 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using StraviaTEC_Data.Repositories;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using StraviaTEC_Data;
 using StraviaTEC_Models;
-
+using System.Data;
+using System.Data.SqlClient;
+using Dapper;
 namespace StraviaTEC_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class SponsorController : Controller
     {
-        private readonly ISponsor _repository;
+        private SQLConfig connectionStr;
 
-        public SponsorController(ISponsor service)
+        public SponsorController(SQLConfig connectionString)
         {
-            _repository = service;
+            connectionStr = connectionString;
+        }
+
+        protected SqlConnection dbConnection()
+        {
+            return new SqlConnection(connectionStr.ConnectionStr);
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await _repository.GetAll());
+            var db = dbConnection();
+            var sql = @"EXEC SelectAllSponsors";
+            return Ok(await db.QueryAsync<Sponsor>(sql, new { }));
         }
         [HttpGet("ById/{ID}")]
         public async Task<IActionResult> GetbyId(int ID)
         {
-            return Ok(await _repository.GetbyId(ID));
+            var db = dbConnection();
+            var sql = @"EXEC SelectSponsorById @Id = @id";
+            return Ok(await db.QueryFirstOrDefaultAsync<Sponsor>(sql, new { id = ID }));
+
         }
-        [HttpGet("ByName/{Name}")]
-        public async Task<IActionResult> GetbyName(string Name)
+        [HttpGet("ByName/{_name}")]
+        public async Task<IActionResult> GetbyName(string _name)
         {
-            return Ok(await _repository.GetbyName(Name));
+            var db = dbConnection();
+            var sql = @"EXEC SelectSponsorByName @Name = @name";
+            return Ok(await db.QueryFirstOrDefaultAsync<Sponsor>(sql, new { name = _name }));
+
         }
 
         [HttpPost]
@@ -39,9 +56,10 @@ namespace StraviaTEC_API.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var created = await _repository.Insert(newObj);
+            var db = dbConnection();
+            var result = db.Execute("InsertSponsor", newObj, commandType: CommandType.StoredProcedure);
 
-            return Created("created", created);
+            return Created("created", result > 0);
         }
 
         [HttpPut]
@@ -52,15 +70,19 @@ namespace StraviaTEC_API.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            await _repository.Update(_obj);
+            var db = dbConnection();
+            db.Execute("UpdateSponsor", _obj, commandType: CommandType.StoredProcedure);
 
             return NoContent();
         }
+
         [HttpDelete("ById/{ID}")]
         public async Task<IActionResult> Delete(int ID)
         {
 
-            await _repository.Delete(new Sponsor { Id = ID });
+            var db = dbConnection();
+            var sql = @"DeleteSponsor @Id = @_id";
+            var result = await db.ExecuteAsync(sql, new { _id = ID });
 
             return NoContent();
         }

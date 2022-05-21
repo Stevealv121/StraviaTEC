@@ -1,30 +1,42 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using StraviaTEC_Data.Repositories;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using StraviaTEC_Data;
 using StraviaTEC_Models;
-
+using System.Data;
+using System.Data.SqlClient;
+using Dapper;
 namespace StraviaTEC_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : Controller
     {
-        private readonly IUser _repository;
+        private SQLConfig connectionStr;
 
-        public UserController(IUser service)
+        public UserController(SQLConfig connectionString)
         {
-            _repository = service;
+            connectionStr = connectionString;
+        }
+
+        protected SqlConnection dbConnection()
+        {
+            return new SqlConnection(connectionStr.ConnectionStr);
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await _repository.GetAll());
+            var db = dbConnection();
+            var sql = @"EXEC SelectAllUsers";
+            return Ok(await db.QueryAsync<User>(sql, new { }));
         }
-        
-        [HttpGet("ByUsername/{Username}/{Password}")]
-        public async Task<IActionResult> GetbyUsername(string Username, string Password)
+        [HttpGet("Account/{_username}/{_password}")]
+        public async Task<IActionResult> GetbyName(string _username, string _password)
         {
-            return Ok(await _repository.GetUserDetails(Username, Password));
+            var db = dbConnection();
+            var sql = @"EXEC SelectUserByUsername @UserName = @username, @Password = @password";
+            return Ok(await db.QueryFirstOrDefaultAsync<User>(sql, new { username = _username, password = _password }));
         }
 
         [HttpPost]
@@ -35,10 +47,12 @@ namespace StraviaTEC_API.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var created = await _repository.Insert(newObj);
+            var db = dbConnection();
+            var result = db.Execute("InsertUser", newObj, commandType: CommandType.StoredProcedure);
 
-            return Created("created", created);
+            return Created("created", result > 0);
         }
+        
 
         [HttpPut]
         public async Task<IActionResult> Update([FromBody] User _obj)
@@ -48,17 +62,41 @@ namespace StraviaTEC_API.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            await _repository.Update(_obj);
+            var db = dbConnection();
+            db.Execute("UpdateUser", _obj, commandType: CommandType.StoredProcedure);
 
             return NoContent();
         }
-        [HttpDelete("ByUsername/{Username}/{Password}")]
-        public async Task<IActionResult> Delete(string Username, string Password)
+
+        [HttpDelete("Account/{_username}/{_password}")]
+        public async Task<IActionResult> Delete(string _username, string _password)
         {
 
-            await _repository.Delete(new User { UserName = Username, Password = Password });
+            var db = dbConnection();
+            var sql = @"EXEC DeleteUser @UserName = @username, @Password = @password";
+            var result = await db.ExecuteAsync(sql, new { username = _username, password = _password });
 
             return NoContent();
+        }
+        [HttpPost("AddFriend")]
+        public async Task<IActionResult> AddFriend([FromBody] Adds newObj)
+        {
+            if (newObj == null)
+                return BadRequest();
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var db = dbConnection();
+            var result = db.Execute("InsertAdds", newObj, commandType: CommandType.StoredProcedure);
+
+            return Created("created", result > 0);
+        } 
+        [HttpGet("FriendsList")]
+        public async Task<IActionResult> GetFriends(string _username)
+        {
+            var db = dbConnection();
+            var sql = @"EXEC SelectFriendsList @UserName = @username";
+            return Ok(await db.QueryFirstOrDefaultAsync<Adds>(sql, new { username = _username }));
         }
     }
 }

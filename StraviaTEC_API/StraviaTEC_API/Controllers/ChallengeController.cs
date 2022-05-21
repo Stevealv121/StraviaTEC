@@ -1,6 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using StraviaTEC_Data.Repositories;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using StraviaTEC_Data;
 using StraviaTEC_Models;
+using System.Data;
+using System.Data.SqlClient;
+using Dapper;
 
 namespace StraviaTEC_API.Controllers
 {
@@ -8,23 +13,40 @@ namespace StraviaTEC_API.Controllers
     [ApiController]
     public class ChallengeController : Controller
     {
-        private readonly IChallenge _repository;
+        private SQLConfig connectionStr;
 
-        public ChallengeController(IChallenge service)
+        public ChallengeController(SQLConfig connectionString)
         {
-            _repository = service;
+            connectionStr = connectionString;
+        }
+
+        protected SqlConnection dbConnection()
+        {
+            return new SqlConnection(connectionStr.ConnectionStr);
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await _repository.GetAll());
+            var db = dbConnection();
+            var sql = @"EXEC SelectAllChallenges";
+            return Ok(await db.QueryAsync<Challenge>(sql, new { }));
         }
-
-        [HttpGet("ByName/{Name}")]
-        public async Task<IActionResult> GetbyName(string Name)
+        [HttpGet("ById/{ID}")]
+        public async Task<IActionResult> GetbyId(int ID)
         {
-            return Ok(await _repository.GetbyName(Name));
+            var db = dbConnection();
+            var sql = @"EXEC SelectChallengeById @Id = @id";
+            return Ok(await db.QueryFirstOrDefaultAsync<Challenge>(sql, new { id = ID }));
+
+        }
+        [HttpGet("ByName/{_name}")]
+        public async Task<IActionResult> GetbyName(string _name)
+        {
+            var db = dbConnection();
+            var sql = @"EXEC SelectChallengeByName @Name = @name";
+            return Ok(await db.QueryFirstOrDefaultAsync<Challenge>(sql, new { name = _name }));
+
         }
 
         [HttpPost]
@@ -35,9 +57,10 @@ namespace StraviaTEC_API.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var created = await _repository.Insert(newObj);
+            var db = dbConnection();
+            var result = db.Execute("InsertChallenge", newObj, commandType: CommandType.StoredProcedure);
 
-            return Created("created", created);
+            return Created("created", result > 0);
         }
 
         [HttpPut]
@@ -48,15 +71,19 @@ namespace StraviaTEC_API.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            await _repository.Update(_obj);
+            var db = dbConnection();
+            db.Execute("UpdateChallenge", _obj, commandType: CommandType.StoredProcedure);
 
             return NoContent();
         }
-        [HttpDelete("ByName/{Name}")]
-        public async Task<IActionResult> Delete(string Name)
+
+        [HttpDelete("ById/{ID}")]
+        public async Task<IActionResult> Delete(int ID)
         {
 
-            await _repository.Delete(new Challenge { Name = Name });
+            var db = dbConnection();
+            var sql = @"DeleteChallenge @Id = @_id";
+            var result = await db.ExecuteAsync(sql, new { _id = ID });
 
             return NoContent();
         }

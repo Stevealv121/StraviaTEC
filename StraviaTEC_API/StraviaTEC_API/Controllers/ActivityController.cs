@@ -1,33 +1,44 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using StraviaTEC_Data.Repositories;
+using StraviaTEC_Data;
 using StraviaTEC_Models;
 using System.Data;
 using System.Data.SqlClient;
-
+using Dapper;
 namespace StraviaTEC_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class ActivityController : Controller
     {
-        private readonly IActivity _repository;
+        
+        private SQLConfig connectionStr;
 
-        public ActivityController(IActivity service)
+        public ActivityController(SQLConfig connectionString)
         {
-            _repository = service;
+            connectionStr = connectionString;
         }
-       
+
+        protected SqlConnection dbConnection()
+        {
+            return new SqlConnection(connectionStr.ConnectionStr);
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await _repository.GetAll());
+            var db = dbConnection();
+            var sql = @"EXEC SelectAllActivities";
+            return Ok(await db.QueryAsync<Activity>(sql, new { }));
         }
         [HttpGet("ById/{ID}")]
         public async Task<IActionResult> GetbyId(int ID)
         {
-            return Ok(await _repository.GetbyId(ID));
+            var db = dbConnection();
+            var sql = @"EXEC SelectActivityById @Id = @id";
+            return Ok(await db.QueryFirstOrDefaultAsync<Activity>(sql, new { id = ID }));
+            
         }
         
         [HttpPost]
@@ -38,11 +49,12 @@ namespace StraviaTEC_API.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var created = await _repository.Insert(newObj);
+            var db = dbConnection();
+            var result = db.Execute("InsertActivity", newObj, commandType: CommandType.StoredProcedure);
 
-            return Created("created", created);
+            return Created("created", result>0);
         }
-
+        
         [HttpPut]
         public async Task<IActionResult> Update([FromBody] Activity _obj)
         {
@@ -51,15 +63,19 @@ namespace StraviaTEC_API.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            await _repository.Update(_obj);
+            var db = dbConnection();
+            db.Execute("UpdateActivity", _obj, commandType: CommandType.StoredProcedure);
 
             return NoContent();
         }
+        
         [HttpDelete("ById/{ID}")]
         public async Task<IActionResult> Delete(int ID)
         {
 
-            await _repository.Delete(new Activity { Id = ID });
+            var db = dbConnection();
+            var sql = @"DeleteActivity @Id = @_id";
+            var result = await db.ExecuteAsync(sql, new { _id = ID });
 
             return NoContent();
         }

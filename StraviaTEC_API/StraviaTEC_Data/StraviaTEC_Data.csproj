@@ -15,4 +15,8 @@
     <ProjectReference Include="..\StraviaTEC_Models\StraviaTEC_Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Repositories\" />
+  </ItemGroup>
+
 </Project>

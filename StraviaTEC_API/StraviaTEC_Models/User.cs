@@ -1,6 +1,4 @@
-﻿using System;
-using System.Data.SqlClient;
-
+﻿
 namespace StraviaTEC_Models
 {
     public class User

@@ -1,30 +1,43 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using StraviaTEC_Data.Repositories;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using StraviaTEC_Data;
 using StraviaTEC_Models;
-
+using System.Data;
+using System.Data.SqlClient;
+using Dapper;
 namespace StraviaTEC_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class CategoryController : Controller
     {
-        private readonly ICategory _repository;
+        private SQLConfig connectionStr;
 
-        public CategoryController(ICategory service)
+        public CategoryController(SQLConfig connectionString)
         {
-            _repository = service;
+            connectionStr = connectionString;
+        }
+
+        protected SqlConnection dbConnection()
+        {
+            return new SqlConnection(connectionStr.ConnectionStr);
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await _repository.GetAll());
+            var db = dbConnection();
+            var sql = @"EXEC SelectAllCategories";
+            return Ok(await db.QueryAsync<Category>(sql, new { }));
         }
-        
-        [HttpGet("ByName/{Name}")]
-        public async Task<IActionResult> GetbyName(string Name)
+        [HttpGet("ByName/{_name}")]
+        public async Task<IActionResult> GetbyId(string _name)
         {
-            return Ok(await _repository.GetbyName(Name));
+            var db = dbConnection();
+            var sql = @"EXEC SelectCategoryByName @Name = @name";
+            return Ok(await db.QueryFirstOrDefaultAsync<Category>(sql, new { name = _name }));
+
         }
 
         [HttpPost]
@@ -35,9 +48,10 @@ namespace StraviaTEC_API.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var created = await _repository.Insert(newObj);
+            var db = dbConnection();
+            var result = db.Execute("InsertCategory", newObj, commandType: CommandType.StoredProcedure);
 
-            return Created("created", created);
+            return Created("created", result > 0);
         }
 
         [HttpPut]
@@ -48,17 +62,22 @@ namespace StraviaTEC_API.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            await _repository.Update(_obj);
+            var db = dbConnection();
+            db.Execute("UpdateCategory", _obj, commandType: CommandType.StoredProcedure);
 
             return NoContent();
         }
-        [HttpDelete("ByName/{Name}")]
-        public async Task<IActionResult> Delete(string Name)
+
+        [HttpDelete("ByName/{_name}")]
+        public async Task<IActionResult> Delete(string _name)
         {
 
-            await _repository.Delete(new Category { Name = Name });
+            var db = dbConnection();
+            var sql = @"DeleteCategory @Name = @name";
+            var result = await db.ExecuteAsync(sql, new { name = _name });
 
             return NoContent();
         }
     }
 }
+
