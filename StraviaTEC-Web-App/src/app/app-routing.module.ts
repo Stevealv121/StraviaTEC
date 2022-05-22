@@ -18,6 +18,8 @@ import { ChallengeComponent } from './challenge/challenge.component';
 import { CompetitionComponent } from './competition/competition.component';
 import { NewCompetitionComponent } from './competition/new-competition/new-competition.component';
 import { NewChallengeComponent } from './challenge/new-challenge/new-challenge.component';
+import { EditCompetitionComponent } from './competition/edit-competition/edit-competition.component';
+import { EditChallengeComponent } from './challenge/edit-challenge/edit-challenge.component';
 
 const routes: Routes = [
   { path: "", pathMatch: "full", redirectTo: "/login" },
@@ -37,7 +39,9 @@ const routes: Routes = [
   { path: "challenge", component: ChallengeComponent},
   { path: "competition", component: CompetitionComponent},
   { path: "NewCompetition", component: NewCompetitionComponent},
-  { path: "NewChallenge", component: NewChallengeComponent}
+  { path: "NewChallenge", component: NewChallengeComponent},
+  { path: "EditRace", component: EditCompetitionComponent},
+  { path: "EditChallenge", component: EditChallengeComponent}
 ];
 
 @NgModule({

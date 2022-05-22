@@ -24,6 +24,8 @@ import { ChallengeComponent } from './challenge/challenge.component';
 import { CompetitionComponent } from './competition/competition.component';
 import { NewCompetitionComponent } from './competition/new-competition/new-competition.component';
 import { NewChallengeComponent } from './challenge/new-challenge/new-challenge.component';
+import { EditChallengeComponent } from './challenge/edit-challenge/edit-challenge.component';
+import { EditCompetitionComponent } from './competition/edit-competition/edit-competition.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { NewChallengeComponent } from './challenge/new-challenge/new-challenge.c
     ChallengeComponent,
     CompetitionComponent,
     NewCompetitionComponent,
-    NewChallengeComponent
+    NewChallengeComponent,
+    EditChallengeComponent,
+    EditCompetitionComponent
   ],
   imports: [
     BrowserModule,
