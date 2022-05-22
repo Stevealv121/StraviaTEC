@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using StraviaTEC_Models;
 using System.Data;
 using System.Data.SqlClient;
 using Dapper;
@@ -84,16 +83,29 @@ namespace StraviaTEC_API.Controllers
                 return BadRequest(ModelState);
 
             var db = dbConnection();
-            var result = db.Execute("InsertAdds", newObj, commandType: CommandType.StoredProcedure);
+            var result = db.Execute("AddFriend", newObj, commandType: CommandType.StoredProcedure);
 
             return Created("created", result > 0);
-        } 
+        }
+        [HttpDelete("DeleteFriend")]
+        public async Task<IActionResult> DeleteFriend([FromBody] Adds newObj)
+        {
+            if (newObj == null)
+                return BadRequest();
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var db = dbConnection();
+            var result = db.Execute("DeleteFriend", newObj, commandType: CommandType.StoredProcedure);
+
+            return Created("created", result > 0);
+        }
         [HttpGet("FriendsList")]
         public async Task<IActionResult> GetFriends(string _username)
         {
             var db = dbConnection();
-            var sql = @"EXEC SelectFriendsList @UserName = @username";
-            return Ok(await db.QueryFirstOrDefaultAsync<Adds>(sql, new { username = _username }));
+            var sql = @"EXEC SelectFriendlist @UserName = @username";
+            return Ok(await db.QueryAsync<FriendView>(sql, new { username = _username }));
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
 using System.Xml;
-namespace StraviaTEC_Models
+namespace StraviaTEC_API
 {
     public class Activity
     {

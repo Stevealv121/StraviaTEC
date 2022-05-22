@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StraviaTEC_Models
+namespace StraviaTEC_API
 {
-    public class Category
+    public class Group
     {
         public string Name { get; set; }
         public string Description { get; set; }
+
     }
 }
