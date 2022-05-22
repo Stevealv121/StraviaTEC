@@ -7,7 +7,7 @@
     tools:context=".ActivitySetup">
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/activities"
         android:layout_width="388dp"
         android:layout_height="82dp"
         android:layout_marginTop="160dp"
@@ -36,7 +36,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+        app:layout_constraintTop_toBottomOf="@+id/activities" />
 
     <TextView
         android:id="@+id/date"
