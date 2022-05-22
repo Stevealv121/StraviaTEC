@@ -2,9 +2,13 @@
   <div class="carousel-indicators">
     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
   </div>
   <div class="carousel-inner">
     <div id="item1" class="carousel-item active">
+      <div class="row">
+        <h1 id="Title">Challenges</h1>
+      </div>
       <div id="row1" class="row">
         <div class="col">
           <div id="groupCard" class="card">
@@ -29,6 +33,9 @@
       </div>
     </div>
     <div id="item2" class="carousel-item">
+      <div class="row">
+        <h1 id="Title">Races</h1>
+      </div>
       <div id="row1" class="row">
         <div class="col">
           <div id="groupCard" class="card">
@@ -45,6 +52,33 @@
             <div class="card-body" id="groupCard-body">
                 <h5>My Races</h5>
                 <p>See all the contests you have created. Check the invoices of the participants, edit a contest or delete it!
+                </p>
+                <button id="buttons"class="btn btn-primary" routerLink="/competition">Go</button>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="item3" class="carousel-item">
+      <div class="row">
+        <h1 id="Title">Groups</h1>
+      </div>
+      <div id="row1" class="row">
+        <div class="col">
+          <div id="groupCard" class="card">
+            <div class="card-body" id="groupCard-body">
+              <h5>Create a Group</h5>
+              <p>Create a new group with your friends or another people! You can share your activities with your closefriends!
+              </p>
+              <button id="buttons"class="btn btn-primary" routerLink="/NewCompetition">Go</button>
+              </div>
+          </div>
+        </div>
+        <div class="col">
+          <div id="groupCard" class="card">
+            <div class="card-body" id="groupCard-body">
+                <h5>Group Management</h5>
+                <p>Check all the groups you have created.
                 </p>
                 <button id="buttons"class="btn btn-primary" routerLink="/competition">Go</button>
               </div>

@@ -26,6 +26,7 @@ import { NewCompetitionComponent } from './competition/new-competition/new-compe
 import { NewChallengeComponent } from './challenge/new-challenge/new-challenge.component';
 import { EditChallengeComponent } from './challenge/edit-challenge/edit-challenge.component';
 import { EditCompetitionComponent } from './competition/edit-competition/edit-competition.component';
+import { InfoRaceComponent } from './competition/info-race/info-race.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { EditCompetitionComponent } from './competition/edit-competition/edit-co
     NewCompetitionComponent,
     NewChallengeComponent,
     EditChallengeComponent,
-    EditCompetitionComponent
+    EditCompetitionComponent,
+    InfoRaceComponent
   ],
   imports: [
     BrowserModule,
