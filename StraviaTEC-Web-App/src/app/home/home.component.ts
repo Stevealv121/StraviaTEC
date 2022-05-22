@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
 
   constructor() { }
   routeMap: string = "assets/images/route-map.png";
-  friendsActivity: number[] = [1, 2, 3];
+  friendsActivity = [{ name: "x", id: "1" }, { name: "x", id: "2" }, { name: "x", id: "3" }]
   friendImage: string = "assets/images/avatar.png";
   isVisible: boolean = false;
   topComments: number[] = [1, 2];
@@ -35,13 +35,20 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.checkIfHasComments();
-    this.displayMap();
+    this.loadAllRoutes();
   }
 
-  displayMap(/*id*/) {
+  loadAllRoutes() {
+    for (let i = 0; i < this.friendsActivity.length; i++) {
+      var indexToString = (i + 1).toString();
+      this.displayMap('map' + indexToString);
+    }
+  }
+
+  displayMap(mapId: string) {
 
     setTimeout(() => {
-      const container = document.getElementById('map');
+      const container = document.getElementById(mapId);
       if (container) {
         var myStyle = {
           "color": "#3949AB",
@@ -49,7 +56,7 @@ export class HomeComponent implements OnInit {
           "opacity": 0.95
         };
 
-        var map = L.map('map').setView(defaultCoords, defaultZoom);
+        var map = L.map(mapId).setView(defaultCoords, defaultZoom);
 
         map.maxZoom = 100;
 
