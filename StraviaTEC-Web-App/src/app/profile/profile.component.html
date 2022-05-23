@@ -26,10 +26,17 @@
             <div class="col-md-3">
                 <p>First Name</p>
             </div>
-            <div class="col">
-                <p><strong>apiInfo</strong></p>
+            <div class="col" (click)="edit('firstName')">
+                <p #FND><strong>apiInfo</strong></p>
+                <input #FNI type="text" hidden>
             </div>
-            <div class="col" id="edit-col">
+            <div #FNS class="col-md-auto" hidden>
+                <button class="btn btn-primary" id="buttons">Save</button>
+            </div>
+            <div #FNC class="col" hidden>
+                <button class="btn-close" (click)="cancel('firstName')"></button>
+            </div>
+            <div #FNE class="col" id="edit-col" (click)="edit('firstName')">
                 <img src="assets/images/edit.png" alt="edit" id="edit-icon">
             </div>
         </div>
@@ -40,10 +47,17 @@
             <div class="col-md-3">
                 <p>Second Name</p>
             </div>
-            <div class="col">
-                <p><strong>apiInfo</strong></p>
+            <div class="col" (click)="edit('secondName')">
+                <p #SND><strong>apiInfo</strong></p>
+                <input #SNI type="text" hidden>
             </div>
-            <div class="col" id="edit-col">
+            <div #SNS class="col-md-auto" hidden>
+                <button class="btn btn-primary" id="buttons">Save</button>
+            </div>
+            <div #SNC class="col" hidden>
+                <button class="btn-close" (click)="cancel('secondName')"></button>
+            </div>
+            <div #SNE class="col" id="edit-col" (click)="edit('secondName')">
                 <img src="assets/images/edit.png" alt="edit" id="edit-icon">
             </div>
         </div>
@@ -54,10 +68,17 @@
             <div class="col-md-3">
                 <p>First Surname</p>
             </div>
-            <div class="col">
-                <p><strong>apiInfo</strong></p>
+            <div class="col" (click)="edit('firstSurname')">
+                <p #FSD><strong>apiInfo</strong></p>
+                <input #FSI type="text" hidden>
             </div>
-            <div class="col" id="edit-col">
+            <div #FSS class="col-md-auto" hidden>
+                <button class="btn btn-primary" id="buttons">Save</button>
+            </div>
+            <div #FSC class="col" hidden>
+                <button class="btn-close" (click)="cancel('firstSurname')"></button>
+            </div>
+            <div #FSE class="col" id="edit-col" (click)="edit('firstSurname')">
                 <img src="assets/images/edit.png" alt="edit" id="edit-icon">
             </div>
         </div>
@@ -68,10 +89,17 @@
             <div class="col-md-3">
                 <p>Second Surname</p>
             </div>
-            <div class="col">
-                <p><strong>apiInfo</strong></p>
+            <div class="col" (click)="edit('secondSurname')">
+                <p #SSD><strong>apiInfo</strong></p>
+                <input #SSI type="text" hidden>
             </div>
-            <div class="col" id="edit-col">
+            <div #SSS class="col-md-auto" hidden>
+                <button class="btn btn-primary" id="buttons">Save</button>
+            </div>
+            <div #SSC class="col" hidden>
+                <button class="btn-close" (click)="cancel('secondSurname')"></button>
+            </div>
+            <div #SSE class="col" id="edit-col" (click)="edit('secondSurname')">
                 <img src="assets/images/edit.png" alt="edit" id="edit-icon">
             </div>
         </div>
@@ -82,10 +110,17 @@
             <div class="col-md-3">
                 <p>Birth Date</p>
             </div>
-            <div class="col">
-                <p><strong>apiInfo</strong></p>
+            <div class="col" (click)="edit('birthDate')">
+                <p #BDD><strong>apiInfo</strong></p>
+                <input #BDI type="date" hidden>
             </div>
-            <div class="col" id="edit-col">
+            <div #BDS class="col-md-auto" hidden>
+                <button class="btn btn-primary" id="buttons">Save</button>
+            </div>
+            <div #BDC class="col" hidden>
+                <button class="btn-close" (click)="cancel('birthDate')"></button>
+            </div>
+            <div #BDE class="col" id="edit-col" (click)="edit('birthDate')">
                 <img src="assets/images/edit.png" alt="edit" id="edit-icon">
             </div>
         </div>
@@ -96,10 +131,17 @@
             <div class="col-md-3">
                 <p>Nationality</p>
             </div>
-            <div class="col">
-                <p><strong>apiInfo</strong></p>
+            <div class="col" (click)="edit('nationality')">
+                <p #ND><strong>apiInfo</strong></p>
+                <input #NI type="text" hidden>
             </div>
-            <div class="col" id="edit-col">
+            <div #NS class="col-md-auto" hidden>
+                <button class="btn btn-primary" id="buttons">Save</button>
+            </div>
+            <div #NC class="col" hidden>
+                <button class="btn-close" (click)="cancel('nationality')"></button>
+            </div>
+            <div #NE class="col" id="edit-col" (click)="edit('nationality')">
                 <img src="assets/images/edit.png" alt="edit" id="edit-icon">
             </div>
         </div>
@@ -110,10 +152,23 @@
             <div class="col-md-3">
                 <p>Level</p>
             </div>
-            <div class="col">
-                <p><strong>apiInfo</strong></p>
+            <div class="col" (click)="edit('level')">
+                <p #LD><strong>apiInfo</strong></p>
+                <select #LI hidden>
+                    <option class="dropdown-item" disabled selected value="undefined">Choose your level
+                    </option>
+                    <option value="Beginner">Beginner</option>
+                    <option value="Intermediate">Intermediate</option>
+                    <option value="Elite">Elite</option>
+                </select>
             </div>
-            <div class="col" id="edit-col">
+            <div #LS class="col-md-auto" hidden>
+                <button class="btn btn-primary" id="buttons">Save</button>
+            </div>
+            <div #LC class="col" hidden>
+                <button class="btn-close" (click)="cancel('level')"></button>
+            </div>
+            <div #LE class="col" id="edit-col" (click)="edit('level')">
                 <img src="assets/images/edit.png" alt="edit" id="edit-icon">
             </div>
         </div>

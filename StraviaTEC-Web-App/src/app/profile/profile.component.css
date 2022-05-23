@@ -37,3 +37,22 @@ p {
     width: 50px;
     display: none;
 }
+
+[hidden] {
+    display: none !important;
+}
+
+input {
+    border: 0;
+    border-bottom: 1px solid #00AF3D;
+    background: transparent;
+    width: 90%;
+    padding: 8px 0 5px 0;
+    font-size: 15px;
+}
+
+input:focus {
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #00AF3D;
+}
