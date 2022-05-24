@@ -1,53 +1,40 @@
 package com.example.straviatec_mobile;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.location.Location;
+import android.location.LocationManager;
+import android.location.LocationListener;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polyline;
-import com.google.android.gms.maps.model.PolylineOptions;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 
-import java.util.List;
-
-public class Map extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener,
-        com.google.android.gms.location.LocationListener {
+public class Map extends AppCompatActivity implements OnMapReadyCallback {
 
     SupportMapFragment mapFragment;
     private Chronometer chronometer;
     private boolean running;
     private long offset;
-    private Button start,stop,resume;
-    private GoogleMap mMap;
-
-    private Polyline track;
-    private GoogleApiClient googleApiClient;
-    private LatLng last;
+    private Button start, stop, resume;
+    private LocationListener locationListener;
+    private LocationManager locationManager;
+    private final long MIN_TIME = 1000;
+    private final long MIN_DIST = 5;
+    private GoogleMap nMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,61 +51,47 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Google
         stop.setVisibility(View.INVISIBLE);
         resume.setVisibility(View.INVISIBLE);
 
-        if (googleApiClient == null) {
-            googleApiClient = new GoogleApiClient.Builder(this)
-                    .addConnectionCallbacks(this)
-                    .addOnConnectionFailedListener(this)
-                    .addApi(LocationServices.API)
-                    .build();
-        }
-
-
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PackageManager.PERMISSION_GRANTED);
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, PackageManager.PERMISSION_GRANTED);
     }
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
+        nMap = googleMap;
+        locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(@NonNull Location location) {
+                try {
+                    LatLng mylocation = new LatLng(location.getLatitude(),location.getLongitude());
+                    nMap.addMarker(new MarkerOptions().position(mylocation).title("Marker in house"));
+                    nMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mylocation, 20));
+                }catch(SecurityException ex){
+                    ex.printStackTrace();
+                }
+            }
+            @Override
+            public void onProviderEnabled(@NonNull String provider) {
 
-        mMap = googleMap;
-        PolylineOptions polylineOptions = new PolylineOptions();
-        polylineOptions.color(Color.RED);
-        polylineOptions.width(10);
-        track = mMap.addPolyline(polylineOptions);
+            }
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) !=
-                PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
+            @Override
+            public void onProviderDisabled(@NonNull String provider) {
+
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+
+            }
+
+        };
+        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+        try {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME, MIN_DIST, locationListener);
+        }catch(SecurityException ex){
+            ex.printStackTrace();
         }
-
-        mMap = googleMap;
-        mMap.setMinZoomPreference(6.6f);
-        mMap.setMaxZoomPreference(20.20f);
-        mMap.setMyLocationEnabled(true);
-        mMap.getUiSettings().setMyLocationButtonEnabled(true);
-
-        LocationServices.getFusedLocationProviderClient(this).getLastLocation()
-                .addOnSuccessListener(new OnSuccessListener<Location>() {
-                    @Override
-                    public void onSuccess(Location location) {
-                        if (location != null){
-                            Log.i("test", "successful");
-
-                            LatLng atual = new LatLng(location.getLatitude(), location.getLongitude());
-                            mMap.addMarker(new MarkerOptions().position(atual).title("Current Location"));
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(atual, 15));
-
-                        }else {
-                            Log.i("teste", "unsuccessful");
-                        }
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-
-                    }
-                });
-
     }
 
     public void startActivity(View view) {
@@ -153,82 +126,5 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Google
         startActivity(myintent);
     }
 
-
-    @Override
-    protected void onStart() {
-        googleApiClient.connect();
-        super.onStart();
-    }
-
-    @Override
-    protected void onStop() {
-        googleApiClient.disconnect();
-        super.onStop();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        stopLocationUpdates();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (googleApiClient.isConnected()) {
-            startLocationUpdates();
-        }
-    }
-
-    @Override
-    public void onConnected(@Nullable Bundle bundle) {
-        if (googleApiClient.isConnected()) {
-            startLocationUpdates();
-        }
-
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
-    }
-
-    @Override
-    public void onLocationChanged(@NonNull Location location) {
-        last = new LatLng(location.getLatitude(), location.getLongitude());
-        updateTrack();
-
-    }
-    protected void startLocationUpdates() {
-        LocationRequest locationRequest = new LocationRequest();
-        locationRequest.setInterval(15 * 1000);
-        locationRequest.setFastestInterval(5 * 1000);
-        locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
-
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) !=
-                PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
-    }
-
-    protected void stopLocationUpdates() {
-        LocationServices.FusedLocationApi.removeLocationUpdates(
-                googleApiClient, this);
-    }
-
-    private void updateTrack() {
-        List<LatLng> points = track.getPoints();
-        points.add(last);
-        track.setPoints(points);
-
-    }
 
 }
