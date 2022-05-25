@@ -51,7 +51,7 @@ GO
 
 CREATE PROCEDURE SelectAllCategories
 AS
-SELECT * 
+SELECT [Name] 
 FROM CATEGORY
 GO
 
@@ -135,7 +135,7 @@ GO
 -- GROUP store procedures
 CREATE PROCEDURE SelectAllGroups
 AS
-SELECT * 
+SELECT [Name] 
 FROM [GROUP]
 GO
 
@@ -267,7 +267,7 @@ GO
 -- SPORT store procedures
 CREATE PROCEDURE SelectAllSports
 AS
-SELECT * 
+SELECT [Name] 
 FROM SPORT
 GO
 
@@ -346,30 +346,3 @@ FROM [USER]
 WHERE UserName = @UserName AND [Password] = @Password
 GO
 
---Adds store procedures
-
-CREATE PROCEDURE SelectAllAdds
-AS
-SELECT * 
-FROM Adds
-GO
-
-CREATE PROCEDURE SelectFriendsList @UserName varchar(15)
-AS
-SELECT *
-FROM Adds 
-WHERE UserName = @Username
-GO
-
-CREATE PROCEDURE InsertAdds @UserName varchar(15), @FriendUserName varchar(15)
-AS
-INSERT INTO Adds (UserName, FriendUserName)
-VALUES (@UserName, @FriendUserName)
-GO
-
-CREATE PROCEDURE DeleteAdds @UserName varchar(15), @FriendUserName varchar(15)
-AS
-DELETE
-FROM Adds
-WHERE UserName = @Username AND FriendUserName = @FriendUserName
-GO

@@ -24,3 +24,32 @@ VALUES('Ford',
 	'Perez',
 	'Corrales')
 	;
+INSERT INTO [dbo].[USER]
+           ([UserName]
+           ,[FirstName]
+           ,[SecondName]
+           ,[FirstSurname]
+           ,[SecondSurname]
+           ,[Password]
+           ,[Level]
+           ,[ProfilePicture]
+           ,[BirthDate])
+     VALUES
+           ('nati',
+		   'Natalia',
+		   'Angeles',
+		   'Gonzalez',
+		   'Bermudez',
+		   '1234',
+		   '1',
+		   null,
+		   '2001-02-08'),
+		   ('sebas',
+		   'Sebastian',
+		   'Josue',
+		   'Moya',
+		   'Monge',
+		   '1234',
+		   '1',
+		   null,
+		   '2001-05-10')
