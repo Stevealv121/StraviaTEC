@@ -7,6 +7,7 @@ import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.location.LocationListener;
@@ -22,6 +23,10 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
+
+import java.util.List;
 
 public class Map extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -35,6 +40,8 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
     private final long MIN_TIME = 1000;
     private final long MIN_DIST = 5;
     private GoogleMap nMap;
+    private Polyline track;
+    private LatLng mylocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,15 +65,21 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         nMap = googleMap;
+        PolylineOptions polylineOptions = new PolylineOptions();
+        polylineOptions.color(Color.RED);
+        polylineOptions.width(10);
+        track = nMap.addPolyline(polylineOptions);
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(@NonNull Location location) {
-                try {
-                    LatLng mylocation = new LatLng(location.getLatitude(),location.getLongitude());
-                    nMap.addMarker(new MarkerOptions().position(mylocation).title("Marker in house"));
-                    nMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mylocation, 20));
-                }catch(SecurityException ex){
-                    ex.printStackTrace();
+                if(running){
+                    try {
+                        mylocation = new LatLng(location.getLatitude(),location.getLongitude());
+                        updateTrack();
+                        nMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mylocation, 20));
+                    }catch(SecurityException ex){
+                        ex.printStackTrace();
+                    }
                 }
             }
             @Override
@@ -122,9 +135,17 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
     }
 
     public void finishActivity(View view) {
+        track.remove();
         Intent myintent = new Intent(Map.this,ActivitySetup.class);
         startActivity(myintent);
     }
+
+    private void updateTrack(){
+        List<LatLng> points = track.getPoints();
+        points.add(mylocation);
+        track.setPoints(points);
+    }
+
 
 
 }
