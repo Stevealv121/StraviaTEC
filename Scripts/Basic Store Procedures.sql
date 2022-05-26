@@ -320,6 +320,13 @@ SELECT *
 FROM [USER]
 GO
 
+CREATE PROCEDURE SearchUsers @FirstName varchar(15)
+AS
+SELECT *
+FROM [USER] 
+WHERE FirstName = @FirstName
+GO
+
 CREATE PROCEDURE SelectUserByUsername @Username varchar(15), @Password varchar(15)
 AS
 SELECT *

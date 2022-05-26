@@ -11,7 +11,10 @@ EXEC InsertRace 1, 'Sebas race',20, '2022-5-26', 'public', 3, 'Junior'
 EXEC JoinRace 'nati', 1, '022',4
 EXEC JoinRace 'steve', 1, '022',5
 EXEC RacePositionList 1
+EXEC RaceSponsors 1
 
-EXEC SelectGroupByManager 'sebas'
+EXEC SearchUsers 'Sebastian'
+
+EXEC SelectGroupByManager 'nati'
 
 EXEC SelectGroupMembers 'string'

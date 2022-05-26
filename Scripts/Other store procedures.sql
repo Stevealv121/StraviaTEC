@@ -22,6 +22,14 @@ FROM Adds
 WHERE UserName = @Username AND FriendUserName = @FriendUserName
 GO
 
+-- Friends activities
+CREATE PROCEDURE SelectFriendPosts @UserName varchar(15)
+AS
+SELECT *
+FROM [AllFriendsActivities]
+WHERE UserName = @Username 
+ORDER BY [Date] ASC
+GO
 --GROUP
 -- Belongs to
 CREATE PROCEDURE JoinGroup @UserName varchar(15), @GroupId varchar(15)
@@ -48,7 +56,7 @@ GO
 
 CREATE PROCEDURE SelectGroupMembers @Name varchar(15)
 AS
-SELECT *
+SELECT UserName
 FROM [GroupsandMembers]
 WHERE [Name] = @Name
 GO
@@ -67,7 +75,7 @@ FROM JOIN_CHALLENGE
 WHERE UserName = @Username AND Challenge_ID = @Challenge_ID
 GO
 
-
+--RACE
 CREATE PROCEDURE JoinRace @UserName varchar(15), @Race_ID varchar(15), @Bill image, @Activityid varchar(15)
 AS
 INSERT INTO JOIN_RACE(UserName, Race_ID, Bill, Activityid)
@@ -80,7 +88,15 @@ DELETE
 FROM JOIN_RACE
 WHERE UserName = @Username AND Race_ID = @Race_ID
 GO
-
+-- Position list
+CREATE PROCEDURE RacePositionList @RaceID int
+AS
+SELECT *
+FROM [RacesandUsers]
+WHERE ID = @RaceID
+ORDER BY Duration ASC
+GO
+-- 
 
 
 -- Sponsors
@@ -97,23 +113,14 @@ FROM SponsorsRACE
 WHERE RaceId = @RaceId AND SponsorId = @SponsorId
 GO
 
--- Friends activities
-CREATE PROCEDURE SelectFriendPosts @UserName varchar(15)
+CREATE PROCEDURE RaceSponsors @RaceID int
 AS
 SELECT *
-FROM [AllFriendsActivities]
-WHERE UserName = @Username 
-ORDER BY [Date] ASC
+FROM [RacesandSponsors]
+WHERE ID = @RaceID
 GO
 
--- Position list
-CREATE PROCEDURE RacePositionList @RaceID int
-AS
-SELECT *
-FROM [RacesandUsers]
-WHERE ID = @RaceID
-ORDER BY Duration ASC
-GO
--- 
+
+
 
 
