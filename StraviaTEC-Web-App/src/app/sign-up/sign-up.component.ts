@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { UserI } from '../models/user.interface';
 import { ApiService } from '../services/api.service';
 import { ToastrService } from 'ngx-toastr'
+import { read } from 'fs';
 
 @Component({
   selector: 'app-sign-up',
@@ -59,12 +60,24 @@ export class SignUpComponent implements OnInit {
 
         this.url = reader.result as string;
 
+        this.imgToBlob(reader.result as string)
+
         this.registerForm.patchValue({
           profilePicture: reader.result
         });
 
       };
     }
+  }
+
+  imgToBlob(url: any) {
+    fetch(url).then(function (response) {
+      return response.blob();
+    }).then(function (blob) {
+      console.log(blob);
+      console.log(blob.size);
+      console.log(blob.type);
+    })
   }
 
 }
