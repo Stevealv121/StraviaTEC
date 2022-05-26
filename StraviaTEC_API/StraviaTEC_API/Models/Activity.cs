@@ -5,6 +5,7 @@ namespace StraviaTEC_API
 {
     public class Activity
     {
+        public string? Username { get; set; }
         public int? Id { get; set; }
         public DateTime Date { get; set; }
         public TimeSpan Duration { get; set; }

@@ -27,7 +27,7 @@ namespace StraviaTEC_API.Controllers
             var sql = @"EXEC SelectAllUsers";
             return Ok(await db.QueryAsync<User>(sql, new { }));
         }
-        [HttpGet("Account/{_username}/{_password}")]
+        [HttpGet("Login/{_username}/{_password}")]
         public async Task<IActionResult> GetbyName(string _username, string _password)
         {
             var db = dbConnection();
@@ -100,12 +100,20 @@ namespace StraviaTEC_API.Controllers
 
             return Created("created", result > 0);
         }
-        [HttpGet("FriendsList")]
+        [HttpGet("FriendsList/{_username}")]
         public async Task<IActionResult> GetFriends(string _username)
         {
             var db = dbConnection();
             var sql = @"EXEC SelectFriendlist @UserName = @username";
             return Ok(await db.QueryAsync<FriendView>(sql, new { username = _username }));
+        }
+
+        [HttpGet("FriendsActivities/{_username}")]
+        public async Task<IActionResult> GetFriendsActivities(string _username)
+        {
+            var db = dbConnection();
+            var sql = @"EXEC SelectFriendPosts @username";
+            return Ok(await db.QueryAsync<FriendPost>(sql, new { username = _username }));
         }
     }
 }

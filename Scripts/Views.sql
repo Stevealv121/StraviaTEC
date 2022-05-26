@@ -30,9 +30,24 @@ INNER JOIN [USER] as u
 ON u.UserName = reg.UserName;
 
 CREATE VIEW [RacesandUsers] AS
-SELECT r.ID, u.FirstName, u.SecondName, u.FirstSurname, u.SecondSurname, DATEDIFF(hour,u.BirthDate,GETDATE())/8766 AS Age
+SELECT r.ID, u.FirstName, u.SecondName, u.FirstSurname, u.SecondSurname, jr.Bill, a.Duration, DATEDIFF(hour,u.BirthDate,GETDATE())/8766 AS Age
 FROM RACE AS r
 INNER JOIN JOIN_RACE as jr
 ON jr.Race_ID = r.ID
 INNER JOIN [USER] as u
-ON u.UserName = jr.UserName;
+ON u.UserName = jr.UserName
+INNER JOIN ACTIVITY as a
+ON jr.Activityid = a.Id;
+
+CREATE VIEW [GroupsandManagers] AS
+SELECT g.[Name], g.[Description], m.UserName
+FROM [GROUP] AS g
+INNER JOIN MANAGES AS m
+ON g.[Name] = m.GroupID
+
+
+CREATE VIEW [GroupsandMembers] AS
+SELECT g.[Name], m.UserName
+FROM [GROUP] AS g
+INNER JOIN BelongsTo AS m
+ON g.[Name] = m.GroupId

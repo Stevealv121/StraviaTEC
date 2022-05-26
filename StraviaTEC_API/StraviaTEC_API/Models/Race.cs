@@ -14,6 +14,7 @@ namespace StraviaTEC_API
         public DateTime Date { get; set; }
         public string Access { get; set; }
         public int ActivityID { get; set; }
+        public string CategoryName { get; set; }
 
     }
 }

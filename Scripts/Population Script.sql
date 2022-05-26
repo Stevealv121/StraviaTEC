@@ -35,21 +35,13 @@ INSERT INTO [dbo].[USER]
            ,[ProfilePicture]
            ,[BirthDate])
      VALUES
-           ('nati',
-		   'Natalia',
-		   'Angeles',
-		   'Gonzalez',
-		   'Bermudez',
-		   '1234',
-		   '1',
-		   null,
-		   '2001-02-08'),
-		   ('sebas',
-		   'Sebastian',
-		   'Josue',
-		   'Moya',
-		   'Monge',
-		   '1234',
-		   '1',
-		   null,
-		   '2001-05-10')
+          ('nati', 'Natalia','Angeles','Gonzalez','Bermudez',
+		  '1234', '1', null, '2001-02-08'),
+		   ('sebas', 'Sebastian', 'Josue','Moya','Monge',
+		   '1234', '1', null,'2000-05-10'),
+		   ('steve','Carlos','Steve','Alvarado','Mendez',
+		   '1234', '1', null, '2000-05-10'),
+		   ('dennis', 'Dennis', 'Alejandro','Jimenez','Campos',
+		   '1234', '1', null,'2001-05-10')
+
+

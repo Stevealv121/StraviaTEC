@@ -1,3 +1,5 @@
+Use StraviaTEC
+--USER
 -- Adds
 
 CREATE PROCEDURE SelectFriendlist @Username varchar(15)
@@ -20,6 +22,7 @@ FROM Adds
 WHERE UserName = @Username AND FriendUserName = @FriendUserName
 GO
 
+--GROUP
 -- Belongs to
 CREATE PROCEDURE JoinGroup @UserName varchar(15), @GroupId varchar(15)
 AS
@@ -28,7 +31,7 @@ VALUES (@UserName, @GroupId)
 GO
 
 --Manages
---agregar al store procedure de create group
+
 CREATE PROCEDURE DeleteGroupMember @UserName varchar(15), @GroupId varchar(15)
 AS
 DELETE
@@ -36,6 +39,20 @@ FROM BelongsTo
 WHERE UserName = @Username AND GroupId = @GroupId
 GO
 
+CREATE PROCEDURE SelectGroupByManager @UserName varchar(15)
+AS
+SELECT * 
+FROM [GroupsandManagers]
+WHERE UserName = @Username
+GO
+
+CREATE PROCEDURE SelectGroupMembers @Name varchar(15)
+AS
+SELECT *
+FROM [GroupsandMembers]
+WHERE [Name] = @Name
+GO
+--CHALLENGE
 -- Join
 CREATE PROCEDURE JoinChallenge @UserName varchar(15), @Challenge_ID varchar(15)
 AS
@@ -50,14 +67,11 @@ FROM JOIN_CHALLENGE
 WHERE UserName = @Username AND Challenge_ID = @Challenge_ID
 GO
 
-CREATE PROCEDURE SubmitChallengeScore @UserName varchar(15), @Challenge_ID varchar(15), @ActivityID int
-AS
 
-GO
-CREATE PROCEDURE JoinRace @UserName varchar(15), @Race_ID varchar(15)
+CREATE PROCEDURE JoinRace @UserName varchar(15), @Race_ID varchar(15), @Bill image, @Activityid varchar(15)
 AS
-INSERT INTO JOIN_RACE(UserName, Race_ID)
-VALUES (@UserName, @Race_ID)
+INSERT INTO JOIN_RACE(UserName, Race_ID, Bill, Activityid)
+VALUES (@UserName, @Race_ID, @Bill, @Activityid)
 GO
 
 CREATE PROCEDURE ExitRace @UserName varchar(15), @Race_ID varchar(15)
@@ -67,10 +81,7 @@ FROM JOIN_RACE
 WHERE UserName = @Username AND Race_ID = @Race_ID
 GO
 
-CREATE PROCEDURE SubmitRaceScore @UserName varchar(15),@Race_ID varchar(15), @ActivityID int
-AS
 
-GO
 
 -- Sponsors
 CREATE PROCEDURE AssignRaceSponsor @RaceId int, @SponsorId int
@@ -94,15 +105,15 @@ FROM [AllFriendsActivities]
 WHERE UserName = @Username 
 ORDER BY [Date] ASC
 GO
-/*
+
 -- Position list
+CREATE PROCEDURE RacePositionList @RaceID int
+AS
 SELECT *
-FROM ACTIVITY
-ORDER BY Duration ASC;
-
+FROM [RacesandUsers]
+WHERE ID = @RaceID
+ORDER BY Duration ASC
+GO
 -- 
-INSERT INTO Register(UserName, ActivityId)
-VALUES ('sebas',3), ('steve',8)
 
-EXEC SelectFriendPosts 'nati'
-*/
+
