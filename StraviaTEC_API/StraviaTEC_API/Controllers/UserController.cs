@@ -27,6 +27,14 @@ namespace StraviaTEC_API.Controllers
             var sql = @"EXEC SelectAllUsers";
             return Ok(await db.QueryAsync<User>(sql, new { }));
         }
+        [HttpGet("SearchUsers/{_firstname}")]
+        public async Task<IActionResult> Search(string _firstname)
+        {
+            var db = dbConnection();
+            var sql = @"EXEC SearchUsers @firstname";
+            return Ok(await db.QueryAsync<User>(sql, new { firstname = _firstname }));
+        }
+
         [HttpGet("Login/{_username}/{_password}")]
         public async Task<IActionResult> GetbyName(string _username, string _password)
         {
