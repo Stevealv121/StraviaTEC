@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using StraviaTEC_Models;
 using System.Data;
 using System.Data.SqlClient;
 using Dapper;
@@ -83,6 +82,63 @@ namespace StraviaTEC_API.Controllers
             var result = await db.ExecuteAsync(sql, new { _id = ID });
 
             return NoContent();
+        }
+
+        //
+        [HttpPost("JoinRace/{_username}/{_raceid}")]
+        public async Task<IActionResult> Join(string _username, int _raceid)
+        {
+
+            var db = dbConnection();
+            var sql = @"EXEC JoinRace @username, @raceid";
+            var result = await db.ExecuteAsync(sql, new { username = _username, raceid = _raceid });
+
+            return NoContent();
+        }
+        [HttpDelete("ExitRace/{_username}/{_raceid}")]
+        public async Task<IActionResult> Exit(string _username, int _raceid)
+        {
+
+            var db = dbConnection();
+            var sql = @"EXEC ExitRace @username, @raceid";
+            var result = await db.ExecuteAsync(sql, new { username = _username, raceid = _raceid });
+
+            return NoContent();
+        }
+        [HttpGet("PositionList/{_raceid}")]
+        public async Task<IActionResult> GetPositionList(int _raceid)
+        {
+            var db = dbConnection();
+            var sql = @"EXEC RacePositionList @raceid";
+            return Ok(await db.QueryAsync<PositionList>(sql, new { raceid = _raceid }));
+        }
+        [HttpPost("AssignRaceSponsor/{_raceid}/{_sponsorid}")]
+        public async Task<IActionResult> AssignSponsor(int _raceid, int _sponsorid)
+        {
+
+            var db = dbConnection();
+            var sql = @"EXEC AssignRaceSponsor @raceid, @sponsorid";
+            var result = await db.ExecuteAsync(sql, new { raceid = _raceid, sponsorid = _sponsorid });
+
+            return Ok(result);
+        }
+        [HttpDelete("CancelRaceSponsor/{_raceid}/{_sponsorid}")]
+        public async Task<IActionResult> CancelSponsor(int _raceid, int _sponsorid)
+        {
+
+            var db = dbConnection();
+            var sql = @"EXEC CancelRaceSponsor @raceid, @sponsorid";
+            var result = await db.ExecuteAsync(sql, new { raceid = _raceid, sponsorid = _sponsorid });
+
+            return NoContent();
+        }
+        [HttpGet("Sponsors/ById/{_raceid}")]
+        public async Task<IActionResult> GetRaceSponsors(int _raceid)
+        {
+            var db = dbConnection();
+            var sql = @"EXEC RaceSponsors @id";
+            return Ok(await db.QueryAsync<RaceSponsors>(sql, new { id = _raceid }));
+
         }
     }
 }

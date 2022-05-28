@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using StraviaTEC_Models;
 using System.Data;
 using System.Data.SqlClient;
 using Dapper;
@@ -27,7 +26,7 @@ namespace StraviaTEC_API.Controllers
         {
             var db = dbConnection();
             var sql = @"EXEC SelectAllGroups";
-            return Ok(await db.QueryAsync<Group>(sql, new { }));
+            return Ok(await db.QueryAsync<string>(sql, new { }));
         }
         [HttpGet("ByName/{_name}")]
         public async Task<IActionResult> GetbyId(string _name)
@@ -71,10 +70,49 @@ namespace StraviaTEC_API.Controllers
         {
 
             var db = dbConnection();
-            var sql = @"DeleteGroup @Name = @name";
+            var sql = @"EXEC DeleteGroup @name";
             var result = await db.ExecuteAsync(sql, new { name = _name });
 
             return NoContent();
+        }
+
+        //
+        [HttpPost("JoinGroup/{_username}/{_groupname}")]
+        public async Task<IActionResult> JoinGroup(string _username, string _groupname)
+        {
+            var db = dbConnection();
+            var sql = @"EXEC JoinGroup  @username, @groupname ";
+            var result = await db.ExecuteAsync(sql, new { username = _username, groupname = _groupname });
+
+            return NoContent();
+        }
+        [HttpDelete("GroupMember/{_groupname}/{_username}")]
+        public async Task<IActionResult> DeleteMember(string _groupname, string _username)
+        {
+
+            var db = dbConnection();
+            var sql = @"EXEC DeleteGroupMember @username, @name";
+            var result = await db.ExecuteAsync(sql, new { name = _groupname, username = _username });
+
+            return NoContent();
+        }
+        [HttpGet("ByManager/{_username}")]
+        public async Task<IActionResult> GetGroupByManager(string _username)
+        {
+            var db = dbConnection();
+            var sql = @"EXEC SelectGroupByManager  @username ";
+            var result = await db.QueryAsync<Group>(sql, new { username = _username });
+
+            return Ok(result);
+        }
+        [HttpGet("MembersByGroupName/{_groupname}")]
+        public async Task<IActionResult> GetGroupMembers(string _groupname)
+        {
+            var db = dbConnection();
+            var sql = @"EXEC SelectGroupMembers @groupname ";
+            var result = await db.QueryAsync<string>(sql, new { groupname = _groupname });
+
+            return Ok(result);
         }
 
     }

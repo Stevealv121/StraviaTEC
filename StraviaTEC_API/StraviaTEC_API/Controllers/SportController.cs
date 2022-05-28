@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using StraviaTEC_Models;
 using System.Data;
 using System.Data.SqlClient;
 using Dapper;
@@ -27,7 +26,7 @@ namespace StraviaTEC_API.Controllers
         {
             var db = dbConnection();
             var sql = @"EXEC SelectAllSports";
-            return Ok(await db.QueryAsync<Sport>(sql, new { }));
+            return Ok(await db.QueryAsync<string>(sql, new { }));
         }
         [HttpGet("ByName/{_name}")]
         public async Task<IActionResult> GetbyId(string _name)

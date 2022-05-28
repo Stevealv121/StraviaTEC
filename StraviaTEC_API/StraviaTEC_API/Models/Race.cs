@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StraviaTEC_Models
+namespace StraviaTEC_API
 {
     public class Race
     {
@@ -14,6 +14,7 @@ namespace StraviaTEC_Models
         public DateTime Date { get; set; }
         public string Access { get; set; }
         public int ActivityID { get; set; }
+        public string CategoryName { get; set; }
 
     }
 }

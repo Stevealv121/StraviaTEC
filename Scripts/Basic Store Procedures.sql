@@ -13,10 +13,14 @@ FROM ACTIVITY
 WHERE Id = @Id
 GO
 
-CREATE PROCEDURE InsertActivity @Id int,@Date date,@Duration time(7),@Mileage int,@Route XML,@SportName varchar(15)
+CREATE PROCEDURE InsertActivity @Username varchar(15), @Id int,@Date date,@Duration time(7),@Mileage int,@Route XML,@SportName varchar(15)
 AS
 INSERT INTO ACTIVITY ([Date],Duration,Mileage,[Route],SportName)
-VALUES (@Date,@Duration,@Mileage,@Route,@SportName)
+VALUES (@Date,@Duration,@Mileage,@Route,@SportName) 
+SET @Id = SCOPE_IDENTITY()
+INSERT INTO Register(UserName, ActivityId)
+VALUES (@Username, @Id)
+RETURN @Id
 GO
 
 CREATE PROCEDURE UpdateActivity @Id int, @Date date,@Duration time(7),@Mileage int,@Route XML,@SportName varchar(15)
@@ -36,6 +40,9 @@ AS
 DELETE
 FROM ACTIVITY
 WHERE Id = @Id
+DELETE
+FROM Register
+WHERE ActivityId = @Id
 GO
 
 --EXEC SelectAllActivities
@@ -51,7 +58,7 @@ GO
 
 CREATE PROCEDURE SelectAllCategories
 AS
-SELECT * 
+SELECT [Name] 
 FROM CATEGORY
 GO
 
@@ -105,13 +112,13 @@ FROM CHALLENGE
 WHERE [Name] = @Name
 GO
 
-CREATE PROCEDURE InsertChallenge @Id int,@ValidThru date,@Type varchar(15), @Access varchar(15), @Name varchar(15), @ActivityId int, @CategoryName varchar(15)
+CREATE PROCEDURE InsertChallenge @Id int,@ValidThru date,@Type varchar(15), @Access varchar(15), @Name varchar(15), @ActivityId int
 AS
-INSERT INTO CHALLENGE (ValidThru, [Type], Access, [Name], ActivityId, CategoryName)
-VALUES (@ValidThru, @Type, @Access, @Name, @ActivityId, @CategoryName)
+INSERT INTO CHALLENGE (ValidThru, [Type], Access, [Name], ActivityId)
+VALUES (@ValidThru, @Type, @Access, @Name, @ActivityId)
 GO
 
-CREATE PROCEDURE UpdateChallenge @Id int,@ValidThru date,@Type varchar(15), @Access varchar(15), @Name varchar(15), @ActivityId int, @CategoryName varchar(15)
+CREATE PROCEDURE UpdateChallenge @Id int,@ValidThru date,@Type varchar(15), @Access varchar(15), @Name varchar(15), @ActivityId int
 AS
 UPDATE CHALLENGE 
 SET 
@@ -119,8 +126,7 @@ SET
     [Type] = @Type,
     Access = @Access,
     [Name] = @Name,
-    ActivityId = @ActivityId,
-    CategoryName = @CategoryName
+    ActivityId = @ActivityId
 WHERE Id = @Id
 GO
 
@@ -135,7 +141,7 @@ GO
 -- GROUP store procedures
 CREATE PROCEDURE SelectAllGroups
 AS
-SELECT * 
+SELECT [Name] 
 FROM [GROUP]
 GO
 
@@ -146,10 +152,12 @@ FROM [GROUP]
 WHERE [Name] = @Name 
 GO
 
-CREATE PROCEDURE InsertGroup @Name varchar(15), @Description varchar(15)
+CREATE PROCEDURE InsertGroup @Username varchar(15), @Name varchar(15), @Description varchar(15)
 AS
 INSERT INTO [GROUP] ([Name], [Description])
 VALUES (@Name, @Description)
+INSERT INTO Manages(UserName, GroupID)
+VALUES (@Username, @Name)
 GO
 
 CREATE PROCEDURE UpdateGroup @Name varchar(15), @Description varchar(15)
@@ -166,6 +174,12 @@ AS
 DELETE
 FROM [GROUP]
 WHERE [Name] = @Name
+DELETE
+FROM BelongsTo
+WHERE GroupId = @Name
+DELETE
+FROM MANAGES
+WHERE GroupID = @Name
 GO
 
 -- RACE store procedures
@@ -190,10 +204,10 @@ FROM RACE
 WHERE [Name] = @Name
 GO
 
-CREATE PROCEDURE InsertRace @Id int,@Name varchar(15),@Cost int ,@Date date,@Access varchar(15),@ActivityID int
+CREATE PROCEDURE InsertRace @Id int,@Name varchar(15),@Cost int ,@Date date,@Access varchar(15),@ActivityID int, @CategoryName varchar(15)
 AS
-INSERT INTO RACE ([Name],Cost,[Date],Access,ActivityID)
-VALUES (@Name,@Cost,@Date,@Access,@ActivityID)
+INSERT INTO RACE ([Name],Cost,[Date],Access,ActivityID,CategoryName)
+VALUES (@Name,@Cost,@Date,@Access,@ActivityID,@CategoryName)
 GO
 
 CREATE PROCEDURE UpdateRace @Id int,@Name varchar(15),@Cost int ,@Date date,@Access varchar(15),@ActivityID int
@@ -267,7 +281,7 @@ GO
 -- SPORT store procedures
 CREATE PROCEDURE SelectAllSports
 AS
-SELECT * 
+SELECT [Name] 
 FROM SPORT
 GO
 
@@ -304,6 +318,13 @@ CREATE PROCEDURE SelectAllUsers
 AS
 SELECT * 
 FROM [USER]
+GO
+
+CREATE PROCEDURE SearchUsers @FirstName varchar(15)
+AS
+SELECT *
+FROM [USER] 
+WHERE FirstName = @FirstName
 GO
 
 CREATE PROCEDURE SelectUserByUsername @Username varchar(15), @Password varchar(15)
@@ -346,30 +367,3 @@ FROM [USER]
 WHERE UserName = @UserName AND [Password] = @Password
 GO
 
---Adds store procedures
-
-CREATE PROCEDURE SelectAllAdds
-AS
-SELECT * 
-FROM Adds
-GO
-
-CREATE PROCEDURE SelectFriendsList @UserName varchar(15)
-AS
-SELECT *
-FROM Adds 
-WHERE UserName = @Username
-GO
-
-CREATE PROCEDURE InsertAdds @UserName varchar(15), @FriendUserName varchar(15)
-AS
-INSERT INTO Adds (UserName, FriendUserName)
-VALUES (@UserName, @FriendUserName)
-GO
-
-CREATE PROCEDURE DeleteAdds @UserName varchar(15), @FriendUserName varchar(15)
-AS
-DELETE
-FROM Adds
-WHERE UserName = @Username AND FriendUserName = @FriendUserName
-GO

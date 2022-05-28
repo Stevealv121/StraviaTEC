@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using StraviaTEC_Models;
 using System.Data;
 using System.Data.SqlClient;
 using Dapper;
@@ -28,7 +27,15 @@ namespace StraviaTEC_API.Controllers
             var sql = @"EXEC SelectAllUsers";
             return Ok(await db.QueryAsync<User>(sql, new { }));
         }
-        [HttpGet("Account/{_username}/{_password}")]
+        [HttpGet("SearchUsers/{_firstname}")]
+        public async Task<IActionResult> Search(string _firstname)
+        {
+            var db = dbConnection();
+            var sql = @"EXEC SearchUsers @firstname";
+            return Ok(await db.QueryAsync<User>(sql, new { firstname = _firstname }));
+        }
+
+        [HttpGet("Login/{_username}/{_password}")]
         public async Task<IActionResult> GetbyName(string _username, string _password)
         {
             var db = dbConnection();
@@ -84,16 +91,37 @@ namespace StraviaTEC_API.Controllers
                 return BadRequest(ModelState);
 
             var db = dbConnection();
-            var result = db.Execute("InsertAdds", newObj, commandType: CommandType.StoredProcedure);
+            var result = db.Execute("AddFriend", newObj, commandType: CommandType.StoredProcedure);
 
             return Created("created", result > 0);
-        } 
-        [HttpGet("FriendsList")]
+        }
+        [HttpDelete("DeleteFriend")]
+        public async Task<IActionResult> DeleteFriend([FromBody] Adds newObj)
+        {
+            if (newObj == null)
+                return BadRequest();
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var db = dbConnection();
+            var result = db.Execute("DeleteFriend", newObj, commandType: CommandType.StoredProcedure);
+
+            return Created("created", result > 0);
+        }
+        [HttpGet("FriendsList/{_username}")]
         public async Task<IActionResult> GetFriends(string _username)
         {
             var db = dbConnection();
-            var sql = @"EXEC SelectFriendsList @UserName = @username";
-            return Ok(await db.QueryFirstOrDefaultAsync<Adds>(sql, new { username = _username }));
+            var sql = @"EXEC SelectFriendlist @UserName = @username";
+            return Ok(await db.QueryAsync<FriendView>(sql, new { username = _username }));
+        }
+
+        [HttpGet("FriendsActivities/{_username}")]
+        public async Task<IActionResult> GetFriendsActivities(string _username)
+        {
+            var db = dbConnection();
+            var sql = @"EXEC SelectFriendPosts @username";
+            return Ok(await db.QueryAsync<FriendPost>(sql, new { username = _username }));
         }
     }
 }

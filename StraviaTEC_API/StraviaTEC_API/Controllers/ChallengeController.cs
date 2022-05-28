@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using StraviaTEC_Models;
 using System.Data;
 using System.Data.SqlClient;
 using Dapper;
@@ -79,8 +78,30 @@ namespace StraviaTEC_API.Controllers
         {
 
             var db = dbConnection();
-            var sql = @"DeleteChallenge @Id = @_id";
+            var sql = @"EXEC DeleteChallenge @Id = @_id";
             var result = await db.ExecuteAsync(sql, new { _id = ID });
+
+            return NoContent();
+        }
+
+        //
+        [HttpPost("JoinChallenge/{_username}/{_challengeid}")]
+        public async Task<IActionResult> Join(string _username, int _challengeid)
+        {
+
+            var db = dbConnection();
+            var sql = @"EXEC JoinChallenge @username, @challengeid";
+            var result = await db.ExecuteAsync(sql, new { username = _username, challengeid = _challengeid });
+
+            return NoContent();
+        }
+        [HttpDelete("ExitChallenge/{_username}/{_challengeid}")]
+        public async Task<IActionResult> Exit(string _username, int _challengeid)
+        {
+
+            var db = dbConnection();
+            var sql = @"EXEC ExitChallenge @username, @challengeid";
+            var result = await db.ExecuteAsync(sql, new { username = _username, challengeid = _challengeid });
 
             return NoContent();
         }
