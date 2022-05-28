@@ -6,56 +6,86 @@
     <br>
     <div class="row">
         <div class="col-md-4">
-            <form action="">
-                <div class="form-group ">
+            <form [formGroup]="activityForm">
+                <div class="form-group">
                     <div class="pos-r">
-                        <input type="text" placeholder="Activity" formControlName="" class="form-username form-control">
+                        <input type="text" placeholder="Activity title" formControlName="title"
+                            class="form-username form-control">
                         <i class="fa fa-user"></i>
                     </div>
                 </div>
                 <br>
+                <div class="form-group">
+                    <select [(ngModel)]="selectedOption" class="form-select" formControlName="activity">
+                        <option class="dropdown-item" disabled selected value="undefined">Choose activity type
+                        </option>
+                        <!-- <option *ngFor="let levels of levelOptions; let i = index" [ngValue]="levels"
+                            class="dropdown-item">{{levels}}</option> -->
+                        <option value="Beginner">1</option>
+                        <option value="Intermediate">2</option>
+                        <option value="Elite">3</option>
+                    </select>
+                </div>
+                <br>
                 <div class="form-wrapper">
-                    <div class="form-group ">
+                    <div class="form-group">
                         <div class="pos-r">
-                            <input type="text" placeholder="Date and Time" formControlName=""
+                            <input type="text" placeholder="Date and Time" formControlName="date"
                                 onfocus="(this.type='datetime-local')" class="form-username form-control">
                             <i class="fa fa-user"></i>
                         </div>
                     </div>
                     <br>
-                    <div class="form-group ">
+                    <div class="form-group">
                         <div class="pos-r">
                             <input id="duration-inp" type="text"
                                 pattern="([0-9]{1}[0-9]{0,1}h){1}([0-9]{1}[0-9]{0,1}m){1}" placeholder="Duration"
-                                formControlName="" class="form-username form-control" title="Example: 3h12m">
+                                formControlName="duration" class="form-username form-control" title="Example: 3h12m">
                             <i class="fa fa-user"></i>
                         </div>
                     </div>
                     <br>
-                    <div class="form-group ">
+                    <div class="form-group">
                         <div class="pos-r">
-                            <input type="number" placeholder="Distance in kilometers" formControlName=""
+                            <input type="number" placeholder="Distance in kilometers" formControlName="distance"
                                 class="form-username form-control">
                             <i class="fa fa-user"></i>
                         </div>
                     </div>
                     <br>
-                    <div class="form-group ">
+                    <div class="form-group">
                         <div class="pos-r">
-                            <input title="Upload a .gpx file" accept=".gpx" type="file" formControlName=""
+                            <input title="Upload a .gpx file" accept=".gpx" type="file" formControlName="route"
                                 class="form-username form-control">
                             <i class="fa fa-user"></i>
                         </div>
                     </div>
                     <br>
-                    <div class="form-group ">
-                        <div class="pos-r">
-                            <input type="input" formControlName="" placeholder="Challenge or Race"
-                                class="form-username form-control">
-                            <i class="fa fa-user"></i>
-                        </div>
+                    <div class="form-group">
+                        <select [(ngModel)]="selectedOption2" class="form-select" formControlName="competition"
+                            (change)="setRaceVisibility()">
+                            <option class="dropdown-item" disabled selected value="undefined">Race or Challenge?
+                            </option>
+                            <!-- <option *ngFor="let levels of levelOptions; let i = index" [ngValue]="levels"
+                                class="dropdown-item">{{levels}}</option> -->
+                            <option value="Race">Race</option>
+                            <option value="Challenge">Challenge</option>
+                            <option value="Casual">Casual Activity</option>
+                        </select>
                     </div>
                     <br>
+                    <div class="form-group">
+                        <div class="race-wrapper" [hidden]="isRaceHidden">
+                            <select [(ngModel)]="selectedOption3" class="form-select" formControlName="race">
+                                <option class="dropdown-item" disabled selected value="undefined">Choose the race you
+                                    finished
+                                </option>
+                                <option *ngFor="let race of activeRaces" [ngValue]="race.name" class="dropdown-item">
+                                    {{race.name}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
                     <br>
                     <div class="form-group">
                         <button id="buttons" type="submit"
@@ -66,7 +96,7 @@
             </form>
         </div>
         <div class="col-md-2"></div>
-        <div class="col"><img id="activity-img" src="assets/images/activity.jpg" alt=""></div>
+        <div class="col"><img id="activity-img" src="assets/images/activity.jpg" alt="act"></div>
     </div>
 
 </div>

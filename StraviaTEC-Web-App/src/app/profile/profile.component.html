@@ -1,125 +1,188 @@
 <div class="container">
     <h2>My Profile</h2>
     <div class="profileWrapper">
-        <div class="line"></div>
-        <br>
-        <div class="row">
-            <div class="col-md-3">
-                <p>Current Photo</p>
+        <form role="form" [formGroup]="profileForm">
+            <div class="line"></div>
+            <br>
+            <div class="row">
+                <div class="col-md-3">
+                    <p>Current Photo</p>
+                </div>
+                <div class="col">
+                    <label class="hoverable" for="fileInput">
+                        <img id="profile-img" [src]="url" title="Change your profile picture">
+                    </label>
+                    <input id="fileInput" type="file" name="form-photo" class="form-photo form-control"
+                        formControlName="profilePicture" (change)="onSelectFile($event)">
+                </div>
+                <div class="col" id="edit-col">
+                    <br><br>
+                    <img src="assets/images/edit.png" alt="edit" id="edit-icon">
+                </div>
             </div>
-            <div class="col">
-                <label class="hoverable" for="fileInput">
-                    <img id="profile-img" [src]="url" title="Change your profile picture">
-                </label>
-                <input id="fileInput" type="file" name="form-photo" class="form-photo form-control"
-                    formControlName="profilePicture" (change)="onSelectFile($event)">
+            <br>
+            <div class="line"></div>
+            <br>
+            <div class="row">
+                <div class="col-md-3">
+                    <p>First Name</p>
+                </div>
+                <div class="col" (click)="edit('firstName')">
+                    <p #FND><strong></strong></p>
+                    <input #FNI type="text" hidden formControlName="firstName">
+                </div>
+                <div #FNS class="col-md-auto" hidden>
+                    <button class="btn btn-primary" id="buttons"
+                        (click)="save('firstName',profileForm.value)">Save</button>
+                </div>
+                <div #FNC class="col" hidden>
+                    <button class="btn-close" (click)="cancel('firstName')"></button>
+                </div>
+                <div #FNE class="col" id="edit-col" (click)="edit('firstName')">
+                    <img src="assets/images/edit.png" alt="edit" id="edit-icon">
+                </div>
             </div>
-            <div class="col" id="edit-col">
-                <br><br>
-                <img src="assets/images/edit.png" alt="edit" id="edit-icon">
+            <br>
+            <div class="line"></div>
+            <br>
+            <div class="row">
+                <div class="col-md-3">
+                    <p>Second Name</p>
+                </div>
+                <div class="col" (click)="edit('secondName')">
+                    <p #SND><strong></strong></p>
+                    <input #SNI type="text" hidden formControlName="secondName">
+                </div>
+                <div #SNS class="col-md-auto" hidden>
+                    <button class="btn btn-primary" id="buttons"
+                        (click)="save('secondName',profileForm.value)">Save</button>
+                </div>
+                <div #SNC class="col" hidden>
+                    <button class="btn-close" (click)="cancel('secondName')"></button>
+                </div>
+                <div #SNE class="col" id="edit-col" (click)="edit('secondName')">
+                    <img src="assets/images/edit.png" alt="edit" id="edit-icon">
+                </div>
             </div>
-        </div>
-        <br>
-        <div class="line"></div>
-        <br>
-        <div class="row">
-            <div class="col-md-3">
-                <p>First Name</p>
+            <br>
+            <div class="line"></div>
+            <br>
+            <div class="row">
+                <div class="col-md-3">
+                    <p>First Surname</p>
+                </div>
+                <div class="col" (click)="edit('firstSurname')">
+                    <p #FSD><strong></strong></p>
+                    <input #FSI type="text" hidden formControlName="firstSurname">
+                </div>
+                <div #FSS class="col-md-auto" hidden>
+                    <button class="btn btn-primary" id="buttons"
+                        (click)="save('firstSurname',profileForm.value)">Save</button>
+                </div>
+                <div #FSC class="col" hidden>
+                    <button class="btn-close" (click)="cancel('firstSurname')"></button>
+                </div>
+                <div #FSE class="col" id="edit-col" (click)="edit('firstSurname')">
+                    <img src="assets/images/edit.png" alt="edit" id="edit-icon">
+                </div>
             </div>
-            <div class="col">
-                <p><strong>apiInfo</strong></p>
+            <br>
+            <div class="line"></div>
+            <br>
+            <div class="row">
+                <div class="col-md-3">
+                    <p>Second Surname</p>
+                </div>
+                <div class="col" (click)="edit('secondSurname')">
+                    <p #SSD><strong></strong></p>
+                    <input #SSI type="text" hidden formControlName="secondSurname">
+                </div>
+                <div #SSS class="col-md-auto" hidden>
+                    <button class="btn btn-primary" id="buttons"
+                        (click)="save('secondSurname',profileForm.value)">Save</button>
+                </div>
+                <div #SSC class="col" hidden>
+                    <button class="btn-close" (click)="cancel('secondSurname')"></button>
+                </div>
+                <div #SSE class="col" id="edit-col" (click)="edit('secondSurname')">
+                    <img src="assets/images/edit.png" alt="edit" id="edit-icon">
+                </div>
             </div>
-            <div class="col" id="edit-col">
-                <img src="assets/images/edit.png" alt="edit" id="edit-icon">
+            <br>
+            <div class="line"></div>
+            <br>
+            <div class="row">
+                <div class="col-md-3">
+                    <p>Birth Date</p>
+                </div>
+                <div class="col" (click)="edit('birthDate')">
+                    <p #BDD><strong></strong></p>
+                    <input #BDI type="date" hidden formControlName="birthDate">
+                </div>
+                <div #BDS class="col-md-auto" hidden>
+                    <button class="btn btn-primary" id="buttons"
+                        (click)="save('birthDate',profileForm.value)">Save</button>
+                </div>
+                <div #BDC class="col" hidden>
+                    <button class="btn-close" (click)="cancel('birthDate')"></button>
+                </div>
+                <div #BDE class="col" id="edit-col" (click)="edit('birthDate')">
+                    <img src="assets/images/edit.png" alt="edit" id="edit-icon">
+                </div>
             </div>
-        </div>
-        <br>
-        <div class="line"></div>
-        <br>
-        <div class="row">
-            <div class="col-md-3">
-                <p>Second Name</p>
+            <br>
+            <div class="line"></div>
+            <br>
+            <div class="row">
+                <div class="col-md-3">
+                    <p>Nationality</p>
+                </div>
+                <div class="col" (click)="edit('nationality')">
+                    <p #ND><strong></strong></p>
+                    <input #NI type="text" hidden formControlName="nationality">
+                </div>
+                <div #NS class="col-md-auto" hidden>
+                    <button class="btn btn-primary" id="buttons"
+                        (click)="save('nationality',profileForm.value)">Save</button>
+                </div>
+                <div #NC class="col" hidden>
+                    <button class="btn-close" (click)="cancel('nationality')"></button>
+                </div>
+                <div #NE class="col" id="edit-col" (click)="edit('nationality')">
+                    <img src="assets/images/edit.png" alt="edit" id="edit-icon">
+                </div>
             </div>
-            <div class="col">
-                <p><strong>apiInfo</strong></p>
+            <br>
+            <div class="line"></div>
+            <br>
+            <div class="row">
+                <div class="col-md-3">
+                    <p>Level</p>
+                </div>
+                <div class="col" (click)="edit('level')">
+                    <p #LD><strong></strong></p>
+                    <select #LI hidden formControlName="level" [(ngModel)]="selectedOption">
+                        <option class="dropdown-item" disabled selected value="undefined">Choose your level
+                        </option>
+                        <option value="Beginner">Beginner</option>
+                        <option value="Intermediate">Intermediate</option>
+                        <option value="Elite">Elite</option>
+                    </select>
+                </div>
+                <div #LS class="col-md-auto" hidden>
+                    <button class="btn btn-primary" id="buttons" (click)="save('level',profileForm.value)">Save</button>
+                </div>
+                <div #LC class="col" hidden>
+                    <button class="btn-close" (click)="cancel('level')"></button>
+                </div>
+                <div #LE class="col" id="edit-col" (click)="edit('level')">
+                    <img src="assets/images/edit.png" alt="edit" id="edit-icon">
+                </div>
             </div>
-            <div class="col" id="edit-col">
-                <img src="assets/images/edit.png" alt="edit" id="edit-icon">
-            </div>
-        </div>
-        <br>
-        <div class="line"></div>
-        <br>
-        <div class="row">
-            <div class="col-md-3">
-                <p>First Surname</p>
-            </div>
-            <div class="col">
-                <p><strong>apiInfo</strong></p>
-            </div>
-            <div class="col" id="edit-col">
-                <img src="assets/images/edit.png" alt="edit" id="edit-icon">
-            </div>
-        </div>
-        <br>
-        <div class="line"></div>
-        <br>
-        <div class="row">
-            <div class="col-md-3">
-                <p>Second Surname</p>
-            </div>
-            <div class="col">
-                <p><strong>apiInfo</strong></p>
-            </div>
-            <div class="col" id="edit-col">
-                <img src="assets/images/edit.png" alt="edit" id="edit-icon">
-            </div>
-        </div>
-        <br>
-        <div class="line"></div>
-        <br>
-        <div class="row">
-            <div class="col-md-3">
-                <p>Birth Date</p>
-            </div>
-            <div class="col">
-                <p><strong>apiInfo</strong></p>
-            </div>
-            <div class="col" id="edit-col">
-                <img src="assets/images/edit.png" alt="edit" id="edit-icon">
-            </div>
-        </div>
-        <br>
-        <div class="line"></div>
-        <br>
-        <div class="row">
-            <div class="col-md-3">
-                <p>Nationality</p>
-            </div>
-            <div class="col">
-                <p><strong>apiInfo</strong></p>
-            </div>
-            <div class="col" id="edit-col">
-                <img src="assets/images/edit.png" alt="edit" id="edit-icon">
-            </div>
-        </div>
-        <br>
-        <div class="line"></div>
-        <br>
-        <div class="row">
-            <div class="col-md-3">
-                <p>Level</p>
-            </div>
-            <div class="col">
-                <p><strong>apiInfo</strong></p>
-            </div>
-            <div class="col" id="edit-col">
-                <img src="assets/images/edit.png" alt="edit" id="edit-icon">
-            </div>
-        </div>
-        <br>
-        <div class="line"></div>
-        <br>
+            <br>
+            <div class="line"></div>
+            <br>
+        </form>
     </div>
 
 
