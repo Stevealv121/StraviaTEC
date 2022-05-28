@@ -20,11 +20,18 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  async onLogin(form: LoginI) {
+  onLogin(form: LoginI) {
     let password = form.password;
     let userName = form.userName;
-    //let credentials = false;
-    this.api.login(userName, password).subscribe(data => { })
+    let credentials = false;
+    this.api.login(userName, password).subscribe(data => {
+      if (data == null) {
+        alert("Wrong credentials, please access with a valid email and password.");
+      } else {
+        credentials = true;
+        alert("Login...");
+      }
+    })
 
   }
 }

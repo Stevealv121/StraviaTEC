@@ -12,12 +12,11 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  url: string = "http://localhost:5104/api/";
+  url: string = "https://localhost:7060/api/";
   userPath: string = this.url + "User";
 
   login(userName: string, password: string): Observable<UserI> {
-
-    let loginPath = this.userPath + "/" + userName + "/" + password;
+    let loginPath = this.userPath + "/" + "Login/" + userName + "/" + password;
     return this.http.get<UserI>(loginPath)
   }
 

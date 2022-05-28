@@ -929,24 +929,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\User\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Steve\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\Desktop\\IS2021\\TecAIR repo\\StraviaTEC\\StraviaTEC_API\\Comments_API\\Comments_API.csproj",
+      "projectUniqueName": "C:\\Users\\Steve\\Projects\\Bases de Datos\\StraviaTEC\\StraviaTEC\\StraviaTEC_API\\Comments_API\\Comments_API.csproj",
       "projectName": "Comments_API",
-      "projectPath": "C:\\Users\\User\\Desktop\\IS2021\\TecAIR repo\\StraviaTEC\\StraviaTEC_API\\Comments_API\\Comments_API.csproj",
-      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\Desktop\\IS2021\\TecAIR repo\\StraviaTEC\\StraviaTEC_API\\Comments_API\\obj\\",
+      "projectPath": "C:\\Users\\Steve\\Projects\\Bases de Datos\\StraviaTEC\\StraviaTEC\\StraviaTEC_API\\Comments_API\\Comments_API.csproj",
+      "packagesPath": "C:\\Users\\Steve\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Steve\\Projects\\Bases de Datos\\StraviaTEC\\StraviaTEC\\StraviaTEC_API\\Comments_API\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\Steve\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1003,7 +998,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }
