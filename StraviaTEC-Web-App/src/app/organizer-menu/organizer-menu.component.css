@@ -2,19 +2,22 @@
   background-image: url("https://expertosenestetica.es/wp-content/uploads/2017/03/amar-running.jpg");
   background-size: cover;
   background-attachment: fixed;
-  height: 570px;
+  background-position: center center;
+  height: 665px;
 }
 #item2{
   background-image: url("https://www.pragma.com.co/hs-fs/hubfs/blog/blogs/h_ciclismo_trabajo_en_equipo_y_okr.jpg?width=1728&name=h_ciclismo_trabajo_en_equipo_y_okr.jpg");
   background-size: cover;
   background-attachment: fixed;
-  height: 570px;
+  background-position: center center;
+  height: 665px;
 }
 #item3{
   background-image: url("https://cdn2.psychologytoday.com/assets/styles/manual_crop_1_91_1_1528x800/public/2020-08/shutterstock_1731284125_0.jpg?itok=89UrdUt_");
   background-size: cover;
   background-attachment: fixed;
-  height: 570px;
+  background-position: center center;
+  height: 665px;
 }
 #Title{
   color: white;

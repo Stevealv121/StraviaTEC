@@ -27,6 +27,9 @@ import { NewChallengeComponent } from './challenge/new-challenge/new-challenge.c
 import { EditChallengeComponent } from './challenge/edit-challenge/edit-challenge.component';
 import { EditCompetitionComponent } from './competition/edit-competition/edit-competition.component';
 import { InfoRaceComponent } from './competition/info-race/info-race.component';
+import { GroupManagementComponent } from './group-management/group-management.component';
+import { NewGroupComponent } from './group-management/new-group/new-group.component';
+import { GroupGestionComponent } from './group-management/group-gestion/group-gestion.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +53,10 @@ import { InfoRaceComponent } from './competition/info-race/info-race.component';
     NewChallengeComponent,
     EditChallengeComponent,
     EditCompetitionComponent,
-    InfoRaceComponent
+    InfoRaceComponent,
+    GroupManagementComponent,
+    NewGroupComponent,
+    GroupGestionComponent
   ],
   imports: [
     BrowserModule,
