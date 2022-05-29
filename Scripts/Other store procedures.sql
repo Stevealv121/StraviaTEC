@@ -1,7 +1,7 @@
 Use StraviaTEC
 --USER
 -- Adds
-
+GO
 CREATE PROCEDURE SelectFriendlist @Username varchar(15)
 AS
 SELECT FriendUserName, FirstName, SecondName, FirstSurname, SecondSurname, ProfilePicture, [Level], BirthDate
