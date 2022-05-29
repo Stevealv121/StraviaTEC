@@ -26,11 +26,18 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
+
+import java.io.StringReader;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 public class Map extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -142,7 +149,9 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
 
     public void finishActivity(View view) {
         track.remove();
-        Log.d("Gpx content", generateRouteGPX("gpx test",trkpoints));
+        Document doc = toXMLfromString(generateRouteGPX("gpx test",trkpoints));
+        assert doc != null;
+        //Log.d("Gpx content", doc.getFirstChild().getNodeName());
         Intent myintent = new Intent(Map.this,ActivitySetup.class);
         startActivity(myintent);
     }
@@ -168,6 +177,15 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
         return result;
     }
 
-
-
+    private Document toXMLfromString(String str){
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = null;
+        try{
+            builder = factory.newDocumentBuilder();
+            return builder.parse(new InputSource(new StringReader(str)));
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return null;
+    }
 }
