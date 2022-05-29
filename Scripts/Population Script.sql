@@ -17,7 +17,7 @@ VALUES ('Running','Running description'),
 
 INSERT INTO SPONSOR(ComercialName, Logo, AgentNumber, FirstName, SecondName, FirstSurname, SecondSurname)
 VALUES('Ford',
-	(SELECT BulkColumn FROM OPENROWSET(BULK N'C:\Users\User\Desktop\Ford_logo_flat.svg.png', SINGLE_BLOB) image),
+	(SELECT BulkColumn FROM OPENROWSET(BULK N'C:\Users\aleji\Desktop\Wallpapers\0c32f59f324a00829dd4fa4c7c0f2223.jpg', SINGLE_BLOB) image),
 	85858585,
 	'Juan',
 	'Fernando',

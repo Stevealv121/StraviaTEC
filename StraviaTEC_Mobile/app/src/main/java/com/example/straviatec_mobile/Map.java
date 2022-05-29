@@ -13,6 +13,7 @@ import android.location.LocationManager;
 import android.location.LocationListener;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
@@ -22,10 +23,13 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Map extends AppCompatActivity implements OnMapReadyCallback {
@@ -42,6 +46,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
     private GoogleMap nMap;
     private Polyline track;
     private LatLng mylocation;
+    private final List<Location> trkpoints = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +82,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
                         mylocation = new LatLng(location.getLatitude(),location.getLongitude());
                         updateTrack();
                         nMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mylocation, 20));
+                        trkpoints.add(location);
                     }catch(SecurityException ex){
                         ex.printStackTrace();
                     }
@@ -136,6 +142,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
 
     public void finishActivity(View view) {
         track.remove();
+        Log.d("Gpx content", generateRouteGPX("gpx test",trkpoints));
         Intent myintent = new Intent(Map.this,ActivitySetup.class);
         startActivity(myintent);
     }
@@ -144,6 +151,21 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
         List<LatLng> points = track.getPoints();
         points.add(mylocation);
         track.setPoints(points);
+    }
+
+    private String generateRouteGPX(String name, List<Location> points){
+        String result;
+        String header = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?><gpx xmlns=\"http://www.topografix.com/GPX/1/1\" creator=\"MapSource 6.15.5\" version=\"1.1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"  xsi:schemaLocation=\"http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd\"><trk>\n";
+        name = "<name>" + name + "</name><trkseg>\n";
+        String segments = "";
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+        for (Location location : points) {
+            segments += "<trkpt lat=\"" + location.getLatitude() + "\" lon=\"" + location.getLongitude() + "\"><time>" + df.format(new Date(location.getTime())) + "</time></trkpt>\n";
+        }
+
+        String footer = "</trkseg></trk></gpx>";
+        result = header + name + segments + footer;
+        return result;
     }
 
 
