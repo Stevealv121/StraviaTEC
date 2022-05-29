@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserI } from '../models/user.interface';
 import { ApiService } from '../services/api.service';
 import { ToastrService } from 'ngx-toastr'
@@ -36,10 +36,9 @@ export class SignUpComponent implements OnInit {
   }
 
   postForm(form: UserI) {
-
-    // this.api.signUp(form).subscribe(data => {
-    //   console.log(data);
-    // });
+    this.api.signUp(form).subscribe(data => {
+      console.log(data);
+    });
     this.success();
   }
 
@@ -57,27 +56,16 @@ export class SignUpComponent implements OnInit {
       //   this.url = event.target?.result;
       // }
       reader.onload = () => {
-
         this.url = reader.result as string;
-
-        this.imgToBlob(reader.result as string)
-
-        this.registerForm.patchValue({
-          profilePicture: reader.result
-        });
-
-      };
+        //callback(reader.result);
+      }
+      //console.log(reader.result)
+      console.log(this.url);
     }
-  }
 
-  imgToBlob(url: any) {
-    fetch(url).then(function (response) {
-      return response.blob();
-    }).then(function (blob) {
-      console.log(blob);
-      console.log(blob.size);
-      console.log(blob.type);
-    })
+    // this.registerForm.patchValue({
+    //   profilePicture: this.url
+    // });
   }
 
 }
