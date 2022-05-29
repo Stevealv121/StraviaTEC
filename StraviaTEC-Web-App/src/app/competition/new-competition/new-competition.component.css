@@ -1,0 +1,26 @@
+#col1{
+  height: 665px;
+  background-image: url("https://www.washingtonian.com/wp-content/uploads/2020/04/iStock-1154419078-2048x975.jpg");
+  background-size: cover;
+    background-repeat:no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+}
+#cont{
+  margin-top: 5cm;
+  background-color: white;
+  opacity: 0.7;
+  border-radius: 0.2cm;
+  width: 10cm;
+}
+#description{
+  text-align: justify;
+  font-size: large;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+
+}
+#span{
+  background-color: #00AF3D;
+  border-color: #00AF3D;
+  color: white;
+}
