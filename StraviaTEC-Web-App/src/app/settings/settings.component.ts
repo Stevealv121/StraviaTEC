@@ -28,7 +28,16 @@ export class SettingsComponent implements OnInit {
   @ViewChild('closeUN') modalCloseUsername!: ElementRef;
   @ViewChild('closeDA') modalCloseDeleteAcc!: ElementRef;
 
+  usrname: string | null = "";
+  firstname: string | null = "";
+  lastname: string | null = "";
+
   ngOnInit(): void {
+    if (this.data.currentUser) {
+      this.usrname = this.data.currentUser.userName;
+      this.firstname = this.data.currentUser.firstName;
+      this.lastname = this.data.currentUser.firstSurname;
+    }
   }
 
   changePassword(form: any) {
@@ -36,7 +45,7 @@ export class SettingsComponent implements OnInit {
     if (this.data.currentUser) {
       this.data.currentUser.password = form.password;
 
-      this.api.changeCrediantials(this.data.currentUser).subscribe(data => {
+      this.api.changeCredentials(this.data.currentUser).subscribe(data => {
         console.log(data);
       })
     }
@@ -52,9 +61,10 @@ export class SettingsComponent implements OnInit {
     if (this.data.currentUser) {
       console.log('Before: ' + this.data.currentUser.userName);
       this.data.currentUser.userName = form.username;
+      this.usrname = form.username;
       console.log('After: ' + this.data.currentUser.userName);
       console.log('Form: ' + form.username);
-      this.api.changeCrediantials(this.data.currentUser).subscribe(data => {
+      this.api.changeCredentials(this.data.currentUser).subscribe(data => {
         console.log(data);
       })
     }

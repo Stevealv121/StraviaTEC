@@ -1,5 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { UserI } from '../models/user.interface';
+import { DataService } from '../services/data.service';
 
 // declare var require: any
 
@@ -19,7 +21,8 @@ const defaultZoom: number = 8
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private data: DataService) {
+  }
   routeMap: string = "assets/images/route-map.png";
   friendsActivity = [{ name: "x", id: "1" }, { name: "x", id: "2" }, { name: "x", id: "3" }]
   friendImage: string = "assets/images/avatar.png";
@@ -31,9 +34,10 @@ export class HomeComponent implements OnInit {
   gpxData: string = "assets/route1.gpx";
   apiToken = environment.MAPBOXAPIKEY;
   //@ViewChild('map', { read: ElementRef }) mapContainer!: ElementRef;
-
+  user?: UserI;
 
   ngOnInit(): void {
+    this.user = this.data.currentUser;
     this.checkIfHasComments();
     this.loadAllRoutes();
   }

@@ -1,6 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { UserI } from '../models/user.interface';
+import { ApiService } from '../services/api.service';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-profile',
@@ -9,7 +11,7 @@ import { UserI } from '../models/user.interface';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor() {
+  constructor(private data: DataService, private api: ApiService) {
   }
 
   profileForm = new FormGroup({
@@ -71,31 +73,33 @@ export class ProfileComponent implements OnInit {
 
   url: string = 'assets/images/avatar.png';
 
-  user: UserI = {
-    firstName: "apiInfo",
-    secondName: "apiInfo",
-    firstSurname: "apiInfo",
-    secondSurname: "apiInfo",
-    birthDate: "apiInfo",
-    level: "apiInfo",
-    nationality: "apiInfo",
-    userName: null,
-    password: null,
-    profilePicture: null
-  }
+  // user: UserI = {
+  //   firstName: "apiInfo",
+  //   secondName: "apiInfo",
+  //   firstSurname: "apiInfo",
+  //   secondSurname: "apiInfo",
+  //   birthDate: "apiInfo",
+  //   level: "apiInfo",
+  //   nationality: "apiInfo",
+  //   userName: null,
+  //   password: null,
+  //   profilePicture: null
+  // }
+  user?: UserI;
 
   ngOnInit(): void {
+    this.user = this.data.currentUser;
     this.displayValues();
   }
 
   displayValues() {
-    this.FNDisplay.nativeElement.getElementsByTagName('strong')[0].innerHTML = this.user.firstName;
-    this.SNDisplay.nativeElement.getElementsByTagName('strong')[0].innerHTML = this.user.secondName;
-    this.FSDisplay.nativeElement.getElementsByTagName('strong')[0].innerHTML = this.user.firstSurname;
-    this.SSDisplay.nativeElement.getElementsByTagName('strong')[0].innerHTML = this.user.secondSurname;
-    this.BDDisplay.nativeElement.getElementsByTagName('strong')[0].innerHTML = this.user.birthDate;
-    this.NDisplay.nativeElement.getElementsByTagName('strong')[0].innerHTML = this.user.nationality;
-    this.LDisplay.nativeElement.getElementsByTagName('strong')[0].innerHTML = this.user.level;
+    this.FNDisplay.nativeElement.getElementsByTagName('strong')[0].innerHTML = this.user?.firstName;
+    this.SNDisplay.nativeElement.getElementsByTagName('strong')[0].innerHTML = this.user?.secondName;
+    this.FSDisplay.nativeElement.getElementsByTagName('strong')[0].innerHTML = this.user?.firstSurname;
+    this.SSDisplay.nativeElement.getElementsByTagName('strong')[0].innerHTML = this.user?.secondSurname;
+    this.BDDisplay.nativeElement.getElementsByTagName('strong')[0].innerHTML = this.user?.birthDate;
+    this.NDisplay.nativeElement.getElementsByTagName('strong')[0].innerHTML = this.user?.nationality;
+    this.LDisplay.nativeElement.getElementsByTagName('strong')[0].innerHTML = this.user?.level;
   }
 
   onSelectFile(event: any) {
@@ -228,39 +232,44 @@ export class ProfileComponent implements OnInit {
   }
 
   save(set: any, form: any) {
-    switch (set) {
-      case "firstName":
-        this.user.firstName = form.firstName;
-        this.FNDisplay.nativeElement.getElementsByTagName('strong')[0].innerHTML = this.user.firstName;
-        //console.log(this.FNInput.nativeElement.innerHTML);
-        break;
-      case "secondName":
-        this.user.secondName = form.secondName;
-        this.SNDisplay.nativeElement.getElementsByTagName('strong')[0].innerHTML = this.user.secondName;
-        break;
-      case "firstSurname":
-        this.user.firstSurname = form.firstSurname;
-        this.FSDisplay.nativeElement.getElementsByTagName('strong')[0].innerHTML = this.user.firstSurname;
-        break;
-      case "secondSurname":
-        this.user.secondSurname = form.secondSurname;
-        this.SSDisplay.nativeElement.getElementsByTagName('strong')[0].innerHTML = this.user.secondSurname;
-        break;
-      case "birthDate":
-        this.user.birthDate = form.birthDate;
-        this.BDDisplay.nativeElement.getElementsByTagName('strong')[0].innerHTML = this.user.birthDate;
-        break;
-      case "nationality":
-        this.user.nationality = form.nationality;
-        this.NDisplay.nativeElement.getElementsByTagName('strong')[0].innerHTML = this.user.nationality;
-        break;
-      case "level":
-        this.user.level = form.level;
-        this.LDisplay.nativeElement.getElementsByTagName('strong')[0].innerHTML = this.user.level;
-        break;
+    if (this.user) {
+      switch (set) {
+        case "firstName":
+          this.user.firstName = form.firstName;
+          this.FNDisplay.nativeElement.getElementsByTagName('strong')[0].innerHTML = this.user.firstName;
+          //console.log(this.FNInput.nativeElement.innerHTML);
+          break;
+        case "secondName":
+          this.user.secondName = form.secondName;
+          this.SNDisplay.nativeElement.getElementsByTagName('strong')[0].innerHTML = this.user.secondName;
+          break;
+        case "firstSurname":
+          this.user.firstSurname = form.firstSurname;
+          this.FSDisplay.nativeElement.getElementsByTagName('strong')[0].innerHTML = this.user.firstSurname;
+          break;
+        case "secondSurname":
+          this.user.secondSurname = form.secondSurname;
+          this.SSDisplay.nativeElement.getElementsByTagName('strong')[0].innerHTML = this.user.secondSurname;
+          break;
+        case "birthDate":
+          this.user.birthDate = form.birthDate;
+          this.BDDisplay.nativeElement.getElementsByTagName('strong')[0].innerHTML = this.user.birthDate;
+          break;
+        case "nationality":
+          this.user.nationality = form.nationality;
+          this.NDisplay.nativeElement.getElementsByTagName('strong')[0].innerHTML = this.user.nationality;
+          break;
+        case "level":
+          this.user.level = form.level;
+          this.LDisplay.nativeElement.getElementsByTagName('strong')[0].innerHTML = this.user.level;
+          break;
+      }
+      this.data.currentUser = this.user;
+      this.api.changeCredentials(this.user).subscribe(data => {
+        console.log(data);
+      })
+      this.cancel(set);
     }
-    this.cancel(set);
-    //console.log(form.firstName);
   }
 
 }

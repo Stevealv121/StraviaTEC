@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { LoginI } from '../models/login.interface';
 import { ApiService } from '../services/api.service';
 import { DataService } from '../services/data.service';
@@ -11,7 +13,8 @@ import { DataService } from '../services/data.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private api: ApiService, private data: DataService) { }
+  constructor(private api: ApiService, private data: DataService, private router: Router,
+    private toastr: ToastrService) { }
 
   loginForm = new FormGroup({
     userName: new FormControl('', Validators.required),
@@ -24,15 +27,17 @@ export class LoginComponent implements OnInit {
   onLogin(form: LoginI) {
     let password = form.password;
     let userName = form.userName;
-    let credentials = false;
+    //let credentials = false;
     this.api.login(userName, password).subscribe(data => {
       if (data == null) {
         alert("Wrong credentials, please access with a valid email and password.");
       } else {
         this.data.currentUser = data;
         console.log(this.data.currentUser);
-        credentials = true;
-        alert("Login...");
+        //credentials = true;
+        // alert("Login...");
+        this.toastr.success("Login completed!", "Success");
+        this.router.navigateByUrl("home");
       }
     })
 

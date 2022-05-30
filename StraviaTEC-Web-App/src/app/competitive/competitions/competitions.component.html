@@ -22,13 +22,13 @@
             <br>
             <div class="row mb-4">
                 <div class="col-md-2"><img src="assets/images/avatar.png" id="profilePic"></div>
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <br>
                     <div class="row" id="athleteName">
-                        FirstName LastName
+                        {{user?.firstName}} {{user?.firstSurname}}
                     </div>
-                    <div class="row" id="greyText">Level</div>
-                    <div class="row" id="greyText">Birth-Date</div>
+                    <div class="row" id="greyText">Level: {{user?.level}}</div>
+                    <div class="row" id="greyText">Birth Date: {{user?.birthDate}}</div>
                 </div>
             </div>
             <div class="row">
