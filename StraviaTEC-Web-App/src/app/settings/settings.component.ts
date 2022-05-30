@@ -26,6 +26,7 @@ export class SettingsComponent implements OnInit {
 
   @ViewChild('closePS') modalClosePassword!: ElementRef;
   @ViewChild('closeUN') modalCloseUsername!: ElementRef;
+  @ViewChild('closeDA') modalCloseDeleteAcc!: ElementRef;
 
   ngOnInit(): void {
   }
@@ -61,5 +62,16 @@ export class SettingsComponent implements OnInit {
     this.toastr.success("New username succesfully changed!", "Success");
     this.modalCloseUsername.nativeElement.click();
 
+  }
+
+  deleteAccount() {
+    if (this.data.currentUser) {
+      this.api.deleteAccount(this.data.currentUser.userName, this.data.currentUser.password).subscribe(data => {
+        console.log(data);
+      });
+    }
+    this.toastr.success("Account succesfully deleted!", "Success");
+    this.modalCloseDeleteAcc.nativeElement.click();
+    this.router.navigateByUrl("login");
   }
 }

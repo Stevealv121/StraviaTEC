@@ -28,4 +28,9 @@ export class ApiService {
     return this.http.put<ResponseI>(this.userPath, form);
   }
 
+  deleteAccount(userName: string | null, password: string | null): Observable<ResponseI> {
+    let deletePath = this.userPath + "/" + "Account/" + userName + "/" + password;
+    return this.http.delete<ResponseI>(deletePath)
+  }
+
 }
