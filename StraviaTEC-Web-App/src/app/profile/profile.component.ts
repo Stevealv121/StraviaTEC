@@ -80,7 +80,7 @@ export class ProfileComponent implements OnInit {
     level: "apiInfo",
     nationality: "apiInfo",
     userName: null,
-    passwords: null,
+    password: null,
     profilePicture: null
   }
 

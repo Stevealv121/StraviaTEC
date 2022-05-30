@@ -24,4 +24,8 @@ export class ApiService {
     return this.http.post<ResponseI>(this.userPath, form)
   }
 
+  changeCrediantials(form: UserI): Observable<ResponseI> {
+    return this.http.put<ResponseI>(this.userPath, form);
+  }
+
 }

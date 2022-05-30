@@ -85,21 +85,23 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="passwordModalLabel">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" #closePS class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="form-group">
-                    <div class="pos-r">
-                        <input id="form-password" type="password" name="form-password" placeholder="New Password"
-                            formControlName="password" class="form-password form-control">
-                        <i class="fa fa-lock"></i>
+                <form [formGroup]="passwordForm" (ngSubmit)="changePassword(passwordForm.value)">
+                    <div class="form-group">
+                        <div class="pos-r">
+                            <input id="form-password" type="password" name="form-password" placeholder="New Password"
+                                formControlName="password" class="form-password form-control">
+                            <i class="fa fa-lock"></i>
+                        </div>
                     </div>
-                </div>
-                <br>
-                <div class="form-group">
-                    <button id="buttons" type="submit"
-                        class="btn btn-primary form-control"><strong>Submit</strong></button>
-                </div>
+                    <br>
+                    <div class="form-group">
+                        <button id="buttons" type="submit"
+                            class="btn btn-primary form-control"><strong>Submit</strong></button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

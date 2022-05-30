@@ -1,6 +1,6 @@
 export interface UserI {
     userName: string | null,
-    passwords: string | null,
+    password: string | null,
     firstName: string | null,
     secondName: string | null,
     firstSurname: string | null,
