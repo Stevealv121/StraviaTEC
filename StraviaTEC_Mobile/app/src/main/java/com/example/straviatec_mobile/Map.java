@@ -152,7 +152,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
         Document doc = toXMLfromString(generateRouteGPX("gpx test",trkpoints));
         assert doc != null;
         //Log.d("Gpx content", doc.getFirstChild().getNodeName());
-        Intent myintent = new Intent(Map.this,ActivitySetup.class);
+        Intent myintent = new Intent(Map.this,Menu.class);
         startActivity(myintent);
     }
 

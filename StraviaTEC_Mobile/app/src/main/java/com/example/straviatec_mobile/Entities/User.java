@@ -1,84 +1,66 @@
 package com.example.straviatec_mobile.Entities;
 
-import android.media.Image;
-
 public class User {
-    private String UserName;
-    private String first_name;
-    private String second_name;
-    private String first_surname;
-    private String second_surname;
-    private String Level;
-    private Image ProfilePicture;
+    private String userName;
+    private String firstName;
+    private String secondName;
+    private String firstSurname;
+    private String secondSurname;
     private String password;
+    private String level;
+    private String profilePicture;
 
-    public User(String userName, String first_name, String second_name, String first_surname, String second_surname, String level, Image profilePicture, String password) {
-        UserName = userName;
-        this.first_name = first_name;
-        this.second_name = second_name;
-        this.first_surname = first_surname;
-        this.second_surname = second_surname;
-        Level = level;
-        ProfilePicture = profilePicture;
+    public User(String userName, String firstName, String secondName, String firstSurname, String secondSurname, String password, String level, String profilePicture) {
+        this.userName = userName;
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.firstSurname = firstSurname;
+        this.secondSurname = secondSurname;
         this.password = password;
+        this.level = level;
+        this.profilePicture = profilePicture;
     }
 
     public User(){}
 
     public String getUserName() {
-        return UserName;
+        return userName;
     }
 
     public void setUserName(String userName) {
-        UserName = userName;
+        this.userName = userName;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getSecond_name() {
-        return second_name;
+    public String getSecondName() {
+        return secondName;
     }
 
-    public void setSecond_name(String second_name) {
-        this.second_name = second_name;
+    public void setSecondName(String secondName) {
+        this.secondName = secondName;
     }
 
-    public String getFirst_surname() {
-        return first_surname;
+    public String getFirstSurname() {
+        return firstSurname;
     }
 
-    public void setFirst_surname(String first_surname) {
-        this.first_surname = first_surname;
+    public void setFirstSurname(String firstSurname) {
+        this.firstSurname = firstSurname;
     }
 
-    public String getSecond_surname() {
-        return second_surname;
+    public String getSecondSurname() {
+        return secondSurname;
     }
 
-    public void setSecond_surname(String second_surname) {
-        this.second_surname = second_surname;
-    }
-
-    public String getLevel() {
-        return Level;
-    }
-
-    public void setLevel(String level) {
-        Level = level;
-    }
-
-    public Image getProfilePicture() {
-        return ProfilePicture;
-    }
-
-    public void setProfilePicture(Image profilePicture) {
-        ProfilePicture = profilePicture;
+    public void setSecondSurname(String secondSurname) {
+        this.secondSurname = secondSurname;
     }
 
     public String getPassword() {
@@ -87,5 +69,21 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
     }
 }
