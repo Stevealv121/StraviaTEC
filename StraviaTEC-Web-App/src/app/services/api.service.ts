@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { UserI } from '../models/user.interface';
 import { ResponseI } from '../models/response.interface';
+import { ActivityI } from '../models/activity.interface';
 
 
 @Injectable({
@@ -14,6 +15,7 @@ export class ApiService {
 
   url: string = "https://localhost:7060/api/";
   userPath: string = this.url + "User";
+  activityPath: string = this.url + "Activity";
 
   login(userName: string, password: string): Observable<UserI> {
     let loginPath = this.userPath + "/" + "Login/" + userName + "/" + password;
@@ -31,6 +33,10 @@ export class ApiService {
   deleteAccount(userName: string | null, password: string | null): Observable<ResponseI> {
     let deletePath = this.userPath + "/" + "Account/" + userName + "/" + password;
     return this.http.delete<ResponseI>(deletePath)
+  }
+
+  postActivity(form: ActivityI): Observable<ResponseI> {
+    return this.http.post<ResponseI>(this.activityPath, form)
   }
 
 }

@@ -6,7 +6,7 @@
     <br>
     <div class="row">
         <div class="col-md-4">
-            <form [formGroup]="activityForm">
+            <form [formGroup]="activityForm" (ngSubmit)="uploadActivity(activityForm.value)">
                 <div class="form-group">
                     <div class="pos-r">
                         <input type="text" placeholder="Activity title" formControlName="title"
