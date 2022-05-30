@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { UserI } from '../models/user.interface';
+import { ApiService } from '../services/api.service';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-athlete-search',
@@ -7,11 +11,31 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AthleteSearchComponent implements OnInit {
 
-  constructor() { }
+  constructor(private api: ApiService, private data: DataService) { }
 
-  athletes: number[] = [1, 2, 3, 4, 5];
+  athletes: UserI[] = [];
+
+  searchForm = new FormGroup({
+    firstName: new FormControl('')
+  })
 
   ngOnInit(): void {
+    this.getUsers();
+  }
+
+  searchAthlete(form: any) {
+    this.athletes = [];
+    this.api.searchUser(form.firstName).subscribe(data => {
+      console.log(data);
+      this.athletes = data;
+    })
+
+  }
+
+  getUsers() {
+    this.api.getAllUsers().subscribe(data => {
+      this.athletes = data;
+    })
   }
 
 }

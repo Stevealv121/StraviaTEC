@@ -39,4 +39,13 @@ export class ApiService {
     return this.http.post<ResponseI>(this.activityPath, form)
   }
 
+  searchUser(user: string): Observable<UserI[]> {
+    let searchPath = this.userPath + "/" + "SearchUsers/" + user;
+    return this.http.get<UserI[]>(searchPath)
+  }
+
+  getAllUsers(): Observable<UserI[]> {
+    return this.http.get<UserI[]>(this.userPath)
+  }
+
 }
