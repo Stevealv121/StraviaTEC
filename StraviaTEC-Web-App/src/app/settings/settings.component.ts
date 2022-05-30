@@ -20,7 +20,12 @@ export class SettingsComponent implements OnInit {
     password: new FormControl('')
   })
 
+  usernameForm = new FormGroup({
+    username: new FormControl('')
+  })
+
   @ViewChild('closePS') modalClosePassword!: ElementRef;
+  @ViewChild('closeUN') modalCloseUsername!: ElementRef;
 
   ngOnInit(): void {
   }
@@ -38,6 +43,23 @@ export class SettingsComponent implements OnInit {
     console.log(form.password);
     this.toastr.success("New password succesfully changed!", "Success");
     this.modalClosePassword.nativeElement.click();
+
+  }
+
+  changeUsername(form: any) {
+
+    if (this.data.currentUser) {
+      console.log('Before: ' + this.data.currentUser.userName);
+      this.data.currentUser.userName = form.username;
+      console.log('After: ' + this.data.currentUser.userName);
+      console.log('Form: ' + form.username);
+      this.api.changeCrediantials(this.data.currentUser).subscribe(data => {
+        console.log(data);
+      })
+    }
+
+    this.toastr.success("New username succesfully changed!", "Success");
+    this.modalCloseUsername.nativeElement.click();
 
   }
 }
