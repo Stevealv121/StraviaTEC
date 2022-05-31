@@ -9,8 +9,12 @@
             <form [formGroup]="activityForm" (ngSubmit)="uploadActivity(activityForm.value)">
                 <div class="form-group">
                     <div class="pos-r">
-                        <input type="text" placeholder="Activity title" formControlName="title"
-                            class="form-username form-control">
+                        <select [(ngModel)]="sportModel" class="form-select" formControlName="sport">
+                            <option class="dropdown-item" disabled selected value="undefined">Choose the sport
+                            </option>
+                            <option *ngFor="let sport of sports; let i = index" [ngValue]="sport.name"
+                                class="dropdown-item">{{sport.name}}</option>
+                        </select>
                         <i class="fa fa-user"></i>
                     </div>
                 </div>
@@ -38,9 +42,8 @@
                     <br>
                     <div class="form-group">
                         <div class="pos-r">
-                            <input id="duration-inp" type="text"
-                                pattern="([0-9]{1}[0-9]{0,1}h){1}([0-9]{1}[0-9]{0,1}m){1}" placeholder="Duration"
-                                formControlName="duration" class="form-username form-control" title="Example: 3h12m">
+                            <input id="duration-inp" type="text" placeholder="Duration" formControlName="duration"
+                                class="form-username form-control" title="Example: 01:12:00">
                             <i class="fa fa-user"></i>
                         </div>
                     </div>

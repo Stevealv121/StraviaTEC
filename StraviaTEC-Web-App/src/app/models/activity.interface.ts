@@ -1,11 +1,10 @@
-import { DurationI } from "./duration.interface";
+
 
 export interface ActivityI {
     username: string | null,
     date: string | null,
-    duration: DurationI,
+    duration: string | null,
     mileage: string | null,
-    route: string[]
-    sportName: string,
-    id: number
+    route: string | null,
+    sportName: string
 }

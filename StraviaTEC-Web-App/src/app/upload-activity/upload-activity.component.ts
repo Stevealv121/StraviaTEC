@@ -17,7 +17,10 @@ export class UploadActivityComponent implements OnInit {
   selectedOption: any;
   selectedOption2: any;
   selectedOption3: any;
+  sportModel: any;
   activeRaces = [{ name: "Race1", id: "1" }, { name: "Race2", id: "2" }];
+  sports = [{ name: "Running", id: "1" }, { name: "Swimming", id: "2" }, { name: "Cycling", id: "3" },
+  { name: "Hiking", id: "4" }, { name: "Kayaking", id: "5" }, { name: "Walking", id: "6" }];
 
   activityForm = new FormGroup({
     title: new FormControl(''),
@@ -27,7 +30,8 @@ export class UploadActivityComponent implements OnInit {
     distance: new FormControl(''),
     route: new FormControl(''),
     competition: new FormControl(''),
-    race: new FormControl('')
+    race: new FormControl(''),
+    sport: new FormControl('')
   });
 
   isRaceHidden: boolean = true;
@@ -49,30 +53,20 @@ export class UploadActivityComponent implements OnInit {
 
   uploadActivity(form: any) {
 
-    let fullDuration = form.duration;
-
-    let arrD = fullDuration.split("h");
-    let arrDS = arrD[1].split("s");
-    console.log(arrD);
-    let duration = {
-      hours: +arrD[0],
-      minutes: +arrDS[0],
-      ticks: 0,
-      days: 0,
-      milliseconds: 0,
-      seconds: 0
-    }
+    // let arrHours = fullDuration.split("h");
+    // let arrMinutes = arrHours[1].split("m");
+    // let arrSeconds = arrMinutes[1].split("s");
+    // let duration;
 
 
     if (this.data.currentUser) {
       let activity: ActivityI = {
         username: this.data.currentUser.userName,
         date: form.date,
-        duration: duration,
+        duration: form.duration,
         mileage: form.distance,
-        route: ["string"],
-        sportName: "Soccer",
-        id: 1
+        route: null,
+        sportName: form.sport
       }
 
       this.api.postActivity(activity).subscribe(data => {
