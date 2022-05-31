@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { UserI } from '../models/user.interface';
 import { ResponseI } from '../models/response.interface';
 import { ActivityI } from '../models/activity.interface';
+import { AddFriendI } from '../models/addFriend.interface';
 
 
 @Injectable({
@@ -46,6 +47,16 @@ export class ApiService {
 
   getAllUsers(): Observable<UserI[]> {
     return this.http.get<UserI[]>(this.userPath)
+  }
+
+  addFriend(form: AddFriendI): Observable<ResponseI> {
+    let addFriendPath = this.userPath + "/" + "AddFriend";
+    return this.http.post<ResponseI>(addFriendPath, form)
+  }
+
+  getFriendList(username: any): Observable<UserI[]> {
+    let friendListPath = this.userPath + "/FriendsList/" + username;
+    return this.http.get<UserI[]>(friendListPath)
   }
 
 }

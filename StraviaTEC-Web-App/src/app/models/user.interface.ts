@@ -8,5 +8,9 @@ export interface UserI {
     birthDate: string | null,
     nationality: string | null,
     profilePicture: string | null,
-    level: string | null
+    level: string | null,
+    // addfriendbutton options
+    btnId: number, color: string, font: string, btn: string,
+    //friend
+    friendUserName: string | null
 }

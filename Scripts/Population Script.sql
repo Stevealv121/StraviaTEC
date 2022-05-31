@@ -17,7 +17,7 @@ VALUES ('Running','Running description'),
 
 INSERT INTO SPONSOR(ComercialName, Logo, AgentNumber, FirstName, SecondName, FirstSurname, SecondSurname)
 VALUES('Ford',
-	(SELECT BulkColumn FROM OPENROWSET(BULK N'C:\Users\User\Desktop\Ford_logo_flat.svg.png', SINGLE_BLOB) image),
+	(SELECT BulkColumn FROM OPENROWSET(BULK N'C:\Users\Steve\Pictures\1c668a7f-3ea2-4e18-808d-4db4feff214b.jpg', SINGLE_BLOB) image),
 	85858585,
 	'Juan',
 	'Fernando',
@@ -42,6 +42,6 @@ INSERT INTO [dbo].[USER]
 		   ('steve','Carlos','Steve','Alvarado','Mendez',
 		   '1234', '1', null, '2000-05-10'),
 		   ('dennis', 'Dennis', 'Alejandro','Jimenez','Campos',
-		   '1234', '1', null,'2001-05-10')
+		   '1234', '1', null,'2001-05-10');
 
 

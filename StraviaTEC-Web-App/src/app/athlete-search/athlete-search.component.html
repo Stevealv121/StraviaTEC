@@ -28,7 +28,10 @@
                         </div>
                         <div class="row mb-3" id="greyText">{{athlete.level}} - Age</div>
                         <div class="row mb-3">
-                            <button class="btn btn-primary" id="buttons">Add</button>
+                            <button class="btn btn-primary" id="buttons" [ngStyle]="{
+                                'background-color' : athlete.color,
+                                'color' : athlete.font
+                              }" (click)="addFriend(athlete.userName,athlete.btnId)">{{athlete.btn}}</button>
                         </div>
                     </div>
                 </div>
@@ -44,7 +47,10 @@
                         </div>
                         <div class="row mb-3" id="greyText">{{athlete.level}} - Age</div>
                         <div class="row mb-3">
-                            <button class="btn btn-primary" id="buttons">Add</button>
+                            <button class="btn btn-primary" id="buttons" [ngStyle]="{
+                                'background-color' : athlete.color,
+                                'color' : athlete.font
+                              }" (click)="addFriend(athlete.userName,athlete.btnId)">{{athlete.btn}}</button>
                         </div>
                     </div>
                 </div>
