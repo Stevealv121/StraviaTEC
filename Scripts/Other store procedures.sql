@@ -151,7 +151,26 @@ FROM [RacesandSponsors]
 WHERE ID = @RaceID
 GO
 
+--Bank Acoouts
+CREATE PROCEDURE AssignRaceBankAccount @RaceId int, @Account bigint
+AS
+INSERT INTO BANK_ACCOUNT
+VALUES (@RaceId,@Account)
+GO
 
+CREATE PROCEDURE SelectRaceBankAccounts @RaceId int
+AS
+SELECT * 
+FROM BANK_ACCOUNT
+WHERE Race_ID = @RaceId
+GO
+
+CREATE PROCEDURE DeleteRaceBankAccount @RaceId int, @Account bigint
+AS
+DELETE
+FROM BANK_ACCOUNT
+WHERE Race_ID = @RaceId AND Account = @Account
+GO
 
 
 

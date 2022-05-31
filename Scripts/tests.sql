@@ -24,3 +24,7 @@ EXEC SelectAllChallenges
 EXEC SelectUserActivities 'sebas'
 EXEC SelectUserRace 'sebas'
 EXEC SelectUserChallenge 'nati'
+
+EXEC AssignRaceBankAccount 1,555
+EXEC SelectRaceBankAccounts 1
+EXEC DeleteRaceBankAccount 1,555
