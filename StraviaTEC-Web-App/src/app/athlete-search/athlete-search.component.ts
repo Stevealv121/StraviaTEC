@@ -86,15 +86,23 @@ export class AthleteSearchComponent implements OnInit {
         userName: this.data.currentUser.userName,
         friendUserName: friend
       }
-      this.api.addFriend(form).subscribe(data => {
-        console.log(data);
-        this.athletes.forEach(element => {
-          if (id == element.btnId) {
+      this.athletes.forEach(element => {
+        if (id == element.btnId && element.btn == 'Follow') {
+          this.api.addFriend(form).subscribe(data => {
+            console.log(data);
             element.color = 'white';
             element.font = '#00AF3D';
             element.btn = 'Following';
-          }
-        })
+          })
+        } else if (id == element.btnId && element.btn == 'Following') {
+          this.api.deleteFriend(form).subscribe(data => {
+            console.log(data);
+            element.color = '#00AF3D';
+            element.font = 'white';
+            element.btn = 'Follow';
+          })
+
+        }
       })
     }
   }

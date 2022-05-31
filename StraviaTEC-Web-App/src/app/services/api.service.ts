@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { UserI } from '../models/user.interface';
 import { ResponseI } from '../models/response.interface';
@@ -57,6 +57,17 @@ export class ApiService {
   getFriendList(username: any): Observable<UserI[]> {
     let friendListPath = this.userPath + "/FriendsList/" + username;
     return this.http.get<UserI[]>(friendListPath)
+  }
+
+  deleteFriend(form: AddFriendI): Observable<ResponseI> {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      body: form
+    };
+    let deleteFriendPath = this.userPath + "/DeleteFriend";
+    return this.http.delete<ResponseI>(deleteFriendPath, options)
   }
 
 }
