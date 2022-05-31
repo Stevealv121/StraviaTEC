@@ -62,6 +62,16 @@ WHERE [Name] = @Name
 GO
 --CHALLENGE
 -- Join
+CREATE PROCEDURE SelectUserChallenge @UserName varchar(15)
+AS
+SELECT c.*
+FROM ACTIVITY AS a
+INNER JOIN Register AS r
+ON a.Id = r.ActivityId
+INNER JOIN CHALLENGE AS c
+ON c.ActivityID=a.Id
+WHERE r.UserName = @UserName
+GO
 CREATE PROCEDURE JoinChallenge @UserName varchar(15), @Challenge_ID varchar(15)
 AS
 INSERT INTO JOIN_CHALLENGE(UserName, Challenge_ID)
@@ -75,7 +85,18 @@ FROM JOIN_CHALLENGE
 WHERE UserName = @Username AND Challenge_ID = @Challenge_ID
 GO
 
+
 --RACE
+CREATE PROCEDURE SelectUserRace @UserName varchar(15)
+AS
+SELECT ra.*
+FROM ACTIVITY AS a
+INNER JOIN Register AS r
+ON a.Id = r.ActivityId
+INNER JOIN RACE AS ra
+ON ra.ActivityID=a.Id
+WHERE r.UserName = @UserName
+GO
 CREATE PROCEDURE JoinRace @UserName varchar(15), @Race_ID varchar(15), @Bill image, @Activityid varchar(15)
 AS
 INSERT INTO JOIN_RACE(UserName, Race_ID, Bill, Activityid)
@@ -87,6 +108,16 @@ AS
 DELETE 
 FROM JOIN_RACE
 WHERE UserName = @Username AND Race_ID = @Race_ID
+GO
+
+--ACTIVITY
+CREATE PROCEDURE SelectUserActivities @UserName varchar(15)
+AS
+SELECT a.*
+FROM ACTIVITY AS a
+INNER JOIN Register AS r
+ON a.Id = r.ActivityId
+WHERE r.UserName = @UserName
 GO
 -- Position list
 CREATE PROCEDURE RacePositionList @RaceID int

@@ -208,6 +208,8 @@ CREATE PROCEDURE InsertRace @Id int,@Name varchar(15),@Cost int ,@Date date,@Acc
 AS
 INSERT INTO RACE ([Name],Cost,[Date],Access,ActivityID,CategoryName)
 VALUES (@Name,@Cost,@Date,@Access,@ActivityID,@CategoryName)
+SET @Id = SCOPE_IDENTITY()
+SELECT @Id
 GO
 
 CREATE PROCEDURE UpdateRace @Id int,@Name varchar(15),@Cost int ,@Date date,@Access varchar(15),@ActivityID int
@@ -342,13 +344,13 @@ INSERT INTO [USER] (UserName, FirstName, SecondName, FirstSurname, SecondSurname
 VALUES (@UserName, @FirstName, @SecondName, @FirstSurname, @SecondSurname, @Password,@Level, @ProfilePicture, @BirthDate)
 GO
 
-CREATE PROCEDURE UpdateUser @UserName varchar(15), @FirstName varchar(15), @SecondName varchar(15), 
+CREATE PROCEDURE UpdateUser @UserName varchar(15), @NewUserName varchar(15), @FirstName varchar(15), @SecondName varchar(15), 
 							@FirstSurname varchar(15), @SecondSurname varchar(15), @Password varchar(15), 
 							@Level varchar(15), @ProfilePicture image, @BirthDate date
 AS
 UPDATE [USER] 
 SET 
-    UserName = @UserName,
+    
     FirstName = @FirstName,
     SecondName = @SecondName,
     FirstSurname = @FirstSurname,
