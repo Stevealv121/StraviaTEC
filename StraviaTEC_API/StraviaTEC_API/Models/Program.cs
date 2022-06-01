@@ -1,6 +1,6 @@
 
 using StraviaTEC_API;
-
+using Comments_API.Data;
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +13,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var SQLConnectionConfig = new SQLConfig(builder.Configuration.GetConnectionString("ConnectionString"));
+
+builder.Services.Configure<CommentsDatabaseSettings>(builder.Configuration.GetSection("CommentsDatabaseSettings"));
+builder.Services.AddSingleton<CommentsService>(); 
+
 builder.Services.AddSingleton(SQLConnectionConfig);
 
 
