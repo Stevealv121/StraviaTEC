@@ -6,6 +6,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -29,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
         if(savedInstanceState == null){
             sincA();
             sincU();
@@ -66,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Activity>> call, Throwable t) {
-                Toast.makeText(MainActivity.this,"Connection Error",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this,t.getMessage(),Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -102,7 +106,8 @@ public class MainActivity extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<List<User>> call, Throwable t) {
-                Toast.makeText(MainActivity.this,"Connection Error",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this,t.getMessage(),Toast.LENGTH_LONG).show();
+                Log.e("Connection error:", t.toString());
             }
         });
 
@@ -112,4 +117,7 @@ public class MainActivity extends AppCompatActivity {
         Intent myintent = new Intent(MainActivity.this,Menu.class);
         startActivity(myintent);
     }
+
+
+
 }
