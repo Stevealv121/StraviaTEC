@@ -1,11 +1,11 @@
 INSERT INTO CATEGORY(Name,Description)
-VALUES ('Junior','Less than 15yo'),
-		('Sub-23','15yo to 23yo'),
-		('Open','24yo to 30yo'),
-		('Elite','Anyone'),
-		('Master A','30yo to 40yo'),
-		('Master B','41yo to 50yo'),
-		('Master C','More than 51yo');
+VALUES ('Junior','Less than 15yo',0,15),
+		('Sub-23','15yo to 23yo',15,23),
+		('Open','Anyone',null,null),
+		('Elite','24yo to 30yo',24,30),
+		('Master A','30yo to 40yo',30,40),
+		('Master B','41yo to 50yo',41,50),
+		('Master C','More than 51yo',51,150);
 
 INSERT INTO SPORT(Name, Description)
 VALUES ('Running','Running description'),
@@ -35,8 +35,8 @@ INSERT INTO [dbo].[USER]
            ,[ProfilePicture]
            ,[BirthDate])
      VALUES
-          ('nati', 'Natalia','Angeles','Gonzalez','Bermudez',
-		  '1234', '1', null, '2001-02-08'),
+          ('nati3', 'Natalia','Angeles','Gonzalez','Bermudez',
+		  '1234', '1', null, '2010-02-08'),
 		   ('sebas', 'Sebastian', 'Josue','Moya','Monge',
 		   '1234', '1', null,'2000-05-10'),
 		   ('steve','Carlos','Steve','Alvarado','Mendez',

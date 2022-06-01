@@ -89,15 +89,27 @@ namespace StraviaTEC_API.Controllers
         }
 
         //
-        [HttpPost("JoinRace/{_username}/{_raceid}")]
-        public async Task<IActionResult> Join(string _username, int _raceid)
+        [HttpGet("ByUserCategory/{_username}")]
+        public async Task<IActionResult> GetbyUserCategory(string _username)
         {
+            var db = dbConnection();
+            var sql = @"EXEC SelectRaceByUserCategory @name";
+            return Ok(await db.QueryAsync<Race>(sql, new { name = _username }));
+
+        }
+        [HttpPost("JoinRace")]
+        public async Task<IActionResult> Join([FromBody] JoinRace newObj)
+        {
+            if (newObj == null)
+                return BadRequest();
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
             var db = dbConnection();
-            var sql = @"EXEC JoinRace @username, @raceid";
-            var result = await db.ExecuteAsync(sql, new { username = _username, raceid = _raceid });
+            var result = db.Execute("JoinRace", newObj, commandType: CommandType.StoredProcedure);
 
-            return NoContent();
+            return Created("created", result > 0);
+            
         }
         [HttpDelete("ExitRace/{_username}/{_raceid}")]
         public async Task<IActionResult> Exit(string _username, int _raceid)
