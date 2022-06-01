@@ -69,18 +69,20 @@ FROM CATEGORY
 WHERE [Name] = @Name 
 GO
 
-CREATE PROCEDURE InsertCategory @Name varchar(15), @Description varchar(15)
+CREATE PROCEDURE InsertCategory @Name varchar(15), @Description varchar(15), @MinAge INT, @MaxAge INT
 AS
-INSERT INTO CATEGORY ([Name], [Description])
-VALUES (@Name, @Description)
+INSERT INTO CATEGORY 
+VALUES (@Name, @Description,@MinAge,@MaxAge)
 GO
 
-CREATE PROCEDURE UpdateCategory @Name varchar(15), @Description varchar(15)
+CREATE PROCEDURE UpdateCategory @Name varchar(15), @Description varchar(15), @MinAge INT, @MaxAge INT
 AS
 UPDATE CATEGORY 
 SET 
     [Name] = @Name,
-    [Description] = @Description
+    [Description] = @Description,
+	MinAge = @MinAge,
+	MaxAge = @MaxAge
 WHERE [Name] = @Name
 GO
 

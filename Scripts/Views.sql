@@ -62,3 +62,14 @@ SELECT g.[Name], m.UserName
 FROM [GROUP] AS g
 INNER JOIN BelongsTo AS m
 ON g.[Name] = m.GroupId
+GO 
+CREATE VIEW [UserandAge] AS
+SELECT u.UserName,DATEDIFF(hour,u.BirthDate,GETDATE())/8766 AS Age
+FROM [USER] AS u
+GO
+
+CREATE VIEW [UsersandCategory] AS
+SELECT a.*, (SELECT [Name] from CATEGORY AS c WHERE a.Age>= c.MinAge AND a.Age <= MaxAge) AS CategoryName
+FROM UserandAge AS a
+GO
+

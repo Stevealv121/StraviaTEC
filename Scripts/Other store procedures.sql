@@ -110,6 +110,19 @@ FROM JOIN_RACE
 WHERE UserName = @Username AND Race_ID = @Race_ID
 GO
 
+CREATE PROCEDURE SelectUserCategory @UserName varchar(15)
+AS
+SELECT CategoryName FROM UsersandCategory 
+WHERE UserName = @UserName
+GO
+
+CREATE PROCEDURE SelectRaceByUserCategory @UserName varchar(15)
+AS
+SELECT r.* FROM RACE AS r
+LEFT JOIN UsersandCategory AS u
+ON r.CategoryName = u.CategoryName
+WHERE u.UserName =  @UserName OR r.CategoryName = 'Open' 
+GO
 --ACTIVITY
 CREATE PROCEDURE SelectUserActivities @UserName varchar(15)
 AS
