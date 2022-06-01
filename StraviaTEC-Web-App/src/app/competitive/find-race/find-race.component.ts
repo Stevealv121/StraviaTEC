@@ -29,6 +29,10 @@ export class FindRaceComponent implements OnInit {
     this.api.getRaces().subscribe(data => {
       this.races = data;
     })
+    //TODO: Populate DB
+    // this.api.getRacesByUserCategory(this.data.currentUser?.userName).subscribe(data => {
+    //   this.races = data;
+    // })
   }
 
 }

@@ -6,6 +6,7 @@ import { ResponseI } from '../models/response.interface';
 import { ActivityI } from '../models/activity.interface';
 import { AddFriendI } from '../models/addFriend.interface';
 import { RaceI } from '../models/race.interface';
+import { JoinRaceI } from '../models/joinRace.interface';
 
 
 @Injectable({
@@ -76,9 +77,14 @@ export class ApiService {
     return this.http.get<RaceI[]>(this.racePath)
   }
 
-  joinRace(username: any, raceId: number): Observable<ResponseI> {
-    let joinPath = this.racePath + "/JoinRace/" + username + "/" + raceId;
-    return this.http.post<ResponseI>(joinPath, null)
+  getRacesByUserCategory(username: any): Observable<RaceI[]> {
+    let categoryPath = this.racePath + "/ByUserCategory/" + username;
+    return this.http.get<RaceI[]>(categoryPath)
+  }
+
+  joinRace(form: JoinRaceI): Observable<ResponseI> {
+    let joinPath = this.racePath + "/JoinRace";
+    return this.http.post<ResponseI>(joinPath, form)
   }
 
 }

@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { JoinRaceI } from 'src/app/models/joinRace.interface';
 import { RaceI } from 'src/app/models/race.interface';
 import { ApiService } from 'src/app/services/api.service';
 import { DataService } from 'src/app/services/data.service';
@@ -29,7 +30,13 @@ export class RaceInscriptionComponent implements OnInit {
   confirm() {
     this.paymentChecker();
     if (!this.isEmpty) {
-      this.api.joinRace(this.data.currentUser?.userName, this.race.id).subscribe(data => {
+      let form: JoinRaceI = {
+        userName: this.data.currentUser?.userName,
+        race_ID: this.race.id,
+        bill: null,
+        activityid: this.race.activityId
+      }
+      this.api.joinRace(form).subscribe(data => {
         console.log(data);
       })
       this.toastr.success("Successfully inscripted to " + this.race.name + "!", "Success");

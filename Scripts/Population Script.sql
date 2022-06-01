@@ -1,4 +1,4 @@
-INSERT INTO CATEGORY(Name,Description)
+INSERT INTO CATEGORY(Name,Description,MinAge,MaxAge)
 VALUES ('Junior','Less than 15yo',0,15),
 		('Sub-23','15yo to 23yo',15,23),
 		('Open','Anyone',null,null),
