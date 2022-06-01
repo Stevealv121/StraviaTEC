@@ -1,0 +1,30 @@
+#background{
+  height: 665px;
+  background-image: url("https://img2.goodfon.com/wallpaper/nbig/9/6f/sport-paren-muzhchina-beg.jpg");
+  background-size: cover;
+    background-repeat:no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+}
+#table{
+  text-align: center;
+  margin: auto;
+  width: 920px;
+  background-color: white;
+  /*background-color:#8A288D;*/
+  opacity: 0.9;
+  position:-ms-page;
+  color: black;
+  margin-top: 100px;
+}
+#button{
+  background-color: #00AF3D;
+  border-color: #00AF3D;
+  margin-left: 5px;
+}
+#col{
+  width:fit-content ;
+}
+#col2{
+  width:fit-content;
+}

@@ -13,6 +13,17 @@ import { ChallengesComponent } from './competitive/challenges/challenges.compone
 import { GroupedObservable } from 'rxjs';
 import { GroupsComponent } from './groups/groups.component';
 import { CompetitionsComponent } from './competitive/competitions/competitions.component';
+import { OrganizerMenuComponent } from './organizer-menu/organizer-menu.component';
+import { ChallengeComponent } from './challenge/challenge.component';
+import { CompetitionComponent } from './competition/competition.component';
+import { NewCompetitionComponent } from './competition/new-competition/new-competition.component';
+import { NewChallengeComponent } from './challenge/new-challenge/new-challenge.component';
+import { EditCompetitionComponent } from './competition/edit-competition/edit-competition.component';
+import { EditChallengeComponent } from './challenge/edit-challenge/edit-challenge.component';
+import { InfoRaceComponent } from './competition/info-race/info-race.component';
+import { GroupManagementComponent } from './group-management/group-management.component';
+import { NewGroupComponent } from './group-management/new-group/new-group.component';
+import { GroupGestionComponent } from './group-management/group-gestion/group-gestion.component';
 
 const routes: Routes = [
   { path: "", pathMatch: "full", redirectTo: "/login" },
@@ -27,7 +38,18 @@ const routes: Routes = [
   { path: "find-race", component: FindRaceComponent },
   { path: "challenges", component: ChallengesComponent },
   { path: "groups", component: GroupsComponent },
-  { path: "competitions", component: CompetitionsComponent }
+  { path: "competitions", component: CompetitionsComponent },
+  { path: "menu", component: OrganizerMenuComponent},
+  { path: "challenge", component: ChallengeComponent},
+  { path: "competition", component: CompetitionComponent},
+  { path: "NewCompetition", component: NewCompetitionComponent},
+  { path: "NewChallenge", component: NewChallengeComponent},
+  { path: "EditRace", component: EditCompetitionComponent},
+  { path: "EditChallenge", component: EditChallengeComponent},
+  { path: "InfoRace", component: InfoRaceComponent},
+  { path: "GroupsManagement", component: GroupManagementComponent},
+  { path: "NewGroup", component: NewGroupComponent},
+  { path: "GroupInfo", component: GroupGestionComponent}
 ];
 
 @NgModule({

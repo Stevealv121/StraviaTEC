@@ -17,6 +17,7 @@ INNER JOIN Register AS r
 ON friend.FriendUserName = r.UserName
 INNER JOIN ACTIVITY AS act
 ON r.ActivityId = act.Id;
+GO
 --Select * from AllFriends
 GO
 CREATE VIEW [RacesandActivities] AS

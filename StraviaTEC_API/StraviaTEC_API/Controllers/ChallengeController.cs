@@ -83,6 +83,14 @@ namespace StraviaTEC_API.Controllers
 
             return NoContent();
         }
+        [HttpGet("ByUserName/{_username}")]
+        public async Task<IActionResult> GetbyUserName(string _username)
+        {
+            var db = dbConnection();
+            var sql = @"EXEC SelectUserChallenge @user";
+            return Ok(await db.QueryAsync<Challenge>(sql, new { user = _username }));
+
+        }
 
         //
         [HttpPost("JoinChallenge/{_username}/{_challengeid}")]

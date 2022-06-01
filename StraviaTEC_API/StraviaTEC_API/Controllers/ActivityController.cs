@@ -76,5 +76,14 @@ namespace StraviaTEC_API.Controllers
 
             return NoContent();
         }
+
+        [HttpGet("ByUserName/{_username}")]
+        public async Task<IActionResult> GetbyUserName(string _username)
+        {
+            var db = dbConnection();
+            var sql = @"EXEC SelectUserActivities @user";
+            return Ok(await db.QueryAsync<Activity>(sql, new { user = _username }));
+
+        }
     }
 }

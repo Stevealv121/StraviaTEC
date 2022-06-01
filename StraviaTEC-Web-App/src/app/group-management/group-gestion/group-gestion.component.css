@@ -1,0 +1,26 @@
+#thead{
+  background-color: #00AF3D;
+  color: white;
+}
+#col1{
+  margin-top: 30px;
+  text-align: left;
+  height: 530px;
+  border-right: #00AF3D solid 10px;
+  align-items: center;
+  margin-right: 20px;
+
+}
+#col2{
+  margin-top: 30px;
+
+}
+#content1{
+  border: #00AF3D dotted;
+  margin-right: 70px;
+}
+#span{
+  background-color: #00AF3D;
+  border-color: #00AF3D;
+  color: white;
+}

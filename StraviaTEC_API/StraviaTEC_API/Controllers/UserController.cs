@@ -58,8 +58,8 @@ namespace StraviaTEC_API.Controllers
         }
         
 
-        [HttpPut]
-        public async Task<IActionResult> Update([FromBody] User _obj)
+        [HttpPut("{_username}")]
+        public async Task<IActionResult> Update([FromBody] User _obj, string _username)
         {
             if (_obj == null)
                 return BadRequest();
@@ -67,7 +67,22 @@ namespace StraviaTEC_API.Controllers
                 return BadRequest(ModelState);
 
             var db = dbConnection();
-            db.Execute("UpdateUser", _obj, commandType: CommandType.StoredProcedure);
+            var sql = @"EXEC UpdateUser @UserName, @NewUserName, @FirstName, @SecondName, @FirstSurname, @SecondSurname, @Password,@Level, @ProfilePicture, @BirthDate";
+            var values = new
+            {
+                UserName = _username,
+                NewUserName = _obj.UserName,
+                FirstName = _obj.FirstName,
+                SecondName = _obj.SecondName,
+                FirstSurname = _obj.FirstSurname,
+                SecondSurname = _obj.SecondSurname,
+                Password = _obj.Password,
+                Level = _obj.Level,
+                ProfilePicture = _obj.ProfilePicture,
+                BirthDate = _obj.BirthDate
+            };
+            
+            db.Execute(sql, values);
 
             return NoContent();
         }
