@@ -8,6 +8,8 @@ import { AddFriendI } from '../models/addFriend.interface';
 import { RaceI } from '../models/race.interface';
 import { JoinRaceI } from '../models/joinRace.interface';
 import { ChallengeI } from '../models/challenge.interface';
+import { GroupI } from '../models/group.interface';
+import { url } from 'inspector';
 
 
 @Injectable({
@@ -22,6 +24,7 @@ export class ApiService {
   activityPath: string = this.url + "Activity";
   racePath: string = this.url + "Race";
   challengePath: string = this.url + "Challenge";
+  groupPath: string = this.url + "Group"
 
   login(userName: string, password: string): Observable<UserI> {
     let loginPath = this.userPath + "/" + "Login/" + userName + "/" + password;
@@ -112,5 +115,21 @@ export class ApiService {
     let challengePath = this.challengePath + "/ByUserName/" + username;
     return this.http.get<ChallengeI[]>(challengePath)
   }
+
+  getGroups(): Observable<GroupI[]> {
+    return this.http.get<GroupI[]>(this.groupPath)
+  }
+
+  joinGroup(username: any, group: any): Observable<ResponseI> {
+    let joinPath = this.groupPath + "/JoinGroup/" + username + "/" + group;
+    return this.http.post<ResponseI>(joinPath, null)
+  }
+
+  exitGroup(username: any, group: any): Observable<ResponseI> {
+    let exitPath = this.groupPath + "/ExitGroup/" + username + "/" + group;
+    return this.http.post<ResponseI>(exitPath, null)
+  }
+
+
 
 }
