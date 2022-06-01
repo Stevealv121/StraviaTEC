@@ -3,11 +3,14 @@
     <h2>Race Inscription</h2>
     <div class="line"></div>
     <br>
-    <h4>Race Name</h4>
-    <h6>Type</h6>
-    <h6>Valid thru: date</h6>
+    <h4>{{race?.name}}</h4>
+    <h6>{{race?.categoryName}}</h6>
+    <h6>Date: {{race?.date}}</h6>
     <br>
     <h4>Confirmation</h4>
     <p>Please attach the file with the payment receipt.</p>
-    <input type="file" class="form-control" id="payment" title="Attach the payment receipt">
+    <input #inputPayment type="file" class="form-control" id="payment" title="Attach the payment receipt">
+    <br>
+    <button (click)="confirm()" id="buttons" class="btn btn-primary">Confirm</button>
+
 </div>
