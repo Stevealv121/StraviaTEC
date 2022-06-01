@@ -21,9 +21,7 @@
       <label id="span" class="input-group-text" for="inputGroupSelect01">Category</label>
       <select #user class="form-select" id="inputGroupSelect01">
         <option selected>Choose...</option>
-        <option>Junior</option>
-        <option>Sub-23</option>
-        <option>Open</option>
+        <option *ngFor="let category of categories">{{category}}</option>
       </select>
     </div>
     <div class="input-group mb-3">
@@ -31,8 +29,7 @@
         <select #fly class="form-select" id="inputGroupSelect01">
           <option selected>Choose...</option>
           <option >Public</option>
-          <option> Group 1</option>
-          <option>Group 2</option>
+          <option id={{group}} *ngFor="let group of groups"> Group: {{group.name}}</option>
         </select>
     </div>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end"> <!----Action buttons-->

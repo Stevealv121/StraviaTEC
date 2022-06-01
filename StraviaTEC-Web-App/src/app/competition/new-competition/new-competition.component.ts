@@ -11,7 +11,7 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class NewCompetitionComponent implements OnInit {
 
-  sports:Sport[];
+  sports:string[];
   groups:GroupsGest[];
   sponsors:Sponsor[];
 
@@ -22,9 +22,9 @@ export class NewCompetitionComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    //loadSports();
-    //loadGroups();
-    //loadSponsors();
+    this.loadSports();
+    this.loadGroups();
+    this.loadSponsors();
   }
   /**
    * This function request to the api for the sports

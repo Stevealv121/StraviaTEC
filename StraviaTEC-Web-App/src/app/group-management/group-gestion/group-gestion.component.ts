@@ -23,8 +23,8 @@ export class GroupGestionComponent implements OnInit {
 
   cargarTabla(){
     this.api.getGroupInfoByManagerId("dennis").subscribe((data:any)=>{
-      //this.groups = data;
-      console.log("hola")
+      this.groups = data;
+      //console.log("hola")
     })
   }
 

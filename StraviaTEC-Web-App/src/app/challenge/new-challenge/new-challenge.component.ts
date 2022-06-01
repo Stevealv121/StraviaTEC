@@ -18,8 +18,8 @@ export class NewChallengeComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    //this.loadGroups();
-    //this.loadCategories();
+    this.loadGroups();
+    this.loadCategories();
   }
 
   /**
