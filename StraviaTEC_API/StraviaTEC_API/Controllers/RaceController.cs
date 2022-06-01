@@ -52,7 +52,15 @@ namespace StraviaTEC_API.Controllers
             return Ok(await db.QueryAsync<Race>(sql, new { user = _username }));
 
         }
+        [HttpGet("UserJoins/{_username}")]
+        public async Task<IActionResult> GetRacesbyUser(string _username)
+        {
+            var db = dbConnection();
+            var sql = @"EXEC SelectUserBelongsToRace  @username ";
+            var result = await db.QueryAsync<Race>(sql, new { username = _username });
 
+            return Ok(result);
+        }
         [HttpPost]
         public async Task<int> Create([FromBody] Race newObj)
         {

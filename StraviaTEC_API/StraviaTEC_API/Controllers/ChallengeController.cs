@@ -45,6 +45,16 @@ namespace StraviaTEC_API.Controllers
 
         }
 
+        [HttpGet("UserJoins/{_username}")]
+        public async Task<IActionResult> GetChallengebyUser(string _username)
+        {
+            var db = dbConnection();
+            var sql = @"EXEC SelectUserBelongsToChallenge  @username ";
+            var result = await db.QueryAsync<Challenge>(sql, new { username = _username });
+
+            return Ok(result);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] Challenge newObj)
         {

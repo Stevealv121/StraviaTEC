@@ -10,6 +10,7 @@ select * from RACE
 EXEC InsertRace 1, 'Sebas race',50, '2022-5-31', 'public', 3, 'Open'
 EXEC JoinRace 'nati', 1, '022',4
 EXEC JoinRace 'steve', 1, '022',5
+EXEC JoinGroup 'nati', 'string'
 EXEC RacePositionList 1
 EXEC RaceSponsors 1
 
@@ -28,3 +29,7 @@ EXEC SelectUserChallenge 'nati'
 EXEC AssignRaceBankAccount 1,555
 EXEC SelectRaceBankAccounts 1
 EXEC DeleteRaceBankAccount 1,555
+
+EXEC SelectUserBelongsToGroups 'nati'
+EXEC SelectUserBelongsToChallenge 'nati'
+EXEC SelectUserBelongsToRace 'nati'

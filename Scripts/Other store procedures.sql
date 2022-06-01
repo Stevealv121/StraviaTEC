@@ -37,7 +37,14 @@ AS
 INSERT INTO BelongsTo (UserName, GroupId)
 VALUES (@UserName, @GroupId)
 GO
-
+CREATE PROCEDURE SelectUserBelongsToGroups @UserName varchar(15)
+AS
+SELECT g.*
+FROM BelongsTo AS b
+INNER JOIN [GROUP] AS g
+ON b.GroupId = g.[Name]
+WHERE b.UserName= @UserName
+GO
 --Manages
 
 CREATE PROCEDURE DeleteGroupMember @UserName varchar(15), @GroupId varchar(15)
@@ -72,6 +79,16 @@ INNER JOIN CHALLENGE AS c
 ON c.ActivityID=a.Id
 WHERE r.UserName = @UserName
 GO
+
+CREATE PROCEDURE SelectUserBelongsToChallenge @UserName varchar(15)
+AS
+SELECT c.*
+FROM JOIN_CHALLENGE AS j
+INNER JOIN CHALLENGE AS c
+ON j.Challenge_ID = c.Id
+WHERE j.UserName = @UserName
+GO
+
 CREATE PROCEDURE JoinChallenge @UserName varchar(15), @Challenge_ID varchar(15)
 AS
 INSERT INTO JOIN_CHALLENGE(UserName, Challenge_ID)
@@ -97,6 +114,16 @@ INNER JOIN RACE AS ra
 ON ra.ActivityID=a.Id
 WHERE r.UserName = @UserName
 GO
+
+CREATE PROCEDURE SelectUserBelongsToRace @UserName varchar(15)
+AS
+SELECT r.*
+FROM JOIN_RACE AS j
+INNER JOIN RACE AS r
+ON j.Race_ID = r.ID
+WHERE j.UserName = @UserName
+GO
+
 CREATE PROCEDURE JoinRace @UserName varchar(15), @Race_ID varchar(15), @Bill image, @Activityid varchar(15)
 AS
 INSERT INTO JOIN_RACE(UserName, Race_ID, Bill, Activityid)

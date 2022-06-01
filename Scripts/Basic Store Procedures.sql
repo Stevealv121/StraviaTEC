@@ -146,7 +146,11 @@ AS
 SELECT [Name] 
 FROM [GROUP]
 GO
-
+CREATE PROCEDURE SelectAllGroupObjects
+AS
+SELECT *
+FROM [GROUP]
+GO
 CREATE PROCEDURE SelectGroupByName @Name varchar(15)
 AS
 SELECT *
