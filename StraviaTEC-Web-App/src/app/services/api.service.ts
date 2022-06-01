@@ -103,4 +103,14 @@ export class ApiService {
     return this.http.post<ResponseI>(exitPath, null)
   }
 
+  getRaceByUser(username: any): Observable<RaceI[]> {
+    let racesPath = this.racePath + "/ByUserName/" + username;
+    return this.http.get<RaceI[]>(racesPath)
+  }
+
+  getChallengeByUser(username: any): Observable<ChallengeI[]> {
+    let challengePath = this.challengePath + "/ByUserName/" + username;
+    return this.http.get<ChallengeI[]>(challengePath)
+  }
+
 }
