@@ -7,6 +7,7 @@ import { ActivityI } from '../models/activity.interface';
 import { AddFriendI } from '../models/addFriend.interface';
 import { RaceI } from '../models/race.interface';
 import { JoinRaceI } from '../models/joinRace.interface';
+import { ChallengeI } from '../models/challenge.interface';
 
 
 @Injectable({
@@ -19,7 +20,8 @@ export class ApiService {
   url: string = "https://localhost:7060/api/";
   userPath: string = this.url + "User";
   activityPath: string = this.url + "Activity";
-  racePath: string = this.url + "Race"
+  racePath: string = this.url + "Race";
+  challengePath: string = this.url + "Challenge";
 
   login(userName: string, password: string): Observable<UserI> {
     let loginPath = this.userPath + "/" + "Login/" + userName + "/" + password;
@@ -85,6 +87,20 @@ export class ApiService {
   joinRace(form: JoinRaceI): Observable<ResponseI> {
     let joinPath = this.racePath + "/JoinRace";
     return this.http.post<ResponseI>(joinPath, form)
+  }
+
+  getChallenges(): Observable<ChallengeI[]> {
+    return this.http.get<ChallengeI[]>(this.challengePath)
+  }
+
+  joinChallenge(username: any, challengeId: any): Observable<ResponseI> {
+    let joinPath = this.challengePath + "/JoinChallenge/" + username + "/" + challengeId;
+    return this.http.post<ResponseI>(joinPath, null)
+  }
+
+  exitChallenge(username: any, challengeId: any): Observable<ResponseI> {
+    let exitPath = this.challengePath + "/ExitChallenge/" + username + "/" + challengeId;
+    return this.http.post<ResponseI>(exitPath, null)
   }
 
 }
