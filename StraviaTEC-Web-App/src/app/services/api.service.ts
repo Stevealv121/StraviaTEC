@@ -5,6 +5,7 @@ import { UserI } from '../models/user.interface';
 import { ResponseI } from '../models/response.interface';
 import { ActivityI } from '../models/activity.interface';
 import { AddFriendI } from '../models/addFriend.interface';
+import { RaceI } from '../models/race.interface';
 
 
 @Injectable({
@@ -17,6 +18,7 @@ export class ApiService {
   url: string = "https://localhost:7060/api/";
   userPath: string = this.url + "User";
   activityPath: string = this.url + "Activity";
+  racePath: string = this.url + "Race"
 
   login(userName: string, password: string): Observable<UserI> {
     let loginPath = this.userPath + "/" + "Login/" + userName + "/" + password;
@@ -68,6 +70,10 @@ export class ApiService {
     };
     let deleteFriendPath = this.userPath + "/DeleteFriend";
     return this.http.delete<ResponseI>(deleteFriendPath, options)
+  }
+
+  getRaces(): Observable<RaceI[]> {
+    return this.http.get<RaceI[]>(this.racePath)
   }
 
 }
