@@ -76,4 +76,9 @@ export class ApiService {
     return this.http.get<RaceI[]>(this.racePath)
   }
 
+  joinRace(username: any, raceId: number): Observable<ResponseI> {
+    let joinPath = this.racePath + "/JoinRace/" + username + "/" + raceId;
+    return this.http.post<ResponseI>(joinPath, null)
+  }
+
 }

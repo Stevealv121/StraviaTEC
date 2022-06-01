@@ -16,17 +16,17 @@
             <div id="race-card" class="card">
                 <div class="card-body">
                     <h5 id="race-name">{{race.name}}</h5>
-                    <p>{{race.type}}</p>
-                    <p>Valid thru: {{race.validThru}}</p>
+                    <p>{{race.categoryName}}</p>
+                    <p>Date: {{race.date}}</p>
                 </div>
             </div>
         </div>
         <div class="col-md-5">
-            <a (click)="pickRace()" id="price-a">
+            <a (click)="pickRace(i)" id="price-a">
                 <div id="priceCard" class="card">
                     <div class="card-body">
                         <br>
-                        <h5>0 $</h5>
+                        <h5>{{race.cost}} $</h5>
                         <br>
                     </div>
                 </div>

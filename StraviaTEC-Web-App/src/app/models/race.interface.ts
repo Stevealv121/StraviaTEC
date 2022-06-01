@@ -1,8 +1,9 @@
 export interface RaceI {
-    validThru: string,
-    type: string,
     access: string,
     name: string,
     activityId: number,
-    categoryName: string
+    categoryName: string,
+    cost: string,
+    date: string,
+    id: number
 }
