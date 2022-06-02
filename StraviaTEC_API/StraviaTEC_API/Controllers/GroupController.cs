@@ -22,11 +22,18 @@ namespace StraviaTEC_API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAllNames()
         {
             var db = dbConnection();
             var sql = @"EXEC SelectAllGroups";
             return Ok(await db.QueryAsync<string>(sql, new { }));
+        }
+        [HttpGet("AllObjects")]
+        public async Task<IActionResult> GetAll()
+        {
+            var db = dbConnection();
+            var sql = @"EXEC SelectAllGroupObjects";
+            return Ok(await db.QueryAsync<Group>(sql, new { }));
         }
         [HttpGet("ByName/{_name}")]
         public async Task<IActionResult> GetbyId(string _name)
@@ -111,6 +118,15 @@ namespace StraviaTEC_API.Controllers
             var db = dbConnection();
             var sql = @"EXEC SelectGroupMembers @groupname ";
             var result = await db.QueryAsync<string>(sql, new { groupname = _groupname });
+
+            return Ok(result);
+        }
+        [HttpGet("UserBelongsTo/{_username}")]
+        public async Task<IActionResult> GetGroupsbyUser(string _username)
+        {
+            var db = dbConnection();
+            var sql = @"EXEC SelectUserBelongsToGroups  @username ";
+            var result = await db.QueryAsync<Group>(sql, new { username = _username });
 
             return Ok(result);
         }
