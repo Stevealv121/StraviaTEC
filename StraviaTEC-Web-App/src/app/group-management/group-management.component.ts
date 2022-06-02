@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { GroupsGest } from '../models/groups-gest';
+import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-group-management',
@@ -7,9 +10,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GroupManagementComponent implements OnInit {
 
-  constructor() { }
+  groups: GroupsGest[];
+
+  constructor(private api:ApiService, private router:Router) {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.groups =[];
+  }
 
   ngOnInit(): void {
+    this.cargarTabla();
+  }
+
+  cargarTabla(){
+    this.api.getGroupInfoByManagerId("dennis").subscribe((data:any)=>{
+      this.groups = data;
+    })
   }
 
 }

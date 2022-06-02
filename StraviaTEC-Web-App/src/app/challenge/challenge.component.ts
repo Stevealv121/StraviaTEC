@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Challenge } from '../models/challenge';
+import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-challenge',
@@ -7,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChallengeComponent implements OnInit {
 
-  constructor() { }
+  challenge:Challenge[];
+
+  constructor(private api:ApiService) {
+    this.challenge =[];
+   }
 
   ngOnInit(): void {
+    //this.loadChallenges();
+  }
+  /**
+   * This function request to the api for the challenges
+   */
+  loadChallenges(){
+    this.api.getChallengeByManagerId("dennis").subscribe((data:any)=>{ //change dennis for the username
+      this.challenge = data;
+    })
   }
 
 }
