@@ -121,7 +121,8 @@
                                 </label>
                                 <input id="fileInput" type="file" name="form-photo" accept="image/*"
                                     placeholder="Choose a profile picture" class="form-photo form-control"
-                                    formControlName="profilePicture" (change)="onSelectFile($event)">
+                                    formControlName="profilePicture"
+                                    (change)="setProfilePicture($any($event.target).files)">
                             </div>
                         </div>
                         <div class="br">

@@ -24,21 +24,19 @@
             <div class="row" *ngFor="let activity of friendsActivity; let i as index">
                 <div class="card">
                     <div class="card-body">
-                        <h5>FriendName LastName</h5>
-                        <h3>Activity Title</h3>
+                        <h5>{{activity.firstName}} {{activity.firstSurname}}</h5>
+                        <h3>{{activity.sportName}}</h3>
                         <div class="row">
                             <div class="col">Distance</div>
-                            <div class="col">Elev Gain</div>
                             <div class="col">Time</div>
-                            <div class="col">Achievements</div>
+                            <div class="col">Date</div>
                         </div>
                         <div class="row">
-                            <div class="col">N km</div>
-                            <div class="col">N m</div>
-                            <div class="col">Nh Nm</div>
-                            <div class="col">N</div>
+                            <div class="col">{{activity.mileage}} km</div>
+                            <div class="col">{{activity.duration}}</div>
+                            <div class="col">{{activity.date}}</div>
                         </div>
-                        <div id="{{'map' + activity.id}}" class="map"></div>
+                        <div id="{{'map' + activity.activityId}}" class="map"></div>
                         <!-- <img id="route-map" [src]="routeMap"> -->
                     </div>
                     <ul class="list-group list-group-flush">

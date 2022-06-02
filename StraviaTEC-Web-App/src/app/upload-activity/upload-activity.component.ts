@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ActivityI } from '../models/activity.interface';
+import { RaceI } from '../models/race.interface';
 import { ApiService } from '../services/api.service';
 import { DataService } from '../services/data.service';
 
@@ -18,7 +19,8 @@ export class UploadActivityComponent implements OnInit {
   selectedOption2: any;
   selectedOption3: any;
   sportModel: any;
-  activeRaces = [{ name: "Race1", id: "1" }, { name: "Race2", id: "2" }];
+  // activeRaces = [{ name: "Race1", id: "1" }, { name: "Race2", id: "2" }];
+  activeRaces: RaceI[] = [];
   sports = [{ name: "Running", id: "1" }, { name: "Swimming", id: "2" }, { name: "Cycling", id: "3" },
   { name: "Hiking", id: "4" }, { name: "Kayaking", id: "5" }, { name: "Walking", id: "6" }];
 
@@ -45,6 +47,9 @@ export class UploadActivityComponent implements OnInit {
 
   setRaceVisibility() {
     if (this.selectedOption2 == "Race") {
+      this.api.getRaceByUser(this.data.currentUser?.userName).subscribe(data => {
+        this.activeRaces = data;
+      })
       this.isRaceHidden = false;
     } else {
       this.isRaceHidden = true;
@@ -66,7 +71,17 @@ export class UploadActivityComponent implements OnInit {
         duration: form.duration,
         mileage: form.distance,
         route: null,
-        sportName: form.sport
+        sportName: form.sport,
+        friendUserName: null,
+        level: null,
+        activityId: null,
+        firstName: null,
+        secondName: null,
+        firstSurname: null,
+        secondSurname: null,
+        birthDate: null,
+        nationality: null,
+        profilePicture: null
       }
 
       this.api.postActivity(activity).subscribe(data => {

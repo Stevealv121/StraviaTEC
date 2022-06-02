@@ -126,10 +126,13 @@ export class ApiService {
   }
 
   exitGroup(username: any, group: any): Observable<ResponseI> {
-    let exitPath = this.groupPath + "/ExitGroup/" + username + "/" + group;
+    let exitPath = this.groupPath + "/GroupMember/" + group + "/" + username;
     return this.http.post<ResponseI>(exitPath, null)
   }
 
-
+  getFriendsActivities(username: any): Observable<ActivityI[]> {
+    let activitesPath = this.userPath + "/FriendsActivities/" + username;
+    return this.http.get<ActivityI[]>(activitesPath)
+  }
 
 }

@@ -11,7 +11,7 @@ import { read } from 'fs';
   styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent implements OnInit {
-  url: string | ArrayBuffer | null | undefined = '';
+  url: any = '';
   test: string = "assets/images/avatar.png";
 
   constructor(private api: ApiService, private toastr: ToastrService) { }
@@ -30,6 +30,8 @@ export class SignUpComponent implements OnInit {
   })
   selectedOption: any;
   levelOptions: string[] = ["Beginner", "Intermediate", "Elite"];
+
+  fileToUpload: File | null = null;
 
   ngOnInit(): void {
     // this.url = '../../assets/images/avatar.png';
@@ -50,22 +52,35 @@ export class SignUpComponent implements OnInit {
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();
 
-      reader.readAsDataURL(event.target.files[0]); // read file as data url
+      // reader.readAsDataURL(event.target.files[0]); // read file as data url
 
       // reader.onload = (event) => { // called once readAsDataURL is completed
       //   this.url = event.target?.result;
-      // }
+      // };
       reader.onload = () => {
-        this.url = reader.result as string;
-        //callback(reader.result);
+        this.url = reader.result?.toString();
+        console.log(this.url);
+        this.registerForm.patchValue({
+          profilePicture: this.url
+        });
+        //callback(reader.result);  reader.result as string
       }
+
+      reader.readAsDataURL(event.target.files[0]);
+      //this.url = reader.readAsText(event.target.files[0]);
       //console.log(reader.result)
       console.log(this.url);
+      console.log(this.registerForm);
     }
 
-    // this.registerForm.patchValue({
-    //   profilePicture: this.url
-    // });
+
+  }
+
+
+
+  setProfilePicture(files: FileList) {
+    this.fileToUpload = files.item(0);
+    console.log(this.fileToUpload);
   }
 
 }

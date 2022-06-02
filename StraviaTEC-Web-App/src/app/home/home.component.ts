@@ -1,6 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { ActivityI } from '../models/activity.interface';
 import { UserI } from '../models/user.interface';
+import { ApiService } from '../services/api.service';
 import { DataService } from '../services/data.service';
 
 // declare var require: any
@@ -21,10 +23,12 @@ const defaultZoom: number = 8
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private data: DataService) {
+  constructor(private data: DataService, private api: ApiService) {
   }
   routeMap: string = "assets/images/route-map.png";
-  friendsActivity = [{ name: "x", id: "1" }, { name: "x", id: "2" }, { name: "x", id: "3" }]
+  //friendsActivity = [{ name: "x", id: "1" }, { name: "x", id: "2" }, { name: "x", id: "3" }];
+  friendsActivity: ActivityI[] = [];
+  hasFriends: boolean = false;
   friendImage: string = "assets/images/avatar.png";
   isVisible: boolean = false;
   topComments: number[] = [1, 2];
@@ -39,7 +43,15 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.user = this.data.currentUser;
     this.checkIfHasComments();
-    this.loadAllRoutes();
+    this.setFriendActivities();
+    //this.loadAllRoutes();
+  }
+
+  setFriendActivities() {
+    this.api.getFriendsActivities(this.user?.userName).subscribe(data => {
+      this.friendsActivity = data;
+      this.hasFriends = true;
+    })
   }
 
   loadAllRoutes() {
