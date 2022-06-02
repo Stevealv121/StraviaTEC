@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { UserI } from '../models/user.interface';
 import { ResponseI } from '../models/response.interface';
 import { GroupsGest } from '../models/groups-gest';
+import { Race } from '../models/race';
 
 
 @Injectable({
@@ -23,6 +24,9 @@ export class ApiService {
   getCategoryPath:string = this.url + "Category";
   groupPath:string = this.url + "Group";
   getActitvityUserPath:string=this.url +"Activity/ByUserName/";
+  racespath:string=this.url +"Race";
+  postSponsorpath:string=this.racespath + "/AssignRaceSponsor/";
+  postBankAccountPath:string = this.racespath + "/BankAccount/";
 
 
 
@@ -44,6 +48,32 @@ export class ApiService {
    */
   postGroup(form:GroupsGest){
     return this.http.post<GroupsGest>(this.groupPath, form);
+  }
+  /**
+   * This function creates a new race in the database
+   * @param form form with the race's information
+   * @returns database's reponse
+   */
+  postRace(form:Race){
+    return this.http.post<Race>(this.racespath, form);
+  }
+  /**
+   * This function assings a sponsor to a race in the database
+   * @param raceId race id
+   * @param sponsorId sponsor id
+   * @returns database's response
+   */
+  postRaceSponsor(raceId:string, sponsorId:string){
+    return this.http.post<any>(this.postSponsorpath+raceId+"/"+sponsorId,null);
+  }
+  /**
+   * This function assings a bank account to a race in the database
+   * @param raceId race id
+   * @param BankAccount account number
+   * @returns database's response
+   */
+  postRaceAccount(raceId:string, BankAccount:string){
+    return this.http.post<string>(this.postBankAccountPath+raceId+"/"+BankAccount,null);
   }
 
 
