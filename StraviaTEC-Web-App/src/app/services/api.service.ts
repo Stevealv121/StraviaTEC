@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { UserI } from '../models/user.interface';
 import { ResponseI } from '../models/response.interface';
+import { GroupsGest } from '../models/groups-gest';
 
 
 @Injectable({
@@ -20,6 +21,7 @@ export class ApiService {
   getSportsPath: string = this.url + "Sport";
   getSponsorPath:string = this.url + "Sponsor";
   getCategoryPath:string = this.url + "Category";
+  groupPath:string = this.url + "Group";
 
 
 
@@ -34,6 +36,15 @@ export class ApiService {
   }
 
   //POST
+  /**
+   * This function creates a new group in the database
+   * @param form form with the group's information
+   * @returns database's reponse
+   */
+  postGroup(form:GroupsGest){
+    return this.http.post<GroupsGest>(this.groupPath, form);
+  }
+
 
   //GETS
 
