@@ -22,6 +22,7 @@ export class ApiService {
   getSponsorPath:string = this.url + "Sponsor";
   getCategoryPath:string = this.url + "Category";
   groupPath:string = this.url + "Group";
+  getActitvityUserPath:string=this.url +"Activity/ByUserName/";
 
 
 
@@ -55,6 +56,14 @@ export class ApiService {
    */
   getGroupInfoByManagerId(username:string){
     return this.http.get<string[]>(this.getgroupInfoPath+username); //some problems maybe the http or https
+  }
+  /**
+   * This function asks the api for the activities created by username
+   * @param username owner's username
+   * @returns activities who belongs to the specified user
+   */
+  getUserActivities(user:string){
+    return this.http.get<string[]>(this.getActitvityUserPath+user);
   }
   /**
    * This function asks the api for the races created by the user.

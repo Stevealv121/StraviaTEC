@@ -21,12 +21,8 @@
       <label id="span" class="input-group-text" for="inputGroupSelect01">Activity</label>
       <select #user class="form-select" id="inputGroupSelect01">
         <option selected>Choose...</option>
-        <option id={{sport}} *ngFor="let sport of sports">{{sport}}</option>
+        <option *ngFor="let Activity of activities">{{Activity.sportName}}</option>
       </select>
-    </div>
-    <div class="input-group mb-3">
-      <span id="span" class="input-group-text">Route</span>
-      <input  accept=".gpx" type="file" class="form-username form-control">
     </div>
     <div class="input-group mb-3">
       <span id="span" class="input-group-text">Cost</span>
