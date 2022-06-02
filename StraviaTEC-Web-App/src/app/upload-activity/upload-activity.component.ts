@@ -81,7 +81,8 @@ export class UploadActivityComponent implements OnInit {
         secondSurname: null,
         birthDate: null,
         nationality: null,
-        profilePicture: null
+        profilePicture: null,
+        id: null
       }
 
       this.api.postActivity(activity).subscribe(data => {

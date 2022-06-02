@@ -1,15 +1,9 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { ActivityI } from '../models/activity.interface';
 import { UserI } from '../models/user.interface';
 import { ApiService } from '../services/api.service';
 import { DataService } from '../services/data.service';
-
-// declare var require: any
-
-// const converter = require("@tmcw/togeojson");
-// const fs = require("fs");
-// const DOMParser = require("xmldom").DOMParser;
 
 declare var omnivore: any;
 declare var L: any;
@@ -17,19 +11,16 @@ const defaultCoords: number[] = [40, -80]
 const defaultZoom: number = 8
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: 'app-my-activities',
+  templateUrl: './my-activities.component.html',
+  styleUrls: ['./my-activities.component.css']
 })
-export class HomeComponent implements OnInit {
+export class MyActivitiesComponent implements OnInit {
 
-  constructor(private data: DataService, private api: ApiService) {
-  }
-  routeMap: string = "assets/images/route-map.png";
-  //friendsActivity = [{ name: "x", id: "1" }, { name: "x", id: "2" }, { name: "x", id: "3" }];
-  friendsActivity: ActivityI[] = [];
-  hasFriends: boolean = false;
-  friendImage: string = "assets/images/avatar.png";
+  constructor(private data: DataService, private api: ApiService) { }
+  user?: UserI;
+  myActivities: ActivityI[] = [];
+  hasActivites: boolean = false;
   isVisible: boolean = false;
   topComments: number[] = [1, 2];
   hasComments: boolean = false;
@@ -37,26 +28,16 @@ export class HomeComponent implements OnInit {
   comments: number[] = [1, 2, 3, 4];
   gpxData: string = "assets/route1.gpx";
   apiToken = environment.MAPBOXAPIKEY;
-  //@ViewChild('map', { read: ElementRef }) mapContainer!: ElementRef;
-  user?: UserI;
+  friendImage: string = "assets/images/avatar.png";
 
   ngOnInit(): void {
     this.user = this.data.currentUser;
-    this.checkIfHasComments();
-    this.setFriendActivities();
-  }
-
-  setFriendActivities() {
-    this.api.getFriendsActivities(this.user?.userName).subscribe(data => {
-      this.friendsActivity = data;
-      this.loadAllRoutes();
-      this.hasFriends = true;
-    })
+    this.setActivities();
   }
 
   loadAllRoutes() {
-    for (let i = 0; i < this.friendsActivity.length; i++) {
-      var indexToString = this.friendsActivity[i].activityId?.toString();
+    for (let i = 0; i < this.myActivities.length; i++) {
+      var indexToString = this.myActivities[i].id?.toString();
       this.displayMap('map' + indexToString);
     }
   }
@@ -96,6 +77,14 @@ export class HomeComponent implements OnInit {
     }, 100);
   }
 
+  setActivities() {
+    this.api.getUserActivities(this.user?.userName).subscribe(data => {
+      this.myActivities = data;
+      this.loadAllRoutes();
+      this.hasActivites = true;
+    })
+  }
+
   showComments() {
     this.isVisible = true;
     this.viewComments = false;
@@ -109,4 +98,5 @@ export class HomeComponent implements OnInit {
     !this.topComments.length ? this.hasComments = false : this.hasComments = true;
     this.hasComments ? this.viewComments = true : this.viewComments = false;
   }
+
 }

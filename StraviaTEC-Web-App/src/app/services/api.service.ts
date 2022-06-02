@@ -135,4 +135,9 @@ export class ApiService {
     return this.http.get<ActivityI[]>(activitesPath)
   }
 
+  getUserActivities(username: any): Observable<ActivityI[]> {
+    let activitesPath = this.activityPath + "/ByUserName/" + username;
+    return this.http.get<ActivityI[]>(activitesPath)
+  }
+
 }

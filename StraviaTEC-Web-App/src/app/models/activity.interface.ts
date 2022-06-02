@@ -5,6 +5,7 @@ export interface ActivityI {
     mileage: string | null,
     route: string | null,
     sportName: string,
+    id: number | null,
     //FriendActivityValues
     friendUserName: string | null,
     level: string | null,

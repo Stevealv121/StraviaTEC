@@ -1,0 +1,87 @@
+/* .container {
+    min-height: 100vh;
+    background-color: #EDEDED;
+} */
+
+#stats {
+    text-align: center;
+}
+
+#name {
+    text-align: center;
+}
+
+/* #atlete-profile {
+    padding-top: 24px;
+    margin-top: 64px;
+   
+
+} */
+
+/* .card:first-child {
+    margin-top: 0;
+}
+
+.card {
+    border: none;
+    margin-top: 24px;
+    margin-bottom: 24px;
+} */
+
+.card {
+    background-color: #fff;
+    -webkit-box-shadow: 0px 8px 24px rgb(13 13 18 / 4%);
+    box-shadow: 0px 8px 24px rgb(13 13 18 / 4%);
+    border-radius: 4px;
+    position: relative;
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+#route-map {
+    height: 500px;
+    width: 575px;
+}
+
+#friend-img {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+
+#bg-comment {
+    position: relative;
+    background-color: rgb(246, 246, 246);
+    border: none;
+    /* height: 85%;
+    margin: -2% -2%; */
+}
+
+#comment-wrapper {
+    margin: -4% 0;
+
+}
+
+#viewAllComments-a {
+    color: grey;
+}
+
+#viewAllComments-a:hover {
+    color: #00AF3D;
+    cursor: pointer;
+}
+
+#profilePicture {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin: -20% auto;
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+}
+
+.map {
+    height: 500px;
+    width: 575px;
+}

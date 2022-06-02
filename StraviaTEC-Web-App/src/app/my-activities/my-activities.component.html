@@ -1,5 +1,11 @@
 <div class="container-fluid">
-    <br><br><br>
+    <br>
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <h2>My Activities</h2>
+        </div>
+    </div>
     <div class="row">
         <div class="col-3">
             <div id="athlete-profile" class="card">
@@ -21,10 +27,9 @@
             </div>
         </div>
         <div class="col-6">
-            <div class="row" *ngFor="let activity of friendsActivity; let i as index">
+            <div class="row" *ngFor="let activity of myActivities; let i as index">
                 <div class="card">
                     <div class="card-body">
-                        <h5>{{activity.firstName}} {{activity.firstSurname}}</h5>
                         <h3>{{activity.sportName}}</h3>
                         <div class="row">
                             <div class="col">Distance</div>
@@ -36,7 +41,7 @@
                             <div class="col">{{activity.duration}}</div>
                             <div class="col">{{activity.date}}</div>
                         </div>
-                        <div id="{{'map' + activity.activityId?.toString()}}" class="map"></div>
+                        <div id="{{'map' + activity.id?.toString()}}" class="map"></div>
                         <!-- <img id="route-map" [src]="routeMap"> -->
                     </div>
                     <ul class="list-group list-group-flush">
@@ -88,27 +93,6 @@
                 </div>
             </div>
         </div>
-        <div class="col-3 px-4">
-            <div class="row">
-                <div class="card">
-                    <div class="card-body">
-                        <h4>Groups on Stravia</h4>
-                        <p>Why do it alone? Get more out of your Stravia experience by joining or creating a Club.
-                        </p>
-                        <a href="">Find or create a group</a>
-                    </div>
-                </div>
-
-            </div>
-            <div class="row">
-                <div class="card">
-                    <div class="card-body">
-                        <h4>Your Friends on Stravia</h4>
-                        <p>Find and invite friends to see their adventures and share some encouragement.</p>
-                        <a href="">Find and invite Your Friends</a>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
+
 </div>
