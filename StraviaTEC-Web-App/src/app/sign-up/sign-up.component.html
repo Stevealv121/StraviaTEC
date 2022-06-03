@@ -64,9 +64,14 @@
                         </div>
                         <div class="form-group">
                             <div class="pos-r">
-                                <input id="form-nation" type="text" placeholder="Nationality"
-                                    class="form-phone form-control" formControlName="nationality">
-                                <i class="fa fa-user"></i>
+                                <select [(ngModel)]="nationOptions" class="form-select" formControlName="nationality">
+                                    <option class="dropdown-item" disabled selected value="undefined">Choose your
+                                        nationality
+                                    </option>
+                                    <option *ngFor="let nation of nationalities; let i = index"
+                                        [ngValue]="nation.Nationality" class="dropdown-item">{{nation.Nationality}}
+                                    </option>
+                                </select>
                             </div>
                         </div>
                         <div class="br">
