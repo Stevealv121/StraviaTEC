@@ -13,7 +13,7 @@ FROM ACTIVITY
 WHERE Id = @Id
 GO
 
-CREATE PROCEDURE InsertActivity @Username varchar(15), @Id int,@Date date,@Duration time(7),@Mileage int,@Route XML,@SportName varchar(15)
+CREATE PROCEDURE InsertActivity @Username varchar(15), @Id int,@Date date,@Duration time(7),@Mileage int,@Route varbinary(MAX),@SportName varchar(15)
 AS
 INSERT INTO ACTIVITY ([Date],Duration,Mileage,[Route],SportName)
 VALUES (@Date,@Duration,@Mileage,@Route,@SportName) 
@@ -23,7 +23,7 @@ VALUES (@Username, @Id)
 RETURN @Id
 GO
 
-CREATE PROCEDURE UpdateActivity @Id int, @Date date,@Duration time(7),@Mileage int,@Route XML,@SportName varchar(15)
+CREATE PROCEDURE UpdateActivity @Id int, @Date date,@Duration time(7),@Mileage int,@Route varbinary(MAX),@SportName varchar(15)
 AS
 UPDATE ACTIVITY 
 SET 
