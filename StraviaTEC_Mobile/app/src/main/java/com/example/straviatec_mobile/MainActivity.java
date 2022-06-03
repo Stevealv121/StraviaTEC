@@ -16,8 +16,15 @@ import com.example.straviatec_mobile.Interfaces.ActivityAPI;
 import com.example.straviatec_mobile.Interfaces.UserAPI;
 import com.example.straviatec_mobile.Utilities.Utilities;
 
+import java.security.cert.CertificateException;
 import java.util.List;
 
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -30,9 +37,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-
         if(savedInstanceState == null){
             sincA();
             sincU();
@@ -41,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private void sincA() {
         SQLitehelper conn = new SQLitehelper(this, "StraviaTEC_DB", null,1);
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://10.0.2.2:7060/")
-                .addConverterFactory(GsonConverterFactory.create()).build();
+                .addConverterFactory(GsonConverterFactory.create()).client(getUnsafeOkHttpClient()).build();
         ActivityAPI activityAPI = retrofit.create(ActivityAPI.class);
         Call<List<Activity>> call = activityAPI.findA();
         call.enqueue(new Callback<List<Activity>>() {
@@ -65,19 +69,21 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }catch(Exception ex){
                     Toast.makeText(MainActivity.this,ex.getMessage(),Toast.LENGTH_SHORT).show();
+                    Log.e("Error inserting", ex.getMessage());
                 }
             }
 
             @Override
             public void onFailure(Call<List<Activity>> call, Throwable t) {
                 Toast.makeText(MainActivity.this,t.getMessage(),Toast.LENGTH_LONG).show();
+                Log.e("Connection error", t.getMessage());
             }
         });
     }
     private void sincU() {
         SQLitehelper conn = new SQLitehelper(this,"StraviaTEC_DB",null,1);
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://10.0.2.2:7060/")
-                .addConverterFactory(GsonConverterFactory.create()).build();
+                .addConverterFactory(GsonConverterFactory.create()).client(getUnsafeOkHttpClient()).build();
         UserAPI userAPI = retrofit.create(UserAPI.class);
         Call<List<User>> call = userAPI.findU();
         call.enqueue(new Callback<List<User>>() {
@@ -102,12 +108,13 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }catch(Exception ex){
                     Toast.makeText(MainActivity.this,ex.getMessage(),Toast.LENGTH_SHORT).show();
+                    Log.e("Error inserting", ex.getMessage());
                 }
             }
             @Override
             public void onFailure(Call<List<User>> call, Throwable t) {
                 Toast.makeText(MainActivity.this,t.getMessage(),Toast.LENGTH_LONG).show();
-                Log.e("Connection error:", t.toString());
+                Log.e("Connection error", t.getMessage());
             }
         });
 
@@ -116,6 +123,49 @@ public class MainActivity extends AppCompatActivity {
     public void onClick(View view) {
         Intent myintent = new Intent(MainActivity.this,Menu.class);
         startActivity(myintent);
+    }
+
+    public static OkHttpClient getUnsafeOkHttpClient() {
+
+        try {
+            // Create a trust manager that does not validate certificate chains
+            final TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
+                @Override
+                public void checkClientTrusted(
+                        java.security.cert.X509Certificate[] chain,
+                        String authType) throws CertificateException {
+                }
+
+                @Override
+                public void checkServerTrusted(
+                        java.security.cert.X509Certificate[] chain,
+                        String authType) throws CertificateException {
+                }
+
+                @Override
+                public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                    return new java.security.cert.X509Certificate[0];
+                }
+            } };
+
+            // Install the all-trusting trust manager
+            final SSLContext sslContext = SSLContext.getInstance("TLS");
+            sslContext.init(null, trustAllCerts,
+                    new java.security.SecureRandom());
+            // Create an ssl socket factory with our all-trusting manager
+            final SSLSocketFactory sslSocketFactory = sslContext
+                    .getSocketFactory();
+
+            OkHttpClient okHttpClient = new OkHttpClient();
+            okHttpClient = okHttpClient.newBuilder()
+                    .sslSocketFactory(sslSocketFactory)
+                    .hostnameVerifier(org.apache.http.conn.ssl.SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER).build();
+
+            return okHttpClient;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
 

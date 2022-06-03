@@ -9,7 +9,7 @@ public class Utilities {
     public static final String TABLE_CHALLENGE = "challenge";
     public static final String TABLE_GROUP = "[group]";
     public static final String TABLE_JOIN_CHALLENGE = "join_challenge";
-    public static final String TABLE_JOIN_RACE = "race";
+    public static final String TABLE_JOIN_RACE = "join_race";
     public static final String TABLE_MANAGES = "manages";
     public static final String TABLE_RACE = "race";
     public static final String TABLE_REGISTER = "register";
