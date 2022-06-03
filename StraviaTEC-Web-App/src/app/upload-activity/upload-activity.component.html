@@ -59,7 +59,7 @@
                     <div class="form-group">
                         <div class="pos-r">
                             <input title="Upload a .gpx file" accept=".gpx" type="file" formControlName="route"
-                                class="form-username form-control">
+                                class="form-username form-control" (change)="uploadFile($event)">
                             <i class="fa fa-user"></i>
                         </div>
                     </div>

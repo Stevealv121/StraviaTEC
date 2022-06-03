@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { environment } from 'src/environments/environment';
 import { ActivityI } from '../models/activity.interface';
 import { CommentI } from '../models/comment.interface';
@@ -24,7 +25,7 @@ const defaultZoom: number = 8
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private data: DataService, private api: ApiService) {
+  constructor(private data: DataService, private api: ApiService, private sanitizer: DomSanitizer) {
   }
   routeMap: string = "assets/images/route-map.png";
   //friendsActivity = [{ name: "x", id: "1" }, { name: "x", id: "2" }, { name: "x", id: "3" }];
@@ -86,12 +87,19 @@ export class HomeComponent implements OnInit {
   loadAllRoutes() {
     for (let i = 0; i < this.friendsActivity.length; i++) {
       var indexToString = this.friendsActivity[i].activityId?.toString();
-      this.displayMap('map' + indexToString);
+      this.displayMap('map' + indexToString, this.friendsActivity[i].route, i);
     }
   }
 
-  displayMap(mapId: string) {
+  setRoute(data: any, i: any) {
+    let objectURL = 'data:application/octet-stream;base64,' + data;
+    this.friendsActivity[i].blobRoute = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+    return this.friendsActivity[i].blobRoute
+  }
+
+  displayMap(mapId: string, route: any, index: any) {
     console.log("This is the map: " + mapId);
+    let routeGPX = this.setRoute(route, index);
     setTimeout(() => {
       const container = document.getElementById(mapId);
       if (container) {
@@ -116,7 +124,8 @@ export class HomeComponent implements OnInit {
           style: myStyle
         });
 
-        var gpxLayer = omnivore.gpx(this.gpxData, null, customLayer)
+        //this.gpxData
+        var gpxLayer = omnivore.gpx(routeGPX, null, customLayer)
           .on('ready', function () {
             map.fitBounds(gpxLayer.getBounds());
           }).addTo(map);

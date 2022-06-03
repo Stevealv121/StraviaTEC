@@ -17,4 +17,6 @@ export interface ActivityI {
     birthDate: string | null,
     nationality: string | null,
     profilePicture: string | null,
+    //blobRoute
+    blobRoute: any
 }

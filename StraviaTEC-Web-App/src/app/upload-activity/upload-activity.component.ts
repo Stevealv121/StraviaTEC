@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { ActivityI } from '../models/activity.interface';
 import { RaceI } from '../models/race.interface';
 import { ApiService } from '../services/api.service';
@@ -13,7 +14,8 @@ import { DataService } from '../services/data.service';
 })
 export class UploadActivityComponent implements OnInit {
 
-  constructor(private router: Router, private data: DataService, private api: ApiService) { }
+  constructor(private router: Router, private data: DataService, private api: ApiService,
+    private toastr: ToastrService) { }
 
   selectedOption: any;
   selectedOption2: any;
@@ -37,12 +39,10 @@ export class UploadActivityComponent implements OnInit {
   });
 
   isRaceHidden: boolean = true;
+  fileBlob: any;
+  blob: string[] = [];
 
   ngOnInit(): void {
-  }
-
-  submit() {
-    this.router.navigateByUrl("race-inscription");
   }
 
   setRaceVisibility() {
@@ -58,19 +58,13 @@ export class UploadActivityComponent implements OnInit {
 
   uploadActivity(form: any) {
 
-    // let arrHours = fullDuration.split("h");
-    // let arrMinutes = arrHours[1].split("m");
-    // let arrSeconds = arrMinutes[1].split("s");
-    // let duration;
-
-
     if (this.data.currentUser) {
       let activity: ActivityI = {
         username: this.data.currentUser.userName,
         date: form.date,
         duration: form.duration,
         mileage: form.distance,
-        route: null,
+        route: form.route,
         sportName: form.sport,
         friendUserName: null,
         level: null,
@@ -82,7 +76,8 @@ export class UploadActivityComponent implements OnInit {
         birthDate: null,
         nationality: null,
         profilePicture: null,
-        id: null
+        id: null,
+        blobRoute: null
       }
 
       this.api.postActivity(activity).subscribe(data => {
@@ -90,6 +85,28 @@ export class UploadActivityComponent implements OnInit {
       })
     }
 
+    this.toastr.success("Activity successfully posted!", "Success");
+
+  }
+
+
+  async uploadFile(event: any) {
+    if (event.target.files && event.target.files[0]) {
+      var reader = new FileReader();
+
+      reader.readAsDataURL(event.target.files[0]); // read file as data url
+      reader.onload = () => {
+        this.fileBlob = reader.result?.toString();
+        this.blob = this.fileBlob.split(",", 2);
+        console.log(this.fileBlob);
+        console.log(this.blob[1]);
+        this.activityForm.patchValue({
+          profilePicture: this.blob[1]
+        });
+      }
+
+      await new Promise(f => (setTimeout(f, 100)));
+    }
   }
 
 }
