@@ -12,6 +12,8 @@ namespace Comments_API.Data
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         public DateTime date { get; set; }
         public string content { get; set; }
+        public string firstName { get; set; }
+        public string lastName { get; set; }
 
         public string firstName { get; set; }
         public string lastName { get; set; }

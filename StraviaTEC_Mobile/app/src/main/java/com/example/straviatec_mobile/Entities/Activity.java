@@ -2,20 +2,32 @@ package com.example.straviatec_mobile.Entities;
 
 
 public class Activity {
+    private String username;
     private Integer id;
     private String date;
     private Integer duration;
     private Integer mileage;
     private String route;
-    private String sport_name;
+    private String sportName;
 
-    public Activity(Integer id, String date, Integer duration, Integer mileage, String route, String sport_name) {
+    public Activity(String username, Integer id, String date, Integer duration, Integer mileage, String route, String sportname) {
+        this.username = username;
         this.id = id;
         this.date = date;
         this.duration = duration;
         this.mileage = mileage;
         this.route = route;
-        this.sport_name = sport_name;
+        this.sportName = sportname;
+    }
+
+    public Activity(){}
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public Integer getId() {
@@ -58,11 +70,11 @@ public class Activity {
         this.route = route;
     }
 
-    public String getSport_name() {
-        return sport_name;
+    public String getSportName() {
+        return sportName;
     }
 
-    public void setSport_name(String sport_name) {
-        this.sport_name = sport_name;
+    public void setSportName(String sportname) {
+        this.sportName = sportname;
     }
 }

@@ -12,6 +12,8 @@ namespace StraviaTEC_API
         public string Level { get; set; }
         public byte[]? ProfilePicture { get; set; }
         public DateTime BirthDate { get; set; }
+        public string Nationality { get; set; }
+
 
 
     }

@@ -344,15 +344,15 @@ GO
 
 CREATE PROCEDURE InsertUser @UserName varchar(15), @FirstName varchar(15), @SecondName varchar(15), 
 							@FirstSurname varchar(15), @SecondSurname varchar(15), @Password varchar(15), 
-							@Level varchar(15), @ProfilePicture image, @BirthDate date
+							@Level varchar(15), @ProfilePicture image, @BirthDate date, @Nationality varchar(15)
 AS
-INSERT INTO [USER] (UserName, FirstName, SecondName, FirstSurname, SecondSurname, [Password],[Level], ProfilePicture, BirthDate)
-VALUES (@UserName, @FirstName, @SecondName, @FirstSurname, @SecondSurname, @Password,@Level, @ProfilePicture, @BirthDate)
+INSERT INTO [USER] (UserName, FirstName, SecondName, FirstSurname, SecondSurname, [Password],[Level], ProfilePicture, BirthDate, Nationality)
+VALUES (@UserName, @FirstName, @SecondName, @FirstSurname, @SecondSurname, @Password,@Level, @ProfilePicture, @BirthDate, @Nationality)
 GO
 
-CREATE PROCEDURE UpdateUser @UserName varchar(15), @NewUserName varchar(15), @FirstName varchar(15), @SecondName varchar(15), 
+CREATE PROCEDURE UpdateUser @UserName varchar(15), @FirstName varchar(15), @SecondName varchar(15), 
 							@FirstSurname varchar(15), @SecondSurname varchar(15), @Password varchar(15), 
-							@Level varchar(15), @ProfilePicture image, @BirthDate date
+							@Level varchar(15), @ProfilePicture image, @BirthDate date, @Nationality varchar(15)
 AS
 UPDATE [USER] 
 SET 
@@ -364,7 +364,8 @@ SET
     [Password] = @Password,
     [Level] = @Level,
     ProfilePicture = @ProfilePicture,
-    BirthDate = @BirthDate
+    BirthDate = @BirthDate,
+	Nationality = @Nationality
 WHERE UserName = @UserName
 GO
 

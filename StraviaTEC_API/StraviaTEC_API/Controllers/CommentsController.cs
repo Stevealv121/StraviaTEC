@@ -35,7 +35,7 @@ namespace Comments_API.Controllers
 
             return Ok();
         }
-        [HttpDelete("{ID}")]
+        [HttpDelete("Activity/{ID}")]
         public async Task<IActionResult> DeleteComment(int ID)
         {
 

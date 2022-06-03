@@ -7,7 +7,8 @@ CREATE TABLE [USER](UserName VARCHAR(15) NOT NULL,
 					[Password] VARCHAR(15) NOT NULL,
 					[Level] VARCHAR(15) NOT NULL,
 					ProfilePicture IMAGE,
-					BirthDate DATE NOT NULL
+					BirthDate DATE NOT NULL,
+					Nationality VARCHAR (15)
 					);
 
 CREATE TABLE MANAGES (
@@ -65,6 +66,7 @@ CREATE TABLE CATEGORY([Name] VARCHAR(15) NOT NULL,
 					[Description] VARCHAR(15) NOT NULL,
 					MinAge INT,
 					MaxAge INT
+					
 					);
 
 CREATE TABLE CHALLENGE(Id INT IDENTITY(1,1) NOT NULL ,
@@ -79,7 +81,7 @@ CREATE TABLE ACTIVITY(Id INT IDENTITY(1,1) NOT NULL,
 					[Date] DATE NOT NULL,
 					Duration TIME NOT NULL,
 					Mileage INT,
-					[Route] XML,
+					[Route] VARBINARY(MAX),
 					SportName VARCHAR(15)
 					);
 
