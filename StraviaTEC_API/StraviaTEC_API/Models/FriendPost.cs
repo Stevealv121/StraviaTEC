@@ -16,7 +16,7 @@ namespace StraviaTEC_API
         public DateTime Date { get; set; }
         public TimeSpan Duration { get; set; }
         public int? Mileage { get; set; }
-        public XmlAttribute? Route { get; set; }
+        public byte[]? Route { get; set; }
         public string? SportName { get; set; }
     }
 }

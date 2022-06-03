@@ -25,7 +25,7 @@ const defaultZoom: number = 8
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private data: DataService, private api: ApiService, private sanitizer: DomSanitizer) {
+  constructor(private data: DataService, private api: ApiService) {
   }
   routeMap: string = "assets/images/route-map.png";
   //friendsActivity = [{ name: "x", id: "1" }, { name: "x", id: "2" }, { name: "x", id: "3" }];
@@ -92,14 +92,15 @@ export class HomeComponent implements OnInit {
   }
 
   setRoute(data: any, i: any) {
-    let objectURL = 'data:application/octet-stream;base64,' + data;
-    this.friendsActivity[i].blobRoute = this.sanitizer.bypassSecurityTrustUrl(objectURL);
-    return this.friendsActivity[i].blobRoute
+    //let objectURL = 'data:application/octet-stream;base64,' + data;
+    let objectURL = 'data:application/gpx+xml;base64,' + data;
+    return objectURL
   }
 
   displayMap(mapId: string, route: any, index: any) {
     console.log("This is the map: " + mapId);
     let routeGPX = this.setRoute(route, index);
+    console.log(routeGPX);
     setTimeout(() => {
       const container = document.getElementById(mapId);
       if (container) {

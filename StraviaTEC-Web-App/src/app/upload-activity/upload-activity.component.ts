@@ -101,7 +101,7 @@ export class UploadActivityComponent implements OnInit {
         console.log(this.fileBlob);
         console.log(this.blob[1]);
         this.activityForm.patchValue({
-          profilePicture: this.blob[1]
+          route: this.blob[1]
         });
       }
 
