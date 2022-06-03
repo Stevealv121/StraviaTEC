@@ -9,7 +9,7 @@ public class Utilities {
     public static final String TABLE_CHALLENGE = "challenge";
     public static final String TABLE_GROUP = "[group]";
     public static final String TABLE_JOIN_CHALLENGE = "join_challenge";
-    public static final String TABLE_JOIN_RACE = "race";
+    public static final String TABLE_JOIN_RACE = "join_race";
     public static final String TABLE_MANAGES = "manages";
     public static final String TABLE_RACE = "race";
     public static final String TABLE_REGISTER = "register";
@@ -51,7 +51,7 @@ public class Utilities {
     public static final String FIELD_PROFILEPIC= "ProfilePicture";
     public static final String FIELD_BDATE = "BirthDate";
 
-    public static final String CREATE_ACTIVITY_TABLE = "CREATE TABLE "+TABLE_ACTIVITY+" ("+FIELD_ID+" INTEGER, "+FIELD_DATE+" TEXT, "+FIELD_DURATION+" INTEGER, "+FIELD_MILEAGE+" INTEGER, "+FIELD_ROUTE+" TEXT, "+FIELD_SPORTNAME+" TEXT)";
+    public static final String CREATE_ACTIVITY_TABLE = "CREATE TABLE "+TABLE_ACTIVITY+" ("+FIELD_ID+" INTEGER,"+FIELD_USERNAME+" TEXT, "+FIELD_DATE+" TEXT, "+FIELD_DURATION+" INTEGER, "+FIELD_MILEAGE+" INTEGER, "+FIELD_ROUTE+" TEXT, "+FIELD_SPORTNAME+" TEXT)";
     public static final String CREATE_ADDS_TABLE = "CREATE TABLE "+TABLE_ADDS+" ("+FIELD_USERNAME+" TEXT, "+FIELD_FRIENDUSERNAME+" TEXT)";
     public static final String CREATE_BANKACCOUNT_TABLE = "CREATE TABLE "+TABLE_BANK_ACCOUNT+" ("+FIELD_RACEID+" INTEGER, "+FIELD_ACCOUNT+" INTEGER)";
     public static final String CREATE_BELONGSTO_TABLE = "CREATE TABLE "+TABLE_BELONGS_TO+" ("+FIELD_USERNAME+" TEXT, "+FIELD_GROUPID+" TEXT)";
