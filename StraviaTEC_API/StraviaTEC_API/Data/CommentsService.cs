@@ -26,6 +26,6 @@ namespace Comments_API.Data
             await _comments.InsertOneAsync(newComment);
 
         public async Task DeleteComment(int Id) =>
-            await _comments.DeleteOneAsync(m => m.id.Equals(Id));
+            await _comments.DeleteOneAsync(m => m.activity_id.Equals(Id));
     }
 }

@@ -7,7 +7,8 @@ CREATE TABLE [USER](UserName VARCHAR(15) NOT NULL,
 					[Password] VARCHAR(15) NOT NULL,
 					[Level] VARCHAR(15) NOT NULL,
 					ProfilePicture IMAGE,
-					BirthDate DATE NOT NULL
+					BirthDate DATE NOT NULL,
+					Nationality VARCHAR (15)
 					);
 
 CREATE TABLE MANAGES (
