@@ -12,5 +12,7 @@ export interface UserI {
     // addfriendbutton options
     btnId: number, color: string, font: string, btn: string,
     //friend
-    friendUserName: string | null
+    friendUserName: string | null,
+    //blob
+    blob: any
 }

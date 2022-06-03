@@ -10,6 +10,7 @@ import { JoinRaceI } from '../models/joinRace.interface';
 import { ChallengeI } from '../models/challenge.interface';
 import { GroupI } from '../models/group.interface';
 import { url } from 'inspector';
+import { CommentI } from '../models/comment.interface';
 
 
 @Injectable({
@@ -25,12 +26,13 @@ export class ApiService {
   getRaceManagerId: string = this.url + "Race/ByManagerId/";
   getChallengeManagerId: string = this.url + "Challenge/ByManagerId/";
   getSportsPath: string = this.url + "Sport";
-  getSponsorPath:string = this.url + "Sponsor";
-  getCategoryPath:string = this.url + "Category";
+  getSponsorPath: string = this.url + "Sponsor";
+  getCategoryPath: string = this.url + "Category";
   activityPath: string = this.url + "Activity";
   racePath: string = this.url + "Race";
   challengePath: string = this.url + "Challenge";
-  groupPath: string = this.url + "Group"
+  groupPath: string = this.url + "Group";
+  commentPath: string = this.url + "Comments";
 
 
 
@@ -148,6 +150,11 @@ export class ApiService {
     return this.http.get<ActivityI[]>(activitesPath)
   }
 
+  getActivityComments(id: number): Observable<CommentI[]> {
+    let path = this.commentPath + "/Activity/" + +id;
+    return this.http.get<CommentI[]>(path)
+  }
+
   //POST
 
   //GETS
@@ -157,44 +164,44 @@ export class ApiService {
    * @param username owner's username
    * @returns groups who belongs to the specified user
    */
-  getGroupInfoByManagerId(username:string){
-    return this.http.get<string[]>(this.getgroupInfoPath+username); //some problems maybe the http or https
+  getGroupInfoByManagerId(username: string) {
+    return this.http.get<string[]>(this.getgroupInfoPath + username); //some problems maybe the http or https
   }
   /**
    * This function asks the api for the races created by the user.
    * @param username owner's username
    * @returns races created by the specified user
    */
-  getRacesByManagerId(username:string){
-    return this.http.get<string[]>(this.getRaceManagerId+username);
+  getRacesByManagerId(username: string) {
+    return this.http.get<string[]>(this.getRaceManagerId + username);
   }
   /**
    * This function asks the api for the challenges created by the user.
    * @param username owner's username
    * @returns Challenges created by the specified user
    */
-  getChallengeByManagerId(username:string){
-    return this.http.get<string[]>(this.getChallengeManagerId+username);
+  getChallengeByManagerId(username: string) {
+    return this.http.get<string[]>(this.getChallengeManagerId + username);
   }
   /**
    * This function asks the api for the sports in the data base
    * @returns sports in the data base
    */
-  getSports(){
+  getSports() {
     return this.http.get<string[]>(this.getSportsPath);
   }
   /**
    This function asks the api for the sponsors in the data base
    * @returns sponsors in the data base
    */
-  getSponsor(){
+  getSponsor() {
     return this.http.get<string[]>(this.getSponsorPath);
   }
   /**
    This function asks the api for the categories in the data base
    * @returns categories in the data base
    */
-  getCategory(){
+  getCategory() {
     return this.http.get<string[]>(this.getCategoryPath);
   }
   //DELETES

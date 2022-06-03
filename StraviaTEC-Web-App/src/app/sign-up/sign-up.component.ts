@@ -33,6 +33,8 @@ export class SignUpComponent implements OnInit {
 
   fileToUpload: File | null = null;
 
+  blob: string[] = [];
+
   ngOnInit(): void {
     // this.url = '../../assets/images/avatar.png';
   }
@@ -48,35 +50,38 @@ export class SignUpComponent implements OnInit {
     this.toastr.success("New account succesfully created!", "Success")
   }
 
-  onSelectFile(event: any) {
+  async onSelectFile(event: any) {
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();
 
-      // reader.readAsDataURL(event.target.files[0]); // read file as data url
+      reader.readAsDataURL(event.target.files[0]); // read file as data url
 
       // reader.onload = (event) => { // called once readAsDataURL is completed
       //   this.url = event.target?.result;
       // };
       reader.onload = () => {
         this.url = reader.result?.toString();
+        this.blob = this.url.split(",", 2);
         console.log(this.url);
+        console.log(this.blob[1]);
         this.registerForm.patchValue({
-          profilePicture: this.url
+          profilePicture: this.blob[1]
         });
         //callback(reader.result);  reader.result as string
       }
 
-      reader.readAsDataURL(event.target.files[0]);
+      await new Promise(f => (setTimeout(f, 100)));
+
+      //console.log(reader.result);
+
+      //reader.readAsDataURL(event.target.files[0]);
       //this.url = reader.readAsText(event.target.files[0]);
       //console.log(reader.result)
       console.log(this.url);
       console.log(this.registerForm);
     }
 
-
   }
-
-
 
   setProfilePicture(files: FileList) {
     this.fileToUpload = files.item(0);

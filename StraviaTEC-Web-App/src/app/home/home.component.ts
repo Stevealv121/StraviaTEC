@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { ActivityI } from '../models/activity.interface';
+import { CommentI } from '../models/comment.interface';
 import { UserI } from '../models/user.interface';
 import { ApiService } from '../services/api.service';
 import { DataService } from '../services/data.service';
@@ -31,19 +32,44 @@ export class HomeComponent implements OnInit {
   hasFriends: boolean = false;
   friendImage: string = "assets/images/avatar.png";
   isVisible: boolean = false;
-  topComments: number[] = [1, 2];
+  //topComments: number[] = [1, 2];
+  topComments: CommentI[] = [];
   hasComments: boolean = false;
   viewComments: boolean = false;
-  comments: number[] = [1, 2, 3, 4];
+  //comments: number[] = [1, 2, 3, 4];
+  comments: CommentI[] = [];
   gpxData: string = "assets/route1.gpx";
   apiToken = environment.MAPBOXAPIKEY;
   //@ViewChild('map', { read: ElementRef }) mapContainer!: ElementRef;
   user?: UserI;
+  profilePicture: any;
 
   ngOnInit(): void {
     this.user = this.data.currentUser;
-    this.checkIfHasComments();
+    this.profilePicture = this.user?.blob;
     this.setFriendActivities();
+  }
+
+  setComments(id: any) {
+    this.api.getActivityComments(id).subscribe(data => {
+      this.comments = data;
+      for (let i = 0; i < data.length; i++) {
+        if (i > 2) {
+          console.log("o?");
+          break;
+        } else
+          if (data.length > 2) {
+            console.log("helo?");
+            this.topComments.push(data[i]);
+          }
+      }
+      this.checkIfHasComments();
+      console.log("Comments");
+      console.log(this.comments);
+      console.log("TopComments");
+      console.log(this.topComments);
+      console.log(data[0]);
+    })
   }
 
   setFriendActivities() {
@@ -51,6 +77,9 @@ export class HomeComponent implements OnInit {
       this.friendsActivity = data;
       this.loadAllRoutes();
       this.hasFriends = true;
+      for (let i = 0; i < this.friendsActivity.length; i++) {
+        this.setComments(this.friendsActivity[i].activityId);
+      }
     })
   }
 
@@ -108,5 +137,7 @@ export class HomeComponent implements OnInit {
   checkIfHasComments() {
     !this.topComments.length ? this.hasComments = false : this.hasComments = true;
     this.hasComments ? this.viewComments = true : this.viewComments = false;
+
+    console.log(this.hasComments);
   }
 }

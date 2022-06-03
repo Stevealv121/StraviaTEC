@@ -4,7 +4,7 @@
         <div class="col-3">
             <div id="athlete-profile" class="card">
                 <div class="card-body">
-                    <img src="assets/images/avatar.png" id="profilePicture">
+                    <img [src]="profilePicture" id="profilePicture">
                     <br><br><br>
                     <h5 id="name" class="mb-3">{{user?.firstName}} {{user?.firstSurname}}</h5>
                     <div id="stats" class="row">
@@ -42,6 +42,9 @@
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
                             <div class="row" [hidden]="!hasComments" *ngFor="let comment of topComments;let t as index">
+                                <div class="test" *ngIf="comment.activity_id === activity.activityId">
+                                    <p>{{comment.activity_id}}</p>
+                                </div>
                                 <div class="col-md-auto">
                                     <br>
                                     <img [src]="friendImage" id="friend-img">
@@ -49,8 +52,8 @@
                                 <div class="col-md-7">
                                     <div id="bg-comment" class="card">
                                         <div id="comment-wrapper" class="card-body">
-                                            <h6>FirstName LastName</h6>
-                                            <p>Comment adssdfdsfdsfsdfasdfsdfsdfsdfsdafsadfasdfsdfdsfasdfadsdsf</p>
+                                            <h6>{{comment.firstName}} {{comment.lastName}}</h6>
+                                            <p>{{comment.content}}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -67,8 +70,8 @@
                                 <div class="col-md-7">
                                     <div id="bg-comment" class="card">
                                         <div id="comment-wrapper" class="card-body">
-                                            <h6>FirstName LastName</h6>
-                                            <p>Comment adssdfdsfdsfsdfasdfsdfsdfsdfsdafsadfasdfsdfdsfasdfadsdsf</p>
+                                            <h6>{{comment.firstName}} {{comment.lastName}}</h6>
+                                            <p>{{comment.content}}</p>
                                         </div>
                                     </div>
                                 </div>

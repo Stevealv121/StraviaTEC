@@ -13,5 +13,8 @@ namespace Comments_API.Data
         public DateTime date { get; set; }
         public string content { get; set; }
 
+        public string firstName { get; set; }
+        public string lastName { get; set; }
+
     }
 }

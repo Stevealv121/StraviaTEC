@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Sanitizer } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { LoginI } from '../models/login.interface';
@@ -14,7 +15,7 @@ import { DataService } from '../services/data.service';
 export class LoginComponent implements OnInit {
 
   constructor(private api: ApiService, private data: DataService, private router: Router,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService, private sanitizer: DomSanitizer) { }
 
   loginForm = new FormGroup({
     userName: new FormControl('', Validators.required),
@@ -33,6 +34,8 @@ export class LoginComponent implements OnInit {
         alert("Wrong credentials, please access with a valid email and password.");
       } else {
         this.data.currentUser = data;
+        let objectURL = 'data:image/jpeg;base64,' + data.profilePicture;
+        this.data.currentUser.blob = this.sanitizer.bypassSecurityTrustUrl(objectURL);
         console.log(this.data.currentUser);
         //credentials = true;
         // alert("Login...");
