@@ -7,17 +7,18 @@ select * from Register
 select * from ACTIVITY
 select * from CATEGORY
 select * from RACE
-EXEC InsertRace 1, 'Sebas race',50, '2022-5-31', 'public', 3, 'Open'
+EXEC InsertRace 1, 'Sebas race',50, '2022-5-31', 'string', 3, 'Open'
 EXEC JoinRace 'nati', 1, '022',4
 EXEC JoinRace 'steve', 1, '022',5
-EXEC JoinGroup 'nati', 'string'
+EXEC JoinGroup 'nati', 'group'
 EXEC RacePositionList 1
 EXEC RaceSponsors 1
 
 EXEC SearchUsers 'Sebastian'
 
 EXEC SelectGroupByManager 'nati'
-
++
+.
 EXEC SelectGroupMembers 'string'
 
 EXEC SelectAllChallenges

@@ -145,10 +145,13 @@ GO
 
 CREATE PROCEDURE SelectRaceByUserCategory @UserName varchar(15)
 AS
-SELECT r.* FROM RACE AS r
-LEFT JOIN UsersandCategory AS u
-ON r.CategoryName = u.CategoryName
-WHERE u.UserName =  @UserName OR r.CategoryName = 'Open' 
+SELECT DISTINCT r.* 
+FROM RACE AS r
+INNER JOIN UsersandCategory AS u
+ON r.CategoryName = u.CategoryName OR r.CategoryName = 'Open'
+INNER JOIN BelongsTo as b
+ON (b.GroupId = r.Access AND u.UserName = b.UserName) OR r.Access = 'public'
+WHERE u.UserName =  @UserName 
 GO
 --ACTIVITY
 CREATE PROCEDURE SelectUserActivities @UserName varchar(15)
