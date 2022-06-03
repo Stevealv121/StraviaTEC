@@ -17,7 +17,7 @@ export class ApiService {
   url: string = "https://localhost:7060/api/";
   userPath: string = this.url + "User";
   getgroupInfoPath: string = this.url + "Group/ByManager/";
-  getRaceManagerId: string = this.url + "Race/ByManagerId/";
+  getRaceManagerId: string = this.url + "Race/ByUserName/";
   getChallengeManagerId: string = this.url + "Challenge/ByManagerId/";
   getSportsPath: string = this.url + "Sport";
   getSponsorPath:string = this.url + "Sponsor";

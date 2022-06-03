@@ -88,7 +88,7 @@ export class NewCompetitionComponent implements OnInit {
       name:name,
       cost:Number(cost),
       date:date,
-      access:access,
+      access:access.split(":",2)[1],
       activityID:Number(activityId[0]),
       categoryName:category
     }
