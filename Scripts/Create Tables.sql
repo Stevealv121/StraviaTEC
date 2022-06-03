@@ -66,6 +66,7 @@ CREATE TABLE CATEGORY([Name] VARCHAR(15) NOT NULL,
 					[Description] VARCHAR(15) NOT NULL,
 					MinAge INT,
 					MaxAge INT
+					
 					);
 
 CREATE TABLE CHALLENGE(Id INT IDENTITY(1,1) NOT NULL ,
@@ -80,7 +81,7 @@ CREATE TABLE ACTIVITY(Id INT IDENTITY(1,1) NOT NULL,
 					[Date] DATE NOT NULL,
 					Duration TIME NOT NULL,
 					Mileage INT,
-					[Route] XML,
+					[Route] VARBINARY(MAX),
 					SportName VARCHAR(15)
 					);
 
