@@ -151,8 +151,12 @@ export class ApiService {
   }
 
   getActivityComments(id: number): Observable<CommentI[]> {
-    let path = this.commentPath + "/Activity/" + +id;
+    let path = this.commentPath + "/Activity/" + id.toString();
     return this.http.get<CommentI[]>(path)
+  }
+
+  postComment(form: CommentI): Observable<ResponseI> {
+    return this.http.post<ResponseI>(this.commentPath, form)
   }
 
   //POST

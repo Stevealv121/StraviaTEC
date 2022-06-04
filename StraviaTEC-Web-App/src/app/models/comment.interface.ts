@@ -1,8 +1,8 @@
 export interface CommentI {
     activity_id: number,
-    author: string,
+    author: string | null | undefined,
     date: string,
     content: string,
-    firstName: string,
-    lastName: string
+    firstName: string | null | undefined,
+    lastName: string | null | undefined
 }

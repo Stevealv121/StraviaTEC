@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { ActivityI } from '../models/activity.interface';
+import { CommentI } from '../models/comment.interface';
 import { UserI } from '../models/user.interface';
 import { ApiService } from '../services/api.service';
 import { DataService } from '../services/data.service';
@@ -22,28 +24,27 @@ export class MyActivitiesComponent implements OnInit {
   myActivities: ActivityI[] = [];
   hasActivites: boolean = false;
   isVisible: boolean = false;
-  topComments: number[] = [1, 2];
+  //topComments: number[] = [1, 2];
+  topComments: CommentI[] = [];
   hasComments: boolean = false;
   viewComments: boolean = false;
-  comments: number[] = [1, 2, 3, 4];
+  //comments: number[] = [1, 2, 3, 4];
+  comments: CommentI[] = [];
   gpxData: string = "assets/route1.gpx";
   apiToken = environment.MAPBOXAPIKEY;
   friendImage: string = "assets/images/avatar.png";
+  commentForm = new FormGroup({
+    new_comment: new FormControl('')
+  })
 
   ngOnInit(): void {
     this.user = this.data.currentUser;
     this.setActivities();
   }
 
-  loadAllRoutes() {
-    for (let i = 0; i < this.myActivities.length; i++) {
-      var indexToString = this.myActivities[i].id?.toString();
-      this.displayMap('map' + indexToString);
-    }
-  }
-
-  displayMap(mapId: string) {
+  displayMap(mapId: string, route: any, index: any) {
     console.log("This is the map: " + mapId);
+    let routeGPX = this.setRoute(route, index);
     setTimeout(() => {
       const container = document.getElementById(mapId);
       if (container) {
@@ -68,7 +69,7 @@ export class MyActivitiesComponent implements OnInit {
           style: myStyle
         });
 
-        var gpxLayer = omnivore.gpx(this.gpxData, null, customLayer)
+        var gpxLayer = omnivore.gpx(routeGPX, null, customLayer)
           .on('ready', function () {
             map.fitBounds(gpxLayer.getBounds());
           }).addTo(map);
@@ -82,7 +83,62 @@ export class MyActivitiesComponent implements OnInit {
       this.myActivities = data;
       this.loadAllRoutes();
       this.hasActivites = true;
+      for (let i = 0; i < this.myActivities.length; i++) {
+        this.setComments(this.myActivities[i].id);
+      }
     })
+  }
+
+  postComment(form: any, id: any) {
+    let right_now = new Date();
+    let new_comment: CommentI = {
+      activity_id: id,
+      author: this.user?.userName,
+      content: form.new_comment,
+      firstName: this.user?.firstName,
+      lastName: this.user?.firstSurname,
+      date: right_now.toISOString(),
+    }
+
+    this.api.postComment(new_comment).subscribe(data => {
+      console.log(data);
+      this.comments.push(new_comment);
+      this.showComments();
+    })
+  }
+
+  setComments(id: any) {
+    this.api.getActivityComments(id).subscribe(data => {
+      let c = 0;
+      data.forEach(element => {
+        if (c >= 2) {
+          this.comments.push(element);
+        }
+        c++;
+      })
+      for (let i = 0; i < data.length; i++) {
+        if (i > 1) {
+          break;
+        } else
+          if (data.length >= 1) {
+            this.topComments.push(data[i]);
+          }
+      }
+      this.checkIfHasComments();
+    })
+  }
+
+  loadAllRoutes() {
+    for (let i = 0; i < this.myActivities.length; i++) {
+      var indexToString = this.myActivities[i].id?.toString();
+      this.displayMap('map' + indexToString, this.myActivities[i].route, i);
+    }
+  }
+
+  setRoute(data: any, i: any) {
+    //let objectURL = 'data:application/octet-stream;base64,' + data;
+    let objectURL = 'data:application/gpx+xml;base64,' + data;
+    return objectURL
   }
 
   showComments() {

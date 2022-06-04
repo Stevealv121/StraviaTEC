@@ -41,37 +41,41 @@
                     </div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
-                            <div class="row" [hidden]="!hasComments" *ngFor="let comment of topComments;let t as index">
-                                <div class="test" *ngIf="comment.activity_id === activity.activityId">
-                                    <p>{{comment.activity_id}}</p>
-                                </div>
-                                <div class="col-md-auto">
-                                    <br>
-                                    <img [src]="friendImage" id="friend-img">
-                                </div>
-                                <div class="col-md-7">
-                                    <div id="bg-comment" class="card">
-                                        <div id="comment-wrapper" class="card-body">
-                                            <h6>{{comment.firstName}} {{comment.lastName}}</h6>
-                                            <p>{{comment.content}}</p>
+                            <div class="comments" [hidden]="!hasComments"
+                                *ngFor="let comment of topComments;let t as index">
+                                <div class="row" *ngIf="comment.activity_id === activity.activityId">
+                                    <div class="col-md-auto">
+                                        <br>
+                                        <img [src]="friendImage" id="friend-img">
+                                    </div>
+                                    <div class="col-md-7">
+                                        <div id="bg-comment" class="card">
+                                            <div id="comment-wrapper" class="card-body">
+                                                <h6>{{comment.firstName}} {{comment.lastName}}</h6>
+                                                <p>{{comment.content}}</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                             <div class="row mb-3">
                                 <div class="col"><a id="viewAllComments-a" (click)="showComments()"
                                         [hidden]="!viewComments">View all comments</a></div>
                             </div>
-                            <div class="row" [hidden]="!isVisible" *ngFor="let comment of comments;let i as index">
-                                <div class="col-md-auto">
-                                    <br>
-                                    <img [src]="friendImage" id="friend-img">
-                                </div>
-                                <div class="col-md-7">
-                                    <div id="bg-comment" class="card">
-                                        <div id="comment-wrapper" class="card-body">
-                                            <h6>{{comment.firstName}} {{comment.lastName}}</h6>
-                                            <p>{{comment.content}}</p>
+                            <div class="moreComments" *ngFor="let comment of comments;let i as index">
+                                <div class="row" [hidden]="!isVisible"
+                                    *ngIf="comment.activity_id === activity.activityId">
+                                    <div class="col-md-auto">
+                                        <br>
+                                        <img [src]="friendImage" id="friend-img">
+                                    </div>
+                                    <div class="col-md-7">
+                                        <div id="bg-comment" class="card">
+                                            <div id="comment-wrapper" class="card-body">
+                                                <h6>{{comment.firstName}} {{comment.lastName}}</h6>
+                                                <p>{{comment.content}}</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -80,12 +84,21 @@
                                 <div class="col"><a id="viewAllComments-a" (click)="showLessComments()"
                                         [hidden]="!isVisible">Less comments</a></div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-auto"><img src="assets/images/avatar.png" id="friend-img"></div>
-                                <div class="col">
-                                    <input type="text" placeholder="Write a comment..." class="form-control">
+                            <form [formGroup]="commentForm">
+                                <div class="row">
+                                    <div class="col-md-auto"><img src="assets/images/avatar.png" id="friend-img"></div>
+
+                                    <div class="col">
+                                        <input type="text" placeholder="Write a comment..." class="form-control"
+                                            formControlName="new_comment">
+                                    </div>
+                                    <div class="col-2">
+                                        <img id="sendBtn" src="assets/images/send.png" alt="send"
+                                            (click)="postComment(commentForm.value,activity.activityId)">
+                                    </div>
+
                                 </div>
-                            </div>
+                            </form>
                         </li>
                     </ul>
                 </div>

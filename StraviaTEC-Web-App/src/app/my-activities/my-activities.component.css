@@ -85,3 +85,13 @@
     height: 500px;
     width: 575px;
 }
+
+#sendBtn {
+    margin: 5% 0;
+    height: 26px;
+    width: 26px;
+}
+
+#sendBtn:hover {
+    cursor: pointer;
+}

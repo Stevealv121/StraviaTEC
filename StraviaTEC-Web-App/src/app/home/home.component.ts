@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { environment } from 'src/environments/environment';
 import { ActivityI } from '../models/activity.interface';
@@ -45,37 +46,59 @@ export class HomeComponent implements OnInit {
   user?: UserI;
   profilePicture: any;
 
+  commentForm = new FormGroup({
+    new_comment: new FormControl('')
+  })
+
   ngOnInit(): void {
     this.user = this.data.currentUser;
     this.profilePicture = this.user?.blob;
     this.setFriendActivities();
   }
 
+  postComment(form: any, id: any) {
+    let right_now = new Date();
+    let new_comment: CommentI = {
+      activity_id: id,
+      author: this.user?.userName,
+      content: form.new_comment,
+      firstName: this.user?.firstName,
+      lastName: this.user?.firstSurname,
+      date: right_now.toISOString(),
+    }
+
+    this.api.postComment(new_comment).subscribe(data => {
+      console.log(data);
+      this.comments.push(new_comment);
+      this.showComments();
+    })
+  }
+
   setComments(id: any) {
     this.api.getActivityComments(id).subscribe(data => {
-      this.comments = data;
+      let c = 0;
+      data.forEach(element => {
+        if (c >= 2) {
+          this.comments.push(element);
+        }
+        c++;
+      })
       for (let i = 0; i < data.length; i++) {
-        if (i > 2) {
-          console.log("o?");
+        if (i > 1) {
           break;
         } else
-          if (data.length > 2) {
-            console.log("helo?");
+          if (data.length >= 1) {
             this.topComments.push(data[i]);
           }
       }
       this.checkIfHasComments();
-      console.log("Comments");
-      console.log(this.comments);
-      console.log("TopComments");
-      console.log(this.topComments);
-      console.log(data[0]);
     })
   }
 
   setFriendActivities() {
     this.api.getFriendsActivities(this.user?.userName).subscribe(data => {
       this.friendsActivity = data;
+      //console.log(this.friendsActivity);
       this.loadAllRoutes();
       this.hasFriends = true;
       for (let i = 0; i < this.friendsActivity.length; i++) {
@@ -147,7 +170,5 @@ export class HomeComponent implements OnInit {
   checkIfHasComments() {
     !this.topComments.length ? this.hasComments = false : this.hasComments = true;
     this.hasComments ? this.viewComments = true : this.viewComments = false;
-
-    console.log(this.hasComments);
   }
 }
