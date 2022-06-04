@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 import { UserI } from '../models/user.interface';
 import { ApiService } from '../services/api.service';
 import { DataService } from '../services/data.service';
@@ -11,7 +12,7 @@ import { DataService } from '../services/data.service';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(private data: DataService, private api: ApiService) {
+  constructor(private data: DataService, private api: ApiService, private sanitizer: DomSanitizer) {
   }
 
   profileForm = new FormGroup({
@@ -100,9 +101,14 @@ export class ProfileComponent implements OnInit {
 
         this.url = reader.result?.toString();
         this.blob = this.url.split(",", 2);
-        this.profileForm.patchValue({
-          profilePicture: this.blob[1]
-        });
+        // this.profileForm.patchValue({
+        //   profilePicture: this.blob[1]
+        // });
+        if (this.user) {
+          this.user.profilePicture = this.blob[1];
+          this.user.blob = this.sanitizer.bypassSecurityTrustUrl(this.url);
+          this.save("profilePicture", this.profileForm);
+        }
 
       }
       await new Promise(f => (setTimeout(f, 100)));
