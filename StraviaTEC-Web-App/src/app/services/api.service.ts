@@ -5,6 +5,7 @@ import { UserI } from '../models/user.interface';
 import { ResponseI } from '../models/response.interface';
 import { GroupsGest } from '../models/groups-gest';
 import { Race } from '../models/race';
+import { Challenge } from '../models/challenge';
 
 
 @Injectable({
@@ -27,6 +28,7 @@ export class ApiService {
   racespath:string=this.url +"Race";
   postSponsorpath:string=this.racespath + "/AssignRaceSponsor/";
   postBankAccountPath:string = this.racespath + "/BankAccount/";
+  postChallengePath:string = this.url + "Challenge";
 
 
 
@@ -74,6 +76,14 @@ export class ApiService {
    */
   postRaceAccount(raceId:string, BankAccount:string){
     return this.http.post<string>(this.postBankAccountPath+raceId+"/"+BankAccount,null);
+  }
+  /**
+   * This function creates a new challenge un the database
+   * @param form challenge type object
+   * @returns api response
+   */
+  postChallenge(form:Challenge){
+    return this.http.post<Challenge>(this.postChallengePath,form);
   }
 
 
