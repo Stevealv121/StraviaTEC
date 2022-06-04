@@ -71,24 +71,13 @@ export class ProfileComponent implements OnInit {
   @ViewChild('LC', { static: true }) LCloseBtn!: ElementRef;
   @ViewChild('LE', { static: true }) LEdit!: ElementRef;
 
-  url: string = 'assets/images/avatar.png';
-
-  // user: UserI = {
-  //   firstName: "apiInfo",
-  //   secondName: "apiInfo",
-  //   firstSurname: "apiInfo",
-  //   secondSurname: "apiInfo",
-  //   birthDate: "apiInfo",
-  //   level: "apiInfo",
-  //   nationality: "apiInfo",
-  //   userName: null,
-  //   password: null,
-  //   profilePicture: null
-  // }
+  url: any = 'assets/images/avatar.png';
   user?: UserI;
+  blob: string[] = []
 
   ngOnInit(): void {
     this.user = this.data.currentUser;
+    this.url = this.user?.blob;
     this.displayValues();
   }
 
@@ -102,20 +91,21 @@ export class ProfileComponent implements OnInit {
     this.LDisplay.nativeElement.getElementsByTagName('strong')[0].innerHTML = this.user?.level;
   }
 
-  onSelectFile(event: any) {
+  async onSelectFile(event: any) {
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();
 
       reader.readAsDataURL(event.target.files[0]); // read file as data url
       reader.onload = () => {
 
-        this.url = reader.result as string;
+        this.url = reader.result?.toString();
+        this.blob = this.url.split(",", 2);
+        this.profileForm.patchValue({
+          profilePicture: this.blob[1]
+        });
 
-        // this.registerForm.patchValue({
-        //   profilePicture: reader.result
-        // });
-
-      };
+      }
+      await new Promise(f => (setTimeout(f, 100)));
     }
   }
 

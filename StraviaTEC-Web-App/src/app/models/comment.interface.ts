@@ -4,5 +4,6 @@ export interface CommentI {
     date: string,
     content: string,
     firstName: string | null | undefined,
-    lastName: string | null | undefined
+    lastName: string | null | undefined,
+    blobProfile: any
 }

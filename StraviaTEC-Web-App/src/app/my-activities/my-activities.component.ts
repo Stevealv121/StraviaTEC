@@ -98,6 +98,7 @@ export class MyActivitiesComponent implements OnInit {
       firstName: this.user?.firstName,
       lastName: this.user?.firstSurname,
       date: right_now.toISOString(),
+      blobProfile: null
     }
 
     this.api.postComment(new_comment).subscribe(data => {

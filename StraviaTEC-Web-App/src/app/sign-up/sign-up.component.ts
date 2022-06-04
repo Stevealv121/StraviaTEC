@@ -218,8 +218,6 @@ export class SignUpComponent implements OnInit {
       reader.onload = () => {
         this.url = reader.result?.toString();
         this.blob = this.url.split(",", 2);
-        console.log(this.url);
-        console.log(this.blob[1]);
         this.registerForm.patchValue({
           profilePicture: this.blob[1]
         });

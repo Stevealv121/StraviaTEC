@@ -34,8 +34,12 @@ export class LoginComponent implements OnInit {
         alert("Wrong credentials, please access with a valid email and password.");
       } else {
         this.data.currentUser = data;
-        let objectURL = 'data:image/jpeg;base64,' + data.profilePicture;
-        this.data.currentUser.blob = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+        if (data.profilePicture == null) {
+          this.data.currentUser.blob = "assets/images/avatar.png";
+        } else {
+          let objectURL = 'data:image/jpeg;base64,' + data.profilePicture;
+          this.data.currentUser.blob = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+        }
         console.log(this.data.currentUser);
         //credentials = true;
         // alert("Login...");

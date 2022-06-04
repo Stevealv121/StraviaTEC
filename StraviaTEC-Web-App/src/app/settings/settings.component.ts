@@ -32,11 +32,14 @@ export class SettingsComponent implements OnInit {
   firstname: string | null = "";
   lastname: string | null = "";
 
+  profilePicture: any;
+
   ngOnInit(): void {
     if (this.data.currentUser) {
       this.usrname = this.data.currentUser.userName;
       this.firstname = this.data.currentUser.firstName;
       this.lastname = this.data.currentUser.firstSurname;
+      this.profilePicture = this.data.currentUser.blob;
     }
   }
 

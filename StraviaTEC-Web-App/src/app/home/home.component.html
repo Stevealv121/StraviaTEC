@@ -46,7 +46,7 @@
                                 <div class="row" *ngIf="comment.activity_id === activity.activityId">
                                     <div class="col-md-auto">
                                         <br>
-                                        <img [src]="friendImage" id="friend-img">
+                                        <img [src]="comment.blobProfile" id="friend-img">
                                     </div>
                                     <div class="col-md-7">
                                         <div id="bg-comment" class="card">
@@ -68,7 +68,7 @@
                                     *ngIf="comment.activity_id === activity.activityId">
                                     <div class="col-md-auto">
                                         <br>
-                                        <img [src]="friendImage" id="friend-img">
+                                        <img [src]="comment.blobProfile" id="friend-img">
                                     </div>
                                     <div class="col-md-7">
                                         <div id="bg-comment" class="card">
@@ -88,7 +88,7 @@
                             </div>
                             <form [formGroup]="commentForm">
                                 <div class="row">
-                                    <div class="col-md-auto"><img src="assets/images/avatar.png" id="friend-img"></div>
+                                    <div class="col-md-auto"><img [src]="profilePicture" id="friend-img"></div>
 
                                     <div class="col">
                                         <input type="text" placeholder="Write a comment..." class="form-control"

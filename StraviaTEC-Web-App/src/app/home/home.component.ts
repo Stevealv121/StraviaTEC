@@ -26,7 +26,7 @@ const defaultZoom: number = 8
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private data: DataService, private api: ApiService) {
+  constructor(private data: DataService, private api: ApiService, private sanitizer: DomSanitizer) {
   }
   routeMap: string = "assets/images/route-map.png";
   //friendsActivity = [{ name: "x", id: "1" }, { name: "x", id: "2" }, { name: "x", id: "3" }];
@@ -65,6 +65,7 @@ export class HomeComponent implements OnInit {
       firstName: this.user?.firstName,
       lastName: this.user?.firstSurname,
       date: right_now.toISOString(),
+      blobProfile: this.profilePicture
     }
 
     this.api.postComment(new_comment).subscribe(data => {
@@ -74,21 +75,50 @@ export class HomeComponent implements OnInit {
     })
   }
 
+  async setProfilePicture(author: any) {
+    let profilePicture;
+    this.api.getAllUsers().subscribe(data => {
+      let allUsers = data;
+      allUsers.forEach(element => {
+        if (element.userName == author) {
+          if (element.profilePicture == null) {
+            profilePicture = "assets/images/avatar.png"
+          } else {
+            let objectURL = 'data:image/jpeg;base64,' + element.profilePicture;
+            profilePicture = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+          }
+        } else {
+          profilePicture = "assets/images/avatar.png"
+        }
+      })
+    })
+    await new Promise(f => (setTimeout(f, 500)));
+    return profilePicture;
+  }
+
   setComments(id: any) {
     this.api.getActivityComments(id).subscribe(data => {
+      let commentsMongo = data;
+      console.log(commentsMongo);
+      commentsMongo.forEach(element => {
+        this.setProfilePicture(element.author).then(data => {
+          console.log(data);
+          element.blobProfile = data;
+        })
+      })
       let c = 0;
-      data.forEach(element => {
+      commentsMongo.forEach(element => {
         if (c >= 2) {
           this.comments.push(element);
         }
         c++;
       })
-      for (let i = 0; i < data.length; i++) {
+      for (let i = 0; i < commentsMongo.length; i++) {
         if (i > 1) {
           break;
         } else
-          if (data.length >= 1) {
-            this.topComments.push(data[i]);
+          if (commentsMongo.length >= 1) {
+            this.topComments.push(commentsMongo[i]);
           }
       }
       this.checkIfHasComments(id);
