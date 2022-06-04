@@ -1,7 +1,8 @@
 export interface Challenge {
-  number:number,
-  name:string,
+  id:number,
   validThru:string,
-  category:string,
-  access:string
+  type:string,
+  access:string,
+  name:string,
+  activityId:number
 }

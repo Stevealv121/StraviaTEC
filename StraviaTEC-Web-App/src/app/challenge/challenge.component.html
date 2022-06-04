@@ -10,18 +10,18 @@
               <th scope="col">Challenge Number</th>
               <th scope="col">Name of the challenge</th>
               <th scope="col">Valid Thru</th>
-              <th scope="col">Category</th>
+              <th scope="col">Type</th>
               <th scope="col">Access</th>
               <th scope="col">Options</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Heavy Running</td>
-              <td>27/03/01</td>
-              <td>Open</td>
-              <td>Public</td>
+            <tr *ngFor="let chall of challenge">
+              <th scope="row">{{chall.id}}</th>
+              <td>{{chall.name}}</td>
+              <td>{{chall.validThru}}</td>
+              <td>{{chall.type}}</td>
+              <td>{{chall.access}}</td>
               <td>
                 <a id="button" class="btn btn-primary btn-sm "  role="button" routerLink="/EditChallenge">Edit </a>
                 <a id="button" class="btn btn-primary btn-sm "  role="button">Delete </a>
