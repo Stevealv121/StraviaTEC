@@ -101,9 +101,7 @@ export class ProfileComponent implements OnInit {
 
         this.url = reader.result?.toString();
         this.blob = this.url.split(",", 2);
-        // this.profileForm.patchValue({
-        //   profilePicture: this.blob[1]
-        // });
+
         if (this.user) {
           this.user.profilePicture = this.blob[1];
           this.user.blob = this.sanitizer.bypassSecurityTrustUrl(this.url);

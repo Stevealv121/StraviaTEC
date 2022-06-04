@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 import { environment } from 'src/environments/environment';
 import { ActivityI } from '../models/activity.interface';
 import { CommentI } from '../models/comment.interface';
@@ -19,7 +20,7 @@ const defaultZoom: number = 8
 })
 export class MyActivitiesComponent implements OnInit {
 
-  constructor(private data: DataService, private api: ApiService) { }
+  constructor(private data: DataService, private api: ApiService, private sanitizer: DomSanitizer) { }
   user?: UserI;
   myActivities: ActivityI[] = [];
   hasActivites: boolean = false;
@@ -40,6 +41,27 @@ export class MyActivitiesComponent implements OnInit {
   ngOnInit(): void {
     this.user = this.data.currentUser;
     this.setActivities();
+  }
+
+  async setProfilePicture(author: any) {
+    let profilePicture;
+    this.api.getAllUsers().subscribe(data => {
+      let allUsers = data;
+      allUsers.forEach(element => {
+        if (element.userName == author) {
+          if (element.profilePicture == null) {
+            profilePicture = "assets/images/avatar.png"
+          } else {
+            let objectURL = 'data:image/jpeg;base64,' + element.profilePicture;
+            profilePicture = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+          }
+        } else {
+          profilePicture = "assets/images/avatar.png"
+        }
+      })
+    })
+    await new Promise(f => (setTimeout(f, 500)));
+    return profilePicture;
   }
 
   displayMap(mapId: string, route: any, index: any) {
@@ -98,34 +120,42 @@ export class MyActivitiesComponent implements OnInit {
       firstName: this.user?.firstName,
       lastName: this.user?.firstSurname,
       date: right_now.toISOString(),
-      blobProfile: null
+      blobProfile: this.user?.blob
     }
 
     this.api.postComment(new_comment).subscribe(data => {
       console.log(data);
       this.comments.push(new_comment);
-      this.showComments();
+      this.showComments(id);
     })
   }
 
   setComments(id: any) {
     this.api.getActivityComments(id).subscribe(data => {
+      let commentsMongo = data;
+      console.log(commentsMongo);
+      commentsMongo.forEach(element => {
+        this.setProfilePicture(element.author).then(data => {
+          console.log(data);
+          element.blobProfile = data;
+        })
+      })
       let c = 0;
-      data.forEach(element => {
+      commentsMongo.forEach(element => {
         if (c >= 2) {
           this.comments.push(element);
         }
         c++;
       })
-      for (let i = 0; i < data.length; i++) {
+      for (let i = 0; i < commentsMongo.length; i++) {
         if (i > 1) {
           break;
         } else
-          if (data.length >= 1) {
-            this.topComments.push(data[i]);
+          if (commentsMongo.length >= 1) {
+            this.topComments.push(commentsMongo[i]);
           }
       }
-      this.checkIfHasComments();
+      this.checkIfHasComments(id);
     })
   }
 
@@ -142,18 +172,33 @@ export class MyActivitiesComponent implements OnInit {
     return objectURL
   }
 
-  showComments() {
-    this.isVisible = true;
-    this.viewComments = false;
+  showComments(id: any) {
+
+    this.myActivities.forEach(element => {
+      if (element.id == id) {
+        element.lessComments = true;
+        element.moreComments = false;
+      }
+    })
   }
-  showLessComments() {
-    this.isVisible = false;
-    this.viewComments = true;
+  showLessComments(id: any) {
+
+    this.myActivities.forEach(element => {
+      if (element.id == id) {
+        element.lessComments = false;
+        element.moreComments = true;
+      }
+    })
   }
 
-  checkIfHasComments() {
-    !this.topComments.length ? this.hasComments = false : this.hasComments = true;
-    this.hasComments ? this.viewComments = true : this.viewComments = false;
+  checkIfHasComments(id: any) {
+
+    this.myActivities.forEach(element => {
+      if (element.id == id) {
+        element.hasComments = true;
+        element.moreComments = true;
+      }
+    })
   }
 
 }

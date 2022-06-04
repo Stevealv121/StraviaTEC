@@ -189,8 +189,7 @@ export class HomeComponent implements OnInit {
   }
 
   showComments(id: any) {
-    // this.isVisible = true;
-    // this.viewComments = false;
+
     this.friendsActivity.forEach(element => {
       if (element.activityId == id) {
         element.lessComments = true;
@@ -199,8 +198,7 @@ export class HomeComponent implements OnInit {
     })
   }
   showLessComments(id: any) {
-    // this.isVisible = false;
-    // this.viewComments = true;
+
     this.friendsActivity.forEach(element => {
       if (element.activityId == id) {
         element.lessComments = false;
@@ -210,8 +208,6 @@ export class HomeComponent implements OnInit {
   }
 
   checkIfHasComments(id: any) {
-    // !this.topComments.length ? this.hasComments = false : this.hasComments = true;
-    // this.hasComments ? this.viewComments = true : this.viewComments = false;
 
     this.friendsActivity.forEach(element => {
       if (element.activityId == id) {
