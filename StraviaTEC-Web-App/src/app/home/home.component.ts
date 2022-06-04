@@ -70,7 +70,7 @@ export class HomeComponent implements OnInit {
     this.api.postComment(new_comment).subscribe(data => {
       console.log(data);
       this.comments.push(new_comment);
-      this.showComments();
+      this.showComments(id);
     })
   }
 
@@ -91,7 +91,7 @@ export class HomeComponent implements OnInit {
             this.topComments.push(data[i]);
           }
       }
-      this.checkIfHasComments();
+      this.checkIfHasComments(id);
     })
   }
 
@@ -158,17 +158,36 @@ export class HomeComponent implements OnInit {
     }, 100);
   }
 
-  showComments() {
-    this.isVisible = true;
-    this.viewComments = false;
+  showComments(id: any) {
+    // this.isVisible = true;
+    // this.viewComments = false;
+    this.friendsActivity.forEach(element => {
+      if (element.activityId == id) {
+        element.lessComments = true;
+        element.moreComments = false;
+      }
+    })
   }
-  showLessComments() {
-    this.isVisible = false;
-    this.viewComments = true;
+  showLessComments(id: any) {
+    // this.isVisible = false;
+    // this.viewComments = true;
+    this.friendsActivity.forEach(element => {
+      if (element.activityId == id) {
+        element.lessComments = false;
+        element.moreComments = true;
+      }
+    })
   }
 
-  checkIfHasComments() {
-    !this.topComments.length ? this.hasComments = false : this.hasComments = true;
-    this.hasComments ? this.viewComments = true : this.viewComments = false;
+  checkIfHasComments(id: any) {
+    // !this.topComments.length ? this.hasComments = false : this.hasComments = true;
+    // this.hasComments ? this.viewComments = true : this.viewComments = false;
+
+    this.friendsActivity.forEach(element => {
+      if (element.activityId == id) {
+        element.hasComments = true;
+        element.moreComments = true;
+      }
+    })
   }
 }

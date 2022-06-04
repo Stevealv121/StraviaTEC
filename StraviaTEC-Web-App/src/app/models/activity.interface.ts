@@ -18,5 +18,9 @@ export interface ActivityI {
     nationality: string | null,
     profilePicture: string | null,
     //blobRoute
-    blobRoute: any
+    blobRoute: any,
+    //CommentsButtons
+    hasComments: boolean | null,
+    moreComments: boolean | null,
+    lessComments: boolean | null
 }

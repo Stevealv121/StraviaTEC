@@ -41,7 +41,7 @@
                     </div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
-                            <div class="comments" [hidden]="!hasComments"
+                            <div class="comments" [hidden]="!activity.hasComments"
                                 *ngFor="let comment of topComments;let t as index">
                                 <div class="row" *ngIf="comment.activity_id === activity.activityId">
                                     <div class="col-md-auto">
@@ -60,11 +60,11 @@
 
                             </div>
                             <div class="row mb-3">
-                                <div class="col"><a id="viewAllComments-a" (click)="showComments()"
-                                        [hidden]="!viewComments">View all comments</a></div>
+                                <div class="col"><a id="viewAllComments-a" (click)="showComments(activity.activityId)"
+                                        [hidden]="!activity.moreComments">View all comments</a></div>
                             </div>
                             <div class="moreComments" *ngFor="let comment of comments;let i as index">
-                                <div class="row" [hidden]="!isVisible"
+                                <div class="row" [hidden]="!activity.lessComments"
                                     *ngIf="comment.activity_id === activity.activityId">
                                     <div class="col-md-auto">
                                         <br>
@@ -81,8 +81,10 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <div class="col"><a id="viewAllComments-a" (click)="showLessComments()"
-                                        [hidden]="!isVisible">Less comments</a></div>
+                                <div class="col"><a id="viewAllComments-a"
+                                        (click)="showLessComments(activity.activityId)"
+                                        [hidden]="!activity.lessComments">Less
+                                        comments</a></div>
                             </div>
                             <form [formGroup]="commentForm">
                                 <div class="row">

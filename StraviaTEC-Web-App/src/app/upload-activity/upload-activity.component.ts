@@ -77,7 +77,10 @@ export class UploadActivityComponent implements OnInit {
         nationality: null,
         profilePicture: null,
         id: null,
-        blobRoute: null
+        blobRoute: null,
+        hasComments: false,
+        lessComments: false,
+        moreComments: false,
       }
 
       this.api.postActivity(activity).subscribe(data => {
