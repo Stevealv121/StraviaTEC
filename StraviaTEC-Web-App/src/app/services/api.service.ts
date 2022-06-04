@@ -19,7 +19,7 @@ export class ApiService {
   userPath: string = this.url + "User";
   getgroupInfoPath: string = this.url + "Group/ByManager/";
   getRaceManagerId: string = this.url + "Race/ByUserName/";
-  getChallengeManagerId: string = this.url + "Challenge/ByManagerId/";
+  getChallengeManagerId: string = this.url + "Challenge/ByUserName/";
   getSportsPath: string = this.url + "Sport";
   getSponsorPath:string = this.url + "Sponsor";
   getCategoryPath:string = this.url + "Category";
