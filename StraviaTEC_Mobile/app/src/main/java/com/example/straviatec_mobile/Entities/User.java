@@ -1,5 +1,7 @@
 package com.example.straviatec_mobile.Entities;
 
+import java.util.Date;
+
 public class User {
     private String userName;
     private String firstName;
@@ -9,8 +11,10 @@ public class User {
     private String password;
     private String level;
     private String profilePicture;
+    private String birthDate;
+    private String nationality;
 
-    public User(String userName, String firstName, String secondName, String firstSurname, String secondSurname, String password, String level, String profilePicture) {
+    public User(String userName, String firstName, String secondName, String firstSurname, String secondSurname, String password, String level, String profilePicture, String birthDate, String nationality) {
         this.userName = userName;
         this.firstName = firstName;
         this.secondName = secondName;
@@ -19,6 +23,8 @@ public class User {
         this.password = password;
         this.level = level;
         this.profilePicture = profilePicture;
+        this.birthDate = birthDate;
+        this.nationality = nationality;
     }
 
     public User(){}
@@ -85,5 +91,21 @@ public class User {
 
     public void setProfilePicture(String profilePicture) {
         this.profilePicture = profilePicture;
+    }
+
+    public String getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(String birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public String getNationality() {
+        return nationality;
+    }
+
+    public void setNationality(String nationality) {
+        this.nationality = nationality;
     }
 }

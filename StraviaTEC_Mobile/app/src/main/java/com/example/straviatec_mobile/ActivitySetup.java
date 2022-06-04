@@ -14,6 +14,7 @@ import java.util.List;
 public class ActivitySetup extends AppCompatActivity {
 
     private Spinner activities;
+    String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

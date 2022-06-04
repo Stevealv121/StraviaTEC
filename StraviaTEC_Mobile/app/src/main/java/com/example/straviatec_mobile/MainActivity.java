@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.straviatec_mobile.Entities.Activity;
@@ -32,18 +34,25 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
+    EditText uname, pass;
+    SQLitehelper conn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        conn = new SQLitehelper(getApplicationContext(), "TecAir_BD", null, 1);
+
+        uname = (EditText) findViewById(R.id.uname);
+        pass = (EditText) findViewById(R.id.pass);
+
         if(savedInstanceState == null){
             sincA();
             sincU();
         }
     }
     private void sincA() {
-        SQLitehelper conn = new SQLitehelper(this, "StraviaTEC_DB", null,1);
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://10.0.2.2:7060/")
                 .addConverterFactory(GsonConverterFactory.create()).client(getUnsafeOkHttpClient()).build();
         ActivityAPI activityAPI = retrofit.create(ActivityAPI.class);
@@ -81,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     private void sincU() {
-        SQLitehelper conn = new SQLitehelper(this,"StraviaTEC_DB",null,1);
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://10.0.2.2:7060/")
                 .addConverterFactory(GsonConverterFactory.create()).client(getUnsafeOkHttpClient()).build();
         UserAPI userAPI = retrofit.create(UserAPI.class);
@@ -102,6 +110,8 @@ public class MainActivity extends AppCompatActivity {
                         values.put(Utilities.FIELD_PASS, u.getPassword());
                         values.put(Utilities.FIELD_LEVEL, u.getLevel());
                         values.put(Utilities.FIELD_PROFILEPIC, u.getProfilePicture());
+                        values.put(Utilities.FIELD_BDATE, u.getBirthDate());
+                        values.put(Utilities.FIELD_NATION, u.getNationality());
 
                         db.insert(Utilities.TABLE_USER, null,values);
                         db.close();
@@ -121,8 +131,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClick(View view) {
-        Intent myintent = new Intent(MainActivity.this,Menu.class);
-        startActivity(myintent);
+        consult();
+    }
+
+    private void consult() {
+        String username;
+        SQLiteDatabase db = conn.getReadableDatabase();
+        String[] consult = {uname.getText().toString(), pass.getText().toString()};
+        String[] result = {Utilities.FIELD_USERNAME, Utilities.FIELD_FNAME, Utilities.FIELD_FSNAME};
+        try{
+            Cursor cursor = db.query(Utilities.TABLE_USER,result,Utilities.FIELD_USERNAME+"=?"+" AND "+Utilities.FIELD_PASS+"=?",consult,null,null,null);
+            cursor.moveToFirst();
+            Toast.makeText(getApplicationContext(),"Welcome " + cursor.getString(1) + " " + cursor.getString(2), Toast.LENGTH_LONG).show();
+            username = cursor.getString(0);
+            cursor.close();
+            Intent myintent = new Intent(MainActivity.this,Menu.class);
+            myintent.putExtra("uname", username);
+            startActivity(myintent);
+
+        }catch(Exception ex){
+            Toast.makeText(getApplicationContext(),"User was not found", Toast.LENGTH_LONG).show();
+            clean();
+        }
+    }
+
+    private void clean() {
+        pass.setText("");
+        uname.setText("");
     }
 
     public static OkHttpClient getUnsafeOkHttpClient() {
