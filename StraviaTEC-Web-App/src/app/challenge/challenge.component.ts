@@ -16,7 +16,7 @@ export class ChallengeComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    //this.loadChallenges();
+    this.loadChallenges();
   }
   /**
    * This function request to the api for the challenges
@@ -25,6 +25,13 @@ export class ChallengeComponent implements OnInit {
     this.api.getChallengeByManagerId("dennis").subscribe((data:any)=>{ //change dennis for the username
       this.challenge = data;
     })
+  }
+  /**
+   * This function saves the id of a challenge
+   * @param id challenge's id
+   */
+  saveChallengeId(id:string){
+    //complete with the service
   }
 
 }

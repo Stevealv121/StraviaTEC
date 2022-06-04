@@ -16,12 +16,13 @@ export class CompetitionComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    //this.loadRaces()
+    this.loadRaces()
   }
 
   loadRaces(){
     this.api.getRacesByManagerId("dennis").subscribe((data:any)=>{ //change dennis for the username
       this.races = data;
+      console.log(this.races)
     })
   }
 

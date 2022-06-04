@@ -12,25 +12,19 @@
               <th scope="col">Cost</th>
               <th scope="col">Date</th>
               <th scope="col">Access</th>
-              <th scope="col">Activity</th>
-              <th scope="col">Bank Account</th>
-              <th scope="col">Sponsor 1</th>
-              <th scope="col">Sponsor 2</th>
+              <th scope="col">Category</th>
               <th scope="col">Opcions</th>
               <th scope="col">Info </th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Biking around the GAM</td>
-              <td>$ 20</td>
-              <td>27/12/22</td>
-              <td>Public</td>
-              <td>Biking</td>
-              <td>200115166120</td>
-              <td>CocaCola</td>
-              <td>Gatorade</td>
+            <tr *ngFor="let race of races">
+              <th scope="row">{{race.id}}</th>
+              <td>{{race.name}}</td>
+              <td>{{race.cost}}</td>
+              <td>{{race.date}}</td>
+              <td>{{race.access}}</td>
+              <td>{{race.categoryName}}</td>
               <td>
                 <a id="button" class="btn btn-primary btn-sm "  role="button" routerLink="/EditRace">Edit </a>
                 <a id="button" class="btn btn-primary btn-sm "  role="button">Delete </a>
