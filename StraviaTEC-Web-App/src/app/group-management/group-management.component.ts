@@ -34,5 +34,16 @@ export class GroupManagementComponent implements OnInit {
   saveGroupId(id:string){
     this.dataService.groupId=id;
   }
+  /**
+   * This function asks the api to delete a member of a group
+   * @param name name of the group
+   */
+  async deleteGroup(name:string){
+    this.api.deleteGroup(name).subscribe((data:any)=>{
+
+    });
+    await new Promise(f => setTimeout(f, 500))
+    this.ngOnInit()
+  }
 
 }

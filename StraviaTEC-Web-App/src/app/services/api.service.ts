@@ -16,6 +16,7 @@ import { url } from 'inspector';
 import { CommentI } from '../models/comment.interface';
 import { Sponsor } from '../models/sponsor';
 import { Activity } from '../models/activity';
+import { Member } from '../models/member';
 
 
 @Injectable({
@@ -46,6 +47,9 @@ export class ApiService {
   racePath: string = this.url + "Race";
   challengePath: string = this.url + "Challenge";
   commentPath: string = this.url + "Comments";
+  groupMembersPath:string = this.url +"Group/MembersByGroupName/";
+  deleteGMemberPath:string = this.url + "Group/GroupMember/";
+  deleteGroupPath: string = this.url +"Group/ByName/";
 
 
 
@@ -291,7 +295,24 @@ export class ApiService {
   getSponsorsByRace(id:number){
     return this.http.get<Sponsor[]>(this.getSponsorByRace+id);
   }
+  /**
+   * This function asks the api for a group's members in the data base
+   * @param name group's name
+   * @returns member's information
+   */
+  getGroupMembers(name:string){
+    return this.http.get<Member[]>(this.groupMembersPath+name);
+  }
   //DELETES
+
+  deleteMember(username:string, groupName:string){
+    console.log(this.deleteGMemberPath+groupName+"/"+username);
+    return this.http.delete(this.deleteGMemberPath+groupName+"/"+username);
+  }
+  deleteGroup(name:string){
+    return this.http.delete(this.deleteGroupPath+name);
+
+  }
 
   //PUTS
   /**
