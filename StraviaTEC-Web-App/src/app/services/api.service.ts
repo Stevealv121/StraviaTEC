@@ -227,7 +227,7 @@ export class ApiService {
    * @param username owner's username
    * @returns activities who belongs to the specified user
    */
-  getUserActivities(user:string){
+  getUserActivities2(user:string){
     return this.http.get<string[]>(this.getActitvityUserPath+user);
   }
   /**
