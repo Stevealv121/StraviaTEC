@@ -145,6 +145,14 @@ export class ApiService {
   //DELETES
 
   //PUTS
+  /**
+   * This function updates a challenge in the data base
+   * @param form challenge's information
+   * @returns database reponse
+   */
+  putChallenge(form:Challenge){
+    return this.http.put<Challenge>(this.postChallengePath,form);
+  }
 
 
 }

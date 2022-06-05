@@ -14,59 +14,59 @@
       <input #color type="text" aria-label="Color" class="form-control" disabled>
     </div>
     <div class="input-group mb-3">
-      <span id="span" class="input-group-text">Name of the Race</span>
-      <input #color type="text" aria-label="Color" class="form-control">
+      <span id="span" class="input-group-text">Name of the competition</span>
+      <input #name type="text" aria-label="Color" class="form-control">
     </div>
     <div class="input-group mb-3">
       <span id="span" class="input-group-text">Date</span>
-      <input #color type="date" aria-label="Color" class="form-control">
+      <input #date type="date" aria-label="Color" class="form-control">
     </div>
     <div class="input-group mb-3">
       <label id="span" class="input-group-text" for="inputGroupSelect01">Activity</label>
-      <select #user class="form-select" id="inputGroupSelect01">
+      <select #activity class="form-select" id="inputGroupSelect01">
         <option selected>Choose...</option>
-        <option>Running</option>
-        <option>Swimming</option>
-        <option>Biking</option>
+        <option *ngFor="let Activity of activities">{{Activity.id}} {{Activity.sportName}}</option>
       </select>
     </div>
     <div class="input-group mb-3">
-      <span id="span" class="input-group-text">Route</span>
-      <input  accept=".gpx" type="file" class="form-username form-control">
-    </div>
-    <div class="input-group mb-3">
       <span id="span" class="input-group-text">Cost</span>
-      <input #color type="number" aria-label="Color" class="form-control">
+      <input #cost type="number" aria-label="Color" class="form-control">
     </div>
     <div class="input-group mb-3">
-      <span id="span" class="input-group-text">Account Number</span>
-      <input #weight type="number" aria-label="weight" class="form-control">
+      <span id="span" class="input-group-text">Account Number 1</span>
+      <input #account1 type="number" aria-label="weight" class="form-control">
+    </div>
+    <div class="input-group mb-3">
+      <span id="span" class="input-group-text">Account Number 2</span>
+      <input #account2 type="number" aria-label="weight" class="form-control">
+    </div>
+    <div class="input-group mb-3">
+      <label id="span" class="input-group-text" for="inputGroupSelect01">Category</label>
+      <select #category class="form-select" id="inputGroupSelect01">
+        <option selected>Choose...</option>
+        <option *ngFor="let category of categories">{{category}}</option>
+      </select>
     </div>
     <div class="input-group mb-3">
       <label id="span" class="input-group-text" for="inputGroupSelect01">Access</label>
-        <select #fly class="form-select" id="inputGroupSelect01">
+        <select #access class="form-select" id="inputGroupSelect01">
           <option selected>Choose...</option>
           <option >Public</option>
-          <option> Group 1</option>
-          <option>Group 2</option>
+          <option id={{group}} *ngFor="let group of groups"> Group: {{group.name}}</option>
         </select>
     </div>
     <div class="input-group mb-3">
       <label id="span" class="input-group-text" for="inputGroupSelect01">Sponsor 1</label>
-        <select #fly class="form-select" id="inputGroupSelect01">
+        <select #sponsor class="form-select" id="inputGroupSelect01">
           <option selected>None</option>
-          <option >CocaCola</option>
-          <option>Gatorade</option>
-          <option>Imperial</option>
+          <option *ngFor="let sponsor of sponsors" >{{sponsor.id}} {{sponsor.comercialName}}</option>
         </select>
     </div>
     <div class="input-group mb-3">
       <label id="span" class="input-group-text" for="inputGroupSelect01">Sponsor 2</label>
-        <select #fly class="form-select" id="inputGroupSelect01">
+        <select #sponsor1 class="form-select" id="inputGroupSelect01">
           <option selected>None</option>
-          <option >CocaCola</option>
-          <option>Gatorade</option>
-          <option>Imperial</option>
+          <option *ngFor="let sponsor of sponsors" >{{sponsor.id}} {{sponsor.comercialName}}</option>
         </select>
     </div>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end"> <!----Action buttons-->

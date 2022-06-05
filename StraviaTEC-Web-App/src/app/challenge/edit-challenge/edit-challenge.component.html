@@ -11,37 +11,42 @@
     <h3>Edit a Challenge</h3>
     <div class="input-group mb-3">
       <span id="span" class="input-group-text">Challenge Id</span>
-      <input #color type="text" aria-label="Color" class="form-control" disabled>
+      <input #color type="text" aria-label="Color" class="form-control" disabled value={{id}}>
     </div>
     <div class="input-group mb-3">
       <span id="span" class="input-group-text">Name of the challenge</span>
-      <input #color type="text" aria-label="Color" class="form-control">
+      <input #name type="text" aria-label="Color" class="form-control">
     </div>
     <div class="input-group mb-3">
       <span id="span" class="input-group-text">Valid Thru</span>
-      <input #color type="date" aria-label="Color" class="form-control">
+      <input #date type="date" aria-label="Color" class="form-control">
     </div>
     <div class="input-group mb-3">
-      <label id="span" class="input-group-text" for="inputGroupSelect01">Category</label>
-      <select #user class="form-select" id="inputGroupSelect01">
+      <label id="span" class="input-group-text" for="inputGroupSelect01">Activity</label>
+      <select #activi class="form-select" id="inputGroupSelect01">
         <option selected>Choose...</option>
-        <option>Junior</option>
-        <option>Sub-23</option>
-        <option>Open</option>
+        <option *ngFor="let activity of activities">{{activity.id}}  {{activity.sportName}}</option>
+      </select>
+    </div>
+    <div class="input-group mb-3">
+      <label id="span" class="input-group-text" for="inputGroupSelect01">type</label>
+      <select #type class="form-select" id="inputGroupSelect01">
+        <option selected>Choose...</option>
+        <option> Fondo </option>
+        <option> Altitud </option>
       </select>
     </div>
     <div class="input-group mb-3">
       <label id="span" class="input-group-text" for="inputGroupSelect01">Access</label>
-        <select #fly class="form-select" id="inputGroupSelect01">
+        <select #access class="form-select" id="inputGroupSelect01">
           <option selected>Choose...</option>
           <option >Public</option>
-          <option> Group 1</option>
-          <option>Group 2</option>
+          <option id={{group}} *ngFor="let group of groups"> Group: {{group.name}}</option>
         </select>
     </div>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end"> <!----Action buttons-->
       <button id="span" id="buttons" class="btn btn-primary me-md-2" type="button" routerLink="/challenge">Cancel</button>
-      <button id="span" id="buttons" class="btn btn-primary" type="button" routerLink="/challenge">Edit</button>
+      <button id="span" id="buttons" class="btn btn-primary" type="button" (click)="updateChallenge(name.value, date.value, type.value, activi.value, access.value)" routerLink="/challenge">Edit</button>
     </div>
   </div>
 </div>
