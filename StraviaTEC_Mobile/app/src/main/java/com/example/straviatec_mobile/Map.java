@@ -14,6 +14,7 @@ import android.location.LocationListener;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
+import android.util.Xml;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
@@ -30,9 +31,13 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
 import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
+import java.sql.Blob;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -147,11 +152,17 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
         }
     }
 
-    public void finishActivity(View view) {
+    public void finishActivity(View view) throws UnsupportedEncodingException {
         track.remove();
+        byte[] bytes = generateRouteGPX("gpx test",trkpoints).trim().getBytes();
         Document doc = toXMLfromString(generateRouteGPX("gpx test",trkpoints));
-        assert doc != null;
+        doc.toString();
+        //assert doc != null;
         //Log.d("Gpx content", doc.getFirstChild().getNodeName());
+        //Log.d("Gpx content", generateRouteGPX("gpx test",trkpoints));
+        Log.e("This is the route", generateRouteGPX("gpx test",trkpoints));
+        Log.e("Gpx content", Arrays.toString(bytes));
+        System.out.println(doc);
         Intent myintent = new Intent(Map.this,Menu.class);
         startActivity(myintent);
     }
@@ -176,7 +187,6 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
         result = header + name + segments + footer;
         return result;
     }
-
     private Document toXMLfromString(String str){
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = null;
