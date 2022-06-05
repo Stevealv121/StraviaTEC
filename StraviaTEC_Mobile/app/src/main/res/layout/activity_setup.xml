@@ -7,10 +7,20 @@
     tools:context=".ActivitySetup">
 
     <Spinner
+        android:id="@+id/challenge"
+        android:layout_width="388dp"
+        android:layout_height="82dp"
+        android:layout_marginTop="60dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.478"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/race" />
+
+    <Spinner
         android:id="@+id/activities"
         android:layout_width="388dp"
         android:layout_height="82dp"
-        android:layout_marginTop="160dp"
+        android:layout_marginTop="128dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.478"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,7 +30,7 @@
         android:id="@+id/setuptext"
         android:layout_width="291dp"
         android:layout_height="61dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="32dp"
         android:text="Lets Register an Activity"
         android:textAlignment="center"
         android:textSize="24sp"
@@ -29,7 +39,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
-        android:id="@+id/raceorchallenge"
+        android:id="@+id/race"
         android:layout_width="388dp"
         android:layout_height="82dp"
         android:layout_marginTop="60dp"
@@ -47,16 +57,17 @@
         android:textAlignment="center"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/raceorchallenge" />
+        app:layout_constraintTop_toBottomOf="@+id/challenge" />
 
     <Button
         android:id="@+id/create"
         android:layout_width="181dp"
         android:layout_height="69dp"
-        android:layout_marginBottom="52dp"
-        android:text="Create Activity"
+        android:layout_marginBottom="24dp"
         android:onClick="onClick"
+        android:text="Create Activity"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"

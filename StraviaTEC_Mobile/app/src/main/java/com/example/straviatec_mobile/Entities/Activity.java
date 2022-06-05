@@ -5,19 +5,19 @@ public class Activity {
     private String username;
     private Integer id;
     private String date;
-    private Integer duration;
+    private String duration;
     private Integer mileage;
     private String route;
     private String sportName;
 
-    public Activity(String username, Integer id, String date, Integer duration, Integer mileage, String route, String sportname) {
+    public Activity(String username, Integer id, String date, String duration, Integer mileage, String route, String sportName) {
         this.username = username;
         this.id = id;
         this.date = date;
         this.duration = duration;
         this.mileage = mileage;
         this.route = route;
-        this.sportName = sportname;
+        this.sportName = sportName;
     }
 
     public Activity(){}
@@ -46,11 +46,11 @@ public class Activity {
         this.date = date;
     }
 
-    public Integer getDuration() {
+    public String getDuration() {
         return duration;
     }
 
-    public void setDuration(Integer duration) {
+    public void setDuration(String duration) {
         this.duration = duration;
     }
 
@@ -74,7 +74,7 @@ public class Activity {
         return sportName;
     }
 
-    public void setSportName(String sportname) {
-        this.sportName = sportname;
+    public void setSportName(String sportName) {
+        this.sportName = sportName;
     }
 }
