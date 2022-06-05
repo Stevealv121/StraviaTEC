@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.telephony.TelephonyCallback;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -22,7 +23,11 @@ import com.example.straviatec_mobile.Interfaces.RaceAPI;
 import com.example.straviatec_mobile.Interfaces.UserAPI;
 import com.example.straviatec_mobile.Utilities.Utilities;
 
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.security.cert.CertificateException;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.net.ssl.SSLContext;
@@ -80,8 +85,6 @@ public class MainActivity extends AppCompatActivity {
                         values.put(Utilities.FIELD_ACCESS, r.getAccess());
                         values.put(Utilities.FIELD_ACTIVITYID, r.getActivityID());
                         values.put(Utilities.FIELD_CATEGORYNAME, r.getCategoryName());
-
-                        Log.e("Values", String.valueOf(values));
 
                         db.insert(Utilities.TABLE_RACE,null,values);
                         db.close();
@@ -162,8 +165,6 @@ public class MainActivity extends AppCompatActivity {
                         values.put(Utilities.FIELD_MILEAGE, a.getMileage());
                         values.put(Utilities.FIELD_ROUTE, a.getRoute());
                         values.put(Utilities.FIELD_SPORTNAME, a.getSportName());
-
-                        Log.e("Values", String.valueOf(values));
 
                         db.insert(Utilities.TABLE_ACTIVITY, null, values);
                         db.close();
