@@ -6,6 +6,8 @@ import { ResponseI } from '../models/response.interface';
 import { GroupsGest } from '../models/groups-gest';
 import { Race } from '../models/race';
 import { Challenge } from '../models/challenge';
+import { Activity } from '../models/activity';
+import { Sponsor } from '../models/sponsor';
 
 
 @Injectable({
@@ -19,10 +21,13 @@ export class ApiService {
   userPath: string = this.url + "User";
   getgroupInfoPath: string = this.url + "Group/ByManager/";
   getRaceManagerId: string = this.url + "Race/ByUserName/";
+  getRaceByIdPath: string = this.url + "Race/ById/";
   getChallengeManagerId: string = this.url + "Challenge/ByUserName/";
   getSportsPath: string = this.url + "Sport";
   getSponsorPath:string = this.url + "Sponsor";
   getCategoryPath:string = this.url + "Category";
+  getActitityByIdPath:string = this.url + "Activity/ById/";
+  getSponsorByRace:string=this.url + "Race/Sponsors/ById/";
   groupPath:string = this.url + "Group";
   getActitvityUserPath:string=this.url +"Activity/ByUserName/";
   racespath:string=this.url +"Race";
@@ -141,6 +146,25 @@ export class ApiService {
    */
   getCategory(){
     return this.http.get<string[]>(this.getCategoryPath);
+  }
+  /**
+   * This function asks the api for a race in the data base
+   * @param id race Id
+   * @returns race's information
+   */
+  getRaceById(id:number){
+    return this.http.get<Race>(this.getRaceByIdPath+id);
+  }
+  getActivityById(id:number){
+    return this.http.get<Activity>(this.getActitityByIdPath+id);
+  }
+  /**
+   * This function asks the api for a race's sponsors in the data base
+   * @param id race Id
+   * @returns sponsor's information
+   */
+  getSponsorsByRace(id:number){
+    return this.http.get<Sponsor[]>(this.getSponsorByRace+id);
   }
   //DELETES
 
