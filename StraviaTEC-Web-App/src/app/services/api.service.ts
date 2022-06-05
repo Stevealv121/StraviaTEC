@@ -3,6 +3,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { UserI } from '../models/user.interface';
 import { ResponseI } from '../models/response.interface';
+import { GroupsGest } from '../models/groups-gest';
+import { Race } from '../models/race';
+import { Challenge } from '../models/challenge';
 import { ActivityI } from '../models/activity.interface';
 import { AddFriendI } from '../models/addFriend.interface';
 import { RaceI } from '../models/race.interface';
@@ -11,6 +14,8 @@ import { ChallengeI } from '../models/challenge.interface';
 import { GroupI } from '../models/group.interface';
 import { url } from 'inspector';
 import { CommentI } from '../models/comment.interface';
+import { Sponsor } from '../models/sponsor';
+import { Activity } from '../models/activity';
 
 
 @Injectable({
@@ -23,15 +28,23 @@ export class ApiService {
   url: string = "https://localhost:7060/api/";
   userPath: string = this.url + "User";
   getgroupInfoPath: string = this.url + "Group/ByManager/";
-  getRaceManagerId: string = this.url + "Race/ByManagerId/";
-  getChallengeManagerId: string = this.url + "Challenge/ByManagerId/";
+  getRaceManagerId: string = this.url + "Race/ByUserName/";
+  getRaceByIdPath: string = this.url + "Race/ById/";
+  getChallengeManagerId: string = this.url + "Challenge/ByUserName/";
   getSportsPath: string = this.url + "Sport";
-  getSponsorPath: string = this.url + "Sponsor";
-  getCategoryPath: string = this.url + "Category";
   activityPath: string = this.url + "Activity";
+  getSponsorPath:string = this.url + "Sponsor";
+  getCategoryPath:string = this.url + "Category";
+  getActitityByIdPath:string = this.url + "Activity/ById/";
+  getSponsorByRace:string=this.url + "Race/Sponsors/ById/";
+  groupPath:string = this.url + "Group";
+  getActitvityUserPath:string=this.url +"Activity/ByUserName/";
+  racespath:string=this.url +"Race";
+  postSponsorpath:string=this.racespath + "/AssignRaceSponsor/";
+  postBankAccountPath:string = this.racespath + "/BankAccount/";
+  postChallengePath:string = this.url + "Challenge";
   racePath: string = this.url + "Race";
   challengePath: string = this.url + "Challenge";
-  groupPath: string = this.url + "Group";
   commentPath: string = this.url + "Comments";
 
 
@@ -160,6 +173,49 @@ export class ApiService {
   }
 
   //POST
+  /**
+   * This function creates a new group in the database
+   * @param form form with the group's information
+   * @returns database's reponse
+   */
+  postGroup(form:GroupsGest){
+    return this.http.post<GroupsGest>(this.groupPath, form);
+  }
+  /**
+   * This function creates a new race in the database
+   * @param form form with the race's information
+   * @returns database's reponse
+   */
+  postRace(form:Race){
+    return this.http.post<Race>(this.racespath, form);
+  }
+  /**
+   * This function assings a sponsor to a race in the database
+   * @param raceId race id
+   * @param sponsorId sponsor id
+   * @returns database's response
+   */
+  postRaceSponsor(raceId:string, sponsorId:string){
+    return this.http.post<any>(this.postSponsorpath+raceId+"/"+sponsorId,null);
+  }
+  /**
+   * This function assings a bank account to a race in the database
+   * @param raceId race id
+   * @param BankAccount account number
+   * @returns database's response
+   */
+  postRaceAccount(raceId:string, BankAccount:string){
+    return this.http.post<string>(this.postBankAccountPath+raceId+"/"+BankAccount,null);
+  }
+  /**
+   * This function creates a new challenge un the database
+   * @param form challenge type object
+   * @returns api response
+   */
+  postChallenge(form:Challenge){
+    return this.http.post<Challenge>(this.postChallengePath,form);
+  }
+
 
   //GETS
 
@@ -170,6 +226,14 @@ export class ApiService {
    */
   getGroupInfoByManagerId(username: string) {
     return this.http.get<string[]>(this.getgroupInfoPath + username); //some problems maybe the http or https
+  }
+  /**
+   * This function asks the api for the activities created by username
+   * @param username owner's username
+   * @returns activities who belongs to the specified user
+   */
+  getUserActivities2(user:string){
+    return this.http.get<string[]>(this.getActitvityUserPath+user);
   }
   /**
    * This function asks the api for the races created by the user.
@@ -208,9 +272,53 @@ export class ApiService {
   getCategory() {
     return this.http.get<string[]>(this.getCategoryPath);
   }
+  /**
+   * This function asks the api for a race in the data base
+   * @param id race Id
+   * @returns race's information
+   */
+  getRaceById(id:number){
+    return this.http.get<Race>(this.getRaceByIdPath+id);
+  }
+  getActivityById(id:number){
+    return this.http.get<Activity>(this.getActitityByIdPath+id);
+  }
+  /**
+   * This function asks the api for a race's sponsors in the data base
+   * @param id race Id
+   * @returns sponsor's information
+   */
+  getSponsorsByRace(id:number){
+    return this.http.get<Sponsor[]>(this.getSponsorByRace+id);
+  }
   //DELETES
 
   //PUTS
+  /**
+   * This function updates a challenge in the data base
+   * @param form challenge's information
+   * @returns database reponse
+   */
+  putChallenge(form:Challenge){
+    return this.http.put<Challenge>(this.postChallengePath,form);
+  }
+  /**
+   * This function updates a race in the data base
+   * @param form race's information
+   * @returns database reponse
+   */
+  putRace(form:Race){
+    return this.http.put<Race>(this.racespath,form);
+  }
+  /**
+   * This function updates a group in the data base
+   * @param form group's information
+   * @returns database reponse
+   */
+   putGroup(form:GroupsGest){
+    return this.http.put<GroupsGest>(this.groupPath,form);
+  }
+
 
 
 }

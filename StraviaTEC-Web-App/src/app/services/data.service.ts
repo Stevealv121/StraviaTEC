@@ -1,3 +1,4 @@
+
 import { Injectable } from '@angular/core';
 import { RaceI } from '../models/race.interface';
 import { UserI } from '../models/user.interface';
@@ -6,9 +7,16 @@ import { UserI } from '../models/user.interface';
   providedIn: 'root'
 })
 export class DataService {
-
-  constructor() { }
+  raceId:number;
+  challengeId:number;
+  groupId:string;
+  constructor() {
+    this.raceId =0;
+    this.challengeId=0;
+    this.groupId="";
+   }
   currentUser: UserI | undefined;
   selectedRace!: RaceI;
 
 }
+

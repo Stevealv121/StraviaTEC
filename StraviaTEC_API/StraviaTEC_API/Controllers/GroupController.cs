@@ -117,7 +117,7 @@ namespace StraviaTEC_API.Controllers
         {
             var db = dbConnection();
             var sql = @"EXEC SelectGroupMembers @groupname ";
-            var result = await db.QueryAsync<string>(sql, new { groupname = _groupname });
+            var result = await db.QueryAsync<GroupMember>(sql, new { groupname = _groupname });
 
             return Ok(result);
         }

@@ -38,13 +38,10 @@ GO
 CREATE PROCEDURE DeleteActivity @Id int
 AS
 DELETE
-FROM ACTIVITY
-WHERE Id = @Id
-DELETE
-FROM Register
-WHERE ActivityId = @Id
+FROM [RaceChallengeActivity]
+WHERE ActivityID = @Id
 GO
-
+--DROP PROCEDURE DeleteActivity
 --EXEC SelectAllActivities
 --EXEC SelectActivityById @Id = 1
 --EXEC InsertActivity @Date = '2022-10-15',@Duration = '17:05:00',@Mileage = 10,@Route = null,@SportName = 'Running'
@@ -135,7 +132,7 @@ GO
 CREATE PROCEDURE DeleteChallenge @Id int
 AS
 DELETE
-FROM CHALLENGE
+FROM [ChallengesandActivities]
 WHERE Id = @Id
 GO
 
@@ -177,15 +174,9 @@ GO
 
 CREATE PROCEDURE DeleteGroup @Name varchar(15)
 AS
-DELETE
-FROM [GROUP]
-WHERE [Name] = @Name
-DELETE
-FROM BelongsTo
+DELETE 
+FROM BelongsTo 
 WHERE GroupId = @Name
-DELETE
-FROM MANAGES
-WHERE GroupID = @Name
 GO
 
 -- RACE store procedures
@@ -218,7 +209,7 @@ SET @Id = SCOPE_IDENTITY()
 SELECT @Id
 GO
 
-CREATE PROCEDURE UpdateRace @Id int,@Name varchar(15),@Cost int ,@Date date,@Access varchar(15),@ActivityID int
+CREATE PROCEDURE UpdateRace @Id int,@Name varchar(15),@Cost int ,@Date date,@Access varchar(15),@ActivityID int, @CategoryName varchar(15)
 AS
 UPDATE RACE 
 SET 
@@ -226,14 +217,15 @@ SET
     Cost = @Cost,
     [Date] = @Date,
     Access = @Access,
-    ActivityID = @ActivityID
+    ActivityID = @ActivityID,
+	CategoryName = @CategoryName
 WHERE ID = @Id
 GO
 
 CREATE PROCEDURE DeleteRace @Id int
 AS
 DELETE
-FROM RACE
+FROM [RacesandActivities]
 WHERE ID = @Id
 GO
 
@@ -328,12 +320,7 @@ SELECT *
 FROM [USER]
 GO
 
-CREATE PROCEDURE SearchUsers @FirstName varchar(15)
-AS
-SELECT *
-FROM [USER] 
-WHERE FirstName = @FirstName
-GO
+
 
 CREATE PROCEDURE SelectUserByUsername @Username varchar(15), @Password varchar(15)
 AS

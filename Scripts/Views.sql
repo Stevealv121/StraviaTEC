@@ -31,16 +31,27 @@ ON reg.ActivityId = a.Id
 INNER JOIN [USER] as u
 ON u.UserName = reg.UserName;
 GO
+
+CREATE VIEW [ChallengesandActivities] AS
+SELECT r.*, a.Duration, a.Mileage, a.[Route], a.SportName
+FROM CHALLENGE AS r
+INNER JOIN ACTIVITY as a
+ON r.ActivityID = a.Id
+
+GO
 CREATE VIEW [RacesandUsers] AS
-SELECT r.ID,u.UserName, u.FirstName, u.SecondName, u.FirstSurname, u.SecondSurname, jr.Bill, a.Duration, DATEDIFF(hour,u.BirthDate,GETDATE())/8766 AS Age
+SELECT r.ID,u.UserName, u.FirstName, u.SecondName, u.FirstSurname, u.SecondSurname, jr.Bill, a.Duration, c.Age, c.CategoryName
 FROM RACE AS r
 INNER JOIN JOIN_RACE as jr
 ON jr.Race_ID = r.ID
 INNER JOIN [USER] as u
 ON u.UserName = jr.UserName
 INNER JOIN ACTIVITY as a
-ON jr.Activityid = a.Id;
+ON jr.Activityid = a.Id
+INNER JOIN [UsersandCategory] as c
+ON c.UserName = jr.UserName
 GO
+--DROP VIEW RacesandUsers
 CREATE VIEW [RacesandSponsors] AS
 SELECT r.ID, r.[Name], r.Cost, r.[Date], r.Access, r.ActivityID, r.CategoryName, sr.SponsorId, 
 		s.ComercialName, s.Logo, s.AgentNumber, s.FirstName, s.SecondName, s.FirstSurname, s.SecondSurname
@@ -58,11 +69,16 @@ ON g.[Name] = m.GroupID
 GO
 
 CREATE VIEW [GroupsandMembers] AS
-SELECT g.[Name], m.UserName
+SELECT g.[Name], m.UserName, u.FirstName, u.SecondName, u.FirstSurname, u.SecondSurname, a.Age
 FROM [GROUP] AS g
 INNER JOIN BelongsTo AS m
 ON g.[Name] = m.GroupId
+INNER JOIN UserandAge a
+ON a.UserName = m.UserName
+INNER JOIN [USER] as u
+ON u.UserName = a.UserName
 GO 
+--DROP VIEW [GroupsandMembers]
 CREATE VIEW [UserandAge] AS
 SELECT u.UserName,DATEDIFF(hour,u.BirthDate,GETDATE())/8766 AS Age
 FROM [USER] AS u
@@ -73,3 +89,13 @@ SELECT a.*, (SELECT [Name] from CATEGORY AS c WHERE a.Age>= c.MinAge AND a.Age <
 FROM UserandAge AS a
 GO
 
+CREATE VIEW [RaceChallengeActivity] AS
+SELECT a.Id AS ActivityID, r.ID AS RaceID, c.Id AS ChallengeID
+FROM ACTIVITY as a
+LEFT JOIN RACE as r
+ON a.Id = r.ActivityID
+LEFT JOIN CHALLENGE as c
+ON a.Id = c.ActivityId
+GO
+--DROP VIEW [RaceChallengeActivity]
+select * from RacesandActivities

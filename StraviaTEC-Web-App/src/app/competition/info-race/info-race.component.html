@@ -3,20 +3,35 @@
     <div id="col1" class="col">
       <div id="content1" class="container">
         <div class="row">
-          <H2>Name of the Race</H2> <!---Add name-->
+          <H2>{{race.name}}</H2> <!---Add name-->
+        </div>
+        <div class="row">
+          <H3>Sport</H3> <!--add activity-->
+          <h5>{{activity.sportName}}</h5>
         </div>
         <div class="row">
           <H3>Route</H3> <!--add gpx view-->
-          <h5>Race around the GAM</h5>
-        </div>
-        <div class="row">
-          <H3>Activity</H3> <!--add activity-->
-          <h5>Biking</h5>
-        </div>
-        <div class="row">
-          <H3>Route</H3> <!--Add map-->
           <h5>Archivo</h5>
         </div>
+        <div class="row">
+          <h3>Accounts</h3>
+        </div>
+        <div class="row">
+          <h3>Sponsors</h3>
+        </div>
+        <div *ngFor="let sponsor of Sponsors" class="row">
+          <div class="col">
+            <h4>Name</h4>
+            <h4>{{sponsor.comercialName}}</h4>
+          </div>
+          <div class="col">
+            <h4>Logo</h4>
+
+          </div>
+        </div>
+      </div>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button id="buttons" class="btn btn-primary me-md-2" type="button" routerLink="/competition">Go Back</button>
       </div>
     </div>
     <div id="col2" class="col">

@@ -2,6 +2,69 @@ Use StraviaTEC
 --USER
 -- Adds
 GO
+
+CREATE PROCEDURE SearchUsers @Input varchar(15)
+AS
+if (SELECT charindex(' ',@Input)) = 0
+BEGIN
+    SELECT *
+    FROM [USER]
+    where
+		UserName =@Input
+		OR
+        FirstName = @Input
+		OR
+		SecondName = @Input
+        OR
+        FirstSurname = @Input
+		OR
+		SecondSurname = @Input
+END
+else
+
+BEGIN
+    SELECT *
+    FROM [USER]
+    WHERE
+	FirstName + ' ' + FirstSurname LIKE + '%' + @input + '%'
+	OR
+	FirstName + ' ' + SecondName LIKE + '%' + @input + '%'
+	OR
+	SecondName + ' ' + FirstSurname LIKE + '%' + @input + '%'
+	OR
+	SecondName + ' ' + SecondSurname LIKE + '%' + @input + '%'
+	OR
+	FirstSurname + ' ' + SecondSurname LIKE + '%' + @input + '%'
+	
+END
+GO
+--EXEC SelectUserNumbers 'nati'
+CREATE PROCEDURE SelectUserNumbers @Username varchar(15)
+AS
+BEGIN
+DECLARE @following int
+DECLARE @followers int
+DECLARE @activities int
+
+SELECT @following = COUNT(FriendUserName)
+FROM [AllFriends]
+WHERE UserName=@Username
+
+SELECT @followers = COUNT(UserName)
+FROM [AllFriends]
+WHERE FriendUserName=@Username
+
+SELECT @activities = COUNT(UserName)
+FROM Register
+WHERE UserName = @Username
+
+SELECT u.FirstName, u.FirstSurname, u.ProfilePicture, @following AS [Following], @followers AS [Followers], @activities AS Activities
+FROM [USER] AS u
+WHERE UserName = @Username
+END
+GO
+--EXEC SearchUsers 'Gonzalez Bermudez'
+--DROP PROCEDURE SearchUsers
 CREATE PROCEDURE SelectFriendlist @Username varchar(15)
 AS
 SELECT FriendUserName, FirstName, SecondName, FirstSurname, SecondSurname, ProfilePicture, [Level], BirthDate
@@ -63,10 +126,11 @@ GO
 
 CREATE PROCEDURE SelectGroupMembers @Name varchar(15)
 AS
-SELECT UserName
+SELECT UserName, FirstName, SecondName, FirstSurname, SecondSurname, Age
 FROM [GroupsandMembers]
 WHERE [Name] = @Name
 GO
+--DROP PROCEDURE SelectGroupMembers
 --CHALLENGE
 -- Join
 CREATE PROCEDURE SelectUserChallenge @UserName varchar(15)
@@ -101,9 +165,18 @@ DELETE
 FROM JOIN_CHALLENGE
 WHERE UserName = @Username AND Challenge_ID = @Challenge_ID
 GO
-
+CREATE PROCEDURE SelectAllJoinsChallenge
+AS
+SELECT *
+FROM JOIN_CHALLENGE
+GO
 
 --RACE
+CREATE PROCEDURE SelectAllJoinsRace
+AS
+SELECT *
+FROM JOIN_RACE
+GO
 CREATE PROCEDURE SelectUserRace @UserName varchar(15)
 AS
 SELECT ra.*
@@ -145,11 +218,23 @@ GO
 
 CREATE PROCEDURE SelectRaceByUserCategory @UserName varchar(15)
 AS
-SELECT r.* FROM RACE AS r
-LEFT JOIN UsersandCategory AS u
-ON r.CategoryName = u.CategoryName
-WHERE u.UserName =  @UserName OR r.CategoryName = 'Open' 
+SELECT DISTINCT r.* 
+FROM RACE AS r
+INNER JOIN UsersandCategory AS u
+ON r.CategoryName = u.CategoryName OR r.CategoryName = 'Open'
+INNER JOIN BelongsTo as b
+ON (b.GroupId = r.Access AND u.UserName = b.UserName) OR r.Access = 'public'
+WHERE u.UserName =  @UserName 
 GO
+
+CREATE PROCEDURE UpdateJoinRace @RaceID int,@ActivityID int, @UserName varchar(15)
+AS
+UPDATE JOIN_RACE 
+SET 
+    Activityid = @ActivityID
+WHERE Race_ID = @RaceID AND UserName = @UserName
+GO
+
 --ACTIVITY
 CREATE PROCEDURE SelectUserActivities @UserName varchar(15)
 AS
@@ -162,13 +247,29 @@ GO
 -- Position list
 CREATE PROCEDURE RacePositionList @RaceID int
 AS
-SELECT *
-FROM [RacesandUsers]
-WHERE ID = @RaceID
-ORDER BY Duration ASC
-GO
--- 
+BEGIN
 
+DECLARE @RaceCategory VARCHAR(15)
+SELECT @RaceCategory = RACE.CategoryName
+FROM RACE
+WHERE ID = @RaceID
+if @RaceCategory = 'Open'
+	SELECT *
+	FROM [RacesandUsers]
+	WHERE ID = @RaceID
+	ORDER BY Duration ASC
+else
+	SELECT *
+	FROM [RacesandUsers]
+	WHERE ID = @RaceID
+	ORDER BY CategoryName,
+	Duration ASC
+END
+GO
+--DROP PROCEDURE RacePositionList
+-- EXEC RacePositionList 25
+--EXEC RacePositionList 1
+--DROP PROCEDURE SearchUsers
 
 -- Sponsors
 CREATE PROCEDURE AssignRaceSponsor @RaceId int, @SponsorId int

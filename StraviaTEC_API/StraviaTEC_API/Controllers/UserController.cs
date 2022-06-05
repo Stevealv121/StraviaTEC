@@ -138,5 +138,13 @@ namespace StraviaTEC_API.Controllers
             var sql = @"EXEC SelectFriendPosts @username";
             return Ok(await db.QueryAsync<FriendPost>(sql, new { username = _username }));
         }
+
+        [HttpGet("UserNumbers/{_username}")]
+        public async Task<IActionResult> GetUserNumbers(string _username)
+        {
+            var db = dbConnection();
+            var sql = @"EXEC SelectUserNumbers  @username";
+            return Ok(await db.QueryAsync<UserNumbers>(sql, new { username = _username }));
+        }
     }
 }
