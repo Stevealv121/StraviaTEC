@@ -11,7 +11,7 @@
     <h3>Edit a Race</h3>
     <div class="input-group mb-3">
       <span id="span" class="input-group-text">Race Id</span>
-      <input #color type="text" aria-label="Color" class="form-control" disabled>
+      <input #color type="text" aria-label="Color" class="form-control" disabled value={{raceId}}>
     </div>
     <div class="input-group mb-3">
       <span id="span" class="input-group-text">Name of the competition</span>
@@ -33,14 +33,6 @@
       <input #cost type="number" aria-label="Color" class="form-control">
     </div>
     <div class="input-group mb-3">
-      <span id="span" class="input-group-text">Account Number 1</span>
-      <input #account1 type="number" aria-label="weight" class="form-control">
-    </div>
-    <div class="input-group mb-3">
-      <span id="span" class="input-group-text">Account Number 2</span>
-      <input #account2 type="number" aria-label="weight" class="form-control">
-    </div>
-    <div class="input-group mb-3">
       <label id="span" class="input-group-text" for="inputGroupSelect01">Category</label>
       <select #category class="form-select" id="inputGroupSelect01">
         <option selected>Choose...</option>
@@ -55,23 +47,9 @@
           <option id={{group}} *ngFor="let group of groups"> Group: {{group.name}}</option>
         </select>
     </div>
-    <div class="input-group mb-3">
-      <label id="span" class="input-group-text" for="inputGroupSelect01">Sponsor 1</label>
-        <select #sponsor class="form-select" id="inputGroupSelect01">
-          <option selected>None</option>
-          <option *ngFor="let sponsor of sponsors" >{{sponsor.id}} {{sponsor.comercialName}}</option>
-        </select>
-    </div>
-    <div class="input-group mb-3">
-      <label id="span" class="input-group-text" for="inputGroupSelect01">Sponsor 2</label>
-        <select #sponsor1 class="form-select" id="inputGroupSelect01">
-          <option selected>None</option>
-          <option *ngFor="let sponsor of sponsors" >{{sponsor.id}} {{sponsor.comercialName}}</option>
-        </select>
-    </div>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end"> <!----Action buttons-->
       <button id="span" id="buttons" class="btn btn-primary me-md-2" type="button" routerLink="/competition">Cancel</button>
-      <button id="span" id="buttons" class="btn btn-primary" type="button" routerLink="/competition">Edit</button>
+      <button id="span" id="buttons" class="btn btn-primary" type="button" (click)="updateRace(name.value, date.value, activity.value,cost.value,access.value,category.value)" routerLink="/competition">Edit</button>
     </div>
   </div>
 </div>

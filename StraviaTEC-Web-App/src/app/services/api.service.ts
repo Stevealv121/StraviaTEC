@@ -153,6 +153,14 @@ export class ApiService {
   putChallenge(form:Challenge){
     return this.http.put<Challenge>(this.postChallengePath,form);
   }
+  /**
+   * This function updates a race in the data base
+   * @param form race's information
+   * @returns database reponse
+   */
+  putRace(form:Race){
+    return this.http.put<Race>(this.racespath,form);
+  }
 
 
 }

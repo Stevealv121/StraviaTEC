@@ -18,12 +18,14 @@ export class EditCompetitionComponent implements OnInit {
   sponsors:Sponsor[];
   activities:Activity[];
   categories:string[];
+  raceId:number;
   constructor(private api:ApiService, private dataService:DataService) {
     this.sports=[];
     this.groups=[];
     this.sponsors=[];
     this.activities=[];
     this.categories=[];
+    this.raceId =dataService.raceId;
    }
 
    ngOnInit(): void {
@@ -77,13 +79,10 @@ export class EditCompetitionComponent implements OnInit {
    * @param sponsor1 race's sponsor
    * @param sponsor2 race's sponsor
    */
-  postRace(name:string, date:string, activity:string, cost:string,access:string,category:string, account1:string, account2:string,sponsor1:string, sponsor2:string ){
+  updateRace(name:string, date:string, activity:string, cost:string,access:string,category:string){
     var activityId = activity.split(" ",1);
-    var sponsor1Id= sponsor1.split(" ",1);
-    var sponsor2Id= sponsor2.split(" ",1);
-    console.log(sponsor1Id);
     var race:Race={
-      id:0,
+      id:this.raceId,
       name:name,
       cost:Number(cost),
       date:date,
@@ -91,23 +90,8 @@ export class EditCompetitionComponent implements OnInit {
       activityID:Number(activityId[0]),
       categoryName:category
     }
-    this.api.postRace(race).subscribe((raceId:any)=>{
-      this.api.postRaceAccount(String(raceId),account1).subscribe((data:any)=>{
-
-      })
-      if (account2 != ""){
-        this.api.postRaceAccount(String(raceId),account2).subscribe((data:any)=>{
-
-        })
-      }
-      this.api.postRaceSponsor(String(raceId), sponsor1Id[0]).subscribe((data:any)=>{
-
-      })
-      if (sponsor2 != "None"){
-        this.api.postRaceSponsor(String(raceId), sponsor2Id[0]).subscribe((data:any)=>{
-
-        })
-      }
+    console.log(race);
+    this.api.putRace(race).subscribe((raceId:any)=>{
 
     })
 
