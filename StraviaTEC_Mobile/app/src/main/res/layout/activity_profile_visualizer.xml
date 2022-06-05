@@ -11,15 +11,23 @@
         android:layout_width="173dp"
         android:layout_height="61dp"
         android:layout_marginTop="30dp"
+        android:textAlignment="center"
+        android:textColor="@color/purple_500"
+        android:textColorHint="@color/purple_500"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bdate" />
 
     <TextView
-        android:id="@+id/username"
+        android:id="@+id/usname"
         android:layout_width="173dp"
         android:layout_height="61dp"
         android:layout_marginTop="256dp"
+        android:textAlignment="center"
+        android:textColor="@color/purple_500"
+        android:textColorHint="@color/purple_500"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -29,15 +37,23 @@
         android:layout_width="343dp"
         android:layout_height="60dp"
         android:layout_marginTop="30dp"
+        android:textAlignment="center"
+        android:textColor="@color/purple_500"
+        android:textColorHint="@color/purple_500"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username" />
+        app:layout_constraintTop_toBottomOf="@+id/usname" />
 
     <TextView
         android:id="@+id/bdate"
         android:layout_width="173dp"
         android:layout_height="61dp"
         android:layout_marginTop="30dp"
+        android:textAlignment="center"
+        android:textColor="@color/purple_500"
+        android:textColorHint="@color/purple_500"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fullname" />

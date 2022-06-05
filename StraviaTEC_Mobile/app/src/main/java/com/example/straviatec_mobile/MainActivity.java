@@ -13,8 +13,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.straviatec_mobile.Entities.Activity;
+import com.example.straviatec_mobile.Entities.Challenge;
+import com.example.straviatec_mobile.Entities.Race;
 import com.example.straviatec_mobile.Entities.User;
 import com.example.straviatec_mobile.Interfaces.ActivityAPI;
+import com.example.straviatec_mobile.Interfaces.ChallengeAPI;
+import com.example.straviatec_mobile.Interfaces.RaceAPI;
 import com.example.straviatec_mobile.Interfaces.UserAPI;
 import com.example.straviatec_mobile.Utilities.Utilities;
 
@@ -42,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        conn = new SQLitehelper(getApplicationContext(), "TecAir_BD", null, 1);
+        conn = new SQLitehelper(getApplicationContext(), "StraviaTEC_DB", null, 1);
 
         uname = (EditText) findViewById(R.id.uname);
         pass = (EditText) findViewById(R.id.pass);
@@ -50,8 +54,94 @@ public class MainActivity extends AppCompatActivity {
         if(savedInstanceState == null){
             sincA();
             sincU();
+            sincR();
+            sincC();
         }
     }
+
+    private void sincR() {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://10.0.2.2:7060/")
+                .addConverterFactory(GsonConverterFactory.create()).client(getUnsafeOkHttpClient()).build();
+        RaceAPI raceAPI = retrofit.create(RaceAPI.class);
+        Call<List<Race>> call = raceAPI.findR();
+        call.enqueue(new Callback<List<Race>>() {
+            @Override
+            public void onResponse(Call<List<Race>> call, Response<List<Race>> response) {
+                try{
+                    List<Race> racelist = response.body();
+                    assert racelist != null;
+                    for(Race r: racelist){
+                        SQLiteDatabase db = conn.getWritableDatabase();
+                        ContentValues values = new ContentValues();
+                        values.put(Utilities.FIELD_ID, r.getId());
+                        values.put(Utilities.FIELD_NAME, r.getName());
+                        values.put(Utilities.FIELD_COST, r.getCost());
+                        values.put(Utilities.FIELD_DATE, r.getDate());
+                        values.put(Utilities.FIELD_ACCESS, r.getAccess());
+                        values.put(Utilities.FIELD_ACTIVITYID, r.getActivityID());
+                        values.put(Utilities.FIELD_CATEGORYNAME, r.getCategoryName());
+
+                        Log.e("Values", String.valueOf(values));
+
+                        db.insert(Utilities.TABLE_RACE,null,values);
+                        db.close();
+                    }
+
+                }catch(Exception ex){
+                    Toast.makeText(MainActivity.this,ex.getMessage(),Toast.LENGTH_SHORT).show();
+                    Log.e("Error inserting", ex.getMessage());
+                }
+
+            }
+            @Override
+            public void onFailure(Call<List<Race>> call, Throwable t) {
+                Toast.makeText(MainActivity.this,t.getMessage(),Toast.LENGTH_LONG).show();
+                Log.e("Connection error", t.getMessage());
+            }
+        });
+    }
+
+    private void sincC() {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://10.0.2.2:7060/")
+                .addConverterFactory(GsonConverterFactory.create()).client(getUnsafeOkHttpClient()).build();
+        ChallengeAPI challengeAPI = retrofit.create(ChallengeAPI.class);
+        Call<List<Challenge>> call = challengeAPI.findC();
+        call.enqueue(new Callback<List<Challenge>>() {
+            @Override
+            public void onResponse(Call<List<Challenge>> call, Response<List<Challenge>> response) {
+                try{
+                    List<Challenge> challengeList = response.body();
+                    assert challengeList != null;
+                    for(Challenge c: challengeList){
+                        SQLiteDatabase db = conn.getWritableDatabase();
+                        ContentValues values = new ContentValues();
+                        values.put(Utilities.FIELD_ID, c.getId());
+                        values.put(Utilities.FIELD_VALIDTHRU, c.getValidThru());
+                        values.put(Utilities.FIELD_TYPE, c.getType());
+                        values.put(Utilities.FIELD_ACCESS, c.getAccess());
+                        values.put(Utilities.FIELD_NAME, c.getName());
+                        values.put(Utilities.FIELD_ACTIVITYID, c.getActivityId());
+
+                        db.insert(Utilities.TABLE_CHALLENGE, null, values);
+                        db.close();
+
+                    }
+
+                }catch(Exception ex){
+                    Toast.makeText(MainActivity.this,ex.getMessage(),Toast.LENGTH_SHORT).show();
+                    Log.e("Error inserting", ex.getMessage());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Challenge>> call, Throwable t) {
+                Toast.makeText(MainActivity.this,t.getMessage(),Toast.LENGTH_LONG).show();
+                Log.e("Connection error", t.getMessage());
+            }
+        });
+    }
+
     private void sincA() {
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://10.0.2.2:7060/")
                 .addConverterFactory(GsonConverterFactory.create()).client(getUnsafeOkHttpClient()).build();
@@ -72,6 +162,8 @@ public class MainActivity extends AppCompatActivity {
                         values.put(Utilities.FIELD_MILEAGE, a.getMileage());
                         values.put(Utilities.FIELD_ROUTE, a.getRoute());
                         values.put(Utilities.FIELD_SPORTNAME, a.getSportName());
+
+                        Log.e("Values", String.valueOf(values));
 
                         db.insert(Utilities.TABLE_ACTIVITY, null, values);
                         db.close();
