@@ -14,6 +14,8 @@ import { ChallengeI } from '../models/challenge.interface';
 import { GroupI } from '../models/group.interface';
 import { url } from 'inspector';
 import { CommentI } from '../models/comment.interface';
+import { Sponsor } from '../models/sponsor';
+import { Activity } from '../models/activity';
 
 
 @Injectable({
@@ -27,11 +29,14 @@ export class ApiService {
   userPath: string = this.url + "User";
   getgroupInfoPath: string = this.url + "Group/ByManager/";
   getRaceManagerId: string = this.url + "Race/ByUserName/";
+  getRaceByIdPath: string = this.url + "Race/ById/";
   getChallengeManagerId: string = this.url + "Challenge/ByUserName/";
   getSportsPath: string = this.url + "Sport";
   activityPath: string = this.url + "Activity";
   getSponsorPath:string = this.url + "Sponsor";
   getCategoryPath:string = this.url + "Category";
+  getActitityByIdPath:string = this.url + "Activity/ById/";
+  getSponsorByRace:string=this.url + "Race/Sponsors/ById/";
   groupPath:string = this.url + "Group";
   getActitvityUserPath:string=this.url +"Activity/ByUserName/";
   racespath:string=this.url +"Race";
@@ -267,9 +272,53 @@ export class ApiService {
   getCategory() {
     return this.http.get<string[]>(this.getCategoryPath);
   }
+  /**
+   * This function asks the api for a race in the data base
+   * @param id race Id
+   * @returns race's information
+   */
+  getRaceById(id:number){
+    return this.http.get<Race>(this.getRaceByIdPath+id);
+  }
+  getActivityById(id:number){
+    return this.http.get<Activity>(this.getActitityByIdPath+id);
+  }
+  /**
+   * This function asks the api for a race's sponsors in the data base
+   * @param id race Id
+   * @returns sponsor's information
+   */
+  getSponsorsByRace(id:number){
+    return this.http.get<Sponsor[]>(this.getSponsorByRace+id);
+  }
   //DELETES
 
   //PUTS
+  /**
+   * This function updates a challenge in the data base
+   * @param form challenge's information
+   * @returns database reponse
+   */
+  putChallenge(form:Challenge){
+    return this.http.put<Challenge>(this.postChallengePath,form);
+  }
+  /**
+   * This function updates a race in the data base
+   * @param form race's information
+   * @returns database reponse
+   */
+  putRace(form:Race){
+    return this.http.put<Race>(this.racespath,form);
+  }
+  /**
+   * This function updates a group in the data base
+   * @param form group's information
+   * @returns database reponse
+   */
+   putGroup(form:GroupsGest){
+    return this.http.put<GroupsGest>(this.groupPath,form);
+  }
+
 
 
 }

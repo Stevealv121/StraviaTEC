@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Challenge } from '../models/challenge';
 import { ApiService } from '../services/api.service';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-challenge',
@@ -11,7 +12,7 @@ export class ChallengeComponent implements OnInit {
 
   challenge:Challenge[];
 
-  constructor(private api:ApiService) {
+  constructor(private api:ApiService, private dataService:DataService) {
     this.challenge =[];
    }
 
@@ -30,8 +31,9 @@ export class ChallengeComponent implements OnInit {
    * This function saves the id of a challenge
    * @param id challenge's id
    */
-  saveChallengeId(id:string){
-    //complete with the service
+  saveChallengeId(id:number){
+    this.dataService.challengeId=id;
+    console.log(this.dataService.challengeId)
   }
 
 }
