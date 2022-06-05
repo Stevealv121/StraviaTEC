@@ -7,4 +7,7 @@ export interface ChallengeI {
     activityId: number,
     //Buttons
     color: string, font: string, btn: string
+    //Progress
+    progress: number | null;
+    goal: number | null;
 }

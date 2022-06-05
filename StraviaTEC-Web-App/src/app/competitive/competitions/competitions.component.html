@@ -113,8 +113,9 @@
                                     <h4>Name</h4>
                                     <br>
                                     <ul>
-                                        <li>Goal:asdfsd</li>
-                                        <li>Progress: <progress [value]="progress" max="100"> 0% </progress></li>
+                                        <li>Goal: {{challenge.goal}} km</li>
+                                        <li>Progress: <progress [value]="challenge.progress" max="100"> 0% </progress>
+                                        </li>
                                         <li>Valid thru: {{challenge.validThru}}</li>
                                     </ul>
                                 </div>

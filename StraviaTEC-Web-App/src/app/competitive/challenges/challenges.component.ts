@@ -83,6 +83,7 @@ export class ChallengesComponent implements OnInit {
   }
 
   setButtonsValues(data: ChallengeI) {
+    let goal = this.getGoal(data.activityId);
     let dataFormatted: ChallengeI = {
       id: data.id,
       validThru: data.validThru,
@@ -93,10 +94,21 @@ export class ChallengesComponent implements OnInit {
       //Buttons
       color: '#00AF3D',
       font: 'white',
-      btn: 'Join Challenge'
+      btn: 'Join Challenge',
+      //More
+      progress: null,
+      goal: goal
     }
 
     return dataFormatted
+  }
+
+  getGoal(id: number) {
+    let goal: number = 0;
+    this.api.getActivityById(id).subscribe(data => {
+      goal = data.mileage;
+    })
+    return goal;
   }
 
 }

@@ -22,7 +22,6 @@ export class CompetitionsComponent implements OnInit {
   challenges: ChallengeI[] = [];
   leaderboards: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   user?: UserI;
-  progress: any;
 
   ngOnInit(): void {
     this.user = this.data.currentUser;
@@ -42,10 +41,29 @@ export class CompetitionsComponent implements OnInit {
   setChallenges() {
     this.api.getChallengeByUser(this.user?.userName).subscribe(data => {
       if (data.length != 0) {
-        this.challenges = data;
+        let array = data;
+        array.forEach(element => {
+          element.goal = this.getGoal(element.activityId);
+          element.progress = this.getProgress(element.activityId);
+        })
+        this.challenges = array;
         this.hasChallenges = true
       }
     })
+  }
+
+  getGoal(id: number) {
+    let goal: number = 0;
+    this.api.getActivityById(id).subscribe(data => {
+      goal = data.mileage;
+    })
+    return goal;
+  }
+
+  getProgress(id: number) {
+    let progress: number = 0;
+    //TODO get progress
+    return progress;
   }
 
 }
