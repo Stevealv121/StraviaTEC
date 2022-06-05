@@ -49,19 +49,34 @@ END
 GO
 
 CREATE TRIGGER DeleteActivityTrigger
-ON Register
-AFTER DELETE 
+ON [RaceChallengeActivity]
+INSTEAD OF DELETE 
 AS
 BEGIN
 	DELETE
-	FROM [ChallengesandActivities]
-	WHERE ActivityID IN(SELECT deleted.ActivityId FROM deleted)
+	FROM SponsorsRACE
+	WHERE RaceId IN(SELECT deleted.RaceID FROM deleted)
 	DELETE
-	FROM [RacesandActivities]
-	WHERE ActivityID IN(SELECT deleted.ActivityId FROM deleted)
+	FROM BANK_ACCOUNT
+	WHERE Race_ID IN(SELECT deleted.RaceID FROM deleted)
+	DELETE
+	FROM JOIN_RACE
+	WHERE Race_ID IN(SELECT deleted.RaceID FROM deleted)
+	DELETE
+	FROM RACE
+	WHERE ID IN(SELECT deleted.RaceID FROM deleted)
+	DELETE
+	FROM JOIN_CHALLENGE
+	WHERE Challenge_ID IN(SELECT deleted.ChallengeID FROM deleted)
+	DELETE
+	FROM CHALLENGE
+	WHERE Id IN(SELECT deleted.ChallengeID FROM deleted)
+	DELETE
+	FROM Register
+	WHERE ActivityId IN(SELECT deleted.ActivityID FROM deleted)
 	DELETE
 	FROM ACTIVITY
-	WHERE Id IN(SELECT deleted.ActivityId FROM deleted)		
+	WHERE Id IN(SELECT deleted.ActivityID FROM deleted)		
 END
 GO
 --DROP TRIGGER DeleteActivityTrigger

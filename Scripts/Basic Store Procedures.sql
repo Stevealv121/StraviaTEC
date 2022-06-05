@@ -38,10 +38,10 @@ GO
 CREATE PROCEDURE DeleteActivity @Id int
 AS
 DELETE
-FROM Register
-WHERE ActivityId = @Id
+FROM [RaceChallengeActivity]
+WHERE ActivityID = @Id
 GO
-
+--DROP PROCEDURE DeleteActivity
 --EXEC SelectAllActivities
 --EXEC SelectActivityById @Id = 1
 --EXEC InsertActivity @Date = '2022-10-15',@Duration = '17:05:00',@Mileage = 10,@Route = null,@SportName = 'Running'

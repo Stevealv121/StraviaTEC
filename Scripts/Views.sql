@@ -81,4 +81,12 @@ SELECT a.*, (SELECT [Name] from CATEGORY AS c WHERE a.Age>= c.MinAge AND a.Age <
 FROM UserandAge AS a
 GO
 
+CREATE VIEW [RaceChallengeActivity] AS
+SELECT a.Id AS ActivityID, r.ID AS RaceID, c.Id AS ChallengeID
+FROM ACTIVITY as a
+INNER JOIN RACE as r
+ON a.Id = r.ActivityID
+INNER JOIN CHALLENGE as c
+ON a.Id = c.ActivityId
+GO
 select * from RacesandActivities
