@@ -161,6 +161,15 @@ export class ApiService {
   putRace(form:Race){
     return this.http.put<Race>(this.racespath,form);
   }
+  /**
+   * This function updates a group in the data base
+   * @param form group's information
+   * @returns database reponse
+   */
+   putGroup(form:GroupsGest){
+    return this.http.put<GroupsGest>(this.groupPath,form);
+  }
+
 
 
 }
