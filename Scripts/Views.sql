@@ -84,9 +84,10 @@ GO
 CREATE VIEW [RaceChallengeActivity] AS
 SELECT a.Id AS ActivityID, r.ID AS RaceID, c.Id AS ChallengeID
 FROM ACTIVITY as a
-INNER JOIN RACE as r
+LEFT JOIN RACE as r
 ON a.Id = r.ActivityID
-INNER JOIN CHALLENGE as c
+LEFT JOIN CHALLENGE as c
 ON a.Id = c.ActivityId
 GO
+--DROP VIEW [RaceChallengeActivity]
 select * from RacesandActivities

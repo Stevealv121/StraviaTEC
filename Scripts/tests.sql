@@ -7,7 +7,7 @@ select * from Register
 select * from ACTIVITY
 select * from CATEGORY
 select * from RACE
-EXEC InsertRace 1, 'a race',50, '2022-5-31', 'string', 4, 'Open'
+EXEC InsertRace 1, 'a race',50, '2022-5-31', 'string', 5, 'Open'
 EXEC JoinRace 'nati', 3, '022',10
 EXEC JoinRace 'steve', 3, '022',10
 EXEC JoinGroup 'nati', 'group'
@@ -36,16 +36,16 @@ EXEC SelectUserBelongsToChallenge 'nati'
 EXEC SelectUserBelongsToRace 'nati'
 
 
-EXEC DeleteActivity 3
+EXEC DeleteActivity 7
 SELECT * FROM Register
 SELECT * FROM Activity
 SELECT * FROM RACE
 SELECT * FROM CHALLENGE
 SELECT * FROM BANK_ACCOUNT
+SELECT * FROM RaceChallengeActivity
 
 
-
---exec DeleteRace 18
+--exec DeleteRace 24
 SELECT * FROM RACE
 SELECT * FROM JOIN_RACE
 SELECT * FROM SponsorsRACE

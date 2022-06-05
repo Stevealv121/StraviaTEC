@@ -38,6 +38,31 @@ BEGIN
 	
 END
 GO
+--EXEC SelectUserNumbers 'nati'
+CREATE PROCEDURE SelectUserNumbers @Username varchar(15)
+AS
+BEGIN
+DECLARE @following int
+DECLARE @followers int
+DECLARE @activities int
+
+SELECT @following = COUNT(FriendUserName)
+FROM [AllFriends]
+WHERE UserName=@Username
+
+SELECT @followers = COUNT(UserName)
+FROM [AllFriends]
+WHERE FriendUserName=@Username
+
+SELECT @activities = COUNT(UserName)
+FROM Register
+WHERE UserName = @Username
+
+SELECT u.FirstName, u.FirstSurname, u.ProfilePicture, @following AS [Following], @followers AS [Followers], @activities AS Activities
+FROM [USER] AS u
+WHERE UserName = @Username
+END
+GO
 --EXEC SearchUsers 'Gonzalez Bermudez'
 --DROP PROCEDURE SearchUsers
 CREATE PROCEDURE SelectFriendlist @Username varchar(15)
