@@ -69,11 +69,16 @@ ON g.[Name] = m.GroupID
 GO
 
 CREATE VIEW [GroupsandMembers] AS
-SELECT g.[Name], m.UserName
+SELECT g.[Name], m.UserName, u.FirstName, u.SecondName, u.FirstSurname, u.SecondSurname, a.Age
 FROM [GROUP] AS g
 INNER JOIN BelongsTo AS m
 ON g.[Name] = m.GroupId
+INNER JOIN UserandAge a
+ON a.UserName = m.UserName
+INNER JOIN [USER] as u
+ON u.UserName = a.UserName
 GO 
+--DROP VIEW [GroupsandMembers]
 CREATE VIEW [UserandAge] AS
 SELECT u.UserName,DATEDIFF(hour,u.BirthDate,GETDATE())/8766 AS Age
 FROM [USER] AS u

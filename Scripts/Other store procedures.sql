@@ -126,10 +126,11 @@ GO
 
 CREATE PROCEDURE SelectGroupMembers @Name varchar(15)
 AS
-SELECT UserName
+SELECT UserName, FirstName, SecondName, FirstSurname, SecondSurname, Age
 FROM [GroupsandMembers]
 WHERE [Name] = @Name
 GO
+--DROP PROCEDURE SelectGroupMembers
 --CHALLENGE
 -- Join
 CREATE PROCEDURE SelectUserChallenge @UserName varchar(15)
