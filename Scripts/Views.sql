@@ -31,6 +31,14 @@ ON reg.ActivityId = a.Id
 INNER JOIN [USER] as u
 ON u.UserName = reg.UserName;
 GO
+
+CREATE VIEW [ChallengesandActivities] AS
+SELECT r.*, a.Duration, a.Mileage, a.[Route], a.SportName
+FROM CHALLENGE AS r
+INNER JOIN ACTIVITY as a
+ON r.ActivityID = a.Id
+
+GO
 CREATE VIEW [RacesandUsers] AS
 SELECT r.ID,u.UserName, u.FirstName, u.SecondName, u.FirstSurname, u.SecondSurname, jr.Bill, a.Duration, DATEDIFF(hour,u.BirthDate,GETDATE())/8766 AS Age
 FROM RACE AS r
@@ -73,3 +81,4 @@ SELECT a.*, (SELECT [Name] from CATEGORY AS c WHERE a.Age>= c.MinAge AND a.Age <
 FROM UserandAge AS a
 GO
 
+select * from RacesandActivities

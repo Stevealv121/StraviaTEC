@@ -123,5 +123,12 @@ namespace StraviaTEC_API.Controllers
 
             return NoContent();
         }
+        [HttpGet("AllJoinChallenge")]
+        public async Task<IActionResult> GetAllJoinChallenge()
+        {
+            var db = dbConnection();
+            var sql = @"EXEC SelectAllJoinsChallenge";
+            return Ok(await db.QueryAsync<JoinChallenge>(sql, new { }));
+        }
     }
 }

@@ -119,6 +119,16 @@ namespace StraviaTEC_API.Controllers
             return Created("created", result > 0);
             
         }
+        [HttpPut("JoinRace/InputActivity/{_activityid}/{_raceid}/{_username}")]
+        public async Task<IActionResult> InputActivity(int _activityid, int _raceid, string _username)
+        {
+            var db = dbConnection();
+            var sql = @"EXEC UpdateJoinRace @raceid, @activityid, @username";
+            var result = await db.ExecuteAsync(sql, new { activityid = _activityid, raceid = _raceid, username = _username });
+
+            return Ok(result);
+
+        }
         [HttpDelete("ExitRace/{_username}/{_raceid}")]
         public async Task<IActionResult> Exit(string _username, int _raceid)
         {
@@ -192,6 +202,13 @@ namespace StraviaTEC_API.Controllers
             var result = await db.ExecuteAsync(sql, new { raceid = _raceid, account = _account });
 
             return Ok(result);
+        }
+        [HttpGet("AllJoinRace")]
+        public async Task<IActionResult> GetAllJoinRace()
+        {
+            var db = dbConnection();
+            var sql = @"EXEC SelectAllJoinsRace";
+            return Ok(await db.QueryAsync<JoinRace>(sql, new { }));
         }
     }
 }

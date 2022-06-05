@@ -38,9 +38,6 @@ GO
 CREATE PROCEDURE DeleteActivity @Id int
 AS
 DELETE
-FROM ACTIVITY
-WHERE Id = @Id
-DELETE
 FROM Register
 WHERE ActivityId = @Id
 GO
@@ -135,7 +132,7 @@ GO
 CREATE PROCEDURE DeleteChallenge @Id int
 AS
 DELETE
-FROM CHALLENGE
+FROM [ChallengesandActivities]
 WHERE Id = @Id
 GO
 
@@ -177,15 +174,9 @@ GO
 
 CREATE PROCEDURE DeleteGroup @Name varchar(15)
 AS
-DELETE
-FROM [GROUP]
-WHERE [Name] = @Name
-DELETE
-FROM BelongsTo
+DELETE 
+FROM BelongsTo 
 WHERE GroupId = @Name
-DELETE
-FROM MANAGES
-WHERE GroupID = @Name
 GO
 
 -- RACE store procedures
@@ -233,7 +224,7 @@ GO
 CREATE PROCEDURE DeleteRace @Id int
 AS
 DELETE
-FROM RACE
+FROM [RacesandActivities]
 WHERE ID = @Id
 GO
 
@@ -328,12 +319,7 @@ SELECT *
 FROM [USER]
 GO
 
-CREATE PROCEDURE SearchUsers @FirstName varchar(15)
-AS
-SELECT *
-FROM [USER] 
-WHERE FirstName = @FirstName
-GO
+
 
 CREATE PROCEDURE SelectUserByUsername @Username varchar(15), @Password varchar(15)
 AS

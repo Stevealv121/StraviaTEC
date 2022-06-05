@@ -2,6 +2,44 @@ Use StraviaTEC
 --USER
 -- Adds
 GO
+
+CREATE PROCEDURE SearchUsers @Input varchar(15)
+AS
+if (SELECT charindex(' ',@Input)) = 0
+BEGIN
+    SELECT *
+    FROM [USER]
+    where
+		UserName =@Input
+		OR
+        FirstName = @Input
+		OR
+		SecondName = @Input
+        OR
+        FirstSurname = @Input
+		OR
+		SecondSurname = @Input
+END
+else
+
+BEGIN
+    SELECT *
+    FROM [USER]
+    WHERE
+	FirstName + ' ' + FirstSurname LIKE + '%' + @input + '%'
+	OR
+	FirstName + ' ' + SecondName LIKE + '%' + @input + '%'
+	OR
+	SecondName + ' ' + FirstSurname LIKE + '%' + @input + '%'
+	OR
+	SecondName + ' ' + SecondSurname LIKE + '%' + @input + '%'
+	OR
+	FirstSurname + ' ' + SecondSurname LIKE + '%' + @input + '%'
+	
+END
+GO
+--EXEC SearchUsers 'Gonzalez Bermudez'
+--DROP PROCEDURE SearchUsers
 CREATE PROCEDURE SelectFriendlist @Username varchar(15)
 AS
 SELECT FriendUserName, FirstName, SecondName, FirstSurname, SecondSurname, ProfilePicture, [Level], BirthDate
@@ -101,9 +139,18 @@ DELETE
 FROM JOIN_CHALLENGE
 WHERE UserName = @Username AND Challenge_ID = @Challenge_ID
 GO
-
+CREATE PROCEDURE SelectAllJoinsChallenge
+AS
+SELECT *
+FROM JOIN_CHALLENGE
+GO
 
 --RACE
+CREATE PROCEDURE SelectAllJoinsRace
+AS
+SELECT *
+FROM JOIN_RACE
+GO
 CREATE PROCEDURE SelectUserRace @UserName varchar(15)
 AS
 SELECT ra.*
@@ -153,6 +200,15 @@ INNER JOIN BelongsTo as b
 ON (b.GroupId = r.Access AND u.UserName = b.UserName) OR r.Access = 'public'
 WHERE u.UserName =  @UserName 
 GO
+
+CREATE PROCEDURE UpdateJoinRace @RaceID int,@ActivityID int, @UserName varchar(15)
+AS
+UPDATE JOIN_RACE 
+SET 
+    Activityid = @ActivityID
+WHERE Race_ID = @RaceID AND UserName = @UserName
+GO
+
 --ACTIVITY
 CREATE PROCEDURE SelectUserActivities @UserName varchar(15)
 AS
@@ -171,7 +227,8 @@ WHERE ID = @RaceID
 ORDER BY Duration ASC
 GO
 -- 
-
+--EXEC RacePositionList 1
+--DROP PROCEDURE SearchUsers
 
 -- Sponsors
 CREATE PROCEDURE AssignRaceSponsor @RaceId int, @SponsorId int

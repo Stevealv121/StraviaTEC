@@ -7,9 +7,9 @@ select * from Register
 select * from ACTIVITY
 select * from CATEGORY
 select * from RACE
-EXEC InsertRace 1, 'Sebas race',50, '2022-5-31', 'string', 3, 'Open'
-EXEC JoinRace 'nati', 1, '022',4
-EXEC JoinRace 'steve', 1, '022',5
+EXEC InsertRace 1, 'a race',50, '2022-5-31', 'string', 4, 'Open'
+EXEC JoinRace 'nati', 3, '022',10
+EXEC JoinRace 'steve', 3, '022',10
 EXEC JoinGroup 'nati', 'group'
 EXEC RacePositionList 1
 EXEC RaceSponsors 1
@@ -34,3 +34,24 @@ EXEC DeleteRaceBankAccount 1,555
 EXEC SelectUserBelongsToGroups 'nati'
 EXEC SelectUserBelongsToChallenge 'nati'
 EXEC SelectUserBelongsToRace 'nati'
+
+
+EXEC DeleteActivity 3
+SELECT * FROM Register
+SELECT * FROM Activity
+SELECT * FROM RACE
+SELECT * FROM CHALLENGE
+SELECT * FROM BANK_ACCOUNT
+
+
+
+exec DeleteRace 18
+SELECT * FROM RACE
+SELECT * FROM JOIN_RACE
+SELECT * FROM SponsorsRACE
+SELECT * FROM BANK_ACCOUNT
+
+SELECT * FROM CHALLENGE
+SELECT * FROM JOIN_CHALLENGE
+
+DELETE FROM [USER] WHERE UserName ='aa'
