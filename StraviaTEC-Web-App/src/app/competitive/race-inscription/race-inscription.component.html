@@ -9,8 +9,10 @@
     <br>
     <h4>Confirmation</h4>
     <p>Please attach the file with the payment receipt.</p>
-    <input #inputPayment type="file" class="form-control" id="payment" title="Attach the payment receipt">
-    <br>
-    <button (click)="confirm()" id="buttons" class="btn btn-primary">Confirm</button>
-
+    <form [formGroup]="paymentForm" role="form">
+        <input type="file" class="form-control" id="payment" title="Attach the payment receipt"
+            (change)="onSelectFile($event)" accept="image/jpeg" formControlName="bill">
+        <br>
+        <button (click)="confirm(paymentForm.value)" id="buttons" class="btn btn-primary">Confirm</button>
+    </form>
 </div>

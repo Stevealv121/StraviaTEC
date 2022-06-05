@@ -101,8 +101,6 @@ export class UploadActivityComponent implements OnInit {
       reader.onload = () => {
         this.fileBlob = reader.result?.toString();
         this.blob = this.fileBlob.split(",", 2);
-        console.log(this.fileBlob);
-        console.log(this.blob[1]);
         this.activityForm.patchValue({
           route: this.blob[1]
         });

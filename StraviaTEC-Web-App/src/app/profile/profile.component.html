@@ -12,7 +12,7 @@
                     <label class="hoverable" for="fileInput">
                         <img id="profile-img" [src]="url" title="Change your profile picture">
                     </label>
-                    <input id="fileInput" type="file" name="form-photo" class="form-photo form-control"
+                    <input id="fileInput" type="file" name="form-photo" class="form-photo form-control" accept="image/jpeg"
                         formControlName="profilePicture" (change)="onSelectFile($event)">
                 </div>
                 <div class="col" id="edit-col">

@@ -1,5 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { format } from 'path';
 import { JoinRaceI } from 'src/app/models/joinRace.interface';
 import { RaceI } from 'src/app/models/race.interface';
 import { ApiService } from 'src/app/services/api.service';
@@ -17,6 +19,13 @@ export class RaceInscriptionComponent implements OnInit {
   race!: RaceI;
   @ViewChild('inputPayment') mapContainer!: ElementRef;
   isEmpty: boolean = true;
+  //billBlob: any;
+  blob: string[] = [];
+  url: any;
+
+  paymentForm = new FormGroup({
+    bill: new FormControl('')
+  })
 
   ngOnInit(): void {
     console.log(this.data.selectedRace);
@@ -27,19 +36,37 @@ export class RaceInscriptionComponent implements OnInit {
     }
   }
 
-  confirm() {
+  confirm(blob: any) {
     this.paymentChecker();
     if (!this.isEmpty) {
       let form: JoinRaceI = {
         userName: this.data.currentUser?.userName,
         race_ID: this.race.id,
-        bill: null,
-        activityid: this.race.activityId
+        bill: blob.bill,
+        activityid: this.race.activityID
       }
       this.api.joinRace(form).subscribe(data => {
         console.log(data);
       })
       this.toastr.success("Successfully inscripted to " + this.race.name + "!", "Success");
+    }
+  }
+
+  async onSelectFile(event: any) {
+    if (event.target.files && event.target.files[0]) {
+      var reader = new FileReader();
+
+      reader.readAsDataURL(event.target.files[0]); // read file as data url
+      reader.onload = () => {
+
+        this.url = reader.result?.toString();
+        this.blob = this.url.split(",", 2);
+        this.paymentForm.patchValue({
+          bill: this.blob[1]
+        });
+
+      }
+      await new Promise(f => (setTimeout(f, 100)));
     }
   }
 
