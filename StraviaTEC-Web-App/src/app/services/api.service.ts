@@ -50,6 +50,7 @@ export class ApiService {
   groupMembersPath:string = this.url +"Group/MembersByGroupName/";
   deleteGMemberPath:string = this.url + "Group/GroupMember/";
   deleteGroupPath: string = this.url +"Group/ByName/";
+  challengeById:string = this.url + "Challenge/ById/";
 
 
 
@@ -304,7 +305,6 @@ export class ApiService {
     return this.http.get<Member[]>(this.groupMembersPath+name);
   }
   //DELETES
-
   deleteMember(username:string, groupName:string){
     console.log(this.deleteGMemberPath+groupName+"/"+username);
     return this.http.delete(this.deleteGMemberPath+groupName+"/"+username);
@@ -312,6 +312,9 @@ export class ApiService {
   deleteGroup(name:string){
     return this.http.delete(this.deleteGroupPath+name);
 
+  }
+  deleteChallenge(id:number){
+    return this.http.delete<string>(this.challengeById+id);
   }
 
   //PUTS

@@ -35,5 +35,12 @@ export class ChallengeComponent implements OnInit {
     this.dataService.challengeId=id;
     console.log(this.dataService.challengeId)
   }
+  async deleteChallenge(id:number){
+    this.api.deleteChallenge(id).subscribe((data:any)=>{
+
+    })
+    await new Promise(f => setTimeout(f, 500))
+    this.ngOnInit()
+  }
 
 }
