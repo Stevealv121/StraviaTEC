@@ -82,16 +82,22 @@ export class NewCompetitionComponent implements OnInit {
     var activityId = activity.split(" ",1);
     var sponsor1Id= sponsor1.split(" ",1);
     var sponsor2Id= sponsor2.split(" ",1);
-    console.log(sponsor1Id);
+    var _access = "";
+    if(access == "Public"){
+      _access="Public";
+    }else{
+      _access=access.split(":",2)[1];
+    }
     var race:Race={
       id:0,
       name:name,
       cost:Number(cost),
       date:date,
-      access:access.split(":",2)[1],
+      access:_access,
       activityID:Number(activityId[0]),
       categoryName:category
     }
+    console.log(race);
     this.api.postRace(race).subscribe((raceId:any)=>{
       this.api.postRaceAccount(String(raceId),account1).subscribe((data:any)=>{
 
