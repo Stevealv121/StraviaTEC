@@ -12,9 +12,9 @@
                 <div class="login-body">
                     <form role="form" [formGroup]="registerForm" (ngSubmit)="postForm(registerForm.value)"
                         class="login-form">
-                        <div class="form-group ">
+                        <div class="form-group">
                             <div class="pos-r">
-                                <input id="form-username" type="text" name="form-username" placeholder="First Name"
+                                <input id="form-fname" type="text" name="form-username" placeholder="First Name"
                                     class="form-username form-control" formControlName="firstName">
                                 <i class="fa fa-user"></i>
                             </div>
@@ -22,9 +22,9 @@
                         <div class="br">
                             <br>
                         </div>
-                        <div class="form-group ">
+                        <div class="form-group">
                             <div class="pos-r">
-                                <input id="form-username" type="text" name="form-username" placeholder="Second Name"
+                                <input id="form-sname" type="text" name="form-username" placeholder="Second Name"
                                     class="form-username form-control" formControlName="secondName">
                                 <i class="fa fa-user"></i>
                             </div>
@@ -32,9 +32,9 @@
                         <div class="br">
                             <br>
                         </div>
-                        <div class="form-group ">
+                        <div class="form-group">
                             <div class="pos-r">
-                                <input id="form-username" type="text" name="form-username" placeholder="First Surname"
+                                <input id="form-fsname" type="text" name="form-username" placeholder="First Surname"
                                     class="form-username form-control" formControlName="firstSurname">
                                 <i class="fa fa-user"></i>
                             </div>
@@ -42,9 +42,9 @@
                         <div class="br">
                             <br>
                         </div>
-                        <div class="form-group ">
+                        <div class="form-group">
                             <div class="pos-r">
-                                <input id="form-username" type="text" name="form-username" placeholder="Second Surname"
+                                <input id="form-ssname" type="text" name="form-username" placeholder="Second Surname"
                                     class="form-username form-control" formControlName="secondSurname">
                                 <i class="fa fa-user"></i>
                             </div>
@@ -52,9 +52,9 @@
                         <div class="br">
                             <br>
                         </div>
-                        <div class="form-group ">
+                        <div class="form-group">
                             <div class="pos-r">
-                                <input type="text" name="form-id" placeholder="Birth Date" class="form-id form-control"
+                                <input type="text" placeholder="Birth Date" class="form-id form-control"
                                     formControlName="birthDate" onfocus="(this.type='date')" id="date">
                                 <i class="fa fa-user"></i>
                             </div>
@@ -62,18 +62,22 @@
                         <div class="br">
                             <br>
                         </div>
-                        <div class="form-group ">
+                        <div class="form-group">
                             <div class="pos-r">
-                                <input id="form-phone" type="text" name="form-phone" placeholder="Nationality"
-                                    class="form-phone form-control" formControlName="nationality">
-                                <i class="fa fa-user"></i>
+                                <select [(ngModel)]="nationOptions" class="form-select" formControlName="nationality">
+                                    <option class="dropdown-item" disabled selected value="undefined">Choose your
+                                        nationality
+                                    </option>
+                                    <option *ngFor="let nation of nationalities; let i = index"
+                                        [ngValue]="nation.Nationality" class="dropdown-item">{{nation.Nationality}}
+                                    </option>
+                                </select>
                             </div>
                         </div>
                         <div class="br">
                             <br>
                         </div>
-                        <div class="form-group ">
-
+                        <div class="form-group">
                             <select [(ngModel)]="selectedOption" class="form-select" formControlName="level">
                                 <option class="dropdown-item" disabled selected value="undefined">Choose your level
                                 </option>
@@ -83,17 +87,15 @@
                                 <option value="Intermediate">Intermediate</option>
                                 <option value="Elite">Elite</option>
                             </select>
-
-
                         </div>
                         <div class="br">
                             <br>
                         </div>
-                        <div class="form-group ">
+                        <div class="form-group">
                             <div class="pos-r">
-                                <input id="form-email" type="text" name="form-email" placeholder="Username"
-                                    class="form-email form-control" formControlName="Username">
-                                <i class="fa fa-email"></i>
+                                <input id="form-username" type="text" placeholder="Username"
+                                    class="form-username form-control" formControlName="username">
+                                <i class="fa fa-username"></i>
                             </div>
                         </div>
                         <div class="br">
@@ -122,7 +124,7 @@
                                         <br>
                                     </div>
                                 </label>
-                                <input id="fileInput" type="file" name="form-photo"
+                                <input id="fileInput" type="file" name="form-photo" accept="image/jpeg"
                                     placeholder="Choose a profile picture" class="form-photo form-control"
                                     formControlName="profilePicture" (change)="onSelectFile($event)">
                             </div>

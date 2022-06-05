@@ -24,6 +24,7 @@ import { InfoRaceComponent } from './competition/info-race/info-race.component';
 import { GroupManagementComponent } from './group-management/group-management.component';
 import { NewGroupComponent } from './group-management/new-group/new-group.component';
 import { GroupGestionComponent } from './group-management/group-gestion/group-gestion.component';
+import { MyActivitiesComponent } from './my-activities/my-activities.component';
 
 const routes: Routes = [
   { path: "", pathMatch: "full", redirectTo: "/login" },
@@ -39,17 +40,18 @@ const routes: Routes = [
   { path: "challenges", component: ChallengesComponent },
   { path: "groups", component: GroupsComponent },
   { path: "competitions", component: CompetitionsComponent },
-  { path: "menu", component: OrganizerMenuComponent},
-  { path: "challenge", component: ChallengeComponent},
-  { path: "competition", component: CompetitionComponent},
-  { path: "NewCompetition", component: NewCompetitionComponent},
-  { path: "NewChallenge", component: NewChallengeComponent},
-  { path: "EditRace", component: EditCompetitionComponent},
-  { path: "EditChallenge", component: EditChallengeComponent},
-  { path: "InfoRace", component: InfoRaceComponent},
-  { path: "GroupsManagement", component: GroupManagementComponent},
-  { path: "NewGroup", component: NewGroupComponent},
-  { path: "GroupInfo", component: GroupGestionComponent}
+  { path: "menu", component: OrganizerMenuComponent },
+  { path: "challenge", component: ChallengeComponent },
+  { path: "competition", component: CompetitionComponent },
+  { path: "NewCompetition", component: NewCompetitionComponent },
+  { path: "NewChallenge", component: NewChallengeComponent },
+  { path: "EditRace", component: EditCompetitionComponent },
+  { path: "EditChallenge", component: EditChallengeComponent },
+  { path: "InfoRace", component: InfoRaceComponent },
+  { path: "GroupsManagement", component: GroupManagementComponent },
+  { path: "NewGroup", component: NewGroupComponent },
+  { path: "GroupInfo", component: GroupGestionComponent },
+  { path: "my-activities", component: MyActivitiesComponent }
 ];
 
 @NgModule({

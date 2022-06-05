@@ -19,7 +19,7 @@ INNER JOIN ACTIVITY AS act
 ON r.ActivityId = act.Id;
 GO
 --Select * from AllFriends
-
+GO
 CREATE VIEW [RacesandActivities] AS
 SELECT r.ID, [Name], r.[Date], Access, r.ActivityID, a.Duration, a.Mileage, a.[Route], a.SportName, reg.UserName,
 		u.FirstName, u.SecondName, u.FirstSurname, u.SecondSurname, u.ProfilePicture, u.[Level], u.BirthDate

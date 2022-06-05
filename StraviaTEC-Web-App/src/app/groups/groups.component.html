@@ -8,14 +8,14 @@
         <div class="col-md-auto" *ngFor="let group of row;let j as index">
             <div id="groupCard" class="card">
                 <div class="card-body" id="groupCard-body">
-                    <h5>Name</h5>
-                    <p>Description asdfasdagsdssdagdsgg
+                    <h5>{{group.name}}</h5>
+                    <p>{{group.description}}
                     </p>
                     <!--Max descrption characters (32)-->
                     <button class="btn btn-primary" [ngStyle]="{
                         'background-color' : group.color,
                         'color' : group.font
-                      }" (click)="joinGroup(group.id)" id="buttons">{{group.btn}}</button>
+                      }" (click)="joinGroup(group.name)" id="buttons">{{group.btn}}</button>
 
                 </div>
             </div>

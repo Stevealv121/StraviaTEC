@@ -30,6 +30,7 @@ import { InfoRaceComponent } from './competition/info-race/info-race.component';
 import { GroupManagementComponent } from './group-management/group-management.component';
 import { NewGroupComponent } from './group-management/new-group/new-group.component';
 import { GroupGestionComponent } from './group-management/group-gestion/group-gestion.component';
+import { MyActivitiesComponent } from './my-activities/my-activities.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { GroupGestionComponent } from './group-management/group-gestion/group-ge
     InfoRaceComponent,
     GroupManagementComponent,
     NewGroupComponent,
-    GroupGestionComponent
+    GroupGestionComponent,
+    MyActivitiesComponent
   ],
   imports: [
     BrowserModule,

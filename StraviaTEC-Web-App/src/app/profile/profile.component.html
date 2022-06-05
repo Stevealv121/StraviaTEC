@@ -12,7 +12,7 @@
                     <label class="hoverable" for="fileInput">
                         <img id="profile-img" [src]="url" title="Change your profile picture">
                     </label>
-                    <input id="fileInput" type="file" name="form-photo" class="form-photo form-control"
+                    <input id="fileInput" type="file" name="form-photo" class="form-photo form-control" accept="image/jpeg"
                         formControlName="profilePicture" (change)="onSelectFile($event)">
                 </div>
                 <div class="col" id="edit-col">
@@ -139,7 +139,15 @@
                 </div>
                 <div class="col" (click)="edit('nationality')">
                     <p #ND><strong></strong></p>
-                    <input #NI type="text" hidden formControlName="nationality">
+                    <!-- <input #NI type="text" hidden formControlName="nationality"> -->
+                    <select #NI hidden [(ngModel)]="nationOptions" class="form-select" formControlName="nationality">
+                        <option class="dropdown-item" disabled selected value="undefined">Choose your
+                            nationality
+                        </option>
+                        <option *ngFor="let nation of nationalities; let i = index"
+                            [ngValue]="nation.Nationality" class="dropdown-item">{{nation.Nationality}}
+                        </option>
+                    </select>
                 </div>
                 <div #NS class="col-md-auto" hidden>
                     <button class="btn btn-primary" id="buttons"
