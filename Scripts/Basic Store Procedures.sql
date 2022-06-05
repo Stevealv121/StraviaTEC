@@ -209,7 +209,7 @@ SET @Id = SCOPE_IDENTITY()
 SELECT @Id
 GO
 
-CREATE PROCEDURE UpdateRace @Id int,@Name varchar(15),@Cost int ,@Date date,@Access varchar(15),@ActivityID int
+CREATE PROCEDURE UpdateRace @Id int,@Name varchar(15),@Cost int ,@Date date,@Access varchar(15),@ActivityID int, @CategoryName varchar(15)
 AS
 UPDATE RACE 
 SET 
@@ -217,7 +217,8 @@ SET
     Cost = @Cost,
     [Date] = @Date,
     Access = @Access,
-    ActivityID = @ActivityID
+    ActivityID = @ActivityID,
+	CategoryName = @CategoryName
 WHERE ID = @Id
 GO
 
