@@ -22,6 +22,7 @@ export class CompetitionsComponent implements OnInit {
   challenges: ChallengeI[] = [];
   leaderboards: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   user?: UserI;
+  progress: any;
 
   ngOnInit(): void {
     this.user = this.data.currentUser;
