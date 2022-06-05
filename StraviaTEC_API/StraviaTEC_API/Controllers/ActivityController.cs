@@ -7,21 +7,36 @@ namespace StraviaTEC_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+   
     public class ActivityController : Controller
     {
         
         private SQLConfig connectionStr;
 
+      
         public ActivityController(SQLConfig connectionString)
         {
             connectionStr = connectionString;
         }
 
+        /// <summary>
+        /// It returns a new SqlConnection object, which is initialized with the connection string
+        /// stored in the connectionStr object
+        /// </summary>
+        /// <returns>
+        /// A new instance of the SqlConnection class.
+        /// </returns>
         protected SqlConnection dbConnection()
         {
             return new SqlConnection(connectionStr.ConnectionStr);
         }
 
+        /// <summary>
+        /// It's a GET function that returns a list of all activities in the database
+        /// </summary>
+        /// <returns>
+        /// A list of activities.
+        /// </returns>
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -29,6 +44,13 @@ namespace StraviaTEC_API.Controllers
             var sql = @"EXEC SelectAllActivities";
             return Ok(await db.QueryAsync<Activity>(sql, new { }));
         }
+        /// <summary>
+        /// This function is used to get a single activity by its ID
+        /// </summary>
+        /// <param name="ID">The ID of the activity you want to get.</param>
+        /// <returns>
+        /// The first or default activity that matches the ID.
+        /// </returns>
         [HttpGet("ById/{ID}")]
         public async Task<IActionResult> GetbyId(int ID)
         {
@@ -38,6 +60,13 @@ namespace StraviaTEC_API.Controllers
             
         }
         
+        /// <summary>
+        /// It takes a JSON Activity object from the body of the request, and inserts it into the database
+        /// </summary>
+        /// <param name="Activity">This is the object that is being passed in.</param>
+        /// <returns>
+        /// The result of the query is being returned.
+        /// </returns>
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] Activity newObj)
         {
@@ -52,6 +81,14 @@ namespace StraviaTEC_API.Controllers
             return Created("created", result>0);
         }
         
+        /// <summary>
+        /// The function takes in an object of type Activity, and if the object is not null, and the
+        /// model state is valid, then it will execute the stored procedure UpdateActivity
+        /// </summary>
+        /// <param name="Activity">This is the object that is being passed in.</param>
+        /// <returns>
+        /// NoContent()
+        /// </returns>
         [HttpPut]
         public async Task<IActionResult> Update([FromBody] Activity _obj)
         {
@@ -66,6 +103,13 @@ namespace StraviaTEC_API.Controllers
             return NoContent();
         }
         
+       /// <summary>
+       /// This function deletes an activity from the database
+       /// </summary>
+       /// <param name="ID">The ID of the activity to delete</param>
+       /// <returns>
+       /// NoContent()
+       /// </returns>
         [HttpDelete("ById/{ID}")]
         public async Task<IActionResult> Delete(int ID)
         {
@@ -77,6 +121,14 @@ namespace StraviaTEC_API.Controllers
             return NoContent();
         }
 
+       /// <summary>
+       /// This function is used to get all the activities of a user
+       /// </summary>
+       /// <param name="_username">the username of the user whose activities you want to
+       /// retrieve</param>
+       /// <returns>
+       /// A list of activities
+       /// </returns>
         [HttpGet("ByUserName/{_username}")]
         public async Task<IActionResult> GetbyUserName(string _username)
         {

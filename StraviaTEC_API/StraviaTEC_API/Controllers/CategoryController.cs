@@ -14,12 +14,24 @@ namespace StraviaTEC_API.Controllers
         {
             connectionStr = connectionString;
         }
-
+        /// <summary>
+        /// It returns a new SqlConnection object, using the connection string stored in the connectionStr
+        /// object.
+        /// </summary>
+        /// <returns>
+        /// A new instance of the SqlConnection class.
+        /// </returns>
         protected SqlConnection dbConnection()
         {
             return new SqlConnection(connectionStr.ConnectionStr);
         }
 
+        /// <summary>
+        /// It's a function that returns a list of strings with category names from the database
+        /// </summary>
+        /// <returns>
+        /// A list of strings with category names.
+        /// </returns>
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -27,6 +39,13 @@ namespace StraviaTEC_API.Controllers
             var sql = @"EXEC SelectAllCategories";
             return Ok(await db.QueryAsync<string>(sql, new { }));
         }
+        /// <summary>
+        /// This function is used to get a category by name
+        /// </summary>
+        /// <param name="_name">The name of the category you want to get.</param>
+        /// <returns>
+        /// The first or default category that matches the name.
+        /// </returns>
         [HttpGet("ByName/{_name}")]
         public async Task<IActionResult> GetbyId(string _name)
         {
@@ -36,6 +55,13 @@ namespace StraviaTEC_API.Controllers
 
         }
 
+        /// <summary>
+        /// It takes a JSON Category object from the body of the request, and then inserts it into the database
+        /// </summary>
+        /// <param name="Category">The model class</param>
+        /// <returns>
+        /// The result of the query is being returned.
+        /// </returns>
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] Category newObj)
         {
@@ -50,6 +76,13 @@ namespace StraviaTEC_API.Controllers
             return Created("created", result > 0);
         }
 
+        /// <summary>
+        /// The above function is used to update the category details
+        /// </summary>
+        /// <param name="Category">The model class</param>
+        /// <returns>
+        /// NoContent()
+        /// </returns>
         [HttpPut]
         public async Task<IActionResult> Update([FromBody] Category _obj)
         {
@@ -64,6 +97,13 @@ namespace StraviaTEC_API.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// This function deletes a category from the database by name
+        /// </summary>
+        /// <param name="_name">The name of the category to delete</param>
+        /// <returns>
+        /// NoContent()
+        /// </returns>
         [HttpDelete("ByName/{_name}")]
         public async Task<IActionResult> Delete(string _name)
         {
