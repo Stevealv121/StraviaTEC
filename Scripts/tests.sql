@@ -7,9 +7,9 @@ select * from Register
 select * from ACTIVITY
 select * from CATEGORY
 select * from RACE
-EXEC InsertRace 1, 'a race',50, '2022-5-31', 'string', 5, 'Open'
-EXEC JoinRace 'nati', 3, '022',10
-EXEC JoinRace 'steve', 3, '022',10
+EXEC InsertRace 1, 'a sub23 race',50, '2022-5-31', 'string', 5, 'Sub-23'
+EXEC JoinRace 'nati', 27, '022',13
+EXEC JoinRace 'steve', 27, '022',14
 EXEC JoinGroup 'nati', 'group'
 EXEC RacePositionList 1
 EXEC RaceSponsors 1

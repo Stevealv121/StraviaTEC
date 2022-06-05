@@ -40,15 +40,18 @@ ON r.ActivityID = a.Id
 
 GO
 CREATE VIEW [RacesandUsers] AS
-SELECT r.ID,u.UserName, u.FirstName, u.SecondName, u.FirstSurname, u.SecondSurname, jr.Bill, a.Duration, DATEDIFF(hour,u.BirthDate,GETDATE())/8766 AS Age
+SELECT r.ID,u.UserName, u.FirstName, u.SecondName, u.FirstSurname, u.SecondSurname, jr.Bill, a.Duration, c.Age, c.CategoryName
 FROM RACE AS r
 INNER JOIN JOIN_RACE as jr
 ON jr.Race_ID = r.ID
 INNER JOIN [USER] as u
 ON u.UserName = jr.UserName
 INNER JOIN ACTIVITY as a
-ON jr.Activityid = a.Id;
+ON jr.Activityid = a.Id
+INNER JOIN [UsersandCategory] as c
+ON c.UserName = jr.UserName
 GO
+--DROP VIEW RacesandUsers
 CREATE VIEW [RacesandSponsors] AS
 SELECT r.ID, r.[Name], r.Cost, r.[Date], r.Access, r.ActivityID, r.CategoryName, sr.SponsorId, 
 		s.ComercialName, s.Logo, s.AgentNumber, s.FirstName, s.SecondName, s.FirstSurname, s.SecondSurname

@@ -11,5 +11,7 @@
         public byte[]? Bill { get; set; }
         public TimeSpan Duration { get; set; }
         public int Age { get; set; }
+        public string CategoryName { get; set; }
+
     }
 }

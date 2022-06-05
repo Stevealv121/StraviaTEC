@@ -246,12 +246,27 @@ GO
 -- Position list
 CREATE PROCEDURE RacePositionList @RaceID int
 AS
-SELECT *
-FROM [RacesandUsers]
+BEGIN
+
+DECLARE @RaceCategory VARCHAR(15)
+SELECT @RaceCategory = RACE.CategoryName
+FROM RACE
 WHERE ID = @RaceID
-ORDER BY Duration ASC
+if @RaceCategory = 'Open'
+	SELECT *
+	FROM [RacesandUsers]
+	WHERE ID = @RaceID
+	ORDER BY Duration ASC
+else
+	SELECT *
+	FROM [RacesandUsers]
+	WHERE ID = @RaceID
+	ORDER BY CategoryName,
+	Duration ASC
+END
 GO
--- 
+--DROP PROCEDURE RacePositionList
+-- EXEC RacePositionList 25
 --EXEC RacePositionList 1
 --DROP PROCEDURE SearchUsers
 
