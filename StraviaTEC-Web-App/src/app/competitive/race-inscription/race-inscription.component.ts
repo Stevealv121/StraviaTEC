@@ -37,19 +37,31 @@ export class RaceInscriptionComponent implements OnInit {
   }
 
   confirm(blob: any) {
-    this.paymentChecker();
-    if (!this.isEmpty) {
+    //this.paymentChecker();
+    /*if (!this.isEmpty) {
       let form: JoinRaceI = {
         userName: this.data.currentUser?.userName,
         race_ID: this.race.id,
         bill: blob.bill,
         activityid: this.race.activityID
       }
+      console.log(form);
       this.api.joinRace(form).subscribe(data => {
         console.log(data);
       });
       this.toastr.success("Successfully inscripted to " + this.race.name + "!", "Success");
+    }*/
+    let form: JoinRaceI = {
+      userName: this.data.currentUser?.userName,
+      race_ID: this.race.id,
+      bill: blob.bill,
+      activityid: this.race.activityID
     }
+    console.log(form);
+    /*this.api.joinRace(form).subscribe(data => {
+      console.log(data);
+    });*/
+    this.toastr.success("Successfully inscripted to " + this.race.name + "!", "Success");
   }
 
   async onSelectFile(event: any) {
@@ -70,12 +82,12 @@ export class RaceInscriptionComponent implements OnInit {
     }
   }
 
-  paymentChecker() {
+  /*paymentChecker() {
     if (this.mapContainer.nativeElement.files.length == 0) {
       console.log("no files selected");
     } else {
       this.isEmpty = false;
     }
-  }
+  }*/
 
 }
