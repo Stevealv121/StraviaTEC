@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TextView;
 
+import com.example.straviatec_mobile.Entities.Activity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -48,7 +49,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 public class Map extends AppCompatActivity implements OnMapReadyCallback {
 
     SupportMapFragment mapFragment;
-    private String elapsedTime;
+    private String user, route, date, sport;
     private TextView mileage;
     private int miles;
     private Chronometer chronometer;
@@ -159,20 +160,26 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
         }
     }
 
-    public void finishActivity(View view) throws UnsupportedEncodingException {
-        postActivity();
+    public void finishActivity(View view){
+        Intent reciever = getIntent();
+        user = reciever.getStringExtra("username");
+        date = reciever.getStringExtra("date");
+        sport = reciever.getStringExtra("sport");
+        String elapsedTime = chronometer.getText().toString();
+        Activity activity = new Activity(user,null,date,elapsedTime,miles,generateRouteGPX("gpx test",trkpoints),sport);
+        postActivity(activity);
         updateRace();
-        elapsedTime = chronometer.getText().toString();
         track.remove();
-        byte[] bytes = generateRouteGPX("gpx test",trkpoints).trim().getBytes();
-        Document doc = toXMLfromString(generateRouteGPX("gpx test",trkpoints));
-        doc.toString();
+
+        //Document doc = toXMLfromString(generateRouteGPX("gpx test",trkpoints));
+        //doc.toString();
+        Log.e("This is the route", generateRouteGPX("gpx test",trkpoints));
         //assert doc != null;
         //Log.d("Gpx content", doc.getFirstChild().getNodeName());
         //Log.d("Gpx content", generateRouteGPX("gpx test",trkpoints));
-        Log.e("This is the route", generateRouteGPX("gpx test",trkpoints));
-        Log.e("Gpx content", Arrays.toString(bytes));
-        System.out.println(doc);
+        //Log.e("Gpx content", Arrays.toString(bytes));
+        //byte[] bytes = generateRouteGPX("gpx test",trkpoints).trim().getBytes();
+        //System.out.println(doc);
         Intent myintent = new Intent(Map.this,Menu.class);
         startActivity(myintent);
     }
@@ -180,7 +187,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
     private void updateRace() {
     }
 
-    private void postActivity() {
+    private void postActivity(Activity act) {
     }
 
     private void updateTrack(){
