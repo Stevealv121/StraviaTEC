@@ -9,24 +9,46 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.straviatec_mobile.Entities.Challenge;
 import com.example.straviatec_mobile.Entities.Race;
+import com.example.straviatec_mobile.Interfaces.ChallengeAPI;
+import com.example.straviatec_mobile.Interfaces.RaceAPI;
 
+import java.security.cert.CertificateException;
+import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+
+import okhttp3.OkHttpClient;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ActivitySetup extends AppCompatActivity {
 
-    private Spinner activities;
+    private Spinner activities, race;
+    TextView date;
     String username;
-    String ssport, srace, schallege;
-    ArrayList<String> showRaces, ShowChallenges;
-    ArrayList<Challenge> challengelist;
-    ArrayList<Race> racelist;
+    String ssport;
+    String fdate;
+    ArrayList<String> showRaces;
+    List<Race> raceList;
     boolean sportSelected = false;
+    int uindex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,13 +57,20 @@ public class ActivitySetup extends AppCompatActivity {
 
         Intent rintent = getIntent();
         username = rintent.getStringExtra("uname");
+        date = findViewById(R.id.date);
+        Date currentTime = Calendar.getInstance().getTime();
+        SimpleDateFormat format = new SimpleDateFormat("yy-MM-dd");
+        fdate = format.format(currentTime);
 
-        consultRA();
-        consultCH();
+        date.setText(fdate);
+        consultRA(username);
 
         activities = findViewById(R.id.activities);
+        race = findViewById(R.id.race);
         List<String> states = Arrays.asList("Select Sport or Activity","Running","Swimming","Cycling","Trekking","Kayak","Hiking");
         ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_spinner_item,states);
+        ArrayAdapter adapter2 = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_spinner_item,showRaces);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         activities.setAdapter(adapter);
         activities.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -61,21 +90,112 @@ public class ActivitySetup extends AppCompatActivity {
 
             }
         });
+        race.setAdapter(adapter2);
+        race.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(i!=0){
+                    uindex = i;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
     }
 
-    private void consultCH() {
+    private void consultRA(String user) {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://10.0.2.2:7060/")
+                .addConverterFactory(GsonConverterFactory.create()).client(getUnsafeOkHttpClient()).build();
+        RaceAPI raceAPI = retrofit.create(RaceAPI.class);
+        Call<List<Race>> call = raceAPI.findRU(user);
+        call.enqueue(new Callback<List<Race>>() {
+            @Override
+            public void onResponse(Call<List<Race>> call, Response<List<Race>> response) {
+                try{
+                    raceList = response.body();
+                    generateRlist();
+                }catch(Exception ex){
+                    Toast.makeText(ActivitySetup.this,ex.getMessage(),Toast.LENGTH_SHORT).show();
+                    Log.e("Error inserting", ex.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Race>> call, Throwable t) {
+                Toast.makeText(ActivitySetup.this,t.getMessage(),Toast.LENGTH_LONG).show();
+                Log.e("Connection error", t.getMessage());
+            }
+        });
+
     }
 
-    private void consultRA() {
+    private void generateRlist() {
+        showRaces = new ArrayList<>();
+        showRaces.add("Select a Race");
+        for(int i=0; i<raceList.size();i++){
+            showRaces.add(raceList.get(i).getName()+"-"+raceList.get(i).getId());
+        }
+
+
     }
 
     public void onClick(View view) {
         if(sportSelected){
+            Race race = raceList.get(uindex-1);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("race",race);
             Log.e("Sport Selected", ssport);
+            Log.e("ObjectList", String.valueOf(raceList));
             Intent myintent = new Intent(ActivitySetup.this,Map.class);
             startActivity(myintent);
         }else{
             Toast.makeText(ActivitySetup.this,"Sport not selected",Toast.LENGTH_SHORT).show();
         }
     }
+    public static OkHttpClient getUnsafeOkHttpClient() {
+
+        try {
+            final TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
+                @Override
+                public void checkClientTrusted(
+                        java.security.cert.X509Certificate[] chain,
+                        String authType) throws CertificateException {
+                }
+
+                @Override
+                public void checkServerTrusted(
+                        java.security.cert.X509Certificate[] chain,
+                        String authType) throws CertificateException {
+                }
+
+                @Override
+                public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                    return new java.security.cert.X509Certificate[0];
+                }
+            } };
+
+            final SSLContext sslContext = SSLContext.getInstance("TLS");
+            sslContext.init(null, trustAllCerts,
+                    new java.security.SecureRandom());
+            final SSLSocketFactory sslSocketFactory = sslContext
+                    .getSocketFactory();
+
+            OkHttpClient okHttpClient = new OkHttpClient();
+            okHttpClient = okHttpClient.newBuilder()
+                    .sslSocketFactory(sslSocketFactory)
+                    .hostnameVerifier(org.apache.http.conn.ssl.SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER).build();
+
+            return okHttpClient;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+
 }
