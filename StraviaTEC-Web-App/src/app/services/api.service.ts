@@ -49,14 +49,14 @@ export class ApiService {
   racePath: string = this.url + "Race";
   challengePath: string = this.url + "Challenge";
   commentPath: string = this.url + "Comments";
-  groupMembersPath:string = this.url +"Group/MembersByGroupName/";
-  deleteGMemberPath:string = this.url + "Group/GroupMember/";
-  deleteGroupPath: string = this.url +"Group/ByName/";
-  challengeById:string = this.url + "Challenge/ById/";
-  AccountByIDPath:string = this.url + "Race/BankAccount/ById/";
-  positionListPath:string = this.url + "Race/PositionList/";
-  exitRacePath:string = this.url + "Race/ExitRace/";
-  deleteRacePath:string = this.url + "Race/ById/";
+  groupMembersPath: string = this.url + "Group/MembersByGroupName/";
+  deleteGMemberPath: string = this.url + "Group/GroupMember/";
+  deleteGroupPath: string = this.url + "Group/ByName/";
+  challengeById: string = this.url + "Challenge/ById/";
+  AccountByIDPath: string = this.url + "Race/BankAccount/ById/";
+  positionListPath: string = this.url + "Race/PositionList/";
+  exitRacePath: string = this.url + "Race/ExitRace/";
+  deleteRacePath: string = this.url + "Race/ById/";
 
 
 
@@ -307,7 +307,8 @@ export class ApiService {
    * @returns An Observable of an array of GroupI objects.
    */
   getGroups(): Observable<GroupI[]> {
-    return this.http.get<GroupI[]>(this.groupPath)
+    let path = this.groupPath + "/AllObjects";
+    return this.http.get<GroupI[]>(path)
   }
 
   /**
@@ -506,24 +507,24 @@ export class ApiService {
    * @param name group's name
    * @returns member's information
    */
-  getGroupMembers(name:string){
-    return this.http.get<Member[]>(this.groupMembersPath+name);
+  getGroupMembers(name: string) {
+    return this.http.get<Member[]>(this.groupMembersPath + name);
   }
   /**
    * This function asks the api for a race's accounts in the data base
    * @param id race Id
    * @returns BankAccount's information
    */
-  getBankAccounts(id:number){
-    return this.http.get<Account[]>(this.AccountByIDPath+id);
+  getBankAccounts(id: number) {
+    return this.http.get<Account[]>(this.AccountByIDPath + id);
   }
   /**
    * It returns an array of Participants objects.
    * @param {number} id - number
    * @returns An array of Participants
    */
-  getPositionList(id:number){
-    return this.http.get<Participants[]>(this.positionListPath+id);
+  getPositionList(id: number) {
+    return this.http.get<Participants[]>(this.positionListPath + id);
   }
   //DELETES
   /**
@@ -532,9 +533,9 @@ export class ApiService {
    * @param {string} groupName - the name of the group
    * @returns The return value is an Observable.
    */
-  deleteMember(username:string, groupName:string){
-    console.log(this.deleteGMemberPath+groupName+"/"+username);
-    return this.http.delete(this.deleteGMemberPath+groupName+"/"+username);
+  deleteMember(username: string, groupName: string) {
+    console.log(this.deleteGMemberPath + groupName + "/" + username);
+    return this.http.delete(this.deleteGMemberPath + groupName + "/" + username);
   }
   /**
    * It deletes a race member from a race
@@ -542,12 +543,12 @@ export class ApiService {
    * @param {number} raceId - number
    * @returns A string
    */
-  deleteRaceMember(userName:string,raceId:number){
-    return this.http.delete<string>(this.exitRacePath+userName+"/"+raceId);
+  deleteRaceMember(userName: string, raceId: number) {
+    return this.http.delete<string>(this.exitRacePath + userName + "/" + raceId);
   }
   /* Deleting a group. */
-  deleteGroup(name:string){
-    return this.http.delete(this.deleteGroupPath+name);
+  deleteGroup(name: string) {
+    return this.http.delete(this.deleteGroupPath + name);
 
   }
   /**
@@ -555,8 +556,8 @@ export class ApiService {
    * @param {number} id - number
    * @returns A string
    */
-  deleteChallenge(id:number){
-    return this.http.delete<string>(this.challengeById+id);
+  deleteChallenge(id: number) {
+    return this.http.delete<string>(this.challengeById + id);
   }
 
   /**
@@ -564,8 +565,8 @@ export class ApiService {
    * @param {number} id - number
    * @returns A string
    */
-  deleteRace(id:number){
-    return this.http.delete<string>(this.deleteRacePath+id);
+  deleteRace(id: number) {
+    return this.http.delete<string>(this.deleteRacePath + id);
   }
 
   //PUTS
