@@ -1,6 +1,11 @@
 package com.example.straviatec_mobile.Entities;
 
-public class Race {
+import java.io.Serializable;
+/**
+ * This class manages the Race Class
+ * @author Dennis Jimenez
+ */
+public class Race implements Serializable {
 
     private Integer id;
     private String name;
@@ -10,8 +15,21 @@ public class Race {
     private Integer activityID;
     private String categoryName;
 
+    /**
+     * Empty constructor
+     */
     public Race(){}
 
+    /**
+     * Constructor for the Race Class
+     * @param id race id
+     * @param name race name
+     * @param cost race cost
+     * @param date date
+     * @param access access
+     * @param activityID id of related activity
+     * @param categoryName name of category
+     */
     public Race(Integer id, String name, Integer cost, String date, String access, Integer activityID, String categoryName) {
         this.id = id;
         this.name = name;

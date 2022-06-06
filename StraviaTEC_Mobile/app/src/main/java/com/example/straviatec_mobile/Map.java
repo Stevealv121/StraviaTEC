@@ -18,6 +18,7 @@ import android.util.Xml;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -47,6 +48,9 @@ import javax.xml.parsers.DocumentBuilderFactory;
 public class Map extends AppCompatActivity implements OnMapReadyCallback {
 
     SupportMapFragment mapFragment;
+    private String elapsedTime;
+    private TextView mileage;
+    private int miles;
     private Chronometer chronometer;
     private boolean running;
     private long offset;
@@ -65,6 +69,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
+        mileage = findViewById(R.id.mileage);
         chronometer = findViewById(R.id.chronometer);
         start = findViewById(R.id.start);
         stop = findViewById(R.id.stop);
@@ -95,6 +100,8 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
                         updateTrack();
                         nMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mylocation, 20));
                         trkpoints.add(location);
+                        miles += 1;
+                        mileage.setText(miles);
                     }catch(SecurityException ex){
                         ex.printStackTrace();
                     }
@@ -153,6 +160,9 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
     }
 
     public void finishActivity(View view) throws UnsupportedEncodingException {
+        postActivity();
+        updateRace();
+        elapsedTime = chronometer.getText().toString();
         track.remove();
         byte[] bytes = generateRouteGPX("gpx test",trkpoints).trim().getBytes();
         Document doc = toXMLfromString(generateRouteGPX("gpx test",trkpoints));
@@ -165,6 +175,12 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
         System.out.println(doc);
         Intent myintent = new Intent(Map.this,Menu.class);
         startActivity(myintent);
+    }
+
+    private void updateRace() {
+    }
+
+    private void postActivity() {
     }
 
     private void updateTrack(){
