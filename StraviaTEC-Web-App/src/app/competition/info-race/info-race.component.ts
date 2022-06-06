@@ -28,10 +28,12 @@ export class InfoRaceComponent implements OnInit {
   accounts:Account[];
   participants:Participants[];
   apiToken = environment.MAPBOXAPIKEY;
+  bill:any;
 
 
   constructor(private api:ApiService, private dataService:DataService, private sanitizer:DomSanitizer) {
     this.accounts=[];
+    this.bill=null;
     this.participants=[];
     this.activity ={
       username:"",
@@ -89,49 +91,6 @@ export class InfoRaceComponent implements OnInit {
 
     })
   }
-  setRoute(data: any) {
-    //let objectURL = 'data:application/octet-stream;base64,' + data;
-    let objectURL = 'data:application/gpx+xml;base64,' + data;
-    return objectURL
-  }
-
-  displayMap(mapId: string, route: any) {
-    console.log("This is the map: " + mapId);
-    let routeGPX = this.setRoute(route);
-    console.log(routeGPX);
-    setTimeout(() => {
-      const container = document.getElementById(mapId);
-      if (container) {
-        var myStyle = {
-          "color": "#3949AB",
-          "weight": 5,
-          "opacity": 0.95
-        };
-
-        var map = L.map(mapId).setView(defaultCoords, defaultZoom);
-
-        map.maxZoom = 100;
-
-        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-          attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-          maxZoom: 18,
-          id: 'mapbox/streets-v11',
-          accessToken: this.apiToken
-        }).addTo(map);
-
-        var customLayer = L.geoJson(null, {
-          style: myStyle
-        });
-
-        //this.gpxData
-        var gpxLayer = omnivore.gpx(routeGPX, null, customLayer)
-          .on('ready', function () {
-            map.fitBounds(gpxLayer.getBounds());
-          }).addTo(map);
-
-      }
-    }, 100);
-  }
   /**
    * This function asks to the api for the race's sponsors information
    */
@@ -145,6 +104,10 @@ export class InfoRaceComponent implements OnInit {
       this.Sponsors =data;
 
   })
+  }
+  loadBill(bill:string){
+    let objectURL = 'data:image/jpeg;base64,' + bill;
+    this.bill=this.sanitizer.bypassSecurityTrustUrl(objectURL);
   }
   loadAccounts(){
     this.api.getBankAccounts(this.dataService.raceId).subscribe((data:any) =>{

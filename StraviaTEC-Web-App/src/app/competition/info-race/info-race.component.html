@@ -48,7 +48,9 @@
             <td>{{member.firstName}}</td>
             <td>{{member.firstSurname}} {{member.secondSurname}}</td>
             <td>3{{member.age}}</td>
-            <td><button id="buttons" class="btn btn-primary" type="button">See</button></td>
+            <td><button type="button" id="buttons" class="btn btn-primary" (click)="loadBill(member.bill)" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+              see
+            </button></td>
             <td><button id="buttons" class="btn btn-primary" type="button" (click)="deleteMember(member.userName)">Delete</button></td>
           </tr>
         </tbody>
@@ -60,4 +62,20 @@
     </div>
   </div>
 
+</div>
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">User Bill</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <img [src]="bill" id="bill">
+      </div>
+      <div class="modal-footer">
+        <button id="buttons" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
