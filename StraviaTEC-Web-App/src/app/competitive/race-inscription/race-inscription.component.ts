@@ -36,7 +36,7 @@ export class RaceInscriptionComponent implements OnInit {
     }
   }
 
-  confirm(blob: any) {
+  async confirm(blob: any) {
     //this.paymentChecker();
     /*if (!this.isEmpty) {
       let form: JoinRaceI = {
@@ -58,9 +58,10 @@ export class RaceInscriptionComponent implements OnInit {
       activityid: this.race.activityID
     }
     console.log(form);
-    /*this.api.joinRace(form).subscribe(data => {
+    this.api.joinRace(form).subscribe(data => {
       console.log(data);
-    });*/
+    });
+    await new Promise(f => (setTimeout(f, 200)));
     this.toastr.success("Successfully inscripted to " + this.race.name + "!", "Success");
   }
 

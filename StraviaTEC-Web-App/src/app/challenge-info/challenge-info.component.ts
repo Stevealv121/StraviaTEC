@@ -31,7 +31,10 @@ export class ChallengeInfoComponent implements OnInit {
     this.api.getChallengeNumbers(id, this.data.currentUser?.userName).subscribe(data => {
       console.log(data);
       this.challenge.progress = data[0].percentage;
-      this.hasProgress = true;
+      if(this.challenge.progress != null){
+        this.hasProgress = true;
+      }
+      
     });
     await new Promise(f => (setTimeout(f, 100)));
   }
