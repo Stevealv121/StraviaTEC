@@ -27,7 +27,6 @@ export class InfoRaceComponent implements OnInit {
   Sponsors:Sponsor[];
   accounts:Account[];
   participants:Participants[];
-  apiToken = environment.MAPBOXAPIKEY;
   bill:any;
   user:string;
 
