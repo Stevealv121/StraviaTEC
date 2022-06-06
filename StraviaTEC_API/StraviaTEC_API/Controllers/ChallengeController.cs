@@ -174,15 +174,26 @@ namespace StraviaTEC_API.Controllers
         /// <returns>
         /// NoContent()
         /// </returns>
-        [HttpPost("JoinChallenge/{_username}/{_challengeid}")]
-        public async Task<IActionResult> Join(string _username, int _challengeid)
+        [HttpPost("JoinChallenge/{_username}/{_challengeid}/{_activityid}")]
+        public async Task<IActionResult> Join(string _username, int _challengeid, int _activityid)
         {
 
             var db = dbConnection();
-            var sql = @"EXEC JoinChallenge @username, @challengeid";
-            var result = await db.ExecuteAsync(sql, new { username = _username, challengeid = _challengeid });
+            var sql = @"EXEC JoinChallenge @username, @challengeid, @activityid";
+            var result = await db.ExecuteAsync(sql, new { username = _username, challengeid = _challengeid, activityid = _activityid });
 
             return NoContent();
+        }
+
+        [HttpPut("JoinChallenge/InputActivity/{_activityid}/{_challengeid}/{_username}")]
+        public async Task<IActionResult> InputActivity(int _activityid, int _challengeid, string _username)
+        {
+            var db = dbConnection();
+            var sql = @"EXEC UpdateJoinChallenge @challengeid, @activityid, @username";
+            var result = await db.ExecuteAsync(sql, new { activityid = _activityid, challengeid = _challengeid, username = _username });
+
+            return Ok(result);
+
         }
         /// <summary>
         /// This function is called when a user wants to exit a challenge. It deletes a row from the database 
@@ -215,6 +226,14 @@ namespace StraviaTEC_API.Controllers
             var db = dbConnection();
             var sql = @"EXEC SelectAllJoinsChallenge";
             return Ok(await db.QueryAsync<JoinChallenge>(sql, new { }));
+        }
+
+        [HttpGet("ChallengeNumbers/{_challengeid}/{_username}")]
+        public async Task<IActionResult> GetUserNumbers(int _challengeid, string _username)
+        {
+            var db = dbConnection();
+            var sql = @"EXEC GetChallengeNumbers @challengeid, @username";
+            return Ok(await db.QueryAsync<ChallengeNumbers>(sql, new { challengeid = _challengeid, username = _username }));
         }
     }
 }
