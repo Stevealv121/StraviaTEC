@@ -25,6 +25,7 @@ import { GroupManagementComponent } from './group-management/group-management.co
 import { NewGroupComponent } from './group-management/new-group/new-group.component';
 import { GroupGestionComponent } from './group-management/group-gestion/group-gestion.component';
 import { MyActivitiesComponent } from './my-activities/my-activities.component';
+import { ChallengeInfoComponent } from './challenge-info/challenge-info.component';
 
 const routes: Routes = [
   { path: "", pathMatch: "full", redirectTo: "/login" },
@@ -51,7 +52,8 @@ const routes: Routes = [
   { path: "GroupsManagement", component: GroupManagementComponent },
   { path: "NewGroup", component: NewGroupComponent },
   { path: "GroupInfo", component: GroupGestionComponent },
-  { path: "my-activities", component: MyActivitiesComponent }
+  { path: "my-activities", component: MyActivitiesComponent },
+  { path: "challenge-info", component: ChallengeInfoComponent }
 ];
 
 @NgModule({

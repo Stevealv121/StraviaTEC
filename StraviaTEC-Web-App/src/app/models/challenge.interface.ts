@@ -9,5 +9,5 @@ export interface ChallengeI {
     color: string, font: string, btn: string
     //Progress
     progress: number | null;
-    goal: number | null;
+    goal: any;
 }

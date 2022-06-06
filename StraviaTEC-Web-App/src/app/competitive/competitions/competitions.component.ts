@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ChallengeI } from 'src/app/models/challenge.interface';
 import { RaceI } from 'src/app/models/race.interface';
 import { UserI } from 'src/app/models/user.interface';
@@ -12,7 +13,7 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class CompetitionsComponent implements OnInit {
 
-  constructor(private data: DataService, private api: ApiService) { }
+  constructor(private data: DataService, private api: ApiService, private router: Router) { }
 
   hasRaces: boolean = false;
   hasChallenges: boolean = false;
@@ -41,29 +42,15 @@ export class CompetitionsComponent implements OnInit {
   setChallenges() {
     this.api.getChallengeByUser(this.user?.userName).subscribe(data => {
       if (data.length != 0) {
-        let array = data;
-        array.forEach(element => {
-          element.goal = this.getGoal(element.activityId);
-          element.progress = this.getProgress(element.activityId);
-        })
-        this.challenges = array;
+        this.challenges = data;
         this.hasChallenges = true
       }
     })
   }
 
-  getGoal(id: number) {
-    let goal: number = 0;
-    this.api.getActivityById(id).subscribe(data => {
-      goal = data.mileage;
-    })
-    return goal;
-  }
-
-  getProgress(id: number) {
-    let progress: number = 0;
-    //TODO get progress
-    return progress;
+  moreInfo(selectedChallenge: any) {
+    this.data.selectedChallenge = selectedChallenge;
+    this.router.navigateByUrl("/challenge-info");
   }
 
 }

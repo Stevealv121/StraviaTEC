@@ -31,6 +31,7 @@ import { GroupManagementComponent } from './group-management/group-management.co
 import { NewGroupComponent } from './group-management/new-group/new-group.component';
 import { GroupGestionComponent } from './group-management/group-gestion/group-gestion.component';
 import { MyActivitiesComponent } from './my-activities/my-activities.component';
+import { ChallengeInfoComponent } from './challenge-info/challenge-info.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { MyActivitiesComponent } from './my-activities/my-activities.component';
     GroupManagementComponent,
     NewGroupComponent,
     GroupGestionComponent,
-    MyActivitiesComponent
+    MyActivitiesComponent,
+    ChallengeInfoComponent
   ],
   imports: [
     BrowserModule,

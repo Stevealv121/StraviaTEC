@@ -110,14 +110,13 @@
                         <div class="card-body">
                             <div class="row mb-3">
                                 <div id="race-name" class="col">
-                                    <h4>Name</h4>
+                                    <h4>{{challenge.name}}</h4>
                                     <br>
                                     <ul>
-                                        <li>Goal: {{challenge.goal}} km</li>
-                                        <li>Progress: <progress [value]="challenge.progress" max="100"> 0% </progress>
-                                        </li>
                                         <li>Valid thru: {{challenge.validThru}}</li>
                                     </ul>
+                                    <button (click)="moreInfo(challenge)" class="btn btn-primary" id="buttons">More
+                                        Info</button>
                                 </div>
                             </div>
                         </div>

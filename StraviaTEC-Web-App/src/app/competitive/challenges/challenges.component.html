@@ -9,13 +9,16 @@
             <div id="challengeCard" class="card">
                 <div class="card-body">
                     <h5>{{challenge.name}}</h5>
-                    <p>Goal: {{challenge.goal}} km</p>
                     <p>{{challenge.type}}</p>
                     <p>Until: {{challenge.validThru}}</p>
-                    <button class="btn btn-primary" [ngStyle]="{
-                        'background-color' : challenge.color,
-                        'color' : challenge.font
-                      }" (click)="joinChallenge(challenge.id)" id="buttons">{{challenge.btn}}</button>
+                    <div class="row">
+                        <div class="col-md-auto"><button class="btn btn-primary" [ngStyle]="{
+                            'background-color' : challenge.color,
+                            'color' : challenge.font
+                          }" (click)="joinChallenge(challenge.id)" id="buttons">{{challenge.btn}}</button></div>
+                        <div class="col"><img id="info" (click)="moreInfo(challenge)" src="assets/images/info.png">
+                        </div>
+                    </div>
                     <!--joinChallenge(challenge.id)-->
                 </div>
             </div>

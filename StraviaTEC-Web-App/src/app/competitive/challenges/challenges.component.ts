@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { ChallengeI } from 'src/app/models/challenge.interface';
+import { GoalI } from 'src/app/models/goals.interface';
 import { ApiService } from 'src/app/services/api.service';
 import { DataService } from 'src/app/services/data.service';
+import { from, of } from 'rxjs';
+import { delay } from 'rxjs/internal/operators';
+import { concatMap } from 'rxjs/internal/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-challenges',
@@ -11,27 +16,10 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class ChallengesComponent implements OnInit {
 
-  constructor(private api: ApiService, private data: DataService) { }
-  // challengesMatrix = [[{ id: 1, color: '#00AF3D', font: 'white', btn: 'Join Challenge' },
-  // { id: 2, color: '#00AF3D', font: 'white', btn: 'Join Challenge' },
-  // { id: 3, color: '#00AF3D', font: 'white', btn: 'Join Challenge' },
-  // { id: 4, color: '#00AF3D', font: 'white', btn: 'Join Challenge' },
-  // { id: 5, color: '#00AF3D', font: 'white', btn: 'Join Challenge' }],
-  // [{ id: 6, color: '#00AF3D', font: 'white', btn: 'Join Challenge' },
-  // { id: 7, color: '#00AF3D', font: 'white', btn: 'Join Challenge' },
-  // { id: 8, color: '#00AF3D', font: 'white', btn: 'Join Challenge' },
-  // { id: 9, color: '#00AF3D', font: 'white', btn: 'Join Challenge' },
-  // { id: 10, color: '#00AF3D', font: 'white', btn: 'Join Challenge' }],
-  // [{ id: 11, color: '#00AF3D', font: 'white', btn: 'Join Challenge' },
-  // { id: 12, color: '#00AF3D', font: 'white', btn: 'Join Challenge' },
-  // { id: 13, color: '#00AF3D', font: 'white', btn: 'Join Challenge' },
-  // { id: 14, color: '#00AF3D', font: 'white', btn: 'Join Challenge' },
-  // { id: 15, color: '#00AF3D', font: 'white', btn: 'Join Challenge' }],
-  // [{ id: 16, color: '#00AF3D', font: 'white', btn: 'Join Challenge' },
-  // { id: 17, color: '#00AF3D', font: 'white', btn: 'Join Challenge' },
-  // { id: 18, color: '#00AF3D', font: 'white', btn: 'Join Challenge' }]];
+  constructor(private api: ApiService, private data: DataService, private router: Router) { }
 
   challengesMatrix: ChallengeI[][] = [];
+  goals: GoalI[] = [];
 
 
   ngOnInit(): void {
@@ -83,7 +71,7 @@ export class ChallengesComponent implements OnInit {
   }
 
   setButtonsValues(data: ChallengeI) {
-    let goal = this.getGoal(data.activityId);
+
     let dataFormatted: ChallengeI = {
       id: data.id,
       validThru: data.validThru,
@@ -97,18 +85,16 @@ export class ChallengesComponent implements OnInit {
       btn: 'Join Challenge',
       //More
       progress: null,
-      goal: goal
+      goal: null
     }
 
     return dataFormatted
   }
 
-  getGoal(id: number) {
-    let goal: number = 0;
-    this.api.getActivityById(id).subscribe(data => {
-      goal = data.mileage;
-    })
-    return goal;
+  moreInfo(selectedChallenge: any) {
+    this.data.selectedChallenge = selectedChallenge;
+    this.router.navigateByUrl("/challenge-info");
   }
+
 
 }
