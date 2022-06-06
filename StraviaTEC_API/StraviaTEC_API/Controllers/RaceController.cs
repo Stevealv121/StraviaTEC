@@ -266,6 +266,14 @@ namespace StraviaTEC_API.Controllers
 
             return Ok(result);
         }
+        /// <summary>
+        /// This function deletes a record from the RaceSponsor table
+        /// </summary>
+        /// <param name="_raceid">int</param>
+        /// <param name="_sponsorid">1</param>
+        /// <returns>
+        /// NoContent()
+        /// </returns>
         [HttpDelete("CancelRaceSponsor/{_raceid}/{_sponsorid}")]
         public async Task<IActionResult> CancelSponsor(int _raceid, int _sponsorid)
         {
@@ -276,6 +284,13 @@ namespace StraviaTEC_API.Controllers
 
             return NoContent();
         }
+        /// <summary>
+        /// This function returns a list of sponsors for a given race
+        /// </summary>
+        /// <param name="_raceid">The id of the race you want to get the sponsors for.</param>
+        /// <returns>
+        /// A list of RaceSponsors
+        /// </returns>
         [HttpGet("Sponsors/ById/{_raceid}")]
         public async Task<IActionResult> GetRaceSponsors(int _raceid)
         {
@@ -285,6 +300,13 @@ namespace StraviaTEC_API.Controllers
 
         }
 
+        /// <summary>
+        /// It takes a race id, and returns a list of bank accounts associated with that race
+        /// </summary>
+        /// <param name="_raceid">The id of the race</param>
+        /// <returns>
+        /// A list of BankAccounts
+        /// </returns>
         [HttpGet("BankAccount/ById/{_raceid}")]
         public async Task<IActionResult> GetRaceAccounts(int _raceid)
         {
@@ -293,6 +315,14 @@ namespace StraviaTEC_API.Controllers
             return Ok(await db.QueryAsync<BankAccount>(sql, new { id = _raceid }));
 
         }
+        /// <summary>
+        /// This function deletes a bank account from the database
+        /// </summary>
+        /// <param name="_raceid">int</param>
+        /// <param name="_account">int</param>
+        /// <returns>
+        /// NoContent()
+        /// </returns>
         [HttpDelete("BankAccount/{_raceid}/{_account}")]
         public async Task<IActionResult> CancelAccount(int _raceid, int _account)
         {
@@ -303,6 +333,14 @@ namespace StraviaTEC_API.Controllers
 
             return NoContent();
         }
+        /// <summary>
+        /// This function is called by the front end to assign a bank account to a race
+        /// </summary>
+        /// <param name="_raceid">The id of the race</param>
+        /// <param name="_account">int</param>
+        /// <returns>
+        /// The result of the stored procedure.
+        /// </returns>
         [HttpPost("BankAccount/{_raceid}/{_account}")]
         public async Task<IActionResult> AssignAccount(int _raceid, int _account)
         {
@@ -313,6 +351,12 @@ namespace StraviaTEC_API.Controllers
 
             return Ok(result);
         }
+        /// <summary>
+        /// This function is used to get all the join race data from the database
+        /// </summary>
+        /// <returns>
+        /// A list of JoinRace objects.
+        /// </returns>
         [HttpGet("AllJoinRace")]
         public async Task<IActionResult> GetAllJoinRace()
         {

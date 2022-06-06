@@ -1,5 +1,6 @@
 ﻿namespace StraviaTEC_API
 {
+    /* The ChallengeNumbers class has three properties: Goal, Progress, and Percentage. */
     public class ChallengeNumbers
     {
         public int Goal { get; set; }

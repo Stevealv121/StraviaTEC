@@ -228,6 +228,15 @@ namespace StraviaTEC_API.Controllers
             return Ok(await db.QueryAsync<JoinChallenge>(sql, new { }));
         }
 
+        /// <summary>
+        /// It takes a challengeid and a username and returns a list of numbers that the user has
+        /// entered for that challenge
+        /// </summary>
+        /// <param name="_challengeid">The id of the challenge</param>
+        /// <param name="_username">The username of the user who is logged in</param>
+        /// <returns>
+        /// A list of ChallengeNumbers objects.
+        /// </returns>
         [HttpGet("ChallengeNumbers/{_challengeid}/{_username}")]
         public async Task<IActionResult> GetUserNumbers(int _challengeid, string _username)
         {

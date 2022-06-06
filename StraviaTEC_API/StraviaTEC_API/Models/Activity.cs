@@ -4,6 +4,8 @@ using System.Data;
 using System.Xml;
 namespace StraviaTEC_API
 {
+   /* The class Activity has a string Username, an int Id, a DateTime Date, a TimeSpan Duration, an int
+   Mileage, a byte[] Route, and a string SportName */
     public class Activity
     {
         public string? Username { get; set; }
