@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace StraviaTEC_API
 {
+    /* The class is called Adds and it has two properties: UserName and FriendUserName */
     public class Adds
     {
         public string UserName { get; set; }

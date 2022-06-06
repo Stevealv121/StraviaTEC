@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace StraviaTEC_API
 {
+    /* The Challenge class has an Id, ValidThru, Type, Access, Name, and ActivityId */
     public class Challenge
     {
         public int Id { get; set; }

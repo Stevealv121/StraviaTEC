@@ -39,18 +39,7 @@ INNER JOIN ACTIVITY as a
 ON r.ActivityID = a.Id
 
 GO
-CREATE VIEW [RacesandUsers] AS
-SELECT r.ID,u.UserName, u.FirstName, u.SecondName, u.FirstSurname, u.SecondSurname, jr.Bill, a.Duration, c.Age, c.CategoryName
-FROM RACE AS r
-INNER JOIN JOIN_RACE as jr
-ON jr.Race_ID = r.ID
-INNER JOIN [USER] as u
-ON u.UserName = jr.UserName
-INNER JOIN ACTIVITY as a
-ON jr.Activityid = a.Id
-INNER JOIN [UsersandCategory] as c
-ON c.UserName = jr.UserName
-GO
+
 --DROP VIEW RacesandUsers
 CREATE VIEW [RacesandSponsors] AS
 SELECT r.ID, r.[Name], r.Cost, r.[Date], r.Access, r.ActivityID, r.CategoryName, sr.SponsorId, 
@@ -68,16 +57,6 @@ INNER JOIN MANAGES AS m
 ON g.[Name] = m.GroupID
 GO
 
-CREATE VIEW [GroupsandMembers] AS
-SELECT g.[Name], m.UserName, u.FirstName, u.SecondName, u.FirstSurname, u.SecondSurname, a.Age
-FROM [GROUP] AS g
-INNER JOIN BelongsTo AS m
-ON g.[Name] = m.GroupId
-INNER JOIN UserandAge a
-ON a.UserName = m.UserName
-INNER JOIN [USER] as u
-ON u.UserName = a.UserName
-GO 
 --DROP VIEW [GroupsandMembers]
 CREATE VIEW [UserandAge] AS
 SELECT u.UserName,DATEDIFF(hour,u.BirthDate,GETDATE())/8766 AS Age
@@ -97,5 +76,28 @@ ON a.Id = r.ActivityID
 LEFT JOIN CHALLENGE as c
 ON a.Id = c.ActivityId
 GO
+
+CREATE VIEW [RacesandUsers] AS
+SELECT r.ID,u.UserName, u.FirstName, u.SecondName, u.FirstSurname, u.SecondSurname, jr.Bill, a.Duration, c.Age, c.CategoryName
+FROM RACE AS r
+INNER JOIN JOIN_RACE as jr
+ON jr.Race_ID = r.ID
+INNER JOIN [USER] as u
+ON u.UserName = jr.UserName
+INNER JOIN ACTIVITY as a
+ON jr.Activityid = a.Id
+INNER JOIN [UsersandCategory] as c
+ON c.UserName = jr.UserName
+GO
+
+CREATE VIEW [GroupsandMembers] AS
+SELECT g.[Name], m.UserName, u.FirstName, u.SecondName, u.FirstSurname, u.SecondSurname, a.Age
+FROM [GROUP] AS g
+INNER JOIN BelongsTo AS m
+ON g.[Name] = m.GroupId
+INNER JOIN UserandAge a
+ON a.UserName = m.UserName
+INNER JOIN [USER] as u
+ON u.UserName = a.UserName
+GO 
 --DROP VIEW [RaceChallengeActivity]
-select * from RacesandActivities

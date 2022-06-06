@@ -1,6 +1,7 @@
 ﻿using System.Xml;
 namespace StraviaTEC_API
 {
+    /* It's a class that contains a bunch of properties that are used to store data from a database */
     public class FriendPost
     {
         public string UserName { get; set; }

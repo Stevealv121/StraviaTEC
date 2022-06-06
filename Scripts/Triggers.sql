@@ -1,10 +1,10 @@
 CREATE TRIGGER DeleteGroupTrigger
-ON [BelongsTo]
+ON Manages
 FOR DELETE 
 AS
 BEGIN
 	DELETE
-	FROM MANAGES
+	FROM BelongsTo
 	WHERE GroupId IN(SELECT deleted.GroupId FROM deleted)
 	DELETE
 	FROM [GROUP]
@@ -12,7 +12,7 @@ BEGIN
 	
 END
 GO
-
+--DROP TRIGGER DeleteGroupTrigger
 CREATE TRIGGER DeleteRaceTrigger
 ON [RacesandActivities]
 INSTEAD OF DELETE 

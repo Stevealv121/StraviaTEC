@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace StraviaTEC_API
 {
+    /* The Category class has four properties: Name, Description, MinAge, and MaxAge */
     public class Category
     {
         public string Name { get; set; }

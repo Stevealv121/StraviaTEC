@@ -153,10 +153,18 @@ ON j.Challenge_ID = c.Id
 WHERE j.UserName = @UserName
 GO
 
-CREATE PROCEDURE JoinChallenge @UserName varchar(15), @Challenge_ID varchar(15)
+CREATE PROCEDURE JoinChallenge @UserName varchar(15), @Challenge_ID int, @Activity_ID int
 AS
-INSERT INTO JOIN_CHALLENGE(UserName, Challenge_ID)
-VALUES (@UserName, @Challenge_ID)
+INSERT INTO JOIN_CHALLENGE
+VALUES (@UserName, @Challenge_ID, @Activity_ID)
+GO
+
+CREATE PROCEDURE UpdateJoinChallenge @ChallengeID int,@ActivityID int, @UserName varchar(15)
+AS
+UPDATE JOIN_CHALLENGE 
+SET 
+    Activity_ID = @ActivityID
+WHERE Challenge_ID = @ChallengeID AND UserName = @UserName
 GO
 
 CREATE PROCEDURE ExitChallenge @UserName varchar(15), @Challenge_ID varchar(15)
@@ -171,6 +179,29 @@ SELECT *
 FROM JOIN_CHALLENGE
 GO
 
+CREATE PROCEDURE GetChallengeNumbers  @ChallengeID int, @UserName varchar(15)
+AS
+BEGIN
+DECLARE @goal int
+DECLARE @userprogress int
+DECLARE @percentage int
+
+SELECT @goal = Mileage
+FROM ACTIVITY
+WHERE Id = (SELECT ActivityId FROM CHALLENGE WHERE Id = @ChallengeID)
+
+SELECT @userprogress = Mileage
+FROM ACTIVITY
+WHERE Id = (SELECT Activity_ID FROM JOIN_CHALLENGE WHERE Challenge_ID = @ChallengeID AND UserName = @UserName)
+
+SET @percentage = (@userprogress*100)/@goal
+
+SELECT @goal AS Goal, @userprogress AS Progress, @percentage AS [Percentage]
+
+END
+GO
+-- EXEC GetChallengeNumbers 4, nati
+-- DROP PROCEDURE GetChallengeNumbers
 --RACE
 CREATE PROCEDURE SelectAllJoinsRace
 AS

@@ -175,7 +175,7 @@ GO
 CREATE PROCEDURE DeleteGroup @Name varchar(15)
 AS
 DELETE 
-FROM BelongsTo 
+FROM Manages 
 WHERE GroupId = @Name
 GO
 
