@@ -47,6 +47,15 @@ export class MyActivitiesComponent implements OnInit {
     this.setUserNumbers();
   }
 
+  /**
+   * It takes a string as a parameter, then it gets all the users from the database, then it loops
+   * through all the users and checks if the username matches the parameter, if it does, it checks if
+   * the user has a profile picture, if not, it sets the profile picture to a default image, if it
+   * does, it sets the profile picture to the user's profile picture.
+   * 
+   * @param {any} author - string
+   * @returns the profilePicture variable.
+   */
   async setProfilePicture(author: any) {
     let profilePicture;
     this.api.getAllUsers().subscribe(data => {
@@ -68,6 +77,14 @@ export class MyActivitiesComponent implements OnInit {
     return profilePicture;
   }
 
+  /**
+   * It display a map with a route on it. The route is a GPX file that it loads from a
+   * URL. 
+   * 
+   * @param {string} mapId - string - the id of the div that will contain the map
+   * @param {any} route - this is the route object that contains the GPX data
+   * @param {any} index - the index of the route in the array of routes
+   */
   displayMap(mapId: string, route: any, index: any) {
     console.log("This is the map: " + mapId);
     let routeGPX = this.setRoute(route, index);
@@ -104,6 +121,10 @@ export class MyActivitiesComponent implements OnInit {
     }, 100);
   }
 
+  /**
+   * It gets the user's activities from the database, then loads all the routes, then sets the
+   * hasActivities variable to true, then for each activity, it gets the comments for that activity.
+   */
   setActivities() {
     this.api.getUserActivities(this.user?.userName).subscribe(data => {
       this.myActivities = data;
@@ -115,6 +136,16 @@ export class MyActivitiesComponent implements OnInit {
     })
   }
 
+  /**
+   * It takes the form data and the id of the activity, creates a new comment object, and then sends it
+   * to the API. 
+   * 
+   * The API then returns the data, which is then pushed to the comments array. 
+   * 
+   * The showComments function is then called to update the comments section.
+   * @param {any} form - any, id: any
+   * @param {any} id - the id of the activity
+   */
   postComment(form: any, id: any) {
     let right_now = new Date();
     let new_comment: CommentI = {
@@ -134,6 +165,11 @@ export class MyActivitiesComponent implements OnInit {
     })
   }
 
+  /**
+   * It gets the comments from the database, then it gets the profile picture of the author of the
+   * comment, then it pushes the comment to an array.
+   * @param {any} id - the id of the activity
+   */
   setComments(id: any) {
     this.api.getActivityComments(id).subscribe(data => {
       let commentsMongo = data;
@@ -163,6 +199,10 @@ export class MyActivitiesComponent implements OnInit {
     })
   }
 
+  /**
+   * For each activity in myActivities, create a map with the id of map + the activity's id, and
+   * display the route on the map.
+   */
   loadAllRoutes() {
     for (let i = 0; i < this.myActivities.length; i++) {
       var indexToString = this.myActivities[i].id?.toString();
@@ -170,12 +210,23 @@ export class MyActivitiesComponent implements OnInit {
     }
   }
 
+  /**
+   * It takes a base64 encoded string and returns a URL that can be used to download the file
+   * @param {any} data - any - this is the data that is returned from the API call.
+   * @param {any} i - the index of the route in the array of routes
+   * @returns The data is being returned as a string.
+   */
   setRoute(data: any, i: any) {
     //let objectURL = 'data:application/octet-stream;base64,' + data;
     let objectURL = 'data:application/gpx+xml;base64,' + data;
     return objectURL
   }
 
+  /**
+   * It loops through the array of objects and if the id of the object matches the id passed in, it
+   * sets the lessComments property to true and the moreComments property to false.
+   * @param {any} id - the id of the activity
+   */
   showComments(id: any) {
 
     this.myActivities.forEach(element => {
@@ -185,6 +236,11 @@ export class MyActivitiesComponent implements OnInit {
       }
     })
   }
+  /**
+   * It loops through the array of objects and if the id of the object matches the id passed in, it
+   * sets the lessComments property to false and the moreComments property to true.
+   * @param {any} id - the id of the activity
+   */
   showLessComments(id: any) {
 
     this.myActivities.forEach(element => {
@@ -195,6 +251,10 @@ export class MyActivitiesComponent implements OnInit {
     })
   }
 
+  /**
+   * It checks if the activity has comments and if it does, it sets the hasComments property to true.
+   * @param {any} id - the id of the activity
+   */
   checkIfHasComments(id: any) {
 
     this.myActivities.forEach(element => {
@@ -205,6 +265,11 @@ export class MyActivitiesComponent implements OnInit {
     })
   }
 
+  /**
+   * It gets the user's followers, following, and activities from the database and assigns them to the
+   * variables in the component.
+   * </code>
+   */
   setUserNumbers() {
     this.api.getUserNumbers(this.user?.userName).subscribe(data => {
       console.log(data);

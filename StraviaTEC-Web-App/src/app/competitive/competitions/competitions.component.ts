@@ -32,6 +32,9 @@ export class CompetitionsComponent implements OnInit {
     //this.setLeaderboards();
   }
 
+  /**
+   * It gets the races from the database and assigns them to the races variable.
+   */
   setRaces() {
     this.api.getRaceByUser(this.user?.userName).subscribe(data => {
       if (data.length != 0) {
@@ -41,6 +44,9 @@ export class CompetitionsComponent implements OnInit {
     });
   }
 
+  /**
+   * This function gets the challenges from the database and sets them to the challenges variable.
+   */
   setChallenges() {
     this.api.getChallengeByUser(this.user?.userName).subscribe(data => {
       if (data.length != 0) {
@@ -50,11 +56,21 @@ export class CompetitionsComponent implements OnInit {
     });
   }
 
+  /**
+   * When the user clicks on a challenge, the challenge is passed to the challenge-info component and
+   * the user is navigated to the challenge-info page.
+   * @param {any} selectedChallenge - any
+   */
   moreInfo(selectedChallenge: any) {
     this.data.selectedChallenge = selectedChallenge;
     this.router.navigateByUrl("/challenge-info");
   }
 
+  /**
+   * This function takes in a selectedRace object and sets it to the selectedRace property of the data
+   * service, then navigates to the leaderboard page.
+   * @param {any} selectedRace - any
+   */
   goToLeaderboard(selectedRace: any) {
     this.data.selectedRace = selectedRace;
     this.router.navigateByUrl("/leaderboard");

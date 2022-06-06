@@ -20,29 +20,23 @@ export class FindRaceComponent implements OnInit {
     this.setRaces();
   }
 
+  /**
+   *"When the user clicks on a race, the race is stored in the data service and the user is redirected
+   * to the race-inscription page.
+   * @param {any} race - any
+   */
   pickRace(race: any) {
     this.data.selectedRace = race;
     console.log(this.data.selectedRace);
     this.router.navigateByUrl("race-inscription");
   }
 
+  /**
+   * It gets all the races from the database, then get the races that the user is already in,
+   * and then remove the races that the user is already in from the list of races.
+   * 
+   */
   async setRaces() {
-    /*this.api.getRaces().subscribe(data => {
-      this.races = data;
-
-      this.api.getRaceByUser(this.data.currentUser?.userName).subscribe(rsp => {
-        console.log(rsp);
-        this.races.forEach((element, index) => {
-          if (rsp[0].id == element.id) {
-            this.races.splice(index, 1);
-          }
-        });
-      });
-
-      console.log(this.races);
-    });*/
-    
-    //TODO: Populate DB
     this.api.getRacesByUserCategory(this.data.currentUser?.userName).subscribe(data => {
       this.races = data;
       this.api.getRaceByUser(this.data.currentUser?.userName).subscribe(rsp => {

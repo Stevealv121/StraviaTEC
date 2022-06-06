@@ -54,6 +54,12 @@ export class UploadActivityComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+   * If the user selects "Race" from the dropdown, then the function will call the API to get all the
+   * races that the user has created and display them in a table. 
+   * If the user selects "Challenge" from the dropdown, then the function will call the API to get all
+   * the challenges that the user has created and display them in a table.
+   */
   setRaceVisibility() {
     if (this.selectedOption2 == "Race") {
       this.api.getRaceByUser(this.data.currentUser?.userName).subscribe(data => {
@@ -75,16 +81,42 @@ export class UploadActivityComponent implements OnInit {
     }
   }
 
+  /**
+   * When the user clicks the 'Put Challenge' button, the selectedChallenge variable is set to the
+   * challengeOptionsModel variable, and the finishing variable is set to 'Challenge'.
+   */
   putChallenge() {
     this.selectedChallenge = this.challengeOptionsModel;
     this.finishing = 'Challenge';
   }
 
+  /**
+   * The function is called when the user clicks the "Race" button. The function then sets the
+   * selectedRace variable to the value of the selectedOption3 variable, and sets the finishing
+   * variable to "Race".
+   */
   putRace() {
     this.selectedRace = this.selectedOption3;
     this.finishing = 'Race';
   }
 
+  /**
+   * It takes the postedActivityID, selectedChallenge, and currentUser's userName and sends it to the
+   * API to be processed. 
+   * 
+   * The postedActivityID is the ID of the activity that was just posted. 
+   * 
+   * The selectedChallenge is the challenge that the user selected from the dropdown. 
+   * 
+   * The currentUser's userName is the userName of the user that is currently logged in. 
+   * 
+   * The API then takes the postedActivityID, selectedChallenge, and currentUser's userName and
+   * processes it. 
+   * 
+   * The API then returns a response. 
+   * 
+   * The response is then logged to the console.
+   */
   finishChallenge() {
     this.api.finishChallenge(this.postedActivityID, this.selectedChallenge,
       this.data.currentUser?.userName).subscribe(data => {
@@ -92,6 +124,11 @@ export class UploadActivityComponent implements OnInit {
       });
   }
 
+  /**
+   * This function is called when the user clicks the finish button, and it calls the finishRace
+   * function in the api service, which sends a post request to the server with the postedActivityID,
+   * selectedRace, and currentUser's userName.
+   */
   finishRace() {
     this.api.finishRace(this.postedActivityID, this.selectedRace,
       this.data.currentUser?.userName).subscribe(data => {
@@ -99,10 +136,12 @@ export class UploadActivityComponent implements OnInit {
       })
   }
 
-  // getPostedActivityID(){
-  //   this.api.getActivityById()
-  // }
-
+  /**
+   * It posts an activity to the database, then if the activity was part of a race or challenge, it
+   * finishes the race or challenge.
+   * 
+   * @param {any} form - any
+   */
   async uploadActivity(form: any) {
 
     if (this.data.currentUser) {
@@ -149,6 +188,12 @@ export class UploadActivityComponent implements OnInit {
   }
 
 
+  /**
+   * It takes a file, converts it to a base64 string, and then splits the string into two parts, the
+   * first part being the file type, and the second part being the actual file.
+   * 
+   * @param {any} event - any - the event that is triggered when the file is uploaded
+   */
   async uploadFile(event: any) {
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();

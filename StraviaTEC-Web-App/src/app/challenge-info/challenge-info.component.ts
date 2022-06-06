@@ -22,6 +22,10 @@ export class ChallengeInfoComponent implements OnInit {
     }
   }
 
+  /**
+   * Get the goal from the API, then wait 100ms before returning the goal.
+   * @param {number} id - number - the id of the activity
+   */
   async getGoal(id: number) {
     this.api.getActivityById(id).subscribe(data => {
       this.challenge.goal = data.mileage;
@@ -29,6 +33,11 @@ export class ChallengeInfoComponent implements OnInit {
     await new Promise(f => (setTimeout(f, 100)));
   }
 
+  /**
+   * It gets the progress of a challenge from an API and sets the progress to a variable.
+   * 
+   * @param {number} id - number = the id of the challenge
+   */
   async getProgress(id: number) {
     this.api.getChallengeNumbers(id, this.data.currentUser?.userName).subscribe(data => {
       console.log(data);

@@ -244,6 +244,10 @@ export class ProfileComponent implements OnInit {
     this.displayValues();
   }
 
+  /**
+   * It displays the values of the user object in the HTML.
+   * </code>
+   */
   displayValues() {
     this.FNDisplay.nativeElement.getElementsByTagName('strong')[0].innerHTML = this.user?.firstName;
     this.SNDisplay.nativeElement.getElementsByTagName('strong')[0].innerHTML = this.user?.secondName;
@@ -254,6 +258,12 @@ export class ProfileComponent implements OnInit {
     this.LDisplay.nativeElement.getElementsByTagName('strong')[0].innerHTML = this.user?.level;
   }
 
+  /**
+   * It gets the base64 string from the file input and then assign it to a variable in my
+   * component.
+   * 
+   * @param {any} event - any - the event that is triggered when the user selects a file
+   */
   async onSelectFile(event: any) {
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();
@@ -275,6 +285,11 @@ export class ProfileComponent implements OnInit {
     }
   }
 
+  /**
+   * It takes a string as a parameter and depending on the string, it hides the display element and
+   * shows the input element.
+   * @param {any} set - any
+   */
   edit(set: any) {
     switch (set) {
       case "firstName":
@@ -332,6 +347,11 @@ export class ProfileComponent implements OnInit {
 
   }
 
+  /**
+   * It takes a string as a parameter and depending on the value of the string, it hides the input,
+   * save and close buttons and shows the display and edit buttons.
+   * @param {any} set - any
+   */
   cancel(set: any) {
     switch (set) {
       case "firstName":
@@ -387,6 +407,20 @@ export class ProfileComponent implements OnInit {
 
   }
 
+  /**
+   * It takes two parameters, one is a string that indicates which form is being submitted, and the
+   * other is the form itself.
+   * 
+   * The function then checks if the user is logged in, and if so, it checks which form is being
+   * submitted, and then it updates the user object with the new data, and then it updates the display
+   * with the new data.
+   * 
+   * After that, it sends the updated user object to the server, and then it calls the cancel function,
+   * which closes the form.
+   * 
+   * @param {any} set - string
+   * @param {any} form - any = {};
+   */
   save(set: any, form: any) {
     if (this.user) {
       switch (set) {

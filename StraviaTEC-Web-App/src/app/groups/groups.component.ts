@@ -11,15 +11,6 @@ import { DataService } from '../services/data.service';
 export class GroupsComponent implements OnInit {
 
   constructor(private api: ApiService, private data: DataService) { }
-  // groupsMatrix = [[{ id: 1, color: '#00AF3D', font: 'white', btn: 'Join Group', active: false },
-  // { id: 2, color: '#00AF3D', font: 'white', btn: 'Join Group', active: false },
-  // { id: 3, color: '#00AF3D', font: 'white', btn: 'Join Group', active: false },
-  // { id: 4, color: '#00AF3D', font: 'white', btn: 'Join Group', active: false },
-  // { id: 5, color: '#00AF3D', font: 'white', btn: 'Join Group', active: false }],
-  // [{ id: 6, color: '#00AF3D', font: 'white', btn: 'Join Group', active: false },
-  // { id: 7, color: '#00AF3D', font: 'white', btn: 'Join Group', active: false },
-  // { id: 8, color: '#00AF3D', font: 'white', btn: 'Join Group', active: false },
-  // { id: 9, color: '#00AF3D', font: 'white', btn: 'Join Group', active: false }]];
 
   groupsMatrix: GroupI[][] = [];
 
@@ -27,6 +18,11 @@ export class GroupsComponent implements OnInit {
     this.setMatrix();
   }
 
+  /**
+   * If the group is not active, join the group. If the group is active, exit the group.
+   * 
+   * @param {any} id - any - the id of the group that the user is trying to join
+   */
   joinGroup(id: any) {
     this.groupsMatrix.forEach(element => {
       element.forEach(group => {
@@ -53,6 +49,9 @@ export class GroupsComponent implements OnInit {
     });
   }
 
+  /**
+   * It takes an array of objects(Group), and pushes them into a new array, 5 at a time. Then set the Matrix.
+   */
   setMatrix() {
     this.api.getGroups().subscribe(data => {
       for (let i = 0; i < data.length; i++) {
@@ -70,6 +69,12 @@ export class GroupsComponent implements OnInit {
     })
   }
 
+  /**
+   * It takes in a GroupI object, and returns a GroupI object with the same properties, but with the
+   * properties of the buttons set to the default values.
+   * @param {GroupI} data - GroupI
+   * @returns The dataFormatted object.
+   */
   setButtonsValues(data: GroupI) {
     let dataFormatted: GroupI = {
       username: data.username,

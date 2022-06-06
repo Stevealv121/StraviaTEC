@@ -43,6 +43,10 @@ export class SettingsComponent implements OnInit {
     }
   }
 
+  /**
+   * It changes the password of the current user, but I'm not sure how to do it.
+   * @param {any} form - any -&gt; the form that is being submitted
+   */
   changePassword(form: any) {
 
     if (this.data.currentUser) {
@@ -59,6 +63,12 @@ export class SettingsComponent implements OnInit {
 
   }
 
+  /**
+   * It changes the username of the current user, and then update the database with the new
+   * username.
+   * 
+   * @param {any} form - any -&gt; the form that is being submitted
+   */
   changeUsername(form: any) {
 
     if (this.data.currentUser) {
@@ -77,6 +87,9 @@ export class SettingsComponent implements OnInit {
 
   }
 
+  /**
+   * It deletes the account of the currently logged in user
+   */
   deleteAccount() {
     if (this.data.currentUser) {
       this.api.deleteAccount(this.data.currentUser.userName, this.data.currentUser.password).subscribe(data => {

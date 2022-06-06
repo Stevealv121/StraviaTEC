@@ -36,21 +36,12 @@ export class RaceInscriptionComponent implements OnInit {
     }
   }
 
+  /**
+   * It takes a blob, creates a form, sends the form to the API, waits 200ms, and then shows a toastr.
+   * @param {any} blob - form.
+   */
   async confirm(blob: any) {
-    //this.paymentChecker();
-    /*if (!this.isEmpty) {
-      let form: JoinRaceI = {
-        userName: this.data.currentUser?.userName,
-        race_ID: this.race.id,
-        bill: blob.bill,
-        activityid: this.race.activityID
-      }
-      console.log(form);
-      this.api.joinRace(form).subscribe(data => {
-        console.log(data);
-      });
-      this.toastr.success("Successfully inscripted to " + this.race.name + "!", "Success");
-    }*/
+
     let form: JoinRaceI = {
       userName: this.data.currentUser?.userName,
       race_ID: this.race.id,
@@ -58,13 +49,18 @@ export class RaceInscriptionComponent implements OnInit {
       activityid: this.race.activityID
     }
     console.log(form);
-    //this.api.joinRace(form).subscribe(data => {
-     // console.log(data);
-    //});
+    this.api.joinRace(form).subscribe(data => {
+      console.log(data);
+    });
     await new Promise(f => (setTimeout(f, 200)));
     this.toastr.success("Successfully inscripted to " + this.race.name + "!", "Success");
   }
 
+  /**
+   * It takes a file, converts it to a base64 string, and then splits the string into two parts, the
+   * first part being the file type, and the second part being the actual file.
+   * @param {any} event - any - the event that is triggered when the file is selected.
+   */
   async onSelectFile(event: any) {
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();
@@ -84,13 +80,5 @@ export class RaceInscriptionComponent implements OnInit {
       await new Promise(f => (setTimeout(f, 100)));
     }
   }
-
-  /*paymentChecker() {
-    if (this.mapContainer.nativeElement.files.length == 0) {
-      console.log("no files selected");
-    } else {
-      this.isEmpty = false;
-    }
-  }*/
 
 }

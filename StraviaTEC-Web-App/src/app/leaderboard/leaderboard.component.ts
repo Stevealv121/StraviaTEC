@@ -17,6 +17,12 @@ export class LeaderboardComponent implements OnInit {
     this.setLeaderboards(this.data.selectedRace.id);
   }
 
+  /**
+   * This function is called when the user clicks on a button, and it sets the leaderboards variable
+   * to the data returned from the API
+   * 
+   * @param {any} id - the id of the race
+   */
   setLeaderboards(id: any) {
     this.api.getLeaderboard(id).subscribe(data => {
       this.leaderboards = data;
