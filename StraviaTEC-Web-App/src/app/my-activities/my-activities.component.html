@@ -10,7 +10,7 @@
         <div class="col-3">
             <div id="athlete-profile" class="card">
                 <div class="card-body">
-                    <img src="assets/images/avatar.png" id="profilePicture">
+                    <img [src]="user?.blob" id="profilePicture">
                     <br><br><br>
                     <h5 id="name" class="mb-3">{{user?.firstName}} {{user?.firstSurname}}</h5>
                     <div id="stats" class="row">
@@ -91,7 +91,7 @@
                             </div>
                             <form [formGroup]="commentForm">
                                 <div class="row">
-                                    <div class="col-md-auto"><img src="assets/images/avatar.png" id="friend-img"></div>
+                                    <div class="col-md-auto"><img [src]="user?.blob" id="friend-img"></div>
 
                                     <div class="col">
                                         <input type="text" placeholder="Write a comment..." class="form-control"
