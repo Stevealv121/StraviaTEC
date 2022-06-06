@@ -43,7 +43,14 @@ export class NewChallengeComponent implements OnInit {
       this.activities = data;
     })
   }
-
+  /**
+   * This function post a new challenge in the data base
+   * @param name challenge's name
+   * @param date challenge's date
+   * @param type challenge's type
+   * @param activity challenge's activity
+   * @param access challenge's access
+   */
   postChallenge(name:string, date:string, type:string,activity:string,access:string){
     var _access:string ="";
     if (access == "Public"){

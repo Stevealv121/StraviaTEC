@@ -53,6 +53,14 @@ export class EditChallengeComponent implements OnInit {
       this.categories = data;
     })
   }
+  /**
+   * This fuctions ask to the API to update a challenge's Info
+   * @param name challenge's name
+   * @param date challenge's date
+   * @param type challenge's type
+   * @param activity challenge's activity
+   * @param access challenge's access
+   */
   updateChallenge(name:string, date:string, type:string,activity:string,access:string){
     var _access:string ="";
     if (access == "Public"){
