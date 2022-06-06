@@ -26,7 +26,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: MyAllowSpecificOrigins,
                       policy =>
                       {
-                          policy.WithOrigins("https://straviatecangular.azurewebsites.net")
+                          policy.WithOrigins("https://straviatec2.azurewebsites.net")
                           .AllowAnyHeader()
                           .AllowAnyMethod();
                       });
