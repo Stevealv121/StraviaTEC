@@ -29,12 +29,17 @@ export class InfoRaceComponent implements OnInit {
   participants:Participants[];
   apiToken = environment.MAPBOXAPIKEY;
   bill:any;
+  user:string;
 
 
   constructor(private api:ApiService, private dataService:DataService, private sanitizer:DomSanitizer) {
     this.accounts=[];
     this.bill=null;
     this.participants=[];
+    this.user="";
+    if(this.dataService.currentUser && this.dataService.currentUser.userName != null){
+      this.user = this.dataService.currentUser?.userName
+    }
     this.activity ={
       username:"",
       id: 0,

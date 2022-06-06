@@ -15,12 +15,17 @@ export class GroupGestionComponent implements OnInit {
   groups: GroupsGest[];
   groupName:string;
   members:Member[];
+  user:string;
 
   constructor(private api:ApiService, private router:Router, private dataService:DataService) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.groups =[];
     this.groupName = this.dataService.groupId;
     this.members =[];
+    this.user="";
+    if(this.dataService.currentUser && this.dataService.currentUser.userName != null){
+      this.user = this.dataService.currentUser?.userName
+    }
   }
 
   ngOnInit(): void {
@@ -29,14 +34,14 @@ export class GroupGestionComponent implements OnInit {
   }
 
   cargarTabla(){
-    this.api.getGroupInfoByManagerId("dennis").subscribe((data:any)=>{
+    this.api.getGroupInfoByManagerId(this.user).subscribe((data:any)=>{
       this.groups = data;
       //console.log("hola")
     })
   }
   updateGroup(description:string){
     var newGroup:GroupsGest = {
-      username:"dennis",
+      username:this.user,
       name: this.groupName,
       description:description
     }

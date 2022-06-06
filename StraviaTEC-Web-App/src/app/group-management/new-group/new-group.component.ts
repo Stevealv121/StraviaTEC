@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GroupsGest } from 'src/app/models/groups-gest';
 import { ApiService } from 'src/app/services/api.service';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-new-group',
@@ -9,7 +10,14 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class NewGroupComponent implements OnInit {
 
-  constructor(private api:ApiService) { }
+  user:string;
+
+  constructor(private api:ApiService, private dataService:DataService) {
+    this.user="";
+    if(this.dataService.currentUser && this.dataService.currentUser.userName != null){
+      this.user = this.dataService.currentUser?.userName
+    }
+   }
 
   ngOnInit(): void {
   }
@@ -21,7 +29,7 @@ export class NewGroupComponent implements OnInit {
    */
   postGroup(name:string, description:string){
     var newGroup:GroupsGest = {
-      username:"dennis",
+      username:this.user,
       name: name,
       description:description
     }

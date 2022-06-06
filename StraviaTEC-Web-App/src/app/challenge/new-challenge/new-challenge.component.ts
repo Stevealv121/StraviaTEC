@@ -3,6 +3,7 @@ import { Activity } from 'src/app/models/activity';
 import { Challenge } from 'src/app/models/challenge';
 import { GroupsGest } from 'src/app/models/groups-gest';
 import { ApiService } from 'src/app/services/api.service';
+import { DataService } from 'src/app/services/data.service';
 import { runInThisContext } from 'vm';
 
 @Component({
@@ -15,11 +16,16 @@ export class NewChallengeComponent implements OnInit {
   groups:GroupsGest[];
   categories:string[];
   activities:Activity[];
+  user:string;
 
-  constructor(private api:ApiService) {
+  constructor(private api:ApiService, private dataService:DataService) {
     this.groups =[];
     this.categories=[];
     this.activities =[];
+    this.user="";
+    if(this.dataService.currentUser && this.dataService.currentUser.userName != null){
+      this.user = this.dataService.currentUser?.userName
+    }
    }
 
   ngOnInit(): void {
@@ -31,7 +37,7 @@ export class NewChallengeComponent implements OnInit {
   * This function request to the api for the user's groups
   */
   loadGroups(){
-    this.api.getGroupInfoByManagerId("dennis").subscribe((data:any)=>{// cambiar por el username correspondiente
+    this.api.getGroupInfoByManagerId(this.user).subscribe((data:any)=>{// cambiar por el username correspondiente
       this.groups = data;
     })
   }
@@ -39,7 +45,7 @@ export class NewChallengeComponent implements OnInit {
    * This function request to the api for the activites
    */
    loadActities(){
-    this.api.getUserActivities2("dennis").subscribe((data:any)=>{ //change dennis for the username
+    this.api.getUserActivities2(this.user).subscribe((data:any)=>{ //change dennis for the username
       this.activities = data;
     })
   }
