@@ -36,11 +36,15 @@ export class MyActivitiesComponent implements OnInit {
   friendImage: string = "assets/images/avatar.png";
   commentForm = new FormGroup({
     new_comment: new FormControl('')
-  })
+  });
+  followers: any;
+  following: any;
+  number_activities: any;
 
   ngOnInit(): void {
     this.user = this.data.currentUser;
     this.setActivities();
+    this.setUserNumbers();
   }
 
   async setProfilePicture(author: any) {
@@ -198,6 +202,15 @@ export class MyActivitiesComponent implements OnInit {
         element.hasComments = true;
         element.moreComments = true;
       }
+    })
+  }
+
+  setUserNumbers() {
+    this.api.getUserNumbers(this.user?.userName).subscribe(data => {
+      console.log(data);
+      this.followers = data[0].followers;
+      this.following = data[0].following;
+      this.number_activities = data[0].activities;
     })
   }
 
