@@ -48,6 +48,6 @@ namespace Comments_API.Data
         /// </summary>
         /// <param name="Id">The id of the comment to be deleted</param>
         public async Task DeleteComment(int Id) =>
-            await _comments.DeleteAsync(m => m.activity_id.Equals(Id));
+            await _comments.DeleteOneAsync(m => m.activity_id.Equals(Id));
     }
 }
