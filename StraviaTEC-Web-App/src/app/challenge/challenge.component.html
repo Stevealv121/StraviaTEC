@@ -23,8 +23,8 @@
               <td>{{chall.type}}</td>
               <td>{{chall.access}}</td>
               <td>
-                <a id="button" class="btn btn-primary btn-sm "  role="button" routerLink="/EditChallenge">Edit </a>
-                <a id="button" class="btn btn-primary btn-sm "  role="button">Delete </a>
+                <a id="button" class="btn btn-primary btn-sm "  role="button" (click)="saveChallengeId(chall.id)" routerLink="/EditChallenge" >Edit </a>
+                <a id="button" class="btn btn-primary btn-sm " role="button">Delete </a>
               </td>
             </tr>
           </tbody>

@@ -2,28 +2,38 @@
     <br>
     <h2>Athlete Search</h2>
     <br>
-    <div class="row">
-        <div class="col">
-            <input type="text" placeholder="Athlete Name" class="form-username form-control">
+    <form [formGroup]="searchForm" (ngSubmit)="searchAthlete(searchForm.value)">
+        <div class="row">
+
+            <div class="col">
+                <input type="text" placeholder="Athlete Name" class="form-username form-control"
+                    formControlName="firstName">
+            </div>
+            <div class="col">
+                <button class="btn btn-primary" type="submit" id="buttons">Search</button>
+            </div>
+
         </div>
-        <div class="col">
-            <button class="btn btn-primary" id="buttons">Search</button>
-        </div>
-    </div>
+    </form>
     <br>
     <br>
-    <div class="row" *ngFor="let athlete of athletes; let i as index">
-        <ng-container *ngIf="i % 2 === 0;else greenTemplate">
+    <div class="row" *ngFor="let athlete of athletes; odd as o">
+        <ng-container *ngIf="o;else greenTemplate">
             <div class="normal">
                 <div class="row">
                     <div class="col-md-2"><img src="assets/images/avatar.png" id="profilePic"></div>
                     <div class="col-md-2">
                         <div class="row" id="athleteName">
-                            FirstName LastName
+                            {{athlete.firstName}} {{athlete.firstSurname}}
                         </div>
-                        <div class="row mb-3" id="greyText">Level - Age</div>
+                        <div class="row mb-3" id="greyText">{{athlete.level}} - Age</div>
                         <div class="row mb-3">
-                            <button class="btn btn-primary" id="buttons">Add</button>
+                            <div class="col"></div>
+                            <div class="col"></div>
+                            <button class="btn btn-primary" id="buttons" [ngStyle]="{
+                                'background-color' : athlete.color,
+                                'color' : athlete.font
+                              }" (click)="addFriend(athlete.userName,athlete.btnId)">{{athlete.btn}}</button>
                         </div>
                     </div>
                 </div>
@@ -35,17 +45,18 @@
                     <div class="col-md-2"><img src="assets/images/avatar.png" id="profilePic"></div>
                     <div class="col-md-2">
                         <div class="row" id="athleteName">
-                            FirstName LastName
+                            {{athlete.firstName}} {{athlete.firstSurname}}
                         </div>
-                        <div class="row mb-3" id="greyText">Level - Age</div>
+                        <div class="row mb-3" id="greyText">{{athlete.level}} - Age</div>
                         <div class="row mb-3">
-                            <button class="btn btn-primary" id="buttons">Add</button>
+                            <button class="btn btn-primary" id="buttons" [ngStyle]="{
+                                'background-color' : athlete.color,
+                                'color' : athlete.font
+                              }" (click)="addFriend(athlete.userName,athlete.btnId)">{{athlete.btn}}</button>
                         </div>
                     </div>
                 </div>
-
             </div>
-
         </ng-template>
 
     </div>

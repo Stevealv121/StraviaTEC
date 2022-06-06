@@ -2,13 +2,12 @@
 <div class="container">
     <div class="row">
         <div class="col-3">
-            <div class="row">
-                <div class="col"><img id="avatar-img" src="assets/images/avatar.png" alt="profilePicture"></div>
+            <div class="row mb-4">
+                <div class="col-4"><img id="avatar-img" [src]="profilePicture" alt="profilePicture"></div>
                 <div class="col">
-                    <h5>Username</h5>
-                    <h6>FirstName SecondName</h6>
+                    <h5>{{usrname}}</h5>
+                    <h6>{{firstname}} {{lastname}}</h6>
                 </div>
-
             </div>
             <div class="row">
                 <div id="account-card" class="card">
@@ -18,7 +17,7 @@
 
         </div>
         <div id="settings-col" class="col-6">
-            <br><br><br>
+            <!-- <br><br><br>
             <div class="settings">
                 <h2> Change Username
                 </h2>
@@ -27,7 +26,7 @@
                 <p>Once you have changed your username, take in mind that your last username can be taken.</p>
                 <button id="buttons" class="btn btn-primary" data-bs-toggle="modal"
                     data-bs-target="#usernameModal">Change your username</button>
-            </div>
+            </div> -->
             <br><br>
             <div class="settings">
                 <h2> Change Password
@@ -46,7 +45,8 @@
                 <div class="red-line"></div>
                 <br>
                 <p>Once you delete your account, there is no going back. Please be certain.</p>
-                <button class="btn btn-danger">Delete your account</button>
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteAccModal">Delete your
+                    account</button>
             </div>
             <br>
         </div>
@@ -58,22 +58,24 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="usernameModalLabel">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="usernameModalLabel">Change Username</h5>
+                <button type="button" #closeUN class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="form-group">
-                    <div class="pos-r">
-                        <input id="form-username" type="text" name="form-username" placeholder="New Username"
-                            formControlName="userName" class="form-username form-control">
-                        <i class="fa fa-user"></i>
+                <form [formGroup]="usernameForm" (ngSubmit)="changeUsername(usernameForm.value)">
+                    <div class="form-group">
+                        <div class="pos-r">
+                            <input id="form-username" type="text" name="form-username" placeholder="New Username"
+                                formControlName="username" class="form-username form-control">
+                            <i class="fa fa-user"></i>
+                        </div>
                     </div>
-                </div>
-                <br>
-                <div class="form-group">
-                    <button id="buttons" type="submit"
-                        class="btn btn-primary form-control"><strong>Submit</strong></button>
-                </div>
+                    <br>
+                    <div class="form-group">
+                        <button id="buttons" type="submit"
+                            class="btn btn-primary form-control"><strong>Submit</strong></button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -84,22 +86,40 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="passwordModalLabel">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="passwordModalLabel">Change Password</h5>
+                <button type="button" #closePS class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="form-group">
-                    <div class="pos-r">
-                        <input id="form-password" type="password" name="form-password" placeholder="New Password"
-                            formControlName="password" class="form-password form-control">
-                        <i class="fa fa-lock"></i>
+                <form [formGroup]="passwordForm" (ngSubmit)="changePassword(passwordForm.value)">
+                    <div class="form-group">
+                        <div class="pos-r">
+                            <input id="form-password" type="password" name="form-password" placeholder="New Password"
+                                formControlName="password" class="form-password form-control">
+                            <i class="fa fa-lock"></i>
+                        </div>
                     </div>
-                </div>
-                <br>
-                <div class="form-group">
-                    <button id="buttons" type="submit"
-                        class="btn btn-primary form-control"><strong>Submit</strong></button>
-                </div>
+                    <br>
+                    <div class="form-group">
+                        <button id="buttons" type="submit"
+                            class="btn btn-primary form-control"><strong>Submit</strong></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Account Modal -->
+<div class="modal fade" id="deleteAccModal" tabindex="-1" aria-labelledby="deleteAccModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteAccModalLabel">Delete Account</h5>
+                <button type="button" #closeDA class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete your account?</p>
+                <button class="btn btn-danger" (click)="deleteAccount()">Delete Account</button>
             </div>
         </div>
     </div>

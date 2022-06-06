@@ -5,5 +5,13 @@
 
 #challengeCard {
     width: 200px;
-    height: 170px;
+    height: 190px;
+}
+
+button {
+    margin: 0 3%;
+}
+
+p {
+    font-size: 12px;
 }

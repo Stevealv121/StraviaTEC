@@ -37,7 +37,7 @@ export class NewCompetitionComponent implements OnInit {
    * This function request to the api for the activites
    */
   loadActities(){
-    this.api.getUserActivities("dennis").subscribe((data:any)=>{ //change dennis for the username
+    this.api.getUserActivities2("dennis").subscribe((data:any)=>{ //change dennis for the username
       this.activities = data;
     })
   }

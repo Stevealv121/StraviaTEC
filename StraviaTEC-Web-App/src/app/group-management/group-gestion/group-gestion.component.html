@@ -4,14 +4,14 @@
       <h3>Edit the Group's Information</h3>
       <div class="input-group mb-3">
         <span id="span" class="input-group-text">Name of the Group</span>
-        <input #color type="text" aria-label="Color" class="form-control">
+        <input #color type="text" aria-label="Color" class="form-control" disabled value={{groupName}}>
       </div>
     <div class="input-group mb-3">
       <span id="span" class="input-group-text">Description</span>
-      <input #color type="text" aria-label="Color" class="form-control">
+      <input #description type="text" aria-label="Color" class="form-control">
     </div>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end"> <!----Action buttons-->
-      <button id="span" id="buttons" class="btn btn-primary" type="button">Edit</button>
+      <button id="span" id="buttons" class="btn btn-primary" type="button" (click)="updateGroup(description.value)" routerLink="/GroupsManagement">Edit</button>
     </div>
     </div>
     <div id="col2" class="col">

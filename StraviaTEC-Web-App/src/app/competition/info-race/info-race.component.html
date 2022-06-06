@@ -3,15 +3,11 @@
     <div id="col1" class="col">
       <div id="content1" class="container">
         <div class="row">
-          <H2>Name of the Race</H2> <!---Add name-->
+          <H2>{{race.name}}</H2> <!---Add name-->
         </div>
         <div class="row">
-          <H3>Description</H3>
-          <h5>Race around the GAM</h5>
-        </div>
-        <div class="row">
-          <H3>Activity</H3> <!--add activity-->
-          <h5>Biking</h5>
+          <H3>Sport</H3> <!--add activity-->
+          <h5>{{activity.sportName}}</h5>
         </div>
         <div class="row">
           <H3>Route</H3> <!--add gpx view-->
@@ -22,9 +18,11 @@
         </div>
         <div class="row">
           <h3>Sponsors</h3>
+        </div>
+        <div *ngFor="let sponsor of Sponsors" class="row">
           <div class="col">
             <h4>Name</h4>
-            <h4>CocaCola</h4>
+            <h4>{{sponsor.comercialName}}</h4>
           </div>
           <div class="col">
             <h4>Logo</h4>
