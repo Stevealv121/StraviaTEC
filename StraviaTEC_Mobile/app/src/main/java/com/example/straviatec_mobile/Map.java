@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TextView;
 
+import com.example.straviatec_mobile.Entities.Activity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -48,7 +49,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 public class Map extends AppCompatActivity implements OnMapReadyCallback {
 
     SupportMapFragment mapFragment;
-    private String elapsedTime;
+    private String user, route, date, sport;
     private TextView mileage;
     private int miles;
     private Chronometer chronometer;
@@ -85,6 +86,8 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
     }
 
     @Override
+    // The above code is creating a new polyline and adding it to the map. It is also creating a new
+    // location listener and adding it to the location manager.
     public void onMapReady(@NonNull GoogleMap googleMap) {
         nMap = googleMap;
         PolylineOptions polylineOptions = new PolylineOptions();
@@ -132,6 +135,13 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
         }
     }
 
+    /**
+     * If the chronometer is not running, set the base to the current time, start the chronometer, set
+     * running to true, make the start button invisible, make the stop button visible, and make the
+     * resume button visible
+     * 
+     * @param view The view that was clicked.
+     */
     public void startActivity(View view) {
         if(!running){
             chronometer.setBase(SystemClock.elapsedRealtime());
@@ -143,6 +153,11 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
         }
     }
 
+    /**
+     * The function stops the chronometer and stores the time elapsed in the variable offset
+     * 
+     * @param view The view that was clicked.
+     */
     public void stopActivity(View view) {
         if(running){
             chronometer.stop();
@@ -151,6 +166,12 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
         }
     }
 
+    /**
+     * The function sets the chronometer's base to the current time minus the offset, and then starts
+     * the chronometer
+     * 
+     * @param view The view that was clicked.
+     */
     public void resumeActivity(View view) {
         if(!running){
             chronometer.setBase(SystemClock.elapsedRealtime() - offset);
@@ -159,20 +180,31 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
         }
     }
 
-    public void finishActivity(View view) throws UnsupportedEncodingException {
-        postActivity();
+    /**
+     * I'm trying to send a GPX file to a server
+     * 
+     * @param view the view that is being passed in
+     */
+    public void finishActivity(View view){
+        Intent reciever = getIntent();
+        user = reciever.getStringExtra("username");
+        date = reciever.getStringExtra("date");
+        sport = reciever.getStringExtra("sport");
+        String elapsedTime = chronometer.getText().toString();
+        Activity activity = new Activity(user,null,date,elapsedTime,miles,generateRouteGPX("gpx test",trkpoints),sport);
+        postActivity(activity);
         updateRace();
-        elapsedTime = chronometer.getText().toString();
         track.remove();
-        byte[] bytes = generateRouteGPX("gpx test",trkpoints).trim().getBytes();
-        Document doc = toXMLfromString(generateRouteGPX("gpx test",trkpoints));
-        doc.toString();
+
+        //Document doc = toXMLfromString(generateRouteGPX("gpx test",trkpoints));
+        //doc.toString();
+        Log.e("This is the route", generateRouteGPX("gpx test",trkpoints));
         //assert doc != null;
         //Log.d("Gpx content", doc.getFirstChild().getNodeName());
         //Log.d("Gpx content", generateRouteGPX("gpx test",trkpoints));
-        Log.e("This is the route", generateRouteGPX("gpx test",trkpoints));
-        Log.e("Gpx content", Arrays.toString(bytes));
-        System.out.println(doc);
+        //Log.e("Gpx content", Arrays.toString(bytes));
+        //byte[] bytes = generateRouteGPX("gpx test",trkpoints).trim().getBytes();
+        //System.out.println(doc);
         Intent myintent = new Intent(Map.this,Menu.class);
         startActivity(myintent);
     }
@@ -180,15 +212,26 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
     private void updateRace() {
     }
 
-    private void postActivity() {
+    private void postActivity(Activity act) {
     }
 
+    /**
+     * It takes the current track, adds the current location to the list of points, and then sets the
+     * points of the track to the new list
+     */
     private void updateTrack(){
         List<LatLng> points = track.getPoints();
         points.add(mylocation);
         track.setPoints(points);
     }
 
+    /**
+     * It takes a name and a list of locations and returns a string that is a GPX file
+     * 
+     * @param name The name of the route
+     * @param points List of Location objects
+     * @return A string of XML.
+     */
     private String generateRouteGPX(String name, List<Location> points){
         String result;
         String header = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?><gpx xmlns=\"http://www.topografix.com/GPX/1/1\" creator=\"MapSource 6.15.5\" version=\"1.1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"  xsi:schemaLocation=\"http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd\"><trk>\n";
@@ -203,6 +246,12 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
         result = header + name + segments + footer;
         return result;
     }
+    /**
+     * It takes a string and returns a Document object
+     * 
+     * @param str The string to be converted to XML
+     * @return A Document object.
+     */
     private Document toXMLfromString(String str){
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = null;

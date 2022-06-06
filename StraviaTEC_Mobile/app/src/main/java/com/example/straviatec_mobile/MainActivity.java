@@ -64,6 +64,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * It's a function that connects to a web service and inserts the data into a local database
+     */
     private void sincR() {
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://10.0.2.2:7060/")
                 .addConverterFactory(GsonConverterFactory.create()).client(getUnsafeOkHttpClient()).build();
@@ -104,6 +107,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * It's a function that connects to a server and downloads a list of challenges, then inserts them
+     * into a local database
+     */
     private void sincC() {
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://10.0.2.2:7060/")
                 .addConverterFactory(GsonConverterFactory.create()).client(getUnsafeOkHttpClient()).build();
@@ -145,6 +152,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * It connects to a server, gets a list of activities, and inserts them into a local database
+     */
     private void sincA() {
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://10.0.2.2:7060/")
                 .addConverterFactory(GsonConverterFactory.create()).client(getUnsafeOkHttpClient()).build();
@@ -182,6 +192,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    /**
+     * It's a function that connects to a server and gets a list of users, then it inserts them into a
+     * local database
+     */
     private void sincU() {
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://10.0.2.2:7060/")
                 .addConverterFactory(GsonConverterFactory.create()).client(getUnsafeOkHttpClient()).build();
@@ -224,10 +238,20 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+   /**
+    * It takes the text from the EditText and passes it to the function consult()
+    * 
+    * @param view The view that was clicked.
+    */
     public void onClick(View view) {
         consult();
     }
 
+    /**
+     * It takes the username and password from the user, and if it finds a match in the database, it
+     * will show a welcome message and take the user to the next activity.
+     * </code>
+     */
     private void consult() {
         String username;
         SQLiteDatabase db = conn.getReadableDatabase();
@@ -249,6 +273,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * It sets the text of the password and username fields to an empty string
+     */
     private void clean() {
         pass.setText("");
         uname.setText("");

@@ -14,6 +14,7 @@ public class SQLitehelper extends SQLiteOpenHelper {
     }
 
     @Override
+    // Creating the tables.
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL(Utilities.CREATE_ACTIVITY_TABLE);
@@ -35,6 +36,7 @@ public class SQLitehelper extends SQLiteOpenHelper {
     }
 
     @Override
+    // Dropping all the tables and recreating them.
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         db.execSQL("DROP TABLE IF EXISTS activity");
         db.execSQL("DROP TABLE IF EXISTS adds");
