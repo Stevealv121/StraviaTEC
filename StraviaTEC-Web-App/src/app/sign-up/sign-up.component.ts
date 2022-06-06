@@ -239,7 +239,7 @@ export class SignUpComponent implements OnInit {
         });
       }
 
-      await new Promise(f => (setTimeout(f, 100)));
+      await new Promise(f => (setTimeout(f, 400)));
     }
 
   }

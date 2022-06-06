@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { AppComponent } from '../app.component';
 import { UserI } from '../models/user.interface';
 import { ApiService } from '../services/api.service';
 import { DataService } from '../services/data.service';
@@ -14,7 +15,7 @@ import { DataService } from '../services/data.service';
 export class SettingsComponent implements OnInit {
 
   constructor(private api: ApiService, private data: DataService, private toastr: ToastrService
-    , private router: Router) { }
+    , private router: Router, private app: AppComponent) { }
 
   passwordForm = new FormGroup({
     password: new FormControl('')
@@ -98,6 +99,7 @@ export class SettingsComponent implements OnInit {
     }
     this.toastr.success("Account succesfully deleted!", "Success");
     this.modalCloseDeleteAcc.nativeElement.click();
+    this.app.isHidden = true;
     this.router.navigateByUrl("login");
   }
 }

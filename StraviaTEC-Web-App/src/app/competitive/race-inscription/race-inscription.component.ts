@@ -46,7 +46,7 @@ export class RaceInscriptionComponent implements OnInit {
       userName: this.data.currentUser?.userName,
       race_ID: this.race.id,
       bill: blob.bill,
-      activityid: this.race.activityID
+      activityid: null
     }
     console.log(form);
     this.api.joinRace(form).subscribe(data => {
@@ -77,7 +77,7 @@ export class RaceInscriptionComponent implements OnInit {
         });
 
       }
-      await new Promise(f => (setTimeout(f, 100)));
+      await new Promise(f => (setTimeout(f, 200)));
     }
   }
 
