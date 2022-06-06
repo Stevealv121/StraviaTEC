@@ -1,0 +1,25 @@
+#content{
+  padding: 30px;
+  width: 700px;
+}
+#head{
+  background-color:#00AF3D;
+  color: white;
+  border-bottom: rgb(232, 229, 229) solid;
+}
+#buttons{
+  background-color: #00AF3D;
+  border-color: #00AF3D;
+}
+#col2{
+  border-left: #00AF3D solid;
+}
+#container2{
+  margin-top: 30px;
+  width: 500px;
+  border: #00AF3D dashed;
+  border-radius: 0.2cm;
+}
+#table{
+  width: 570px;
+}

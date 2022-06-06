@@ -17,6 +17,8 @@ import { CommentI } from '../models/comment.interface';
 import { Sponsor } from '../models/sponsor';
 import { Activity } from '../models/activity';
 import { Member } from '../models/member';
+import { Account } from '../models/account';
+import { Participants } from '../models/participants';
 
 
 @Injectable({
@@ -51,6 +53,9 @@ export class ApiService {
   deleteGMemberPath:string = this.url + "Group/GroupMember/";
   deleteGroupPath: string = this.url +"Group/ByName/";
   challengeById:string = this.url + "Challenge/ById/";
+  AccountByIDPath:string = this.url + "Race/BankAccount/ById/";
+  positionListPath:string = this.url + "Race/PositionList/";
+  exitRacePath:string = this.url + "Race/ExitRace/";
 
 
 
@@ -304,10 +309,24 @@ export class ApiService {
   getGroupMembers(name:string){
     return this.http.get<Member[]>(this.groupMembersPath+name);
   }
+  /**
+   * This function asks the api for a race's accounts in the data base
+   * @param id race Id
+   * @returns BankAccount's information
+   */
+  getBankAccounts(id:number){
+    return this.http.get<Account[]>(this.AccountByIDPath+id);
+  }
+  getPositionList(id:number){
+    return this.http.get<Participants[]>(this.positionListPath+id);
+  }
   //DELETES
   deleteMember(username:string, groupName:string){
     console.log(this.deleteGMemberPath+groupName+"/"+username);
     return this.http.delete(this.deleteGMemberPath+groupName+"/"+username);
+  }
+  deleteRaceMember(userName:string,raceId:number){
+    return this.http.delete<string>(this.exitRacePath+userName+"/"+raceId);
   }
   deleteGroup(name:string){
     return this.http.delete(this.deleteGroupPath+name);

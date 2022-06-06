@@ -1,0 +1,30 @@
+<div id="content" class="container">
+  <div id="content2" #content2 class="container">
+    <H2>Positions table</H2>
+    <table id="table" class="table">
+      <thead id="head">
+        <tr>
+          <th scope="col">Username</th>
+          <th scope="col">Name</th>
+          <th scope="col">Surnames</th>
+          <th scope="col">Age</th>
+          <th scope="col">Category</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let member of participants">
+          <th scope="row">{{member.userName}}</th>
+          <th scope="row">{{member.firstName}}</th>
+          <th scope="row">{{member.firstSurname}} {{member.secondSurname}}</th>
+          <th scope="row">{{member.age}}</th>
+          <th scope="row">{{member.categoryName}}</th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <button id="buttons" class="btn btn-primary me-md-2" type="button" routerLink="/InfoRace">Go back</button>
+    <button id="buttons" class="btn btn-primary" type="button" (click)="downloadPDF()">Save</button>
+  </div>
+</div>
+

@@ -6,5 +6,7 @@ export interface Sponsor {
   firstName:string,
   secondName:string,
   firstSurname:string,
-  secondSurname:string
+  secondSurname:string,
+  // no es parte del api
+  image:any
 }
