@@ -17,6 +17,12 @@ public class Menu extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
     }
 
+    /**
+     * It takes the username from the previous activity and passes it to the next activity.
+     * </code>
+     * 
+     * @param view the view that was clicked
+     */
     public void onClick(View view) {
         Intent myintent = null;
         Intent rintent = getIntent();

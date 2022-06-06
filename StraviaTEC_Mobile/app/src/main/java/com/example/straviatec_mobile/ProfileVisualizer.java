@@ -35,6 +35,11 @@ public class ProfileVisualizer extends AppCompatActivity {
 
     }
 
+    /**
+     * It gets the username from the previous activity, then it queries the database to get the user's
+     * information and then it sets the text of the TextViews to the information obtained from the
+     * database
+     */
     private void fillProfile() {
 
         try{

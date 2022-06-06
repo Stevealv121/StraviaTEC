@@ -86,6 +86,8 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
     }
 
     @Override
+    // The above code is creating a new polyline and adding it to the map. It is also creating a new
+    // location listener and adding it to the location manager.
     public void onMapReady(@NonNull GoogleMap googleMap) {
         nMap = googleMap;
         PolylineOptions polylineOptions = new PolylineOptions();
@@ -133,6 +135,13 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
         }
     }
 
+    /**
+     * If the chronometer is not running, set the base to the current time, start the chronometer, set
+     * running to true, make the start button invisible, make the stop button visible, and make the
+     * resume button visible
+     * 
+     * @param view The view that was clicked.
+     */
     public void startActivity(View view) {
         if(!running){
             chronometer.setBase(SystemClock.elapsedRealtime());
@@ -144,6 +153,11 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
         }
     }
 
+    /**
+     * The function stops the chronometer and stores the time elapsed in the variable offset
+     * 
+     * @param view The view that was clicked.
+     */
     public void stopActivity(View view) {
         if(running){
             chronometer.stop();
@@ -152,6 +166,12 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
         }
     }
 
+    /**
+     * The function sets the chronometer's base to the current time minus the offset, and then starts
+     * the chronometer
+     * 
+     * @param view The view that was clicked.
+     */
     public void resumeActivity(View view) {
         if(!running){
             chronometer.setBase(SystemClock.elapsedRealtime() - offset);
@@ -160,6 +180,11 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
         }
     }
 
+    /**
+     * I'm trying to send a GPX file to a server
+     * 
+     * @param view the view that is being passed in
+     */
     public void finishActivity(View view){
         Intent reciever = getIntent();
         user = reciever.getStringExtra("username");
@@ -190,12 +215,23 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
     private void postActivity(Activity act) {
     }
 
+    /**
+     * It takes the current track, adds the current location to the list of points, and then sets the
+     * points of the track to the new list
+     */
     private void updateTrack(){
         List<LatLng> points = track.getPoints();
         points.add(mylocation);
         track.setPoints(points);
     }
 
+    /**
+     * It takes a name and a list of locations and returns a string that is a GPX file
+     * 
+     * @param name The name of the route
+     * @param points List of Location objects
+     * @return A string of XML.
+     */
     private String generateRouteGPX(String name, List<Location> points){
         String result;
         String header = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?><gpx xmlns=\"http://www.topografix.com/GPX/1/1\" creator=\"MapSource 6.15.5\" version=\"1.1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"  xsi:schemaLocation=\"http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd\"><trk>\n";
@@ -210,6 +246,12 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
         result = header + name + segments + footer;
         return result;
     }
+    /**
+     * It takes a string and returns a Document object
+     * 
+     * @param str The string to be converted to XML
+     * @return A Document object.
+     */
     private Document toXMLfromString(String str){
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = null;

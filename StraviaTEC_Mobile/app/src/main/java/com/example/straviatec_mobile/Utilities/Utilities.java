@@ -1,5 +1,8 @@
 package com.example.straviatec_mobile.Utilities;
 
+/**
+ * It's a class that contains all the constants that are used in the database
+ */
 public class Utilities {
     public static final String TABLE_ACTIVITY = "activity";
     public static final String TABLE_ADDS = "adds";

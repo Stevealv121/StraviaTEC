@@ -120,6 +120,11 @@ public class ActivitySetup extends AppCompatActivity {
 
     }
 
+    /**
+     * It's a function that calls a REST API and returns a list of races
+     * 
+     * @param user String
+     */
     private void consultRA(String user) {
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://10.0.2.2:7060/")
                 .addConverterFactory(GsonConverterFactory.create()).client(getUnsafeOkHttpClient()).build();
@@ -148,6 +153,10 @@ public class ActivitySetup extends AppCompatActivity {
 
     }
 
+    /**
+     * It takes a list of objects, and creates a new list of strings, where each string is a
+     * concatenation of the name and id of the object
+     */
     private void generateRlist() {
         Log.e("Racelist", String.valueOf(raceList));
         if (raceList != null){
@@ -157,6 +166,11 @@ public class ActivitySetup extends AppCompatActivity {
         }
     }
 
+    /**
+     * Passes serializable object to another activity
+     * 
+     * @param view The view that was clicked.
+     */
     public void onClick(View view) {
         if(sportSelected){
             if(isRace){
@@ -183,6 +197,13 @@ public class ActivitySetup extends AppCompatActivity {
             Toast.makeText(ActivitySetup.this,"Sport not selected",Toast.LENGTH_SHORT).show();
         }
     }
+    /**
+     * It creates a new SSLContext with the TrustManager that trusts all certificates, then creates a
+     * new SSLSocketFactory with that SSLContext, and finally creates a new OkHttpClient that uses that
+     * SSLSocketFactory
+     * 
+     * @return An OkHttpClient object.
+     */
     public static OkHttpClient getUnsafeOkHttpClient() {
 
         try {
