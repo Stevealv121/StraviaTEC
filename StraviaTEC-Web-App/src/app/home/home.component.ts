@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { environment } from 'src/environments/environment';
+import { AppComponent } from '../app.component';
 import { ActivityI } from '../models/activity.interface';
 import { CommentI } from '../models/comment.interface';
 import { UserI } from '../models/user.interface';
@@ -26,7 +27,8 @@ const defaultZoom: number = 8
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private data: DataService, private api: ApiService, private sanitizer: DomSanitizer) {
+  constructor(private data: DataService, private api: ApiService, private sanitizer: DomSanitizer,
+    private app: AppComponent) {
   }
   routeMap: string = "assets/images/route-map.png";
   //friendsActivity = [{ name: "x", id: "1" }, { name: "x", id: "2" }, { name: "x", id: "3" }];
@@ -54,6 +56,7 @@ export class HomeComponent implements OnInit {
   })
 
   ngOnInit(): void {
+    this.app.isHidden = false;
     this.user = this.data.currentUser;
     this.profilePicture = this.user?.blob;
     this.setFriendActivities();

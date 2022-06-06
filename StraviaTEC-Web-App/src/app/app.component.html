@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark" id="navbar">
+<nav class="navbar navbar-expand-lg navbar-dark" id="navbar" [hidden]="isHidden">
   <div class="container-fluid">
     <a class="navbar-brand" routerLink="/home">StraviaTEC</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -14,7 +14,7 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="dashboardDropdown">
             <li><a class="dropdown-item" routerLink="/home">Activity Feed</a></li>
-            <li><a class="dropdown-item" href="#">My Routes</a></li>
+            <li><a class="dropdown-item" routerLink="/my-activities">My Routes</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
@@ -63,7 +63,7 @@
             <li>
               <hr class="dropdown-divider">
             </li>
-            <li><a class="dropdown-item" routerLink="/login">Log Out</a></li>
+            <li><a class="dropdown-item" (click)="logOut()" style="cursor: pointer;">Log Out</a></li>
           </ul>
         </li>
       </ul>
