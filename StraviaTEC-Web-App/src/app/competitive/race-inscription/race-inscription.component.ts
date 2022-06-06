@@ -47,7 +47,7 @@ export class RaceInscriptionComponent implements OnInit {
       }
       this.api.joinRace(form).subscribe(data => {
         console.log(data);
-      })
+      });
       this.toastr.success("Successfully inscripted to " + this.race.name + "!", "Success");
     }
   }

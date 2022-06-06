@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { race } from 'rxjs';
 import { RaceI } from 'src/app/models/race.interface';
 import { ApiService } from 'src/app/services/api.service';
 import { DataService } from 'src/app/services/data.service';
@@ -25,14 +26,27 @@ export class FindRaceComponent implements OnInit {
     this.router.navigateByUrl("race-inscription");
   }
 
-  setRaces() {
+  async setRaces() {
     this.api.getRaces().subscribe(data => {
       this.races = data;
-    })
+
+      this.api.getRaceByUser(this.data.currentUser?.userName).subscribe(rsp => {
+        console.log(rsp);
+        this.races.forEach((element, index) => {
+          if (rsp[0].id == element.id) {
+            this.races.splice(index, 1);
+          }
+        });
+      });
+
+      console.log(this.races);
+    });
+    await new Promise(f => (setTimeout(f, 200)));
     //TODO: Populate DB
     // this.api.getRacesByUserCategory(this.data.currentUser?.userName).subscribe(data => {
     //   this.races = data;
     // })
+    console.log(this.races);
   }
 
 }

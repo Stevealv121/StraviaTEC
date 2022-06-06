@@ -67,7 +67,8 @@
                     <br>
                     <div class="form-group">
                         <div class="race-wrapper" [hidden]="isRaceHidden">
-                            <select [(ngModel)]="selectedOption3" class="form-select" formControlName="race">
+                            <select [(ngModel)]="selectedOption3" class="form-select" formControlName="race"
+                                (change)="putRace()">
                                 <option class="dropdown-item" disabled selected value="undefined">Choose the race you
                                     finished
                                 </option>

@@ -21,13 +21,15 @@ export class CompetitionsComponent implements OnInit {
   // challenges: number[] = [1, 2, 3];
   races: RaceI[] = [];
   challenges: ChallengeI[] = [];
-  leaderboards: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  //leaderboards: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  //leaderboards: any[][] = [];
   user?: UserI;
 
   ngOnInit(): void {
     this.user = this.data.currentUser;
     this.setRaces();
     this.setChallenges();
+    //this.setLeaderboards();
   }
 
   setRaces() {
@@ -36,7 +38,7 @@ export class CompetitionsComponent implements OnInit {
         this.races = data;
         this.hasRaces = true;
       }
-    })
+    });
   }
 
   setChallenges() {
@@ -45,12 +47,17 @@ export class CompetitionsComponent implements OnInit {
         this.challenges = data;
         this.hasChallenges = true
       }
-    })
+    });
   }
 
   moreInfo(selectedChallenge: any) {
     this.data.selectedChallenge = selectedChallenge;
     this.router.navigateByUrl("/challenge-info");
+  }
+
+  goToLeaderboard(selectedRace: any) {
+    this.data.selectedRace = selectedRace;
+    this.router.navigateByUrl("/leaderboard");
   }
 
 }

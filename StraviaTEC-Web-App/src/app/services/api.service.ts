@@ -115,6 +115,11 @@ export class ApiService {
     return this.http.post<ResponseI>(joinPath, form)
   }
 
+  finishRace(activityID: any, race_ID: any, username: any) {
+    let path = this.racePath + "/JoinRace/InputActivity/" + activityID + "/" + race_ID + "/" + username;
+    return this.http.put<any>(path, null)
+  }
+
   getChallenges(): Observable<ChallengeI[]> {
     return this.http.get<ChallengeI[]>(this.challengePath)
   }
@@ -135,8 +140,13 @@ export class ApiService {
   }
 
   getRaceByUser(username: any): Observable<RaceI[]> {
-    let racesPath = this.racePath + "/ByUserName/" + username;
+    let racesPath = this.racePath + "/UserJoins/" + username;
     return this.http.get<RaceI[]>(racesPath)
+  }
+
+  getLeaderboard(race_ID: any) {
+    let path = this.racePath + "/PositionList/" + race_ID;
+    return this.http.get<any>(path)
   }
 
   getChallengeByUser(username: any): Observable<ChallengeI[]> {

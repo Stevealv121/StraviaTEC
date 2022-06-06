@@ -47,6 +47,9 @@ export class UploadActivityComponent implements OnInit {
   fileBlob: any;
   blob: string[] = [];
   postedActivityID: any;
+  selectedChallenge: any;
+  selectedRace: any;
+  finishing: any;
 
   ngOnInit(): void {
   }
@@ -73,7 +76,24 @@ export class UploadActivityComponent implements OnInit {
   }
 
   putChallenge() {
-    this.api.finishChallenge(this.postedActivityID, this.challengeOptionsModel,
+    this.selectedChallenge = this.challengeOptionsModel;
+    this.finishing = 'Challenge';
+  }
+
+  putRace() {
+    this.selectedRace = this.selectedOption3;
+    this.finishing = 'Race';
+  }
+
+  finishChallenge() {
+    this.api.finishChallenge(this.postedActivityID, this.selectedChallenge,
+      this.data.currentUser?.userName).subscribe(data => {
+        console.log(data);
+      });
+  }
+
+  finishRace() {
+    this.api.finishRace(this.postedActivityID, this.selectedRace,
       this.data.currentUser?.userName).subscribe(data => {
         console.log(data);
       })
@@ -115,6 +135,13 @@ export class UploadActivityComponent implements OnInit {
         this.postedActivityID = data;
       });
       await new Promise(f => (setTimeout(f, 100)));
+    }
+
+    if (this.finishing == 'Race') {
+      this.finishRace();
+
+    } else if (this.finishing == 'Challenge') {
+      this.finishChallenge();
     }
 
     this.toastr.success("Activity successfully posted!", "Success");
