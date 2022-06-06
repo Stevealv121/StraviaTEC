@@ -192,6 +192,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 try{
                     List<User> userList = response.body();
+                    assert userList != null;
                     for(User u: userList){
                         SQLiteDatabase db = conn.getWritableDatabase();
                         ContentValues values = new ContentValues();

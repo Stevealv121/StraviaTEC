@@ -28,6 +28,7 @@ public class Menu extends AppCompatActivity {
                 break;
             case R.id.toActivity:
                 myintent = new Intent(Menu.this, ActivitySetup.class);
+                myintent.putExtra("uname",username);
                 break;
         }
         Toast.makeText(Menu.this,"Current User: "+username,Toast.LENGTH_LONG).show();
