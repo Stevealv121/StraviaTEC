@@ -124,8 +124,8 @@ export class ApiService {
     return this.http.get<any>(path)
   }
 
-  joinChallenge(username: any, challengeId: any): Observable<ResponseI> {
-    let joinPath = this.challengePath + "/JoinChallenge/" + username + "/" + challengeId;
+  joinChallenge(username: any, challengeId: any, activityID: any): Observable<ResponseI> {
+    let joinPath = this.challengePath + "/JoinChallenge/" + username + "/" + challengeId + "/" + activityID;
     return this.http.post<ResponseI>(joinPath, null)
   }
 
@@ -140,7 +140,7 @@ export class ApiService {
   }
 
   getChallengeByUser(username: any): Observable<ChallengeI[]> {
-    let challengePath = this.challengePath + "/ByUserName/" + username;
+    let challengePath = this.challengePath + "/UserJoins/" + username;
     return this.http.get<ChallengeI[]>(challengePath)
   }
 

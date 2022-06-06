@@ -24,13 +24,16 @@ export class ChallengesComponent implements OnInit {
 
   ngOnInit(): void {
     this.setMatrix();
+    console.log(this.challengesMatrix);
+    this.checkIfUserHasChallenges();
+    console.log(this.challengesMatrix);
   }
 
   joinChallenge(btnID: number) {
     this.challengesMatrix.forEach(element => {
       element.forEach(challenge => {
         if (btnID == challenge.id && challenge.btn == 'Join Challenge') {
-          this.api.joinChallenge(this.data.currentUser?.userName, challenge.id).subscribe(data => {
+          this.api.joinChallenge(this.data.currentUser?.userName, challenge.id, challenge.activityId).subscribe(data => {
             console.log(data);
             challenge.color = 'white';
             challenge.font = '#00AF3D';
@@ -50,7 +53,7 @@ export class ChallengesComponent implements OnInit {
     });
   }
 
-  setMatrix() {
+  async setMatrix() {
     //5 elements
     this.api.getChallenges().subscribe(data => {
 
@@ -60,7 +63,8 @@ export class ChallengesComponent implements OnInit {
           let array: ChallengeI[] = [];
           for (let is = 0; is < 5; is++) {
             if (data[i + is]) {
-              array.push(this.setButtonsValues(data[i + is]));
+              //console.log(data[i + is]);
+              array.push(this.setButtonsValues(data[i + is], '#00AF3D', 'white', 'Join Challenge'));
             }
           }
           this.challengesMatrix.push(array);
@@ -68,9 +72,10 @@ export class ChallengesComponent implements OnInit {
       }
     }
     )
+    await new Promise(f => (setTimeout(f, 100)));
   }
 
-  setButtonsValues(data: ChallengeI) {
+  setButtonsValues(data: ChallengeI, color: any, font: any, btn: any) {
 
     let dataFormatted: ChallengeI = {
       id: data.id,
@@ -80,9 +85,9 @@ export class ChallengesComponent implements OnInit {
       name: data.name,
       activityId: data.activityId,
       //Buttons
-      color: '#00AF3D',
-      font: 'white',
-      btn: 'Join Challenge',
+      color: color,
+      font: font,
+      btn: btn,
       //More
       progress: null,
       goal: null
@@ -94,6 +99,22 @@ export class ChallengesComponent implements OnInit {
   moreInfo(selectedChallenge: any) {
     this.data.selectedChallenge = selectedChallenge;
     this.router.navigateByUrl("/challenge-info");
+  }
+
+  async checkIfUserHasChallenges() {
+    this.api.getChallengeByUser(this.data.currentUser?.userName).subscribe(rsp => {
+      console.log(rsp);
+      this.challengesMatrix.forEach(element => {
+        element.forEach(challenge => {
+          if (rsp[0].id == challenge.id) {
+            challenge.color = 'white';
+            challenge.font = '#00AF3D';
+            challenge.btn = 'Challenged Joined';
+          }
+        });
+      });
+    });
+    await new Promise(f => (setTimeout(f, 500)));
   }
 
 
