@@ -26,10 +26,12 @@ export class ChallengeInfoComponent implements OnInit {
     await new Promise(f => (setTimeout(f, 100)));
   }
 
-  getProgress(id: number) {
-    let progress: number = 0;
-    //TODO get progress
-    return progress;
+  async getProgress(id: number) {
+    this.api.getChallengeNumbers(id, this.data.currentUser?.userName).subscribe(data => {
+      this.challenge.progress = data.percentage;
+      this.hasProgress = true;
+    });
+    await new Promise(f => (setTimeout(f, 100)));
   }
 
 }

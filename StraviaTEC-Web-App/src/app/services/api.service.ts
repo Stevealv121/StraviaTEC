@@ -67,8 +67,8 @@ export class ApiService {
     return this.http.delete<ResponseI>(deletePath)
   }
 
-  postActivity(form: ActivityI): Observable<ResponseI> {
-    return this.http.post<ResponseI>(this.activityPath, form)
+  postActivity(form: ActivityI) {
+    return this.http.post<any>(this.activityPath, form)
   }
 
   searchUser(user: string): Observable<UserI[]> {
@@ -142,6 +142,16 @@ export class ApiService {
   getChallengeByUser(username: any): Observable<ChallengeI[]> {
     let challengePath = this.challengePath + "/UserJoins/" + username;
     return this.http.get<ChallengeI[]>(challengePath)
+  }
+
+  getChallengeNumbers(challengeId: any, username: any) {
+    let path = this.challengePath + "/ChallengeNumbers/" + challengeId + "/" + username;
+    return this.http.get<any>(path)
+  }
+
+  finishChallenge(activityID: any, challengeId: any, username: any) {
+    let path = this.challengePath + "/JoinChallenge/InputActivity/" + activityID + "/" + challengeId + "/" + username;
+    return this.http.put<any>(path, null)
   }
 
   getGroups(): Observable<GroupI[]> {

@@ -77,6 +77,19 @@
                             </select>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <div class="challenge-wrapper" [hidden]="isChallengeHidden">
+                            <select [(ngModel)]="challengeOptionsModel" class="form-select" formControlName="challenge"
+                                (change)="putChallenge()">
+                                <option class="dropdown-item" disabled selected value="undefined">Choose the challenge
+                                </option>
+                                <option *ngFor="let challenge of activeChallenges" [ngValue]="challenge.id"
+                                    class="dropdown-item">
+                                    {{challenge.name}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
                     <br>
                     <div class="form-group">
                         <button id="buttons" type="submit"

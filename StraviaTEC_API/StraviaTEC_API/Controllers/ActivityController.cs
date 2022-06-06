@@ -68,17 +68,13 @@ namespace StraviaTEC_API.Controllers
         /// The result of the query is being returned.
         /// </returns>
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] Activity newObj)
+        public async Task<int> Create([FromBody] Activity newObj)
         {
-            if (newObj == null)
-                return BadRequest();
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             var db = dbConnection();
-            var result = db.Execute("InsertActivity", newObj, commandType: CommandType.StoredProcedure);
-
-            return Created("created", result>0);
+            //var result = db.Execute("InsertRace", newObj, commandType: CommandType.StoredProcedure);
+            int identity = db.ExecuteScalar<int>("InsertActivity", newObj, commandType: CommandType.StoredProcedure);
+            Console.WriteLine(identity);
+            return identity;
         }
         
         /// <summary>

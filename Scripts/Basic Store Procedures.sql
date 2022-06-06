@@ -20,7 +20,7 @@ VALUES (@Date,@Duration,@Mileage,@Route,@SportName)
 SET @Id = SCOPE_IDENTITY()
 INSERT INTO Register(UserName, ActivityId)
 VALUES (@Username, @Id)
-RETURN @Id
+SELECT @Id
 GO
 
 CREATE PROCEDURE UpdateActivity @Id int, @Date date,@Duration time(7),@Mileage int,@Route varbinary(MAX),@SportName varchar(15)
