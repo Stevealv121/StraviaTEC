@@ -57,7 +57,7 @@ const routes: Routes = [
   { path: "GroupInfo", component: GroupGestionComponent },
   { path: "my-activities", component: MyActivitiesComponent },
   { path: "challenge-info", component: ChallengeInfoComponent },
-  { path: "leaderboard", component: LeaderboardComponent }
+  { path: "leaderboard", component: LeaderboardComponent },
   { path: "PositionReport", component:PositionsReportsComponent},
   {path: "MemberReport", component:MembersReportsComponent}
 ];

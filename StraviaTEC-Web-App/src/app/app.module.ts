@@ -64,7 +64,7 @@ import { LeaderboardComponent } from './leaderboard/leaderboard.component';
     GroupGestionComponent,
     MyActivitiesComponent,
     ChallengeInfoComponent,
-    LeaderboardComponent
+    LeaderboardComponent,
     PositionsReportsComponent,
     MembersReportsComponent
   ],

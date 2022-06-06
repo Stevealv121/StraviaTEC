@@ -6,7 +6,7 @@
         The system will create a specific id for each Race.
       </label>
     </div>
-  </div> <!--Input with the baggage information-->
+  </div>
   <div class="col">
     <h3>Create a Race</h3>
     <div class="input-group mb-3">
@@ -67,7 +67,7 @@
     </div>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end"> <!----Action buttons-->
       <button id="span" id="buttons" class="btn btn-primary me-md-2" type="button" routerLink="/menu">Cancel</button>
-      <button id="span" id="buttons" class="btn btn-primary" type="button" (click)="postRace(name.value, date.value, activity.value,cost.value,access.value,category.value,account1.value,account2.value,sponsor.value,sponsor1.value)" >Create</button>
+      <button id="span" id="buttons" class="btn btn-primary" type="button" (click)="postRace(name.value, date.value, activity.value,cost.value,access.value,category.value,account1.value,account2.value,sponsor.value,sponsor1.value)" routerLink = "/menu" >Create</button>
     </div>
   </div>
 </div>
