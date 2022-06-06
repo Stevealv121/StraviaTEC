@@ -5,6 +5,7 @@ import { Race } from 'src/app/models/race';
 import { Sponsor } from 'src/app/models/sponsor';
 import { Sport } from 'src/app/models/sport';
 import { ApiService } from 'src/app/services/api.service';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-new-competition',
@@ -18,13 +19,18 @@ export class NewCompetitionComponent implements OnInit {
   sponsors:Sponsor[];
   activities:Activity[];
   categories:string[];
+  user:string;
 
-  constructor(private api:ApiService) {
+  constructor(private api:ApiService, private dataService:DataService) {
     this.sports=[];
     this.groups=[];
     this.sponsors=[];
     this.activities=[];
     this.categories=[];
+    this.user="";
+    if(this.dataService.currentUser && this.dataService.currentUser.userName != null){
+      this.user = this.dataService.currentUser?.userName
+    }
    }
 
   ngOnInit(): void {
@@ -37,7 +43,7 @@ export class NewCompetitionComponent implements OnInit {
    * This function request to the api for the activites
    */
   loadActities(){
-    this.api.getUserActivities2("dennis").subscribe((data:any)=>{ //change dennis for the username
+    this.api.getUserActivities2(this.user).subscribe((data:any)=>{ //change dennis for the username
       this.activities = data;
     })
   }
@@ -45,7 +51,7 @@ export class NewCompetitionComponent implements OnInit {
    * This function request to the api for the user's groups
    */
   loadGroups(){
-    this.api.getGroupInfoByManagerId("dennis").subscribe((data:any)=>{
+    this.api.getGroupInfoByManagerId(this.user).subscribe((data:any)=>{
       this.groups = data;
     })
   }
@@ -82,16 +88,22 @@ export class NewCompetitionComponent implements OnInit {
     var activityId = activity.split(" ",1);
     var sponsor1Id= sponsor1.split(" ",1);
     var sponsor2Id= sponsor2.split(" ",1);
-    console.log(sponsor1Id);
+    var _access = "";
+    if(access == "Public"){
+      _access="Public";
+    }else{
+      _access=access.split(":",2)[1];
+    }
     var race:Race={
       id:0,
       name:name,
       cost:Number(cost),
       date:date,
-      access:access.split(":",2)[1],
+      access:_access,
       activityID:Number(activityId[0]),
       categoryName:category
     }
+    console.log(race);
     this.api.postRace(race).subscribe((raceId:any)=>{
       this.api.postRaceAccount(String(raceId),account1).subscribe((data:any)=>{
 

@@ -11,9 +11,14 @@ import { DataService } from '../services/data.service';
 export class CompetitionComponent implements OnInit {
 
   races:Race[];
+  user:string;
 
   constructor(private api:ApiService, private dataService:DataService) {
     this.races=[]
+    this.user="";
+    if(this.dataService.currentUser && this.dataService.currentUser.userName != null){
+      this.user = this.dataService.currentUser?.userName
+    }
    }
 
   ngOnInit(): void {
@@ -21,7 +26,7 @@ export class CompetitionComponent implements OnInit {
   }
 
   loadRaces(){
-    this.api.getRacesByManagerId("dennis").subscribe((data:any)=>{ //change dennis for the username
+    this.api.getRacesByManagerId(this.user).subscribe((data:any)=>{ //change dennis for the username
       this.races = data;
       console.log(this.races)
     })

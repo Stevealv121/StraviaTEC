@@ -10,11 +10,8 @@
           <h5>{{activity.sportName}}</h5>
         </div>
         <div class="row">
-          <H3>Route</H3> <!--add gpx view-->
-          <h5>Archivo</h5>
-        </div>
-        <div class="row">
           <h3>Accounts</h3>
+          <h5 *ngFor="let acc of accounts">{{acc.account}}</h5>
         </div>
         <div class="row">
           <h3>Sponsors</h3>
@@ -26,7 +23,7 @@
           </div>
           <div class="col">
             <h4>Logo</h4>
-
+              <img [src]="sponsor.image" id="logo">
           </div>
         </div>
       </div>
@@ -47,20 +44,38 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Raul</td>
-            <td>Monge Mora</td>
-            <td>36</td>
-            <td><button id="buttons" class="btn btn-primary" type="button">See</button></td>
-            <td><button id="buttons" class="btn btn-primary" type="button">Delete</button></td>
+          <tr *ngFor="let member of participants">
+            <td>{{member.firstName}}</td>
+            <td>{{member.firstSurname}} {{member.secondSurname}}</td>
+            <td>3{{member.age}}</td>
+            <td><button type="button" id="buttons" class="btn btn-primary" (click)="loadBill(member.bill)" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+              see
+            </button></td>
+            <td><button id="buttons" class="btn btn-primary" type="button" (click)="deleteMember(member.userName)">Delete</button></td>
           </tr>
         </tbody>
       </table>
       <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button id="buttons" class="btn btn-primary me-md-2" type="button">Participants Report</button>
-        <button id="buttons" class="btn btn-primary" type="button">Positions Report</button>
+        <button id="buttons" class="btn btn-primary me-md-2" type="button" routerLink="/MemberReport">Participants Report</button>
+        <button id="buttons" class="btn btn-primary" type="button" routerLink="/PositionReport">Positions Report</button>
       </div>
     </div>
   </div>
 
+</div>
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">User Bill</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <img [src]="bill" id="bill">
+      </div>
+      <div class="modal-footer">
+        <button id="buttons" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>

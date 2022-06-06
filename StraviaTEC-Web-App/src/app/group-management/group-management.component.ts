@@ -12,10 +12,15 @@ import { DataService } from '../services/data.service';
 export class GroupManagementComponent implements OnInit {
 
   groups: GroupsGest[];
+  user:string;
 
   constructor(private api:ApiService, private router:Router, private dataService:DataService) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.groups =[];
+    this.user="";
+    if(this.dataService.currentUser && this.dataService.currentUser.userName != null){
+      this.user = this.dataService.currentUser?.userName
+    }
   }
 
   ngOnInit(): void {
@@ -23,7 +28,7 @@ export class GroupManagementComponent implements OnInit {
   }
 
   cargarTabla(){
-    this.api.getGroupInfoByManagerId("dennis").subscribe((data:any)=>{
+    this.api.getGroupInfoByManagerId(this.user).subscribe((data:any)=>{
       this.groups = data;
     })
   }
@@ -33,6 +38,17 @@ export class GroupManagementComponent implements OnInit {
    */
   saveGroupId(id:string){
     this.dataService.groupId=id;
+  }
+  /**
+   * This function asks the api to delete a member of a group
+   * @param name name of the group
+   */
+  async deleteGroup(name:string){
+    this.api.deleteGroup(name).subscribe((data:any)=>{
+
+    });
+    await new Promise(f => setTimeout(f, 500))
+    this.ngOnInit()
   }
 
 }

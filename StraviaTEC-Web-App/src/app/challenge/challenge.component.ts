@@ -11,9 +11,13 @@ import { DataService } from '../services/data.service';
 export class ChallengeComponent implements OnInit {
 
   challenge:Challenge[];
-
+  user:string;
   constructor(private api:ApiService, private dataService:DataService) {
     this.challenge =[];
+    this.user="";
+    if(this.dataService.currentUser && this.dataService.currentUser.userName != null){
+      this.user = this.dataService.currentUser?.userName
+    }
    }
 
   ngOnInit(): void {
@@ -23,7 +27,7 @@ export class ChallengeComponent implements OnInit {
    * This function request to the api for the challenges
    */
   loadChallenges(){
-    this.api.getChallengeByManagerId("dennis").subscribe((data:any)=>{ //change dennis for the username
+    this.api.getChallengeByManagerId(this.user).subscribe((data:any)=>{ //change dennis for the username
       this.challenge = data;
     })
   }
@@ -34,6 +38,13 @@ export class ChallengeComponent implements OnInit {
   saveChallengeId(id:number){
     this.dataService.challengeId=id;
     console.log(this.dataService.challengeId)
+  }
+  async deleteChallenge(id:number){
+    this.api.deleteChallenge(id).subscribe((data:any)=>{
+
+    })
+    await new Promise(f => setTimeout(f, 500))
+    this.ngOnInit()
   }
 
 }

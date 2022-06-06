@@ -31,6 +31,8 @@ import { GroupManagementComponent } from './group-management/group-management.co
 import { NewGroupComponent } from './group-management/new-group/new-group.component';
 import { GroupGestionComponent } from './group-management/group-gestion/group-gestion.component';
 import { MyActivitiesComponent } from './my-activities/my-activities.component';
+import { PositionsReportsComponent } from './competition/positions-reports/positions-reports.component';
+import { MembersReportsComponent } from './competition/members-reports/members-reports.component';
 import { ChallengeInfoComponent } from './challenge-info/challenge-info.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 
@@ -63,6 +65,8 @@ import { LeaderboardComponent } from './leaderboard/leaderboard.component';
     MyActivitiesComponent,
     ChallengeInfoComponent,
     LeaderboardComponent
+    PositionsReportsComponent,
+    MembersReportsComponent
   ],
   imports: [
     BrowserModule,

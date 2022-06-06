@@ -19,6 +19,7 @@ export class EditCompetitionComponent implements OnInit {
   activities:Activity[];
   categories:string[];
   raceId:number;
+  user:string;
   constructor(private api:ApiService, private dataService:DataService) {
     this.sports=[];
     this.groups=[];
@@ -26,6 +27,10 @@ export class EditCompetitionComponent implements OnInit {
     this.activities=[];
     this.categories=[];
     this.raceId =dataService.raceId;
+    this.user="";
+    if(this.dataService.currentUser && this.dataService.currentUser.userName != null){
+      this.user = this.dataService.currentUser?.userName
+    }
    }
 
    ngOnInit(): void {
@@ -38,7 +43,7 @@ export class EditCompetitionComponent implements OnInit {
    * This function request to the api for the activites
    */
   loadActities(){
-    this.api.getUserActivities("dennis").subscribe((data:any)=>{ //change dennis for the username
+    this.api.getUserActivities(this.user).subscribe((data:any)=>{ //change dennis for the username
       this.activities = data;
     })
   }
@@ -46,7 +51,7 @@ export class EditCompetitionComponent implements OnInit {
    * This function request to the api for the user's groups
    */
   loadGroups(){
-    this.api.getGroupInfoByManagerId("dennis").subscribe((data:any)=>{
+    this.api.getGroupInfoByManagerId(this.user).subscribe((data:any)=>{
       this.groups = data;
     })
   }

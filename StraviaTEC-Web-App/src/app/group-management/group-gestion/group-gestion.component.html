@@ -26,11 +26,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Raul</td>
-            <td>Monge Mora</td>
-            <td>36</td>
-            <td><button id="buttons" class="btn btn-primary" type="button">Delete</button></td>
+          <tr *ngFor="let member of members">
+            <td>{{member.userName}}</td>
+            <td>{{member.firstSurname}} {{member.secondSurname}}</td>
+            <td>{{member.age}}</td>
+            <td><button id="buttons" class="btn btn-primary" type="button" (click)="deleteMember(member.userName)">Delete</button></td>
           </tr>
         </tbody>
       </table>
