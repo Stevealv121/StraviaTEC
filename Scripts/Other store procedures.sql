@@ -1,4 +1,4 @@
-Use StraviaTEC
+
 --USER
 -- Adds
 GO

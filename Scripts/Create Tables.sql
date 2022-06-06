@@ -1,4 +1,4 @@
-USE StraviaTEC;
+
 CREATE TABLE [USER](UserName VARCHAR(15) NOT NULL,
 					FirstName VARCHAR(15) NOT NULL,
 					SecondName VARCHAR(15),
