@@ -60,47 +60,99 @@ export class ApiService {
 
 
 
+  /**
+   * This function takes a username and password, and returns an observable of type UserI.
+   * @param {string} userName - string, password: string
+   * @param {string} password - string
+   * @returns Observable&lt;UserI&gt;
+   */
   login(userName: string, password: string): Observable<UserI> {
     let loginPath = this.userPath + "/" + "Login/" + userName + "/" + password;
     return this.http.get<UserI>(loginPath)
   }
 
+  /**
+   * This function takes a UserI object and returns an Observable of type ResponseI.
+   * @param {UserI} form - UserI
+   * @returns The response from the server.
+   */
   signUp(form: UserI): Observable<ResponseI> {
     return this.http.post<ResponseI>(this.userPath, form)
   }
 
+  /**
+   * It takes a UserI object, sends it to the server, and returns a ResponseI object
+   * @param {UserI} form - UserI
+   * @returns The response from the server.
+   */
   changeCredentials(form: UserI): Observable<ResponseI> {
     return this.http.put<ResponseI>(this.userPath, form);
   }
 
+  /**
+   * This function deletes a user account from the database.
+   * @param {string | null} userName - string | null, password: string | null
+   * @param {string | null} password - string | null
+   * @returns The response from the server.
+   */
   deleteAccount(userName: string | null, password: string | null): Observable<ResponseI> {
     let deletePath = this.userPath + "/" + "Account/" + userName + "/" + password;
     return this.http.delete<ResponseI>(deletePath)
   }
 
+  /**
+   * It takes a form of type ActivityI and returns an observable of type any
+   * @param {ActivityI} form - ActivityI
+   * @returns The postActivity method returns an Observable of type any.
+   */
   postActivity(form: ActivityI) {
     return this.http.post<any>(this.activityPath, form)
   }
 
+  /**
+   * This function takes a string as an argument and returns an observable of an array of UserI
+   * objects.
+   * @param {string} user - string - the user to search for
+   * @returns An array of UserI objects.
+   */
   searchUser(user: string): Observable<UserI[]> {
     let searchPath = this.userPath + "/" + "SearchUsers/" + user;
     return this.http.get<UserI[]>(searchPath)
   }
 
+  /**
+   * It returns an observable of an array of UserI objects
+   * @returns An Observable of an array of UserI objects.
+   */
   getAllUsers(): Observable<UserI[]> {
     return this.http.get<UserI[]>(this.userPath)
   }
 
+  /**
+   * It takes a form object, and sends it to the server.
+   * @param {AddFriendI} form - AddFriendI
+   * @returns The response from the server.
+   */
   addFriend(form: AddFriendI): Observable<ResponseI> {
     let addFriendPath = this.userPath + "/" + "AddFriend";
     return this.http.post<ResponseI>(addFriendPath, form)
   }
 
+  /**
+   * It takes a username as a parameter, and returns an observable of an array of UserI objects.
+   * @param {any} username - any - the username of the user whose friend list you want to retrieve
+   * @returns An array of UserI objects.
+   */
   getFriendList(username: any): Observable<UserI[]> {
     let friendListPath = this.userPath + "/FriendsList/" + username;
     return this.http.get<UserI[]>(friendListPath)
   }
 
+  /**
+   * It deletes a friend from the database using the delete method.
+   * @param {AddFriendI} form - AddFriendI
+   * @returns The response from the server.
+   */
   deleteFriend(form: AddFriendI): Observable<ResponseI> {
     const options = {
       headers: new HttpHeaders({
@@ -112,98 +164,213 @@ export class ApiService {
     return this.http.delete<ResponseI>(deleteFriendPath, options)
   }
 
+  /**
+   * This function returns an observable of an array of RaceI objects.
+   * @returns An Observable of an array of RaceI objects.
+   */
   getRaces(): Observable<RaceI[]> {
     return this.http.get<RaceI[]>(this.racePath)
   }
 
+  /**
+   * This function takes a username as a parameter and returns an observable of an array of RaceI
+   * objects.
+   * @param {any} username - any
+   * @returns An array of RaceI objects.
+   */
   getRacesByUserCategory(username: any): Observable<RaceI[]> {
     let categoryPath = this.racePath + "/ByUserCategory/" + username;
     return this.http.get<RaceI[]>(categoryPath)
   }
 
+  /**
+   * This function takes a JoinRaceI object and returns an Observable of type ResponseI.
+   * @param {JoinRaceI} form - JoinRaceI
+   * @returns The response from the server.
+   */
   joinRace(form: JoinRaceI): Observable<ResponseI> {
     let joinPath = this.racePath + "/JoinRace";
     return this.http.post<ResponseI>(joinPath, form)
   }
 
+  /**
+   * It takes in an activityID, race_ID, and username, and then it returns an http.put request to the
+   * path that is created by the parameters.
+   * @param {any} activityID - the activity ID of the race
+   * @param {any} race_ID - the ID of the race
+   * @param {any} username - the username of the user who is finishing the race
+   * @returns The return value is an observable of type any.
+   */
   finishRace(activityID: any, race_ID: any, username: any) {
     let path = this.racePath + "/JoinRace/InputActivity/" + activityID + "/" + race_ID + "/" + username;
     return this.http.put<any>(path, null)
   }
 
+  /**
+   * This function returns an observable of an array of ChallengeI objects.
+   * @returns An Observable of an array of ChallengeI objects.
+   */
   getChallenges(): Observable<ChallengeI[]> {
     return this.http.get<ChallengeI[]>(this.challengePath)
   }
 
+  /**
+   * This function takes a username as a parameter and returns a promise of an array of numbers.
+   * @param {any} username - string
+   * @returns An Observable of type any.
+   */
   getUserNumbers(username: any) {
     let path = this.userPath + "/UserNumbers/" + username;
     return this.http.get<any>(path)
   }
 
+  /**
+   * It takes a username, challengeId, and activityID and returns an Observable of type ResponseI
+   * @param {any} username - string
+   * @param {any} challengeId - the id of the challenge
+   * @param {any} activityID - the activity that the user is joining the challenge for
+   * @returns The response from the server.
+   */
   joinChallenge(username: any, challengeId: any, activityID: any): Observable<ResponseI> {
     let joinPath = this.challengePath + "/JoinChallenge/" + username + "/" + challengeId + "/" + activityID;
     return this.http.post<ResponseI>(joinPath, null)
   }
 
+  /**
+   * This function takes a username and a challengeId and returns an Observable of type ResponseI.
+   * @param {any} username - string
+   * @param {any} challengeId - string
+   * @returns The response from the server.
+   */
   exitChallenge(username: any, challengeId: any): Observable<ResponseI> {
     let exitPath = this.challengePath + "/ExitChallenge/" + username + "/" + challengeId;
     return this.http.post<ResponseI>(exitPath, null)
   }
 
+  /**
+   * This function takes a username as a parameter and returns an observable of an array of RaceI
+   * objects.
+   * @param {any} username - any
+   * @returns An array of RaceI objects.
+   */
   getRaceByUser(username: any): Observable<RaceI[]> {
     let racesPath = this.racePath + "/UserJoins/" + username;
     return this.http.get<RaceI[]>(racesPath)
   }
 
+  /**
+   * This function takes a race_ID as a parameter, and returns a list of positions for that race_ID.
+   * @param {any} race_ID - the ID of the race you want to get the leaderboard for
+   * @returns An observable of type any.
+   */
   getLeaderboard(race_ID: any) {
     let path = this.racePath + "/PositionList/" + race_ID;
     return this.http.get<any>(path)
   }
 
+  /**
+   * It takes a username as a parameter and returns an array of challenges that the user has joined
+   * @param {any} username - any
+   * @returns An array of ChallengeI objects.
+   */
   getChallengeByUser(username: any): Observable<ChallengeI[]> {
     let challengePath = this.challengePath + "/UserJoins/" + username;
     return this.http.get<ChallengeI[]>(challengePath)
   }
 
+  /**
+   * This function returns a promise of an array of numbers.
+   * @param {any} challengeId - the id of the challenge
+   * @param {any} username - the username of the user who is logged in
+   * @returns An Observable of type any.
+   */
   getChallengeNumbers(challengeId: any, username: any) {
     let path = this.challengePath + "/ChallengeNumbers/" + challengeId + "/" + username;
     return this.http.get<any>(path)
   }
 
+  /**
+   * It takes in an activityID, challengeId, and username, and then returns an http.put request to the
+   * path that is created by the function.
+   * @param {any} activityID - the ID of the activity that the user is inputting
+   * @param {any} challengeId - the id of the challenge
+   * @param {any} username - the username of the user who is finishing the challenge
+   * @returns The return value is an observable of type any.
+   */
   finishChallenge(activityID: any, challengeId: any, username: any) {
     let path = this.challengePath + "/JoinChallenge/InputActivity/" + activityID + "/" + challengeId + "/" + username;
     return this.http.put<any>(path, null)
   }
 
+  /**
+   * This function returns an observable of an array of GroupI objects.
+   * @returns An Observable of an array of GroupI objects.
+   */
   getGroups(): Observable<GroupI[]> {
     return this.http.get<GroupI[]>(this.groupPath)
   }
 
+  /**
+   * This function takes a username and a group name and returns an observable of type ResponseI.
+   * @param {any} username - string
+   * @param {any} group - string
+   * @returns The response from the server.
+   */
   joinGroup(username: any, group: any): Observable<ResponseI> {
     let joinPath = this.groupPath + "/JoinGroup/" + username + "/" + group;
     return this.http.post<ResponseI>(joinPath, null)
   }
 
+  /**
+   * It deletes a user from a group.
+   * @param {any} username - string
+   * @param {any} group - the group name
+   * @returns The response from the server.
+   */
   exitGroup(username: any, group: any): Observable<ResponseI> {
     let exitPath = this.groupPath + "/GroupMember/" + group + "/" + username;
     return this.http.post<ResponseI>(exitPath, null)
   }
 
+  /**
+   * This function gets the activities of the friends of the user with the username passed in as a
+   * parameter.
+   * @param {any} username - any - the username of the user whose friends activities you want to get
+   * @returns An array of activities.
+   */
   getFriendsActivities(username: any): Observable<ActivityI[]> {
     let activitesPath = this.userPath + "/FriendsActivities/" + username;
     return this.http.get<ActivityI[]>(activitesPath)
   }
 
+  /**
+   * This function takes a username as a parameter and returns an observable of an array of ActivityI
+   * objects.
+   * @param {any} username - any
+   * @returns An Observable of an array of ActivityI objects.
+   */
   getUserActivities(username: any): Observable<ActivityI[]> {
     let activitesPath = this.activityPath + "/ByUserName/" + username;
     return this.http.get<ActivityI[]>(activitesPath)
   }
 
+  /**
+   * This function returns an observable of an array of CommentI objects, which is the result of an
+   * http get request to the path specified by the commentPath variable plus the string "/Activity/"
+   * plus the string representation of the id parameter.
+   * @param {number} id - number - the id of the activity
+   * @returns An array of CommentI objects.
+   */
   getActivityComments(id: number): Observable<CommentI[]> {
     let path = this.commentPath + "/Activity/" + id.toString();
     return this.http.get<CommentI[]>(path)
   }
 
+  /**
+   * It takes a CommentI object, sends it to the server, and returns a ResponseI object
+   * @param {CommentI} form - CommentI
+   * @returns The response from the server.
+   */
   postComment(form: CommentI): Observable<ResponseI> {
     return this.http.post<ResponseI>(this.commentPath, form)
   }

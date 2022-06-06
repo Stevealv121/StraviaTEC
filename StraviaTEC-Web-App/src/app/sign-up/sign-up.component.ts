@@ -199,6 +199,12 @@ export class SignUpComponent implements OnInit {
     // this.url = '../../assets/images/avatar.png';
   }
 
+  /**
+   * The function postForm() takes a form of type UserI and subscribes to the api.signUp() function,
+   * which returns data of type UserI. The data is then logged to the console and the success()
+   * function is called.
+   * @param {UserI} form - UserI
+   */
   postForm(form: UserI) {
     this.api.signUp(form).subscribe(data => {
       console.log(data);
@@ -206,10 +212,20 @@ export class SignUpComponent implements OnInit {
     this.success();
   }
 
+  /**
+   * The function success() is a method of the class ToastrService, which is a service that is injected
+   * into the constructor of the class AppComponent. The method success() takes two arguments, the first
+   * being the message to be displayed, and the second being the title of the message
+   */
   success() {
     this.toastr.success("New account succesfully created!", "Success")
   }
 
+  /**
+   * It takes the file selected by the user, converts it to a base64 string, and then sets the value of
+   * the form control to the base64 string.
+   * @param {any} event - any - the event that is triggered when the user selects a file
+   */
   async onSelectFile(event: any) {
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();

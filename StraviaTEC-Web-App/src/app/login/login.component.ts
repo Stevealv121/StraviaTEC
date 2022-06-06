@@ -25,6 +25,12 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+   * The function is called when the user clicks the login button. It takes the user's username and
+   * password and sends it to the API. If the API returns a null value, it means the user's credentials
+   * are wrong. If the API returns a value, it means the user's credentials are correct.
+   * @param {LoginI} form - LoginI
+   */
   onLogin(form: LoginI) {
     let password = form.password;
     let userName = form.userName;

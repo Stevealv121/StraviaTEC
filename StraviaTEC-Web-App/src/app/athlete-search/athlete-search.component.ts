@@ -24,6 +24,11 @@ export class AthleteSearchComponent implements OnInit {
     this.getUsers();
   }
 
+  /**
+   * It takes a form, searches the database for the first name, and then sets the athletes array to the
+   * data returned from the database.
+   * @param {any} form - any
+   */
   searchAthlete(form: any) {
     this.athletes = [];
     this.api.searchUser(form.firstName).subscribe(data => {
@@ -35,6 +40,9 @@ export class AthleteSearchComponent implements OnInit {
 
   }
 
+  /**
+   * It gets all the users from the database, then removes the current user from the list of users.
+   */
   getUsers() {
     this.api.getAllUsers().subscribe(data => {
       this.athletes = data;
@@ -53,6 +61,10 @@ export class AthleteSearchComponent implements OnInit {
     })
   }
 
+  /**
+   * It gets a list of friends from the database, then loops through the list of athletes and sets the
+   * button color and text to "following" if the athlete is in the list of friends.
+   */
   setButtonInfo() {
     if (this.data.currentUser) {
       this.api.getFriendList(this.data.currentUser.userName).subscribe(data => {
@@ -80,6 +92,12 @@ export class AthleteSearchComponent implements OnInit {
     }
   }
 
+  /**
+   * If the user is logged in, then if the button is 'Follow', then add the friend, else if the button
+   * is 'Following', then delete the friend.
+   * @param {any} friend - any, id: any
+   * @param {any} id - the id of the button
+   */
   addFriend(friend: any, id: any) {
     if (this.data.currentUser) {
       let form: AddFriendI = {
