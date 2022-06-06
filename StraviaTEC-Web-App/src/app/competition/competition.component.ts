@@ -62,10 +62,12 @@ export class CompetitionComponent implements OnInit {
    * The table is in
    * @param {number} id - number - the id of the race to delete
    */
-  deleteRace(id:number){
+  async deleteRace(id:number){
     this.api.deleteRace(id).subscribe((data:any)=>{
 
     })
+    await new Promise(f => setTimeout(f,500));
+    this.ngOnInit();
   }
 
 }
