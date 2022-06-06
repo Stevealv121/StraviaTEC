@@ -19,6 +19,7 @@ export class DataService {
   currentUser: UserI | undefined;
   selectedRace!: RaceI;
   selectedChallenge!: ChallengeI;
+  fromChallenges: boolean = false;
 
 }
 

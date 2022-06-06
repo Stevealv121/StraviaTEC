@@ -98,6 +98,7 @@ export class ChallengesComponent implements OnInit {
 
   moreInfo(selectedChallenge: any) {
     this.data.selectedChallenge = selectedChallenge;
+    this.data.fromChallenges = true;
     this.router.navigateByUrl("/challenge-info");
   }
 

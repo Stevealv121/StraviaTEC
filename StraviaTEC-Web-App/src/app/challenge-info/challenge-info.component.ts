@@ -17,7 +17,9 @@ export class ChallengeInfoComponent implements OnInit {
   ngOnInit(): void {
     this.challenge = this.data.selectedChallenge;
     this.getGoal(this.challenge.activityId);
-    this.getProgress(this.challenge.id);
+    if (this.data.fromChallenges == false) {
+      this.getProgress(this.challenge.id);
+    }
   }
 
   async getGoal(id: number) {
@@ -31,10 +33,8 @@ export class ChallengeInfoComponent implements OnInit {
     this.api.getChallengeNumbers(id, this.data.currentUser?.userName).subscribe(data => {
       console.log(data);
       this.challenge.progress = data[0].percentage;
-      if(this.challenge.progress != null){
-        this.hasProgress = true;
-      }
-      
+      this.hasProgress = true;
+
     });
     await new Promise(f => (setTimeout(f, 100)));
   }
