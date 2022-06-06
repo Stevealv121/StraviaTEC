@@ -93,12 +93,12 @@ namespace StraviaTEC_API.Controllers
         /// <returns>
         /// A list of races that the user belongs to.
         /// </returns>
-        [HttpGet("UserJoins/{_username}")]
-        public async Task<IActionResult> GetRacesbyUser(string _username)
+        [HttpGet("UserJoins/{Username}")]
+        public async Task<IActionResult> GetRacesbyUser(string Username)
         {
             var db = dbConnection();
             var sql = @"EXEC SelectUserBelongsToRace  @username ";
-            var result = await db.QueryAsync<Race>(sql, new { username = _username });
+            var result = await db.QueryAsync<Race>(sql, new { username = Username });
 
             return Ok(result);
         }
@@ -200,18 +200,18 @@ namespace StraviaTEC_API.Controllers
         /// <summary>
         /// This function is used to update the activityid of a user in a race
         /// </summary>
-        /// <param name="_activityid">the id of the activity that the user has inputted</param>
-        /// <param name="_raceid">the id of the race</param>
-        /// <param name="_username">the username of the user who is joining the race</param>
+        /// <param name="Activityid">the id of the activity that the user has inputted</param>
+        /// <param name="Raceid">the id of the race</param>
+        /// <param name="Username">the username of the user who is joining the race</param>
         /// <returns>
         /// The result of the query is being returned.
         /// </returns>
-        [HttpPut("JoinRace/InputActivity/{_activityid}/{_raceid}/{_username}")]
-        public async Task<IActionResult> InputActivity(int _activityid, int _raceid, string _username)
+        [HttpPut("JoinRace/InputActivity/{Activityid}/{Raceid}/{Username}")]
+        public async Task<IActionResult> InputActivity(int Activityid, int Raceid, string Username)
         {
             var db = dbConnection();
             var sql = @"EXEC UpdateJoinRace @raceid, @activityid, @username";
-            var result = await db.ExecuteAsync(sql, new { activityid = _activityid, raceid = _raceid, username = _username });
+            var result = await db.ExecuteAsync(sql, new { activityid = Activityid, raceid = Raceid, username = Username });
 
             return Ok(result);
 

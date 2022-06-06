@@ -75,16 +75,16 @@ namespace StraviaTEC_API.Controllers
         /// <summary>
         /// This function returns a list of challenges that a user belongs to
         /// </summary>
-        /// <param name="_username">the username of the user who is trying to get the challenge</param>
+        /// <param name="Username">the username of the user who is trying to get the challenge</param>
         /// <returns>
         /// A list of challenges that the user belongs to.
         /// </returns>
-        [HttpGet("UserJoins/{_username}")]
-        public async Task<IActionResult> GetChallengebyUser(string _username)
+        [HttpGet("UserJoins/{Username}")]
+        public async Task<IActionResult> GetChallengebyUser(string Username)
         {
             var db = dbConnection();
             var sql = @"EXEC SelectUserBelongsToChallenge  @username ";
-            var result = await db.QueryAsync<Challenge>(sql, new { username = _username });
+            var result = await db.QueryAsync<Challenge>(sql, new { username = Username });
 
             return Ok(result);
         }
@@ -151,16 +151,16 @@ namespace StraviaTEC_API.Controllers
         /// <summary>
         /// This function is used to get all the challenges that a user has created
         /// </summary>
-        /// <param name="_username">the username of the user who is logged in</param>
+        /// <param name="Username">the username of the user who is logged in</param>
         /// <returns>
         /// A list of challenges that the user has created.
         /// </returns>
-        [HttpGet("ByUserName/{_username}")]
-        public async Task<IActionResult> GetbyUserName(string _username)
+        [HttpGet("ByUserName/{Username}")]
+        public async Task<IActionResult> GetbyUserName(string Username)
         {
             var db = dbConnection();
             var sql = @"EXEC SelectUserChallenge @user";
-            return Ok(await db.QueryAsync<Challenge>(sql, new { user = _username }));
+            return Ok(await db.QueryAsync<Challenge>(sql, new { user = Username }));
 
         }
 
@@ -184,13 +184,21 @@ namespace StraviaTEC_API.Controllers
 
             return NoContent();
         }
-
-        [HttpPut("JoinChallenge/InputActivity/{_activityid}/{_challengeid}/{_username}")]
-        public async Task<IActionResult> InputActivity(int _activityid, int _challengeid, string _username)
+        /// <summary>
+        /// This function is called when a user wants to input an acticity
+        /// </summary>
+        /// <param name="Activityid">The username of the user who is joining the challenge</param>
+        /// <param name="Username">The username of the user who is joining the challenge</param>
+        /// <param name="Challengeid">the id of the challenge</param>
+        /// <returns>
+        /// NoContent()
+        /// </returns>
+        [HttpPut("JoinChallenge/InputActivity/{Activityid}/{Challengeid}/{Username}")]
+        public async Task<IActionResult> InputActivity(int Activityid, int Challengeid, string Username)
         {
             var db = dbConnection();
             var sql = @"EXEC UpdateJoinChallenge @challengeid, @activityid, @username";
-            var result = await db.ExecuteAsync(sql, new { activityid = _activityid, challengeid = _challengeid, username = _username });
+            var result = await db.ExecuteAsync(sql, new { activityid = Activityid, challengeid = Challengeid, username = Username });
 
             return Ok(result);
 
