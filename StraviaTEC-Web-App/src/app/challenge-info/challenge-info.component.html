@@ -1,0 +1,20 @@
+<div class="container">
+    <br><br>
+    <h2>{{challenge.name}}</h2>
+    <br>
+    <h5>Goal: {{challenge.goal}} km</h5>
+    <h5>{{challenge.type}}</h5>
+    <h5>Until: {{challenge.validThru}}</h5>
+    <ng-container *ngIf="hasProgress, else noProgress">
+        <h5>Your Progress:</h5>
+        <progress [value]="challenge.progress" max="100" [title]="challenge.progress + '%'"> 0% </progress>
+        <br>
+        <br>
+        <button id="buttons" class="btn btn-primary" routerLink="/competitions">Go Back</button>
+    </ng-container>
+    <ng-template #noProgress>
+        <br>
+        <button id="buttons" class="btn btn-primary" routerLink="/challenges">Go Back</button>
+    </ng-template>
+
+</div>

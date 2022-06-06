@@ -20,7 +20,7 @@ VALUES (@Date,@Duration,@Mileage,@Route,@SportName)
 SET @Id = SCOPE_IDENTITY()
 INSERT INTO Register(UserName, ActivityId)
 VALUES (@Username, @Id)
-RETURN @Id
+SELECT @Id
 GO
 
 CREATE PROCEDURE UpdateActivity @Id int, @Date date,@Duration time(7),@Mileage int,@Route varbinary(MAX),@SportName varchar(15)
@@ -358,6 +358,13 @@ GO
 
 CREATE PROCEDURE DeleteUser @UserName varchar(15), @Password varchar(15)
 AS
+DELETE FROM MANAGES WHERE UserName = @UserName
+DELETE FROM JOIN_CHALLENGE WHERE UserName = @UserName
+DELETE FROM JOIN_RACE WHERE UserName = @UserName
+DELETE FROM Adds WHERE UserName = @UserName
+DELETE FROM Adds WHERE FriendUserName = @UserName
+DELETE FROM BelongsTo WHERE UserName = @UserName
+DELETE FROM MANAGES WHERE UserName = @UserName
 DELETE
 FROM [USER]
 WHERE UserName = @UserName AND [Password] = @Password

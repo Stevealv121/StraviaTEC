@@ -67,12 +67,26 @@
                     <br>
                     <div class="form-group">
                         <div class="race-wrapper" [hidden]="isRaceHidden">
-                            <select [(ngModel)]="selectedOption3" class="form-select" formControlName="race">
+                            <select [(ngModel)]="selectedOption3" class="form-select" formControlName="race"
+                                (change)="putRace()">
                                 <option class="dropdown-item" disabled selected value="undefined">Choose the race you
                                     finished
                                 </option>
-                                <option *ngFor="let race of activeRaces" [ngValue]="race.name" class="dropdown-item">
+                                <option *ngFor="let race of activeRaces" [ngValue]="race.id" class="dropdown-item">
                                     {{race.name}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="challenge-wrapper" [hidden]="isChallengeHidden">
+                            <select [(ngModel)]="challengeOptionsModel" class="form-select" formControlName="challenge"
+                                (change)="putChallenge()">
+                                <option class="dropdown-item" disabled selected value="undefined">Choose the challenge
+                                </option>
+                                <option *ngFor="let challenge of activeChallenges" [ngValue]="challenge.id"
+                                    class="dropdown-item">
+                                    {{challenge.name}}
                                 </option>
                             </select>
                         </div>

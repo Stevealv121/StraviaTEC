@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ActivityI } from '../models/activity.interface';
+import { ChallengeI } from '../models/challenge.interface';
 import { RaceI } from '../models/race.interface';
 import { ApiService } from '../services/api.service';
 import { DataService } from '../services/data.service';
@@ -21,8 +22,11 @@ export class UploadActivityComponent implements OnInit {
   selectedOption2: any;
   selectedOption3: any;
   sportModel: any;
+  challengeOptionsModel: any;
+  isChallengeHidden: boolean = true;
   // activeRaces = [{ name: "Race1", id: "1" }, { name: "Race2", id: "2" }];
   activeRaces: RaceI[] = [];
+  activeChallenges: ChallengeI[] = [];
   sports = [{ name: "Running", id: "1" }, { name: "Swimming", id: "2" }, { name: "Cycling", id: "3" },
   { name: "Hiking", id: "4" }, { name: "Kayaking", id: "5" }, { name: "Walking", id: "6" }];
 
@@ -35,12 +39,17 @@ export class UploadActivityComponent implements OnInit {
     route: new FormControl(''),
     competition: new FormControl(''),
     race: new FormControl(''),
+    challenge: new FormControl(''),
     sport: new FormControl('')
   });
 
   isRaceHidden: boolean = true;
   fileBlob: any;
   blob: string[] = [];
+  postedActivityID: any;
+  selectedChallenge: any;
+  selectedRace: any;
+  finishing: any;
 
   ngOnInit(): void {
   }
@@ -54,9 +63,47 @@ export class UploadActivityComponent implements OnInit {
     } else {
       this.isRaceHidden = true;
     }
+    if (this.selectedOption2 == "Challenge") {
+      this.api.getChallengeByUser(this.data.currentUser?.userName).subscribe(data => {
+        if (data.length != 0) {
+          this.activeChallenges = data;
+          this.isChallengeHidden = false;
+        }
+      })
+    } else {
+      this.isChallengeHidden = true;
+    }
   }
 
-  uploadActivity(form: any) {
+  putChallenge() {
+    this.selectedChallenge = this.challengeOptionsModel;
+    this.finishing = 'Challenge';
+  }
+
+  putRace() {
+    this.selectedRace = this.selectedOption3;
+    this.finishing = 'Race';
+  }
+
+  finishChallenge() {
+    this.api.finishChallenge(this.postedActivityID, this.selectedChallenge,
+      this.data.currentUser?.userName).subscribe(data => {
+        console.log(data);
+      });
+  }
+
+  finishRace() {
+    this.api.finishRace(this.postedActivityID, this.selectedRace,
+      this.data.currentUser?.userName).subscribe(data => {
+        console.log(data);
+      })
+  }
+
+  // getPostedActivityID(){
+  //   this.api.getActivityById()
+  // }
+
+  async uploadActivity(form: any) {
 
     if (this.data.currentUser) {
       let activity: ActivityI = {
@@ -85,7 +132,16 @@ export class UploadActivityComponent implements OnInit {
 
       this.api.postActivity(activity).subscribe(data => {
         console.log(data);
-      })
+        this.postedActivityID = data;
+      });
+      await new Promise(f => (setTimeout(f, 100)));
+    }
+
+    if (this.finishing == 'Race') {
+      this.finishRace();
+
+    } else if (this.finishing == 'Challenge') {
+      this.finishChallenge();
     }
 
     this.toastr.success("Activity successfully posted!", "Success");

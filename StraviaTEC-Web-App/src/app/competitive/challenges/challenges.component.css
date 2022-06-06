@@ -4,12 +4,22 @@
 }
 
 #challengeCard {
-    width: 200px;
-    height: 190px;
+    width: 235px;
+    height: 180px;
 }
 
-button {
+/* button {
     margin: 0 3%;
+} */
+
+#info {
+    margin: 25% 0;
+    height: 20px;
+    width: 20px;
+}
+
+#info:hover {
+    cursor: pointer;
 }
 
 p {

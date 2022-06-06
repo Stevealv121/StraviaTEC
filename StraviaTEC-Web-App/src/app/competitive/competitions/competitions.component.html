@@ -50,48 +50,13 @@
                         <div class="card-body">
                             <div class="row mb-3">
                                 <div id="race-name" class="col">
-                                    <h4>Name</h4>
+                                    <h4>{{race.name}}</h4>
                                     <ul>
-                                        <li>Type:asdfsd</li>
-                                        <li>Valid thru</li>
+                                        <li>{{race.categoryName}}</li>
+                                        <li>{{race.date}}</li>
                                     </ul>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="accordion accordion-flush" id="accordionExample">
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header" [attr.id]="'headingOne'+i">
-                                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                                [attr.data-bs-target]="'#collapseOne'+i" aria-expanded="false"
-                                                [attr.aria-controls]="'collapseOne'+i">
-                                                Leaderboards
-                                            </button>
-                                        </h2>
-                                        <div [attr.id]="'collapseOne'+i" class="accordion-collapse collapse"
-                                            [attr.aria-labelledby]="'headingOne'+i" data-bs-parent="#accordionExample">
-                                            <div class="accordion-body">
-                                                <table class="table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th scope="col">Position</th>
-                                                            <th scope="col">Name</th>
-                                                            <th scope="col">LastName</th>
-                                                            <th scope="col">Time</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr *ngFor="let participant of leaderboards">
-                                                            <th scope="row">1
-                                                            </th>
-                                                            <td>Mark</td>
-                                                            <td>Otto</td>
-                                                            <td>1h-12m-26s</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <button class="btn btn-primary" (click)="goToLeaderboard(race)" id="buttons">Check
+                                        Leaderboard</button>
                                 </div>
                             </div>
                         </div>
@@ -110,13 +75,13 @@
                         <div class="card-body">
                             <div class="row mb-3">
                                 <div id="race-name" class="col">
-                                    <h4>Name</h4>
+                                    <h4>{{challenge.name}}</h4>
                                     <br>
-                                    <ul>
-                                        <li>Goal:asdfsd</li>
-                                        <li>Progress: %</li>
-                                        <li>Valid thru: date</li>
-                                    </ul>
+
+                                    <p>Valid thru: {{challenge.validThru}}</p>
+
+                                    <button (click)="moreInfo(challenge)" class="btn btn-primary" id="buttons">More
+                                        Info</button>
                                 </div>
                             </div>
                         </div>

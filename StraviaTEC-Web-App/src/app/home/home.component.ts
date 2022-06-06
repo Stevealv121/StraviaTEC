@@ -45,6 +45,9 @@ export class HomeComponent implements OnInit {
   //@ViewChild('map', { read: ElementRef }) mapContainer!: ElementRef;
   user?: UserI;
   profilePicture: any;
+  followers: any;
+  following: any;
+  number_activities: any;
 
   commentForm = new FormGroup({
     new_comment: new FormControl('')
@@ -54,6 +57,16 @@ export class HomeComponent implements OnInit {
     this.user = this.data.currentUser;
     this.profilePicture = this.user?.blob;
     this.setFriendActivities();
+    this.setUserNumbers();
+  }
+
+  setUserNumbers() {
+    this.api.getUserNumbers(this.user?.userName).subscribe(data => {
+      console.log(data);
+      this.followers = data[0].followers;
+      this.following = data[0].following;
+      this.number_activities = data[0].activities;
+    })
   }
 
   postComment(form: any, id: any) {
