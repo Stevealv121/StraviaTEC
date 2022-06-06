@@ -40,7 +40,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ActivitySetup extends AppCompatActivity {
 
-    private Spinner activities, race;
+    private Spinner activities, race, challenges;
     TextView date;
     String username;
     String ssport;
@@ -72,6 +72,7 @@ public class ActivitySetup extends AppCompatActivity {
 
         activities = findViewById(R.id.activities);
         race = findViewById(R.id.race);
+        challenges = findViewById(R.id.challenges);
 
         List<String> states = Arrays.asList("Select Sport or Activity","Running","Swimming","Cycling","Trekking","Kayak","Hiking");
         ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_spinner_item,states);

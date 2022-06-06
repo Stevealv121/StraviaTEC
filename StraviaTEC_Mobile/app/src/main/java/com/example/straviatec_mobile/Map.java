@@ -19,8 +19,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.straviatec_mobile.Entities.Activity;
+import com.example.straviatec_mobile.Interfaces.ActivityAPI;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -35,6 +37,7 @@ import org.xml.sax.InputSource;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
+import java.security.cert.CertificateException;
 import java.sql.Blob;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -43,8 +46,19 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+
+import okhttp3.OkHttpClient;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Map extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -104,7 +118,6 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
                         nMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mylocation, 20));
                         trkpoints.add(location);
                         miles += 1;
-                        mileage.setText(miles);
                     }catch(SecurityException ex){
                         ex.printStackTrace();
                     }
@@ -186,6 +199,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
      * @param view the view that is being passed in
      */
     public void finishActivity(View view){
+        //mileage.setText(miles);
         Intent reciever = getIntent();
         user = reciever.getStringExtra("username");
         date = reciever.getStringExtra("date");
@@ -213,6 +227,22 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
     }
 
     private void postActivity(Activity act) {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://10.0.2.2:7060/")
+                .addConverterFactory(GsonConverterFactory.create()).client(getUnsafeOkHttpClient()).build();
+        ActivityAPI activityAPI = retrofit.create(ActivityAPI.class);
+        Call<Activity> call = activityAPI.postActivity(act);
+        call.enqueue(new Callback<Activity>() {
+            @Override
+            public void onResponse(Call<Activity> call, Response<Activity> response) {
+                Toast.makeText(Map.this, "User Succesfully Added", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<Activity> call, Throwable t) {
+                Toast.makeText(Map.this, "Post", Toast.LENGTH_LONG).show();
+
+            }
+        });
     }
 
     /**
@@ -262,5 +292,45 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback {
             ex.printStackTrace();
         }
         return null;
+    }
+
+    public static OkHttpClient getUnsafeOkHttpClient() {
+
+        try {
+            final TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
+                @Override
+                public void checkClientTrusted(
+                        java.security.cert.X509Certificate[] chain,
+                        String authType) throws CertificateException {
+                }
+
+                @Override
+                public void checkServerTrusted(
+                        java.security.cert.X509Certificate[] chain,
+                        String authType) throws CertificateException {
+                }
+
+                @Override
+                public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                    return new java.security.cert.X509Certificate[0];
+                }
+            } };
+
+            final SSLContext sslContext = SSLContext.getInstance("TLS");
+            sslContext.init(null, trustAllCerts,
+                    new java.security.SecureRandom());
+            final SSLSocketFactory sslSocketFactory = sslContext
+                    .getSocketFactory();
+
+            OkHttpClient okHttpClient = new OkHttpClient();
+            okHttpClient = okHttpClient.newBuilder()
+                    .sslSocketFactory(sslSocketFactory)
+                    .hostnameVerifier(org.apache.http.conn.ssl.SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER).build();
+
+            return okHttpClient;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }
