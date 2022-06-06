@@ -58,9 +58,9 @@ export class RaceInscriptionComponent implements OnInit {
       activityid: this.race.activityID
     }
     console.log(form);
-    this.api.joinRace(form).subscribe(data => {
-      console.log(data);
-    });
+    //this.api.joinRace(form).subscribe(data => {
+     // console.log(data);
+    //});
     await new Promise(f => (setTimeout(f, 200)));
     this.toastr.success("Successfully inscripted to " + this.race.name + "!", "Success");
   }
@@ -73,7 +73,9 @@ export class RaceInscriptionComponent implements OnInit {
       reader.onload = () => {
 
         this.url = reader.result?.toString();
+        console.log(this.url);
         this.blob = this.url.split(",", 2);
+        console.log(this.blob[1]);
         this.paymentForm.patchValue({
           bill: this.blob[1]
         });

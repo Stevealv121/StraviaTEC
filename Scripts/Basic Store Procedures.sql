@@ -358,6 +358,13 @@ GO
 
 CREATE PROCEDURE DeleteUser @UserName varchar(15), @Password varchar(15)
 AS
+DELETE FROM MANAGES WHERE UserName = @UserName
+DELETE FROM JOIN_CHALLENGE WHERE UserName = @UserName
+DELETE FROM JOIN_RACE WHERE UserName = @UserName
+DELETE FROM Adds WHERE UserName = @UserName
+DELETE FROM Adds WHERE FriendUserName = @UserName
+DELETE FROM BelongsTo WHERE UserName = @UserName
+DELETE FROM MANAGES WHERE UserName = @UserName
 DELETE
 FROM [USER]
 WHERE UserName = @UserName AND [Password] = @Password

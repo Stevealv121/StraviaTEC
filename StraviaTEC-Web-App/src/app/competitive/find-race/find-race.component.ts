@@ -27,7 +27,7 @@ export class FindRaceComponent implements OnInit {
   }
 
   async setRaces() {
-    this.api.getRaces().subscribe(data => {
+    /*this.api.getRaces().subscribe(data => {
       this.races = data;
 
       this.api.getRaceByUser(this.data.currentUser?.userName).subscribe(rsp => {
@@ -40,12 +40,21 @@ export class FindRaceComponent implements OnInit {
       });
 
       console.log(this.races);
+    });*/
+    
+    //TODO: Populate DB
+    this.api.getRacesByUserCategory(this.data.currentUser?.userName).subscribe(data => {
+      this.races = data;
+      this.api.getRaceByUser(this.data.currentUser?.userName).subscribe(rsp => {
+        console.log(rsp);
+        this.races.forEach((element, index) => {
+          if (rsp[0].id == element.id) {
+            this.races.splice(index, 1);
+          }
+        });
+      });
     });
     await new Promise(f => (setTimeout(f, 200)));
-    //TODO: Populate DB
-    // this.api.getRacesByUserCategory(this.data.currentUser?.userName).subscribe(data => {
-    //   this.races = data;
-    // })
     console.log(this.races);
   }
 
