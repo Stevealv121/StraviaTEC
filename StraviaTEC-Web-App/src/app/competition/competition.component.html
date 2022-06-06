@@ -27,7 +27,7 @@
               <td>{{race.categoryName}}</td>
               <td>
                 <a id="button" class="btn btn-primary btn-sm "  role="button" (click)="saveRaceId(race.id)" routerLink="/EditRace">Edit </a>
-                <a id="button" class="btn btn-primary btn-sm "  role="button">Delete </a>
+                <a id="button" class="btn btn-primary btn-sm "  role="button" (click)="deleteRace(race.id)">Delete </a>
               </td>
               <td>
                 <a id="button" class="btn btn-primary btn-sm "  role="button" (click)="saveRaceId(race.id)" routerLink="/InfoRace">Info </a>

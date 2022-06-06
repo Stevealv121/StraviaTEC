@@ -38,5 +38,34 @@ export class CompetitionComponent implements OnInit {
   saveRaceId(id:number){
     this.dataService.raceId=id;
   }
+  /**
+   * It takes an id, passes it to the api service, and then subscribes to the observable returned by
+   * the api service.
+   *
+   * The api service is a service that makes http requests to the backend.
+   *
+   * The api service has a function called deleteRace that takes an id and returns an observable.
+   *
+   * The observable returned by the api service is subscribed to in the deleteRace function.
+   *
+   * The deleteRace function is called in the component.
+   *
+   * The component has a function called deleteRace that takes an id and calls the deleteRace function
+   * in the service.
+   *
+   * The deleteRace function in the component is called in the template.
+   *
+   * The template has a button that calls the deleteRace function in the component.
+   *
+   * The button is in a table that displays a list of races.
+   *
+   * The table is in
+   * @param {number} id - number - the id of the race to delete
+   */
+  deleteRace(id:number){
+    this.api.deleteRace(id).subscribe((data:any)=>{
+
+    })
+  }
 
 }

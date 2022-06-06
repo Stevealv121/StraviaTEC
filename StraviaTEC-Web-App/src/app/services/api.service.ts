@@ -56,6 +56,7 @@ export class ApiService {
   AccountByIDPath:string = this.url + "Race/BankAccount/ById/";
   positionListPath:string = this.url + "Race/PositionList/";
   exitRacePath:string = this.url + "Race/ExitRace/";
+  deleteRacePath:string = this.url + "Race/ById/";
 
 
 
@@ -315,6 +316,13 @@ export class ApiService {
   getRaceById(id: number) {
     return this.http.get<Race>(this.getRaceByIdPath + id);
   }
+  /**
+   * This function returns an observable of type Activity, which is a class that has a bunch of
+   * properties, and it gets the data from the API by calling the getActitityByIdPath, which is a
+   * string that contains the URL of the API, and it passes in the id parameter, which is a number.
+   * @param {number} id - number - the id of the activity to be retrieved
+   * @returns An Observable of type Activity.
+   */
   getActivityById(id: number) {
     return this.http.get<Activity>(this.getActitityByIdPath + id);
   }
@@ -342,23 +350,55 @@ export class ApiService {
   getBankAccounts(id:number){
     return this.http.get<Account[]>(this.AccountByIDPath+id);
   }
+  /**
+   * It returns an array of Participants objects.
+   * @param {number} id - number
+   * @returns An array of Participants
+   */
   getPositionList(id:number){
     return this.http.get<Participants[]>(this.positionListPath+id);
   }
   //DELETES
+  /**
+   * It deletes a member from a group.
+   * @param {string} username - the username of the user to be deleted
+   * @param {string} groupName - the name of the group
+   * @returns The return value is an Observable.
+   */
   deleteMember(username:string, groupName:string){
     console.log(this.deleteGMemberPath+groupName+"/"+username);
     return this.http.delete(this.deleteGMemberPath+groupName+"/"+username);
   }
+  /**
+   * It deletes a race member from a race
+   * @param {string} userName - the user name of the user who wants to exit the race
+   * @param {number} raceId - number
+   * @returns A string
+   */
   deleteRaceMember(userName:string,raceId:number){
     return this.http.delete<string>(this.exitRacePath+userName+"/"+raceId);
   }
+  /* Deleting a group. */
   deleteGroup(name:string){
     return this.http.delete(this.deleteGroupPath+name);
 
   }
+  /**
+   * It takes an id as a parameter and returns a string
+   * @param {number} id - number
+   * @returns A string
+   */
   deleteChallenge(id:number){
     return this.http.delete<string>(this.challengeById+id);
+  }
+
+  /**
+   * It takes an id as a parameter, and returns a string
+   * @param {number} id - number
+   * @returns A string
+   */
+  deleteRace(id:number){
+    return this.http.delete<string>(this.deleteRacePath+id);
   }
 
   //PUTS
