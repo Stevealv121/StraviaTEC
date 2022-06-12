@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 import { AddFriendI } from '../models/addFriend.interface';
 import { UserI } from '../models/user.interface';
 import { ApiService } from '../services/api.service';
@@ -12,7 +13,7 @@ import { DataService } from '../services/data.service';
 })
 export class AthleteSearchComponent implements OnInit {
 
-  constructor(private api: ApiService, private data: DataService) { }
+  constructor(private api: ApiService, private data: DataService, private sanitizer: DomSanitizer) { }
 
   athletes: UserI[] = [];
 
@@ -34,6 +35,14 @@ export class AthleteSearchComponent implements OnInit {
     this.api.searchUser(form.firstName).subscribe(data => {
       console.log(data);
       this.athletes = data;
+      this.athletes.forEach(element => {
+        if (element.profilePicture == null) {
+          element.blob = "assets/images/avatar.png"
+        } else {
+          let objectURL = 'data:image/jpeg;base64,' + element.profilePicture;
+          element.blob = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+        }
+      });
       this.setButtonInfo();
     })
 
@@ -47,6 +56,15 @@ export class AthleteSearchComponent implements OnInit {
     this.api.getAllUsers().subscribe(data => {
       this.athletes = data;
 
+      this.athletes.forEach(element => {
+        if (element.profilePicture == null) {
+          element.blob = "assets/images/avatar.png"
+        } else {
+          let objectURL = 'data:image/jpeg;base64,' + element.profilePicture;
+          element.blob = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+        }
+      });
+
       if (this.data.currentUser) {
         let index: any;
         for (let i = 0; i < this.athletes.length; i++) {
@@ -56,6 +74,8 @@ export class AthleteSearchComponent implements OnInit {
         }
         this.athletes.splice(index, 1);
       }
+
+
 
       this.setButtonInfo();
     })
@@ -124,5 +144,6 @@ export class AthleteSearchComponent implements OnInit {
       })
     }
   }
+
 
 }

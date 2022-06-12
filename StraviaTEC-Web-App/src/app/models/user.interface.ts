@@ -10,7 +10,7 @@ export interface UserI {
     profilePicture: string | null,
     level: string | null,
     // addfriendbutton options
-    btnId: number, color: string, font: string, btn: string,
+    btnId: number | null, color: string | null, font: string | null, btn: string | null,
     //friend
     friendUserName: string | null,
     //blob

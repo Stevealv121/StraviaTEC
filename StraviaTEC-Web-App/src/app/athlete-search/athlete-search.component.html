@@ -21,12 +21,12 @@
         <ng-container *ngIf="o;else greenTemplate">
             <div class="normal">
                 <div class="row">
-                    <div class="col-md-2"><img src="assets/images/avatar.png" id="profilePic"></div>
+                    <div class="col-md-2"><img [src]="athlete.blob" id="profilePic"></div>
                     <div class="col-md-2">
                         <div class="row" id="athleteName">
                             {{athlete.firstName}} {{athlete.firstSurname}}
                         </div>
-                        <div class="row mb-3" id="greyText">{{athlete.level}} - Age</div>
+                        <div class="row mb-3" id="greyText">{{athlete.level}}</div>
                         <div class="row mb-3">
                             <div class="col"></div>
                             <div class="col"></div>
@@ -42,12 +42,12 @@
         <ng-template #greenTemplate>
             <div class="greenRow">
                 <div class="row">
-                    <div class="col-md-2"><img src="assets/images/avatar.png" id="profilePic"></div>
+                    <div class="col-md-2"><img [src]="athlete.blob" id="profilePic"></div>
                     <div class="col-md-2">
                         <div class="row" id="athleteName">
                             {{athlete.firstName}} {{athlete.firstSurname}}
                         </div>
-                        <div class="row mb-3" id="greyText">{{athlete.level}} - Age</div>
+                        <div class="row mb-3" id="greyText">{{athlete.level}}</div>
                         <div class="row mb-3">
                             <button class="btn btn-primary" id="buttons" [ngStyle]="{
                                 'background-color' : athlete.color,

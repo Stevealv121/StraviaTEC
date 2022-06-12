@@ -13,12 +13,13 @@ import { read } from 'fs';
 export class SignUpComponent implements OnInit {
   url: any = '';
   test: string = "assets/images/avatar.png";
+  fileBlob: any;
 
   constructor(private api: ApiService, private toastr: ToastrService) { }
 
   registerForm = new FormGroup({
     nationality: new FormControl(''),
-    username: new FormControl(''),
+    userName: new FormControl(''),
     firstName: new FormControl(''),
     secondName: new FormControl(''),
     firstSurname: new FormControl(''),
@@ -194,6 +195,7 @@ export class SignUpComponent implements OnInit {
   ];
 
   blob: string[] = [];
+  profilePictureBlob: string = "";
 
   ngOnInit(): void {
     // this.url = '../../assets/images/avatar.png';
@@ -205,10 +207,30 @@ export class SignUpComponent implements OnInit {
    * function is called.
    * @param {UserI} form - UserI
    */
-  postForm(form: UserI) {
-    this.api.signUp(form).subscribe(data => {
+  async postForm(form: UserI) {
+    let newUser: UserI = {
+      userName: form.userName,
+      password: form.password,
+      firstName: form.firstName,
+      secondName: form.secondName,
+      firstSurname: form.firstSurname,
+      secondSurname: form.secondSurname,
+      birthDate: form.birthDate,
+      nationality: form.nationality,
+      profilePicture: this.profilePictureBlob,
+      level: form.level,
+      btnId: null,
+      color: null,
+      font: null,
+      btn: null,
+      friendUserName: null,
+      blob: null
+    }
+    console.log(newUser);
+    this.api.signUp(newUser).subscribe(data => {
       console.log(data);
     });
+    await new Promise(f => (setTimeout(f, 200)));
     this.success();
   }
 
@@ -233,13 +255,17 @@ export class SignUpComponent implements OnInit {
       reader.readAsDataURL(event.target.files[0]); // read file as data url
       reader.onload = () => {
         this.url = reader.result?.toString();
-        this.blob = this.url.split(",", 2);
-        this.registerForm.patchValue({
-          profilePicture: this.blob[1]
-        });
+        console.log(this.url);
+        this.fileBlob = reader.result?.toString();
+        this.blob = this.fileBlob.split(",", 2);
+        this.profilePictureBlob = this.blob[1];
+        // console.log(this.blob[1]);
+        // this.registerForm.patchValue({
+        //   profilePicture: this.blob[1]
+        // });
       }
 
-      await new Promise(f => (setTimeout(f, 400)));
+      await new Promise(f => (setTimeout(f, 100)));
     }
 
   }

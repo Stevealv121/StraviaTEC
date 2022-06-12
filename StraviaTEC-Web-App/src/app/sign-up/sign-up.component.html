@@ -94,7 +94,7 @@
                         <div class="form-group">
                             <div class="pos-r">
                                 <input id="form-username" type="text" placeholder="Username"
-                                    class="form-username form-control" formControlName="username">
+                                    class="form-username form-control" formControlName="userName">
                                 <i class="fa fa-username"></i>
                             </div>
                         </div>
@@ -124,8 +124,8 @@
                                         <br>
                                     </div>
                                 </label>
-                                <input id="fileInput" type="file" name="form-photo" accept="image/jpeg"
-                                    placeholder="Choose a profile picture" class="form-photo form-control"
+                                <input id="fileInput" type="file" name="form-photo" accept=".jpg"
+                                    title="Choose a profile picture" class="form-control"
                                     formControlName="profilePicture" (change)="onSelectFile($event)">
                             </div>
                         </div>

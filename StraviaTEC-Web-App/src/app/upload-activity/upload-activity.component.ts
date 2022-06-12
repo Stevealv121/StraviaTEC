@@ -172,15 +172,14 @@ export class UploadActivityComponent implements OnInit {
       this.api.postActivity(activity).subscribe(data => {
         console.log(data);
         this.postedActivityID = data;
+        if (this.finishing == 'Race') {
+          this.finishRace();
+
+        } else if (this.finishing == 'Challenge') {
+          this.finishChallenge();
+        }
       });
       await new Promise(f => (setTimeout(f, 100)));
-    }
-
-    if (this.finishing == 'Race') {
-      this.finishRace();
-
-    } else if (this.finishing == 'Challenge') {
-      this.finishChallenge();
     }
 
     this.toastr.success("Activity successfully posted!", "Success");

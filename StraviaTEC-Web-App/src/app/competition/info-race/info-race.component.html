@@ -3,10 +3,12 @@
     <div id="col1" class="col">
       <div id="content1" class="container">
         <div class="row">
-          <H2>{{race.name}}</H2> <!---Add name-->
+          <H2>{{race.name}}</H2>
+          <!---Add name-->
         </div>
         <div class="row">
-          <H3>Sport</H3> <!--add activity-->
+          <H3>Sport</H3>
+          <!--add activity-->
           <h5>{{activity.sportName}}</h5>
         </div>
         <div class="row">
@@ -23,7 +25,7 @@
           </div>
           <div class="col">
             <h4>Logo</h4>
-              <img [src]="sponsor.image" id="logo">
+            <img [src]="sponsor.image" id="logo">
           </div>
         </div>
       </div>
@@ -33,7 +35,7 @@
     </div>
     <div id="col2" class="col">
       <h2>Participants</h2>
-      <table #table id= "table"class="table">
+      <table #table id="table" class="table">
         <thead id="thead">
           <tr>
             <th>Name</th>
@@ -47,23 +49,28 @@
           <tr *ngFor="let member of participants">
             <td>{{member.firstName}}</td>
             <td>{{member.firstSurname}} {{member.secondSurname}}</td>
-            <td>3{{member.age}}</td>
-            <td><button type="button" id="buttons" class="btn btn-primary" (click)="loadBill(member.bill)" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-              see
-            </button></td>
-            <td><button id="buttons" class="btn btn-primary" type="button" (click)="deleteMember(member.userName)">Delete</button></td>
+            <td>{{member.age}}</td>
+            <td><button type="button" id="buttons" class="btn btn-primary" (click)="loadBill(member.bill)"
+                data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                see
+              </button></td>
+            <td><button id="buttons" class="btn btn-primary" type="button"
+                (click)="deleteMember(member.userName)">Delete</button></td>
           </tr>
         </tbody>
       </table>
       <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button id="buttons" class="btn btn-primary me-md-2" type="button" routerLink="/MemberReport">Participants Report</button>
-        <button id="buttons" class="btn btn-primary" type="button" routerLink="/PositionReport">Positions Report</button>
+        <button id="buttons" class="btn btn-primary me-md-2" type="button" routerLink="/MemberReport">Participants
+          Report</button>
+        <button id="buttons" class="btn btn-primary" type="button" routerLink="/PositionReport">Positions
+          Report</button>
       </div>
     </div>
   </div>
 
 </div>
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">

@@ -22,6 +22,7 @@ export class RaceInscriptionComponent implements OnInit {
   //billBlob: any;
   blob: string[] = [];
   url: any;
+  billBlob: string = "";
 
   paymentForm = new FormGroup({
     bill: new FormControl('')
@@ -45,7 +46,7 @@ export class RaceInscriptionComponent implements OnInit {
     let form: JoinRaceI = {
       userName: this.data.currentUser?.userName,
       race_ID: this.race.id,
-      bill: blob.bill,
+      bill: this.billBlob,
       activityid: null
     }
     console.log(form);
@@ -72,9 +73,10 @@ export class RaceInscriptionComponent implements OnInit {
         console.log(this.url);
         this.blob = this.url.split(",", 2);
         console.log(this.blob[1]);
-        this.paymentForm.patchValue({
-          bill: this.blob[1]
-        });
+        this.billBlob = this.blob[1];
+        // this.paymentForm.patchValue({
+        //   bill: this.blob[1]
+        // });
 
       }
       await new Promise(f => (setTimeout(f, 200)));
